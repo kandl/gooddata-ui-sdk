@@ -127,37 +127,14 @@ export type ErrorConverter = (e: Error) => AnalyticalBackendError;
 export type FilterContextItem = IDashboardAttributeFilter | IDashboardDateFilter;
 
 // @alpha (undocumented)
-export class FluidLayoutTransforms<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+export class FluidLayoutFacade<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> implements IFluidLayoutMethods<TContent, TColumn, TRow> {
     protected constructor(_layout: IFluidLayout<TContent, TColumn, TRow>);
-    filterRows: (pred: (params: {
-        row: TRow;
-        rowIndex: number;
-    }) => boolean) => this;
+    static for<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>>(layout: IFluidLayout<TContent, TColumn, TRow>): IFluidLayoutMethods<TContent, TColumn, TRow>;
+    layout: () => IFluidLayout<TContent, TColumn, TRow>;
     // (undocumented)
-    static for<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>>(layout: IFluidLayout<TContent, TColumn, TRow>): FluidLayoutTransforms<TContent, TColumn, TRow>;
-    layout(): IFluidLayout<TContent, TColumn, TRow>;
+    protected _layout: IFluidLayout<TContent, TColumn, TRow>;
     // (undocumented)
-    protected readonly _layout: IFluidLayout<TContent, TColumn, TRow>;
-    reduceColumns: <TResult>(callback: (acc: TResult, params: {
-        column: TColumn;
-        row: TRow;
-        columnIndex: number;
-        rowIndex: number;
-    }) => TResult, initialValue: TResult) => TResult;
-    reduceRows: <TResult>(callback: (acc: TResult, params: {
-        row: TRow;
-        rowIndex: number;
-    }) => TResult, initialValue: TResult) => TResult;
-    updateColumns: (callback: (params: {
-        column: TColumn;
-        row: TRow;
-        columnIndex: number;
-        rowIndex: number;
-    }) => TColumn) => this;
-    updateRows: (callback: (params: {
-        row: TRow;
-        rowIndex: number;
-    }) => TRow) => this;
+    rows: () => IFluidLayoutRowsMethods<TContent, TColumn, TRow>;
 }
 
 // @public
@@ -754,11 +731,76 @@ export interface IFluidLayoutColumn<TContent> {
     style?: string;
 }
 
+// @alpha (undocumented)
+export interface IFluidLayoutColumnMethods<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+    // (undocumented)
+    content(): TContent | undefined;
+    // (undocumented)
+    index(): number;
+    // (undocumented)
+    raw(): TColumn;
+    // (undocumented)
+    row(): IFluidLayoutRowMethods<TContent, TColumn, TRow>;
+    // (undocumented)
+    size(): TColumn["size"];
+    // (undocumented)
+    style(): TColumn["style"];
+}
+
+// @alpha (undocumented)
+export interface IFluidLayoutColumnsMethods<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+    // (undocumented)
+    column(columnIndex: number): IFluidLayoutColumnMethods<TContent, TColumn, TRow> | undefined;
+    // (undocumented)
+    find(pred: (row: IFluidLayoutColumnMethods<TContent, TColumn, TRow>) => boolean): IFluidLayoutColumnMethods<TContent, TColumn, TRow> | undefined;
+    // (undocumented)
+    map<TReturn>(callback: (row: IFluidLayoutColumnMethods<TContent, TColumn, TRow>) => TReturn): TReturn[];
+    // (undocumented)
+    raw(): TColumn[];
+    // (undocumented)
+    reduce<TReturn>(callback: (acc: TReturn, row: IFluidLayoutColumnMethods<TContent, TColumn, TRow>) => TReturn, initialValue: TReturn): TReturn;
+}
+
+// @alpha
+export interface IFluidLayoutMethods<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+    // (undocumented)
+    layout(): IFluidLayout<TContent, TColumn, TRow>;
+    // (undocumented)
+    rows(): IFluidLayoutRowsMethods<TContent, TColumn, TRow>;
+}
+
 // @alpha
 export interface IFluidLayoutRow<TContent, TColumn extends IFluidLayoutColumn<TContent>> {
     columns: TColumn[];
     header?: IFluidLayoutSectionHeader;
     style?: string;
+}
+
+// @alpha (undocumented)
+export interface IFluidLayoutRowMethods<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+    // (undocumented)
+    columns(): IFluidLayoutColumnsMethods<TContent, TColumn, TRow>;
+    // (undocumented)
+    header(): TRow["header"];
+    // (undocumented)
+    index(): number;
+    // (undocumented)
+    raw(): TRow;
+    // (undocumented)
+    style(): TRow["style"];
+}
+
+// @alpha (undocumented)
+export interface IFluidLayoutRowsMethods<TContent, TColumn extends IFluidLayoutColumn<TContent>, TRow extends IFluidLayoutRow<TContent, TColumn>> {
+    // (undocumented)
+    find(pred: (row: IFluidLayoutRowMethods<TContent, TColumn, TRow>) => boolean): IFluidLayoutRowMethods<TContent, TColumn, TRow> | undefined;
+    // (undocumented)
+    map<TReturn>(callback: (row: IFluidLayoutRowMethods<TContent, TColumn, TRow>) => TReturn): TReturn[];
+    raw(): TRow[];
+    // (undocumented)
+    reduce<TReturn>(callback: (acc: TReturn, row: IFluidLayoutRowMethods<TContent, TColumn, TRow>) => TReturn, initialValue: TReturn): TReturn;
+    // (undocumented)
+    row(rowIndex: number): IFluidLayoutRowMethods<TContent, TColumn, TRow> | undefined;
 }
 
 // @alpha

@@ -1,75 +1,71 @@
 // (C) 2007-2020 GoodData Corporation
 import React, { CSSProperties } from "react";
 import cx from "classnames";
-import { IDashboardViewLayoutContentRenderer } from "./interfaces/dashboardLayoutComponents";
-import {
-    getDashboardLayoutContentHeightForRatioAndScreen,
-    getDashboardLayoutMinimumWidgetHeight,
-} from "./utils/sizing";
+import { IDashboardViewLayoutContentRenderProps } from "./interfaces/dashboardLayoutComponents";
+import { isDashboardLayoutContent } from "./interfaces/dashboardLayout";
+import { UnexpectedError } from "@gooddata/sdk-backend-spi";
 
-export const DashboardLayoutContentRenderer: IDashboardViewLayoutContentRenderer = (props) => {
+export function DashboardLayoutContentRenderer<TCustomContent>(
+    props: IDashboardViewLayoutContentRenderProps<TCustomContent>,
+): JSX.Element {
     const {
-        style,
-        debug,
-        className,
         column,
         screen,
-        layoutContentRef,
-        // Keep only html props
-        row: _row,
-        columnIndex: _columnIndex,
-        rowIndex: _rowIndex,
-        ...otherProps
+        debug,
+        className,
+        contentRef,
+        isResizedByLayoutSizingStrategy,
+        minHeight,
+        height,
+        children,
     } = props;
-    const { content } = column;
+    const content = column.content();
 
-    const { heightAsRatio, widthAsGridColumnsCount } = column.size[screen];
+    if (!isDashboardLayoutContent(content)) {
+        throw new UnexpectedError(
+            "Cannot render unrecognized layout content! Please check your contentRenderer.",
+        );
+    }
 
-    const isResizedByLayout = content?.type === "widget" && content?.resizedByLayout;
+    const { heightAsRatio, widthAsGridColumnsCount } = column.size()[screen];
 
-    const updatedStyle = React.useMemo(() => {
-        let addedStyle: CSSProperties = {};
-
+    const style = React.useMemo(() => {
+        let computedStyle: CSSProperties = {};
         // Render content without ratio
         if (!heightAsRatio) {
             const debugStyle = debug ? { outline: "solid 1px yellow" } : {};
-            addedStyle = {
-                minHeight:
-                    content?.type === "widget"
-                        ? getDashboardLayoutMinimumWidgetHeight(content?.widgetClass)
-                        : 0,
+            computedStyle = {
+                minHeight,
                 ...debugStyle,
             };
         } else {
             // Render content with ratio
-            const baseDebugStyle = isResizedByLayout
+            const baseDebugStyle = isResizedByLayoutSizingStrategy
                 ? { border: "dashed 1px #d6d6d6" }
                 : { border: "solid 1px green" };
             const debugStyle = debug ? baseDebugStyle : {};
-            addedStyle = {
-                ...debugStyle,
-                height: getDashboardLayoutContentHeightForRatioAndScreen(
-                    heightAsRatio,
-                    widthAsGridColumnsCount,
-                    screen,
-                ),
+            computedStyle = {
+                height,
                 overflowY: "auto",
                 overflowX: "hidden",
+                ...debugStyle,
             };
         }
 
-        return {
-            ...addedStyle,
-            ...style,
-        };
-    }, [style, heightAsRatio, debug, widthAsGridColumnsCount, screen, isResizedByLayout]);
+        return computedStyle;
+    }, [
+        heightAsRatio,
+        debug,
+        widthAsGridColumnsCount,
+        screen,
+        height,
+        minHeight,
+        isResizedByLayoutSizingStrategy,
+    ]);
 
     return (
-        <div
-            {...otherProps}
-            ref={layoutContentRef}
-            className={cx("gd-fluidlayout-column-container", className)}
-            style={updatedStyle}
-        />
+        <div ref={contentRef} className={cx("gd-fluidlayout-column-container", className)} style={style}>
+            {children}
+        </div>
     );
-};
+}

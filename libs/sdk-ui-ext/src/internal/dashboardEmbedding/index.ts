@@ -1,4 +1,4 @@
-// (C) 2020 GoodData Corporation
+// (C) 2020-2021 GoodData Corporation
 export { useDashboard, IUseDashboardConfig } from "./hooks/useDashboard";
 export { useDashboardAlerts, IUseDashboardAlertsConfig } from "./hooks/useDashboardAlerts";
 export {
@@ -14,7 +14,8 @@ export {
     KpiView,
     defaultThemeModifier,
 } from "./DashboardView";
-// TODO: export only necessary and not internal constants
+
+// TODO: RAIL-2869 export only necessary and not internal constants
 export {
     DASHBOARD_LAYOUT_BREAKPOINT_LG,
     DASHBOARD_LAYOUT_BREAKPOINT_MD,
@@ -41,7 +42,6 @@ export {
     DashboardLayout,
     DashboardLayoutColumnRenderer,
     DashboardLayoutContentRenderer,
-    DashboardViewLayoutContentType,
     DashboardLayoutRowRenderer,
     DashboardViewLayoutWidgetClass,
     DashboardViewWidgetDimensionsByWidgetClass,
@@ -51,11 +51,7 @@ export {
     IDashboardViewLayoutColumnRenderProps,
     IDashboardViewLayoutColumnRenderer,
     IDashboardViewLayoutContent,
-    IDashboardViewLayoutContentBase,
     IDashboardViewLayoutContentRenderer,
-    IDashboardViewLayoutContentRowHeader,
-    IDashboardViewLayoutContentWidget,
-    IDashboardViewLayoutCustomContent,
     IDashboardViewLayoutProps,
     IDashboardViewLayoutRow,
     IDashboardViewLayoutRowKeyGetter,
@@ -87,7 +83,7 @@ export {
     IFluidLayoutRowRenderProps,
     IFluidLayoutRowRenderer,
     IFluidLayoutColumnProps,
-    IFluidLayoutComponentProps,
+    IFluidLayoutProps,
     IFluidLayoutRowProps,
 } from "./FluidLayout";
 export * from "./DashboardItem";

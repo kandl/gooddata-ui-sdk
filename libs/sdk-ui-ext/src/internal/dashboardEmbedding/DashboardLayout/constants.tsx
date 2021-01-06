@@ -1,7 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 import { Configuration } from "react-grid-system";
-import { DashboardViewLayoutWidgetClass } from "./interfaces/dashboardLayout";
 import {
+    DashboardViewLayoutWidgetClass,
     DashboardViewWidgetDimensionsByWidgetClass,
     IDashboardViewWidgetDimension,
 } from "./interfaces/dashboardLayoutSizing";

@@ -1,4 +1,4 @@
-// (C) 2019-2020 GoodData Corporation
+// (C) 2019-2021 GoodData Corporation
 
 export {
     IAnalyticalBackend,
@@ -217,8 +217,8 @@ export {
     IFluidLayoutSizeByScreen,
     isFluidLayout,
 } from "./workspace/dashboards/layout/fluidLayout";
+export { FluidLayoutFacade } from "./workspace/dashboards/layout/facade/layout";
 export {
-    FluidLayoutTransforms,
     isFluidLayoutEmpty,
     IWidgetWithLayoutPath,
     LayoutPath,
@@ -226,6 +226,13 @@ export {
     layoutWidgetsWithPaths,
     walkLayout,
 } from "./workspace/dashboards/layout/utils";
+export {
+    IFluidLayoutColumnMethods,
+    IFluidLayoutColumnsMethods,
+    IFluidLayoutMethods,
+    IFluidLayoutRowMethods,
+    IFluidLayoutRowsMethods,
+} from "./workspace/dashboards/layout/fluidLayoutMethods";
 export {
     IWidget,
     IWidgetDefinition,

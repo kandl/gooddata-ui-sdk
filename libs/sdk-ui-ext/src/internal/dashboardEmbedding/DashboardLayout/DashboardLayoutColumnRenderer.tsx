@@ -2,27 +2,18 @@
 import React from "react";
 import cx from "classnames";
 import isNil from "lodash/isNil";
-import { FluidLayoutColumnRenderer } from "../FluidLayout";
-import { IDashboardViewLayoutColumnRenderer } from "./interfaces/dashboardLayoutComponents";
+import { IDashboardViewLayoutColumnRenderProps } from "./interfaces/dashboardLayoutComponents";
 
-// Override default grid style
-const defaultStyle = { minHeight: 0 };
-
-export const DashboardLayoutColumnRenderer: IDashboardViewLayoutColumnRenderer = (props) => {
-    const { children, className, column, screen, style } = props;
-    const currentScreenSizeConfiguration = column.size[screen];
+export function DashboardLayoutColumnRenderer<TCustomContent>(
+    props: IDashboardViewLayoutColumnRenderProps<TCustomContent>,
+): JSX.Element {
+    const { children, className, column, screen, minHeight = 0, DefaultRenderer } = props;
+    const currentScreenSizeConfiguration = column.size()[screen];
     const ratio = currentScreenSizeConfiguration?.heightAsRatio;
     const width = currentScreenSizeConfiguration?.widthAsGridColumnsCount;
 
-    const updatedStyle = React.useMemo(() => {
-        return {
-            ...defaultStyle,
-            ...style,
-        };
-    }, [style]);
-
     return (
-        <FluidLayoutColumnRenderer
+        <DefaultRenderer
             {...props}
             className={cx(
                 "gd-fluidlayout-column",
@@ -34,9 +25,9 @@ export const DashboardLayoutColumnRenderer: IDashboardViewLayoutColumnRenderer =
                 },
                 className,
             )}
-            style={updatedStyle}
+            minHeight={minHeight}
         >
             {children}
-        </FluidLayoutColumnRenderer>
+        </DefaultRenderer>
     );
-};
+}
