@@ -1,15 +1,10 @@
-// (C) 2007-2020 GoodData Corporation
+// (C) 2007-2021 GoodData Corporation
 export {
-    DashboardViewLayoutContentType,
-    DashboardViewLayoutWidgetClass,
     IDashboardViewLayout,
     IDashboardViewLayoutColumn,
     IDashboardViewLayoutContent,
-    IDashboardViewLayoutContentBase,
-    IDashboardViewLayoutContentRowHeader,
-    IDashboardViewLayoutContentWidget,
-    IDashboardViewLayoutCustomContent,
     IDashboardViewLayoutRow,
+    isDashboardLayoutContent,
 } from "./interfaces/dashboardLayout";
 export {
     IDashboardViewLayoutColumnKeyGetter,
@@ -18,10 +13,17 @@ export {
     IDashboardViewLayoutContentRenderer,
     IDashboardViewLayoutRowKeyGetter,
     IDashboardViewLayoutRowRenderer,
+    IDashboardViewLayoutCommonRenderProps,
+    IDashboardViewLayoutContentRenderProps,
+    IDashboardViewLayoutRenderer,
+    IDashboardViewLayoutRowHeaderRenderProps,
+    IDashboardViewLayoutRowHeaderRenderer,
+    IDashboardViewLayoutRowRenderProps,
 } from "./interfaces/dashboardLayoutComponents";
 export {
     DashboardViewWidgetDimensionsByWidgetClass,
     IDashboardViewWidgetDimension,
+    DashboardViewLayoutWidgetClass,
 } from "./interfaces/dashboardLayoutSizing";
 
 export {

@@ -1,13 +1,19 @@
-// (C) 2019-2020 GoodData Corporation
-import { Col, ColProps, Row, RowProps } from "react-grid-system";
-import { IFluidLayoutColumn, IFluidLayoutRow, ResponsiveScreenType } from "@gooddata/sdk-backend-spi";
+// (C) 2019-2021 GoodData Corporation
+import {
+    IFluidLayout,
+    IFluidLayoutColumn,
+    IFluidLayoutRow,
+    IFluidLayoutRowMethods,
+    IFluidLayoutColumnMethods,
+    ResponsiveScreenType,
+} from "@gooddata/sdk-backend-spi";
 
 /**
- * Default props provided to a fluid layout row components and component callbacks.
+ * Default props provided to {@link IFluidLayoutRowKeyGetter}.
  *
  * @alpha
  */
-export type IFluidLayoutRowRenderProps<
+export type IFluidLayoutRowKeyGetterProps<
     TContent,
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>
@@ -15,12 +21,7 @@ export type IFluidLayoutRowRenderProps<
     /**
      * Fluid layout row.
      */
-    row: TRow;
-
-    /**
-     * Fluid layout row index.
-     */
-    rowIndex: number;
+    row: IFluidLayoutRowMethods<TContent, TColumn, TRow>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -41,7 +42,43 @@ export type IFluidLayoutRowKeyGetter<
     TContent,
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>
-> = (props: IFluidLayoutRowRenderProps<TContent, TColumn, TRow>) => string;
+> = (props: IFluidLayoutRowKeyGetterProps<TContent, TColumn, TRow>) => string;
+
+/**
+ * Default props provided to {@link IFluidLayoutRowRenderer}.
+ *
+ * @alpha
+ */
+export type IFluidLayoutRowRenderProps<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>
+> = {
+    /**
+     * Fluid layout row.
+     */
+    row: IFluidLayoutRowMethods<TContent, TColumn, TRow>;
+
+    /**
+     * Current screen type with respect to the set breakpoints.
+     */
+    screen: ResponsiveScreenType;
+
+    /**
+     * Default renderer of the row - can be used as a fallback for custom rowRenderer.
+     */
+    DefaultRenderer: IFluidLayoutRowRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Columns rendered by columnRenderer.
+     */
+    children?: React.ReactNode;
+
+    /**
+     * Additional row css class name.
+     */
+    className?: string;
+};
 
 /**
  * Fluid layout row renderer.
@@ -54,17 +91,14 @@ export type IFluidLayoutRowRenderer<
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>,
     TCustomProps = object
-> = React.ComponentType<
-    IFluidLayoutRowRenderProps<TContent, TColumn, TRow> &
-        RowProps & { ref?: React.RefObject<Row> } & TCustomProps
->;
+> = React.ComponentType<IFluidLayoutRowRenderProps<TContent, TColumn, TRow> & TCustomProps>;
 
 /**
- * Default props provided to a fluid layout column components and component callbacks.
+ * Default props provided to {@link IFluidLayoutRowHeaderRenderer}.
  *
  * @alpha
  */
-export type IFluidLayoutColumnRenderProps<
+export type IFluidLayoutRowHeaderRenderProps<
     TContent,
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>
@@ -72,22 +106,41 @@ export type IFluidLayoutColumnRenderProps<
     /**
      * Fluid layout row.
      */
-    row: TRow;
+    row: IFluidLayoutRowMethods<TContent, TColumn, TRow>;
 
     /**
-     * Fluid layout row index.
+     * Current screen type with respect to the set breakpoints.
      */
-    rowIndex: number;
+    screen: ResponsiveScreenType;
+};
 
+/**
+ * Fluid layout row heder renderer.
+ * Represents a component for rendering the row header.
+ *
+ * @alpha
+ */
+export type IFluidLayoutRowHeaderRenderer<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>,
+    TCustomProps = object
+> = React.ComponentType<IFluidLayoutRowHeaderRenderProps<TContent, TColumn, TRow> & TCustomProps>;
+
+/**
+ * Default props provided to {@link IFluidLayoutColumnKeyGetter}
+ *
+ * @alpha
+ */
+export type IFluidLayoutColumnKeyGetterProps<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>
+> = {
     /**
      * Fluid layout column.
      */
-    column: TColumn;
-
-    /**
-     * Fluid layout column index.
-     */
-    columnIndex: number;
+    column: IFluidLayoutColumnMethods<TContent, TColumn, TRow>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -108,7 +161,48 @@ export type IFluidLayoutColumnKeyGetter<
     TContent,
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>
-> = (props: IFluidLayoutColumnRenderProps<TContent, TColumn, TRow>) => string;
+> = (props: IFluidLayoutColumnKeyGetterProps<TContent, TColumn, TRow>) => string;
+
+/**
+ * Default props provided to {@link IFluidLayoutColumnRenderer}
+ *
+ * @alpha
+ */
+export type IFluidLayoutColumnRenderProps<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>
+> = {
+    /**
+     * Fluid layout column.
+     */
+    column: IFluidLayoutColumnMethods<TContent, TColumn, TRow>;
+
+    /**
+     * Current screen type with respect to the set breakpoints.
+     */
+    screen: ResponsiveScreenType;
+
+    /**
+     * Default renderer of the column - can be used as a fallback for custom columnRenderer.
+     */
+    DefaultRenderer: IFluidLayoutColumnRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Additional column css class name.
+     */
+    className?: string;
+
+    /**
+     * Minimum height of the column.
+     */
+    minHeight?: number;
+
+    /**
+     * Column content rendered by contentRenderer.
+     */
+    children?: React.ReactNode;
+};
 
 /**
  * Fluid layout column renderer.
@@ -121,10 +215,28 @@ export type IFluidLayoutColumnRenderer<
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>,
     TCustomProps = object
-> = React.ComponentType<
-    IFluidLayoutColumnRenderProps<TContent, TColumn, TRow> &
-        ColProps & { ref?: React.RefObject<Col> } & TCustomProps
->;
+> = React.ComponentType<IFluidLayoutColumnRenderProps<TContent, TColumn, TRow> & TCustomProps>;
+
+/**
+ * Default props provided to {@link IFluidLayoutContentRenderer}
+ *
+ * @alpha
+ */
+export type IFluidLayoutContentRenderProps<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>
+> = {
+    /**
+     * Fluid layout column.
+     */
+    column: IFluidLayoutColumnMethods<TContent, TColumn, TRow>;
+
+    /**
+     * Current screen type with respect to the set breakpoints.
+     */
+    screen: ResponsiveScreenType;
+};
 
 /**
  * Fluid layout content renderer.
@@ -137,4 +249,65 @@ export type IFluidLayoutContentRenderer<
     TColumn extends IFluidLayoutColumn<TContent>,
     TRow extends IFluidLayoutRow<TContent, TColumn>,
     TCustomProps = object
-> = React.ComponentType<IFluidLayoutColumnRenderProps<TContent, TColumn, TRow> & TCustomProps>;
+> = React.ComponentType<IFluidLayoutContentRenderProps<TContent, TColumn, TRow> & TCustomProps>;
+
+/**
+ * Fluid layout renderer.
+ * Represents a component for rendering the layout.
+ *
+ * @alpha
+ */
+export type IFluidLayoutRenderer<
+    TContent,
+    TColumn extends IFluidLayoutColumn<TContent>,
+    TRow extends IFluidLayoutRow<TContent, TColumn>
+> = {
+    /**
+     * Fluid layout definition to render.
+     */
+    layout: IFluidLayout<TContent, TColumn, TRow>;
+
+    /**
+     * Callback to determine a unique key of the row.
+     * Check {@link IFluidLayoutRowKeyGetter} for more details.
+     */
+    rowKeyGetter?: IFluidLayoutRowKeyGetter<TContent, TColumn, TRow>;
+
+    /**
+     * Render props callback to customize row rendering.
+     */
+    rowRenderer?: IFluidLayoutRowRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Render props callback to customize row header rendering.
+     */
+    rowHeaderRenderer?: IFluidLayoutRowHeaderRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Callback to determine a unique key of the column.
+     * Check {@link IFluidLayoutColumnKeyGetter} for more details.
+     */
+    columnKeyGetter?: IFluidLayoutColumnKeyGetter<TContent, TColumn, TRow>;
+
+    /**
+     * Render props callback to customize column rendering.
+     */
+    columnRenderer?: IFluidLayoutColumnRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Render props callback to specify how to render the content of the layout.
+     */
+    contentRenderer: IFluidLayoutContentRenderer<TContent, TColumn, TRow>;
+
+    /**
+     * Additional css class name for the root element.
+     */
+    className?: string;
+
+    /**
+     * Additional css class name for the fluid container element.
+     */
+    containerClassName?: string;
+
+    onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
+};
