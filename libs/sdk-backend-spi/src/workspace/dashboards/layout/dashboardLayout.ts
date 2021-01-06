@@ -1,4 +1,4 @@
-// (C) 2019-2020 GoodData Corporation
+// (C) 2019-2021 GoodData Corporation
 import { IWidget, IWidgetDefinition } from "../widget";
 import { IFluidLayout, IFluidLayoutColumn, IFluidLayoutRow } from "./fluidLayout";
 
@@ -21,15 +21,11 @@ export type IDashboardLayoutColumn = IFluidLayoutColumn<IDashboardLayoutContent>
  *
  * @alpha
  */
-export type IDashboardLayoutRow = IFluidLayoutRow<IDashboardLayoutContent, IDashboardLayoutColumn>;
+export type IDashboardLayoutRow = IFluidLayoutRow<IDashboardLayoutContent>;
 
 /**
  * Dashboard layout definition.
  *
  * @alpha
  */
-export type IDashboardLayout = IFluidLayout<
-    IDashboardLayoutContent,
-    IDashboardLayoutColumn,
-    IDashboardLayoutRow
->;
+export type IDashboardLayout = IFluidLayout<IDashboardLayoutContent>;
