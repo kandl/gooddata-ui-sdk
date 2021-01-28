@@ -9,20 +9,29 @@ import { FluidLayoutRowMethods } from "./row";
  * @alpha
  */
 export class FluidLayoutRowsMethods<TContent> implements IFluidLayoutRowsMethods<TContent> {
+    private static Cache: WeakMap<IFluidLayoutRow<any>[], FluidLayoutRowsMethods<any>> = new WeakMap<
+        IFluidLayoutRow<any>[],
+        FluidLayoutRowsMethods<any>
+    >();
+
+    private readonly _rows: IFluidLayoutRowMethods<TContent>[] = [];
+
     protected constructor(
         protected readonly _layoutFacade: IFluidLayoutFacade<TContent>,
-        protected readonly _rows: IFluidLayoutRowMethods<TContent>[],
         protected readonly _rawRows: IFluidLayoutRow<TContent>[],
-    ) {}
+    ) {
+        this._rows = _rawRows.map((row, index) => FluidLayoutRowMethods.for(_layoutFacade, row, index));
+    }
 
     public static for<TContent>(
         layoutFacade: IFluidLayoutFacade<TContent>,
+        rows: IFluidLayoutRow<TContent>[],
     ): FluidLayoutRowsMethods<TContent> {
-        const rawRows = layoutFacade.raw().rows;
-        const rows = layoutFacade
-            .raw()
-            .rows.map((row, index) => FluidLayoutRowMethods.for(layoutFacade, row, index));
-        return new FluidLayoutRowsMethods(layoutFacade, rows, rawRows);
+        if (!FluidLayoutRowsMethods.Cache.has(rows)) {
+            FluidLayoutRowsMethods.Cache.set(rows, new FluidLayoutRowsMethods(layoutFacade, rows));
+        }
+
+        return FluidLayoutRowsMethods.Cache.get(rows)!;
     }
 
     public raw = (): IFluidLayoutRow<TContent>[] => this._rawRows;

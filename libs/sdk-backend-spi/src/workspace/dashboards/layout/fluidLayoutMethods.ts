@@ -85,7 +85,7 @@ export interface IFluidLayoutRowsMethods<TContent> {
 }
 
 /**
- * TODO: RAIL-2869 add docs
+ * Fluid layout facade defines convenient interface to query {@link IFluidLayout} data.
  * @alpha
  */
 export interface IFluidLayoutFacade<TContent> {

@@ -14,22 +14,36 @@ import { FluidLayoutColumnMethods } from "./column";
  * @alpha
  */
 export class FluidLayoutColumnsMethods<TContent> implements IFluidLayoutColumnsMethods<TContent> {
+    private static Cache: WeakMap<IFluidLayoutColumn<any>[], FluidLayoutColumnsMethods<any>> = new WeakMap<
+        IFluidLayoutColumn<any>[],
+        FluidLayoutColumnsMethods<any>
+    >();
+
     protected constructor(
         protected readonly _layoutFacade: IFluidLayoutFacade<TContent>,
         protected readonly _rowFacade: IFluidLayoutRowMethods<TContent>,
-        protected readonly _columns: IFluidLayoutColumnMethods<TContent>[],
         protected readonly _rawColumns: IFluidLayoutColumn<TContent>[],
-    ) {}
+    ) {
+        this._columns = _rawColumns.map((column, index) =>
+            FluidLayoutColumnMethods.for(_layoutFacade, _rowFacade, column, index),
+        );
+    }
+
+    private readonly _columns: IFluidLayoutColumnMethods<TContent>[] = [];
 
     public static for<TContent>(
         layoutFacade: IFluidLayoutFacade<TContent>,
         rowFacade: IFluidLayoutRowMethods<TContent>,
+        columns: IFluidLayoutColumn<TContent>[],
     ): FluidLayoutColumnsMethods<TContent> {
-        const rawColumns = rowFacade.raw().columns;
-        const columns = rawColumns.map((column, index) =>
-            FluidLayoutColumnMethods.for(layoutFacade, rowFacade, column, index),
-        );
-        return new FluidLayoutColumnsMethods(layoutFacade, rowFacade, columns, rawColumns);
+        if (!FluidLayoutColumnsMethods.Cache.has(columns)) {
+            FluidLayoutColumnsMethods.Cache.set(
+                columns,
+                new FluidLayoutColumnsMethods(layoutFacade, rowFacade, columns),
+            );
+        }
+
+        return FluidLayoutColumnsMethods.Cache.get(columns)!;
     }
 
     public raw = (): IFluidLayoutColumn<TContent>[] => this._rawColumns;
