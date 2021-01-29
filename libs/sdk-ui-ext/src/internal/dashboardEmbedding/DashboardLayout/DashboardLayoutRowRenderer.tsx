@@ -8,6 +8,7 @@ export function DashboardLayoutRowRenderer<TCustomContent>(
     props: IDashboardViewLayoutRowRenderProps<TCustomContent>,
 ): JSX.Element {
     const { debug, className, children } = props;
+
     return (
         <FluidLayoutRowRenderer
             {...props}

@@ -42,12 +42,13 @@ export function FluidLayout<TContent>(props: IFluidLayoutProps<TContent>): JSX.E
                         screen ? (
                             <Container fluid={true} className={containerClassName}>
                                 {layoutFacade.rows().map((rowFacade) => {
+                                    const rowKey = rowKeyGetter({
+                                        row: rowFacade,
+                                        screen,
+                                    });
                                     return (
                                         <FluidLayoutRow
-                                            key={rowKeyGetter({
-                                                row: rowFacade,
-                                                screen,
-                                            })}
+                                            key={rowKey}
                                             row={rowFacade}
                                             rowRenderer={rowRenderer}
                                             rowHeaderRenderer={rowHeaderRenderer}

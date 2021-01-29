@@ -18,7 +18,6 @@ export function DashboardLayoutContentRenderer<TCustomContent>(
         allowOverflow,
         children,
     } = props;
-
     const { heightAsRatio } = column.size()[screen];
 
     const style = React.useMemo(() => {

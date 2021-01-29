@@ -54,7 +54,7 @@ export type IDashboardViewLayoutRowHeaderRenderProps<
         /**
          * Default row header renderer - can be used as a fallback for custom rowHeaderRenderer.
          */
-        DefaultRenderer: IDashboardViewLayoutRowHeaderRenderer<TCustomContent>;
+        defaultRenderer: IDashboardViewLayoutRowHeaderRenderer<TCustomContent>;
     };
 
 /**
@@ -131,7 +131,7 @@ export type IDashboardViewLayoutContentRenderProps<
         /**
          * Default content renderer - can be used as a fallback for custom contentRenderer.
          */
-        DefaultRenderer: IDashboardViewLayoutContentRenderer<TCustomContent>;
+        defaultRenderer: IDashboardViewLayoutContentRenderer<TCustomContent>;
     };
 
 /**

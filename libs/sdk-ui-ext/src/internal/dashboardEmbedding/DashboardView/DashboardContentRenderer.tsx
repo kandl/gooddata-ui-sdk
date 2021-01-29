@@ -15,10 +15,10 @@ export const DashboardContentRenderer: React.FC<IDashboardContentRenderProps> = 
         className,
         debug,
         contentRef,
-        DefaultRenderer,
+        defaultRenderer,
         isResizedByLayoutSizingStrategy,
         widgetClass,
-        widgetRenderer: WidgetRenderer,
+        widgetRenderer,
         insight,
         ErrorComponent,
         LoadingComponent,
@@ -38,48 +38,42 @@ export const DashboardContentRenderer: React.FC<IDashboardContentRenderProps> = 
         throw new UnexpectedError("Custom dashboard view content is not yet supported.");
     }
 
-    // TODO: RAIL-2869
     const currentSize = column.size()[screen];
     const minHeight = getDashboardLayoutMinimumWidgetHeight(widgetClass);
     const height = currentSize && getDashboardLayoutContentHeightForRatioAndScreen(currentSize, screen);
 
-    return WidgetRenderer ? (
-        <WidgetRenderer
-            column={column}
-            ErrorComponent={ErrorComponent}
-            LoadingComponent={LoadingComponent}
-            alerts={alerts}
-            filterContext={filterContext}
-            screen={screen}
-            widget={content}
-            backend={backend}
-            drillableItems={drillableItems}
-            filters={filters}
-            insight={insight}
-            onDrill={onDrill}
-            onError={onError}
-            widgetClass={widgetClass}
-            workspace={workspace}
-            DefaultRenderer={WidgetRenderer}
-            // TODO: RAIL-2869 Unify props for DefaultRenderer & WidgetRenderer
-            minHeight={minHeight}
-            height={height}
-        />
-    ) : (
-        <DefaultRenderer
-            DefaultRenderer={DefaultRenderer}
-            column={column}
-            screen={screen}
-            className={className}
-            contentRef={contentRef}
-            debug={debug}
-            // TODO: RAIL-2869 how to solve it inside DashboardViewLayoutContentRenderer?
-            height={currentSize.heightAsRatio ? height : undefined}
-            minHeight={!currentSize.heightAsRatio ? minHeight : undefined}
-            allowOverflow={!!currentSize.heightAsRatio}
-            isResizedByLayoutSizingStrategy={isResizedByLayoutSizingStrategy}
-        >
-            <DashboardWidgetRenderer {...props} DefaultRenderer={DashboardWidgetRenderer} widget={content} />
-        </DefaultRenderer>
-    );
+    return widgetRenderer
+        ? widgetRenderer({
+              column,
+              ErrorComponent,
+              LoadingComponent,
+              alerts,
+              filterContext,
+              screen,
+              widget: content,
+              backend,
+              drillableItems,
+              filters,
+              insight,
+              onDrill,
+              onError,
+              widgetClass,
+              workspace,
+              defaultRenderer,
+              minHeight,
+              height,
+          })
+        : defaultRenderer({
+              defaultRenderer: defaultRenderer,
+              column: column,
+              screen: screen,
+              className: className,
+              contentRef: contentRef,
+              debug: debug,
+              height: currentSize.heightAsRatio ? height : undefined,
+              minHeight: !currentSize.heightAsRatio ? minHeight : undefined,
+              allowOverflow: !!currentSize.heightAsRatio,
+              isResizedByLayoutSizingStrategy: isResizedByLayoutSizingStrategy,
+              children: <DashboardWidgetRenderer {...props} widget={content} />,
+          });
 };
