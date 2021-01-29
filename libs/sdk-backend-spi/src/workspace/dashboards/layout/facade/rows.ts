@@ -9,60 +9,89 @@ import { FluidLayoutRowMethods } from "./row";
  * @alpha
  */
 export class FluidLayoutRowsMethods<TContent> implements IFluidLayoutRowsMethods<TContent> {
-    private static Cache: WeakMap<IFluidLayoutRow<any>[], FluidLayoutRowsMethods<any>> = new WeakMap<
-        IFluidLayoutRow<any>[],
+    private static Cache: WeakMap<IFluidLayoutFacade<any>, FluidLayoutRowsMethods<any>> = new WeakMap<
+        IFluidLayoutFacade<any>,
         FluidLayoutRowsMethods<any>
     >();
 
-    private readonly _rows: IFluidLayoutRowMethods<TContent>[] = [];
+    private _rows: IFluidLayoutRowMethods<TContent>[] | undefined;
 
     protected constructor(
         protected readonly _layoutFacade: IFluidLayoutFacade<TContent>,
         protected readonly _rawRows: IFluidLayoutRow<TContent>[],
-    ) {
-        this._rows = _rawRows.map((row, index) => FluidLayoutRowMethods.for(_layoutFacade, row, index));
-    }
+    ) {}
 
     public static for<TContent>(
         layoutFacade: IFluidLayoutFacade<TContent>,
         rows: IFluidLayoutRow<TContent>[],
     ): FluidLayoutRowsMethods<TContent> {
-        if (!FluidLayoutRowsMethods.Cache.has(rows)) {
-            FluidLayoutRowsMethods.Cache.set(rows, new FluidLayoutRowsMethods(layoutFacade, rows));
+        if (!FluidLayoutRowsMethods.Cache.has(layoutFacade)) {
+            FluidLayoutRowsMethods.Cache.set(layoutFacade, new FluidLayoutRowsMethods(layoutFacade, rows));
         }
 
-        return FluidLayoutRowsMethods.Cache.get(rows)!;
+        return FluidLayoutRowsMethods.Cache.get(layoutFacade)!;
     }
+
+    private getRowFacades = () => {
+        if (!this._rows) {
+            this._rows = this._rawRows.map((row, index) =>
+                FluidLayoutRowMethods.for(this._layoutFacade, row, index),
+            );
+        }
+
+        return this._rows;
+    };
 
     public raw = (): IFluidLayoutRow<TContent>[] => this._rawRows;
 
-    public row = (rowIndex: number): IFluidLayoutRowMethods<TContent> | undefined => this._rows[rowIndex];
+    public row = (rowIndex: number): IFluidLayoutRowMethods<TContent> | undefined => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades[rowIndex];
+    };
 
-    public map = <TReturn>(callback: (row: IFluidLayoutRowMethods<TContent>) => TReturn): TReturn[] =>
-        this._rows.map(callback);
+    public map = <TReturn>(callback: (row: IFluidLayoutRowMethods<TContent>) => TReturn): TReturn[] => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.map(callback);
+    };
 
-    public flatMap = <TReturn>(
-        callback: (column: IFluidLayoutRowMethods<TContent>) => TReturn[],
-    ): TReturn[] => flatMap(this._rows, callback);
+    public flatMap = <TReturn>(callback: (row: IFluidLayoutRowMethods<TContent>) => TReturn[]): TReturn[] => {
+        const rowFacades = this.getRowFacades();
+        return flatMap(rowFacades, callback);
+    };
 
     public reduce = <TReturn>(
         callback: (acc: TReturn, row: IFluidLayoutRowMethods<TContent>) => TReturn,
         initialValue: TReturn,
-    ): TReturn => this._rows.reduce(callback, initialValue);
+    ): TReturn => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.reduce(callback, initialValue);
+    };
 
     public find = (
         pred: (row: IFluidLayoutRowMethods<TContent>) => boolean,
-    ): IFluidLayoutRowMethods<TContent> | undefined => this._rows.find(pred);
+    ): IFluidLayoutRowMethods<TContent> | undefined => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.find(pred);
+    };
 
-    public every = (pred: (row: IFluidLayoutRowMethods<TContent>) => boolean): boolean =>
-        this._rows.every(pred);
+    public every = (pred: (row: IFluidLayoutRowMethods<TContent>) => boolean): boolean => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.every(pred);
+    };
 
-    public some = (pred: (row: IFluidLayoutRowMethods<TContent>) => boolean): boolean =>
-        this._rows.some(pred);
+    public some = (pred: (row: IFluidLayoutRowMethods<TContent>) => boolean): boolean => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.some(pred);
+    };
 
     public filter = (
         pred: (row: IFluidLayoutRowMethods<TContent>) => boolean,
-    ): IFluidLayoutRowMethods<TContent>[] => this._rows.filter(pred);
+    ): IFluidLayoutRowMethods<TContent>[] => {
+        const rowFacades = this.getRowFacades();
+        return rowFacades.filter(pred);
+    };
 
-    public all = (): IFluidLayoutRowMethods<TContent>[] => this._rows;
+    public all = (): IFluidLayoutRowMethods<TContent>[] => {
+        return this.getRowFacades();
+    };
 }

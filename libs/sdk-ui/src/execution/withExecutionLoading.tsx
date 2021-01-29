@@ -310,6 +310,7 @@ export function withExecutionLoading<TProps>(
             }
 
             public componentDidMount() {
+                console.log("DID UNMOUNT");
                 this.isWithExecutionLoadingUnmounted = false;
                 const _loadOnMount =
                     typeof loadOnMount === "function" ? loadOnMount(this.props) : loadOnMount;
@@ -326,6 +327,7 @@ export function withExecutionLoading<TProps>(
             }
 
             public componentWillUnmount() {
+                console.log("WILL UNMOUNT");
                 this.isWithExecutionLoadingUnmounted = true;
                 if (this.cancelablePromise) {
                     this.cancelablePromise.cancel();

@@ -4,6 +4,7 @@ import invariant from "ts-invariant";
 
 import { IFluidLayoutFacade, IFluidLayoutRowsMethods } from "../fluidLayoutMethods";
 import { FluidLayoutRowsMethods } from "./rows";
+import cloneDeep from "lodash/cloneDeep";
 
 /**
  * TODO: RAIL-2869 add docs
@@ -23,7 +24,8 @@ export class FluidLayoutFacade<TContent> implements IFluidLayoutFacade<TContent>
     public static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutFacade<TContent> {
         invariant(isFluidLayout(layout), "Provided data must be IFluidLayout!");
         if (!FluidLayoutFacade.Cache.has(layout)) {
-            FluidLayoutFacade.Cache.set(layout, new FluidLayoutFacade(layout));
+            const l = cloneDeep(layout);
+            FluidLayoutFacade.Cache.set(layout, new FluidLayoutFacade(l));
         }
 
         return FluidLayoutFacade.Cache.get(layout)!;
