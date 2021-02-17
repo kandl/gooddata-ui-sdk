@@ -8,12 +8,7 @@ import {
     ResponsiveScreenType,
 } from "../fluidLayout";
 
-import {
-    IFluidLayoutColumnFacade,
-    IFluidLayoutColumnFacadeImpl,
-    IFluidLayoutRowFacade,
-    IFluidLayoutRowFacadeImpl,
-} from "./interfaces";
+import { IFluidLayoutColumnFacade, IFluidLayoutRowFacade } from "./interfaces";
 
 /**
  * @alpha
@@ -26,10 +21,10 @@ export class FluidLayoutColumnFacade<TContent> implements IFluidLayoutColumnFaca
     ) {}
 
     public static for<TContent>(
-        rowFacade: IFluidLayoutRowFacadeImpl<TContent>,
+        rowFacade: IFluidLayoutRowFacade<TContent>,
         column: IFluidLayoutColumn<TContent>,
         index: number,
-    ): IFluidLayoutColumnFacadeImpl<TContent> {
+    ): IFluidLayoutColumnFacade<TContent> {
         return new FluidLayoutColumnFacade(rowFacade, column, index);
     }
 
@@ -93,7 +88,7 @@ export class FluidLayoutColumnFacade<TContent> implements IFluidLayoutColumnFaca
         return isNil(this.content);
     }
 
-    public row(): IFluidLayoutRowFacadeImpl<TContent> {
+    public row(): IFluidLayoutRowFacade<TContent> {
         return this.rowFacade;
     }
 }

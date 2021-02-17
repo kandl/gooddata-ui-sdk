@@ -2,7 +2,7 @@
 import invariant from "ts-invariant";
 import { IFluidLayout, IFluidLayoutSize, isFluidLayout } from "../fluidLayout";
 
-import { IFluidLayoutFacade, IFluidLayoutFacadeImpl, IFluidLayoutRowsFacadeImpl } from "./interfaces";
+import { IFluidLayoutFacade, IFluidLayoutRowsFacade } from "./interfaces";
 import { FluidLayoutRowsFacade } from "./rows";
 
 /**
@@ -15,12 +15,12 @@ export class FluidLayoutFacade<TContent> implements IFluidLayoutFacade<TContent>
      * Creates an instance of FluidLayoutFacade
      * @param layout - layout to wrap
      */
-    public static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutFacadeImpl<TContent> {
+    public static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutFacade<TContent> {
         invariant(isFluidLayout(layout), "Provided data must be IFluidLayout!");
         return new FluidLayoutFacade(layout);
     }
 
-    public rows(): IFluidLayoutRowsFacadeImpl<TContent> {
+    public rows(): IFluidLayoutRowsFacade<TContent> {
         return FluidLayoutRowsFacade.for(this, this.layout.rows);
     }
 

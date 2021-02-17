@@ -10,11 +10,10 @@ import {
 import {
     FluidLayoutColumnModifications,
     IFluidLayoutColumnBuilder,
-    IFluidLayoutColumnBuilderImpl,
+    IFluidLayoutRowBuilder,
     ValueOrUpdateCallback,
 } from "./interfaces";
 import { resolveValueOrUpdateCallback } from "./utils";
-import { IFluidLayoutRowBuilderImpl } from "./interfaces";
 
 /**
  * @alpha
@@ -32,9 +31,9 @@ export class FluidLayoutColumnBuilder<TContent> implements IFluidLayoutColumnBui
      * @param column - column to modify
      */
     public static for<TContent>(
-        rowBuilder: IFluidLayoutRowBuilderImpl<TContent>,
+        rowBuilder: IFluidLayoutRowBuilder<TContent>,
         columnIndex: number,
-    ): IFluidLayoutColumnBuilderImpl<TContent> {
+    ): IFluidLayoutColumnBuilder<TContent> {
         invariant(
             isFluidLayoutColumn(rowBuilder.facade().columns().column(columnIndex)?.raw()),
             "Provided data must be IFluidLayoutColumn!",

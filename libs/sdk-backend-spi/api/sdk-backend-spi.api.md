@@ -142,8 +142,8 @@ export class FluidLayoutBuilder<TContent> implements IFluidLayoutBuilder<TConten
     build(): IFluidLayout<TContent>;
     // (undocumented)
     facade(): IFluidLayoutFacade<TContent>;
-    static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutBuilderImpl<TContent>;
-    static forNewLayout<TContent>(): IFluidLayoutBuilderImpl<TContent>;
+    static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutBuilder<TContent>;
+    static forNewLayout<TContent>(): IFluidLayoutBuilder<TContent>;
     // (undocumented)
     protected getRowBuilder: (rowIndex: number) => IFluidLayoutRowBuilder<TContent>;
     // (undocumented)
@@ -181,7 +181,7 @@ export class FluidLayoutColumnBuilder<TContent> implements IFluidLayoutColumnBui
     content(valueOrUpdateCallback: ValueOrUpdateCallback<TContent | undefined>): this;
     // (undocumented)
     facade(): IFluidLayoutColumnFacade<TContent>;
-    static for<TContent>(rowBuilder: IFluidLayoutRowBuilderImpl<TContent>, columnIndex: number): IFluidLayoutColumnBuilderImpl<TContent>;
+    static for<TContent>(rowBuilder: IFluidLayoutRowBuilder<TContent>, columnIndex: number): IFluidLayoutColumnBuilder<TContent>;
     // (undocumented)
     protected getColumnFacade: () => IFluidLayoutColumnFacade<TContent>;
     // (undocumented)
@@ -208,7 +208,7 @@ export class FluidLayoutColumnFacade<TContent> implements IFluidLayoutColumnFaca
     // (undocumented)
     contentIs(content: TContent): boolean;
     // (undocumented)
-    static for<TContent>(rowFacade: IFluidLayoutRowFacadeImpl<TContent>, column: IFluidLayoutColumn<TContent>, index: number): IFluidLayoutColumnFacadeImpl<TContent>;
+    static for<TContent>(rowFacade: IFluidLayoutRowFacade<TContent>, column: IFluidLayoutColumn<TContent>, index: number): IFluidLayoutColumnFacade<TContent>;
     // (undocumented)
     hasContent(): boolean;
     // (undocumented)
@@ -226,7 +226,7 @@ export class FluidLayoutColumnFacade<TContent> implements IFluidLayoutColumnFaca
     // (undocumented)
     raw(): IFluidLayoutColumn<TContent>;
     // (undocumented)
-    row(): IFluidLayoutRowFacadeImpl<TContent>;
+    row(): IFluidLayoutRowFacade<TContent>;
     // (undocumented)
     protected readonly rowFacade: IFluidLayoutRowFacade<TContent>;
     // (undocumented)
@@ -262,7 +262,7 @@ export class FluidLayoutColumnsFacade<TContent> implements IFluidLayoutColumnsFa
     // (undocumented)
     flatMap<TReturn>(callback: (column: IFluidLayoutColumnFacade<TContent>) => TReturn[]): TReturn[];
     // (undocumented)
-    static for<TContent>(rowFacade: IFluidLayoutRowFacadeImpl<TContent>, columns: IFluidLayoutColumn<TContent>[]): IFluidLayoutColumnsFacadeImpl<TContent>;
+    static for<TContent>(rowFacade: IFluidLayoutRowFacade<TContent>, columns: IFluidLayoutColumn<TContent>[]): IFluidLayoutColumnsFacade<TContent>;
     // (undocumented)
     map<TReturn>(callback: (column: IFluidLayoutColumnFacade<TContent>) => TReturn): TReturn[];
     // (undocumented)
@@ -279,13 +279,13 @@ export type FluidLayoutColumnsSelector<TContent> = (columnsFacade: IFluidLayoutC
 // @alpha (undocumented)
 export class FluidLayoutFacade<TContent> implements IFluidLayoutFacade<TContent> {
     protected constructor(layout: IFluidLayout<TContent>);
-    static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutFacadeImpl<TContent>;
+    static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutFacade<TContent>;
     // (undocumented)
     protected layout: IFluidLayout<TContent>;
     // (undocumented)
     raw(): IFluidLayout<TContent>;
     // (undocumented)
-    rows(): IFluidLayoutRowsFacadeImpl<TContent>;
+    rows(): IFluidLayoutRowsFacade<TContent>;
     // (undocumented)
     size(): IFluidLayoutSize | undefined;
 }
@@ -302,7 +302,7 @@ export class FluidLayoutRowBuilder<TContent> implements IFluidLayoutRowBuilder<T
     build(): IFluidLayoutRow<TContent>;
     // (undocumented)
     facade(): IFluidLayoutRowFacade<TContent>;
-    static for<TContent>(layoutBuilder: IFluidLayoutBuilderImpl<TContent>, rowIndex: number): IFluidLayoutRowBuilderImpl<TContent>;
+    static for<TContent>(layoutBuilder: IFluidLayoutBuilder<TContent>, rowIndex: number): IFluidLayoutRowBuilder<TContent>;
     // (undocumented)
     protected getColumnBuilder: (columnIndex: number) => IFluidLayoutColumnBuilder<TContent>;
     // (undocumented)
@@ -337,13 +337,13 @@ export class FluidLayoutRowBuilder<TContent> implements IFluidLayoutRowBuilder<T
 export class FluidLayoutRowFacade<TContent> implements IFluidLayoutRowFacade<TContent> {
     protected constructor(layoutFacade: IFluidLayoutFacade<TContent>, row: IFluidLayoutRow<TContent>, rowIndex: number);
     // (undocumented)
-    columns(): IFluidLayoutColumnsFacadeImpl<TContent>;
+    columns(): IFluidLayoutColumnsFacade<TContent>;
     // (undocumented)
     description(): string | undefined;
     // (undocumented)
     descriptionEquals(description: string): boolean;
     // (undocumented)
-    static for<TContent>(layoutFacade: IFluidLayoutFacadeImpl<TContent>, row: IFluidLayoutRow<TContent>, index: number): IFluidLayoutRowFacadeImpl<TContent>;
+    static for<TContent>(layoutFacade: IFluidLayoutFacade<TContent>, row: IFluidLayoutRow<TContent>, index: number): IFluidLayoutRowFacade<TContent>;
     // (undocumented)
     hasDescription(): boolean;
     // (undocumented)
@@ -365,7 +365,7 @@ export class FluidLayoutRowFacade<TContent> implements IFluidLayoutRowFacade<TCo
     // (undocumented)
     isLast(): boolean;
     // (undocumented)
-    layout(): IFluidLayoutFacadeImpl<TContent>;
+    layout(): IFluidLayoutFacade<TContent>;
     // (undocumented)
     protected readonly layoutFacade: IFluidLayoutFacade<TContent>;
     // (undocumented)
@@ -403,7 +403,7 @@ export class FluidLayoutRowsFacade<TContent> implements IFluidLayoutRowsFacade<T
     // (undocumented)
     flatMap<TReturn>(callback: (row: IFluidLayoutRowFacade<TContent>) => TReturn[]): TReturn[];
     // (undocumented)
-    static for<TContent>(layoutFacade: IFluidLayoutFacadeImpl<TContent>, rows: IFluidLayoutRow<TContent>[]): IFluidLayoutRowsFacadeImpl<TContent>;
+    static for<TContent>(layoutFacade: IFluidLayoutFacade<TContent>, rows: IFluidLayoutRow<TContent>[]): IFluidLayoutRowsFacade<TContent>;
     // (undocumented)
     protected readonly layoutFacade: IFluidLayoutFacade<TContent>;
     // (undocumented)
@@ -1041,9 +1041,6 @@ export interface IFluidLayoutBuilder<TContent> {
     size(valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayoutSize | undefined>): this;
 }
 
-// @alpha (undocumented)
-export type IFluidLayoutBuilderImpl<TContent> = IFluidLayoutBuilder<TContent>;
-
 // @alpha
 export interface IFluidLayoutColumn<TContent> {
     content?: TContent;
@@ -1059,9 +1056,6 @@ export interface IFluidLayoutColumnBuilder<TContent> {
     setColumn(valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayoutColumn<TContent>>): this;
     size(valueOrTransform: ValueOrUpdateCallback<IFluidLayoutSizeByScreen>): this;
 }
-
-// @alpha (undocumented)
-export type IFluidLayoutColumnBuilderImpl<TContent> = IFluidLayoutColumnBuilder<TContent>;
 
 // @alpha (undocumented)
 export interface IFluidLayoutColumnFacade<TContent> {
@@ -1100,9 +1094,6 @@ export interface IFluidLayoutColumnFacade<TContent> {
 }
 
 // @alpha (undocumented)
-export type IFluidLayoutColumnFacadeImpl<TContent> = IFluidLayoutColumnFacade<TContent>;
-
-// @alpha (undocumented)
 export interface IFluidLayoutColumnsFacade<TContent> {
     // (undocumented)
     all(): IFluidLayoutColumnFacade<TContent>[];
@@ -1129,9 +1120,6 @@ export interface IFluidLayoutColumnsFacade<TContent> {
 }
 
 // @alpha (undocumented)
-export type IFluidLayoutColumnsFacadeImpl<TContent> = IFluidLayoutColumnsFacade<TContent>;
-
-// @alpha (undocumented)
 export interface IFluidLayoutFacade<TContent> {
     // (undocumented)
     raw(): IFluidLayout<TContent>;
@@ -1140,9 +1128,6 @@ export interface IFluidLayoutFacade<TContent> {
     // (undocumented)
     size(): IFluidLayoutSize | undefined;
 }
-
-// @alpha (undocumented)
-export type IFluidLayoutFacadeImpl<TContent> = IFluidLayoutFacade<TContent>;
 
 // @alpha
 export interface IFluidLayoutRow<TContent> {
@@ -1165,9 +1150,6 @@ export interface IFluidLayoutRowBuilder<TContent> {
     removeEmptyColumns(): this;
     setRow(valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayoutRow<TContent>>): this;
 }
-
-// @alpha (undocumented)
-export type IFluidLayoutRowBuilderImpl<TContent> = IFluidLayoutRowBuilder<TContent>;
 
 // @alpha (undocumented)
 export interface IFluidLayoutRowFacade<TContent> {
@@ -1212,9 +1194,6 @@ export interface IFluidLayoutRowFacade<TContent> {
 }
 
 // @alpha (undocumented)
-export type IFluidLayoutRowFacadeImpl<TContent> = IFluidLayoutRowFacade<TContent>;
-
-// @alpha (undocumented)
 export interface IFluidLayoutRowsFacade<TContent> {
     // (undocumented)
     all(): IFluidLayoutRowFacade<TContent>[];
@@ -1239,9 +1218,6 @@ export interface IFluidLayoutRowsFacade<TContent> {
     // (undocumented)
     some(pred: (row: IFluidLayoutRowFacade<TContent>) => boolean): boolean;
 }
-
-// @alpha (undocumented)
-export type IFluidLayoutRowsFacadeImpl<TContent> = IFluidLayoutRowsFacade<TContent>;
 
 // @alpha
 export interface IFluidLayoutSectionHeader {

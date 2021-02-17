@@ -444,18 +444,3 @@ export interface IFluidLayoutBuilder<TContent> {
      */
     build(): IFluidLayout<TContent>;
 }
-
-/**
- * @alpha
- */
-export type IFluidLayoutBuilderImpl<TContent> = IFluidLayoutBuilder<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutRowBuilderImpl<TContent> = IFluidLayoutRowBuilder<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutColumnBuilderImpl<TContent> = IFluidLayoutColumnBuilder<TContent>;

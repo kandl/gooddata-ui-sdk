@@ -3,13 +3,7 @@ import isEqual from "lodash/isEqual";
 import isNil from "lodash/isNil";
 import { IFluidLayoutRow, IFluidLayoutSectionHeader } from "../fluidLayout";
 import { FluidLayoutColumnsFacade } from "./columns";
-import {
-    IFluidLayoutRowFacade,
-    IFluidLayoutRowFacadeImpl,
-    IFluidLayoutFacade,
-    IFluidLayoutFacadeImpl,
-    IFluidLayoutColumnsFacadeImpl,
-} from "./interfaces";
+import { IFluidLayoutRowFacade, IFluidLayoutFacade, IFluidLayoutColumnsFacade } from "./interfaces";
 
 /**
  * @alpha
@@ -22,10 +16,10 @@ export class FluidLayoutRowFacade<TContent> implements IFluidLayoutRowFacade<TCo
     ) {}
 
     public static for<TContent>(
-        layoutFacade: IFluidLayoutFacadeImpl<TContent>,
+        layoutFacade: IFluidLayoutFacade<TContent>,
         row: IFluidLayoutRow<TContent>,
         index: number,
-    ): IFluidLayoutRowFacadeImpl<TContent> {
+    ): IFluidLayoutRowFacade<TContent> {
         return new FluidLayoutRowFacade(layoutFacade, row, index);
     }
 
@@ -97,11 +91,11 @@ export class FluidLayoutRowFacade<TContent> implements IFluidLayoutRowFacade<TCo
         return this.columns().count() === 0;
     }
 
-    public columns(): IFluidLayoutColumnsFacadeImpl<TContent> {
+    public columns(): IFluidLayoutColumnsFacade<TContent> {
         return FluidLayoutColumnsFacade.for(this, this.row.columns);
     }
 
-    public layout(): IFluidLayoutFacadeImpl<TContent> {
+    public layout(): IFluidLayoutFacade<TContent> {
         return this.layoutFacade;
     }
 }

@@ -12,9 +12,7 @@ import {
     FluidLayoutRowModifications,
     FluidLayoutRowsSelector,
     IFluidLayoutBuilder,
-    IFluidLayoutBuilderImpl,
     IFluidLayoutRowBuilder,
-    IFluidLayoutRowBuilderImpl,
     ValueOrUpdateCallback,
 } from "./interfaces";
 import { FluidLayoutRowBuilder } from "./row";
@@ -35,15 +33,15 @@ export class FluidLayoutBuilder<TContent> implements IFluidLayoutBuilder<TConten
      *
      * @param layout - layout to modify
      */
-    public static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutBuilderImpl<TContent> {
+    public static for<TContent>(layout: IFluidLayout<TContent>): IFluidLayoutBuilder<TContent> {
         invariant(isFluidLayout(layout), "Provided data must be IFluidLayout!");
-        const fluidLayoutBuilder: IFluidLayoutBuilderImpl<TContent> = new FluidLayoutBuilder(
+        const fluidLayoutBuilder: IFluidLayoutBuilder<TContent> = new FluidLayoutBuilder(
             FluidLayoutFacade.for(layout),
             FluidLayoutFacade.for,
             getRowBuilder,
         );
 
-        function getRowBuilder(rowIndex: number): IFluidLayoutRowBuilderImpl<TContent> {
+        function getRowBuilder(rowIndex: number): IFluidLayoutRowBuilder<TContent> {
             return FluidLayoutRowBuilder.for(fluidLayoutBuilder, rowIndex);
         }
 
@@ -53,7 +51,7 @@ export class FluidLayoutBuilder<TContent> implements IFluidLayoutBuilder<TConten
     /**
      * Creates an instance of FluidLayoutBuilder with empty layout.
      */
-    public static forNewLayout<TContent>(): IFluidLayoutBuilderImpl<TContent> {
+    public static forNewLayout<TContent>(): IFluidLayoutBuilder<TContent> {
         const emptyFluidLayout: IFluidLayout<TContent> = {
             type: "fluidLayout",
             rows: [],

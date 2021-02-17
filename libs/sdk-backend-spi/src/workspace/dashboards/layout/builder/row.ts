@@ -18,14 +18,12 @@ import {
     FluidLayoutColumnsSelector,
     FluidLayoutRowModifications,
     IFluidLayoutColumnBuilder,
-    IFluidLayoutColumnBuilderImpl,
     IFluidLayoutRowBuilder,
-    IFluidLayoutRowBuilderImpl,
+    IFluidLayoutBuilder,
     ValueOrUpdateCallback,
 } from "./interfaces";
 import { FluidLayoutColumnBuilder } from "./column";
 import { resolveValueOrUpdateCallback } from "./utils";
-import { IFluidLayoutBuilderImpl } from "./interfaces";
 
 /**
  * @alpha
@@ -45,15 +43,15 @@ export class FluidLayoutRowBuilder<TContent> implements IFluidLayoutRowBuilder<T
      * @param column - column to modify
      */
     public static for<TContent>(
-        layoutBuilder: IFluidLayoutBuilderImpl<TContent>,
+        layoutBuilder: IFluidLayoutBuilder<TContent>,
         rowIndex: number,
-    ): IFluidLayoutRowBuilderImpl<TContent> {
+    ): IFluidLayoutRowBuilder<TContent> {
         invariant(
             isFluidLayoutRow(layoutBuilder.facade().rows().row(rowIndex)?.raw()),
             "Provided data must be IFluidLayoutRow!",
         );
 
-        const rowBuilder: IFluidLayoutRowBuilderImpl<TContent> = new FluidLayoutRowBuilder(
+        const rowBuilder: IFluidLayoutRowBuilder<TContent> = new FluidLayoutRowBuilder(
             rowIndex,
             layoutBuilder.setLayout,
             () => layoutBuilder.facade().rows().row(rowIndex)!,
@@ -61,7 +59,7 @@ export class FluidLayoutRowBuilder<TContent> implements IFluidLayoutRowBuilder<T
             getColumnBuilder,
         );
 
-        function getColumnBuilder(columnIndex: number): IFluidLayoutColumnBuilderImpl<TContent> {
+        function getColumnBuilder(columnIndex: number): IFluidLayoutColumnBuilder<TContent> {
             return FluidLayoutColumnBuilder.for<TContent>(rowBuilder, columnIndex);
         }
 

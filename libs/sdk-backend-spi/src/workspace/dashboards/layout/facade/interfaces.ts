@@ -122,28 +122,3 @@ export interface IFluidLayoutFacade<TContent> {
     rows(): IFluidLayoutRowsFacade<TContent>;
     raw(): IFluidLayout<TContent>;
 }
-
-/**
- * @alpha
- */
-export type IFluidLayoutFacadeImpl<TContent> = IFluidLayoutFacade<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutRowsFacadeImpl<TContent> = IFluidLayoutRowsFacade<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutRowFacadeImpl<TContent> = IFluidLayoutRowFacade<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutColumnsFacadeImpl<TContent> = IFluidLayoutColumnsFacade<TContent>;
-
-/**
- * @alpha
- */
-export type IFluidLayoutColumnFacadeImpl<TContent> = IFluidLayoutColumnFacade<TContent>;

@@ -1,12 +1,7 @@
 // (C) 2019-2021 GoodData Corporation
 import flatMap from "lodash/flatMap";
 import { IFluidLayoutColumn } from "../fluidLayout";
-import {
-    IFluidLayoutColumnFacade,
-    IFluidLayoutColumnsFacade,
-    IFluidLayoutColumnsFacadeImpl,
-    IFluidLayoutRowFacadeImpl,
-} from "./interfaces";
+import { IFluidLayoutColumnFacade, IFluidLayoutColumnsFacade, IFluidLayoutRowFacade } from "./interfaces";
 import { FluidLayoutColumnFacade } from "./column";
 
 /**
@@ -16,9 +11,9 @@ export class FluidLayoutColumnsFacade<TContent> implements IFluidLayoutColumnsFa
     protected constructor(protected readonly columnFacades: IFluidLayoutColumnFacade<TContent>[]) {}
 
     public static for<TContent>(
-        rowFacade: IFluidLayoutRowFacadeImpl<TContent>,
+        rowFacade: IFluidLayoutRowFacade<TContent>,
         columns: IFluidLayoutColumn<TContent>[],
-    ): IFluidLayoutColumnsFacadeImpl<TContent> {
+    ): IFluidLayoutColumnsFacade<TContent> {
         const columnFacades = columns.map((column, index) =>
             FluidLayoutColumnFacade.for(rowFacade, column, index),
         );

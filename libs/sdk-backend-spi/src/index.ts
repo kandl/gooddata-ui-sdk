@@ -246,9 +246,6 @@ export {
     IFluidLayoutColumnBuilder,
     IFluidLayoutRowBuilder,
     ValueOrUpdateCallback,
-    IFluidLayoutBuilderImpl,
-    IFluidLayoutColumnBuilderImpl,
-    IFluidLayoutRowBuilderImpl,
 } from "./workspace/dashboards/layout/builder/interfaces";
 export { resolveValueOrUpdateCallback } from "./workspace/dashboards/layout/builder/utils";
 export {
@@ -265,11 +262,6 @@ export {
     IFluidLayoutColumnsFacade,
     IFluidLayoutRowFacade,
     IFluidLayoutRowsFacade,
-    IFluidLayoutColumnFacadeImpl,
-    IFluidLayoutColumnsFacadeImpl,
-    IFluidLayoutFacadeImpl,
-    IFluidLayoutRowFacadeImpl,
-    IFluidLayoutRowsFacadeImpl,
 } from "./workspace/dashboards/layout/facade/interfaces";
 export {
     IWidget,
