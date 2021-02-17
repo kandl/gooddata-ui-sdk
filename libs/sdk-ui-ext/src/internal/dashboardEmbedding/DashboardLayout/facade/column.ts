@@ -19,7 +19,6 @@ import {
     IDashboardViewLayout,
     IDashboardViewLayoutColumn,
     IDashboardViewLayoutContent,
-    IDashboardViewLayoutRow,
 } from "../interfaces/dashboardLayout";
 import { IDashboardViewLayoutColumnFacade, IDashboardViewLayoutRowFacade } from "./interfaces";
 import { areObjRefsEqual, ObjRef } from "@gooddata/sdk-model";
@@ -27,13 +26,7 @@ import { areObjRefsEqual, ObjRef } from "@gooddata/sdk-model";
 /**
  * @alpha
  */
-export class DashboardViewLayoutColumnFacade<TContent>
-    extends FluidLayoutColumnFacade<
-        TContent,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayoutRowFacade<TContent>
-    >
+export class DashboardViewLayoutColumnFacade<TContent> extends FluidLayoutColumnFacade<TContent>
     implements IDashboardViewLayoutColumnFacade<TContent> {
     private constructor(
         protected readonly rowFacade: IDashboardViewLayoutRowFacade<TContent>,

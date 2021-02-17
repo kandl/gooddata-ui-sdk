@@ -5,19 +5,13 @@ import {
     IDashboardViewLayoutRowFacade,
     IDashboardViewLayoutFacade,
 } from "./interfaces";
-import { IDashboardViewLayout, IDashboardViewLayoutRow } from "../interfaces/dashboardLayout";
+import { IDashboardViewLayoutRow } from "../interfaces/dashboardLayout";
 import { DashboardViewLayoutColumnsFacade } from "./columns";
 
 /**
  * @alpha
  */
-export class DashboardViewLayoutRowFacade<TContent>
-    extends FluidLayoutRowFacade<
-        TContent,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayout<TContent>,
-        IDashboardViewLayoutFacade<TContent>
-    >
+export class DashboardViewLayoutRowFacade<TContent> extends FluidLayoutRowFacade<TContent>
     implements IDashboardViewLayoutRowFacade<TContent> {
     protected constructor(
         protected readonly layoutFacade: IDashboardViewLayoutFacade<TContent>,

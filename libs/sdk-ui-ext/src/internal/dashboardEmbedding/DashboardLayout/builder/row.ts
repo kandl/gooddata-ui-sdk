@@ -1,16 +1,8 @@
 // (C) 2019-2021 GoodData Corporation
 import invariant from "ts-invariant";
 import { isFluidLayoutRow, FluidLayoutRowBuilder } from "@gooddata/sdk-backend-spi";
-import {
-    IDashboardViewLayoutColumnFacade,
-    IDashboardViewLayoutColumnsFacade,
-    IDashboardViewLayoutRowFacade,
-} from "../facade/interfaces";
-import {
-    IDashboardViewLayout,
-    IDashboardViewLayoutColumn,
-    IDashboardViewLayoutRow,
-} from "../interfaces/dashboardLayout";
+import { IDashboardViewLayoutColumnsFacade, IDashboardViewLayoutRowFacade } from "../facade/interfaces";
+import { IDashboardViewLayout } from "../interfaces/dashboardLayout";
 import {
     IDashboardViewLayoutBuilder,
     IDashboardViewLayoutColumnBuilder,
@@ -18,17 +10,7 @@ import {
 } from "./interfaces";
 import { DashboardViewLayoutColumnBuilder } from "./column";
 
-export class DashboardViewLayoutRowBuilder<TContent>
-    extends FluidLayoutRowBuilder<
-        TContent,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayout<TContent>,
-        IDashboardViewLayoutRowFacade<TContent>,
-        IDashboardViewLayoutColumnFacade<TContent>,
-        IDashboardViewLayoutColumnsFacade<TContent>,
-        IDashboardViewLayoutColumnBuilder<TContent>
-    >
+export class DashboardViewLayoutRowBuilder<TContent> extends FluidLayoutRowBuilder<TContent>
     implements IDashboardViewLayoutRowBuilder<TContent> {
     protected constructor(
         protected rowIndex: number,

@@ -1,10 +1,8 @@
 // (C) 2019-2021 GoodData Corporation
 import {
     IFluidLayout,
-    IFluidLayoutColumn,
     IFluidLayoutColumnFacade,
     IFluidLayoutFacade,
-    IFluidLayoutRow,
     IFluidLayoutRowFacade,
     ResponsiveScreenType,
 } from "@gooddata/sdk-backend-spi";
@@ -14,15 +12,11 @@ import {
  *
  * @alpha
  */
-export type IFluidLayoutRowKeyGetterProps<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>
-> = {
+export type IFluidLayoutRowKeyGetterProps<TContent> = {
     /**
      * Fluid layout row.
      */
-    row: TRowFacade;
+    row: IFluidLayoutRowFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -39,26 +33,18 @@ export type IFluidLayoutRowKeyGetterProps<
  *
  * @alpha
  */
-export type IFluidLayoutRowKeyGetter<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>
-> = (props: IFluidLayoutRowKeyGetterProps<TContent, TRow, TRowFacade>) => string;
+export type IFluidLayoutRowKeyGetter<TContent> = (props: IFluidLayoutRowKeyGetterProps<TContent>) => string;
 
 /**
  * Default props provided to {@link IFluidLayoutRowRenderer}.
  *
  * @alpha
  */
-export type IFluidLayoutRowRenderProps<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>
-> = {
+export type IFluidLayoutRowRenderProps<TContent> = {
     /**
      * Fluid layout row.
      */
-    row: TRowFacade;
+    row: IFluidLayoutRowFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -68,7 +54,7 @@ export type IFluidLayoutRowRenderProps<
     /**
      * Default renderer of the row - can be used as a fallback for custom rowRenderer.
      */
-    DefaultRowRenderer: IFluidLayoutRowRenderer<TContent, TRow, TRowFacade>;
+    DefaultRowRenderer: IFluidLayoutRowRenderer<TContent>;
 
     /**
      * Columns rendered by columnRenderer.
@@ -87,27 +73,20 @@ export type IFluidLayoutRowRenderProps<
  *
  * @alpha
  */
-export type IFluidLayoutRowRenderer<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TCustomProps = object
-> = (renderProps: IFluidLayoutRowRenderProps<TContent, TRow, TRowFacade> & TCustomProps) => JSX.Element;
+export type IFluidLayoutRowRenderer<TContent, TCustomProps = object> = (
+    renderProps: IFluidLayoutRowRenderProps<TContent> & TCustomProps,
+) => JSX.Element;
 
 /**
  * Default props provided to {@link IFluidLayoutRowHeaderRenderer}.
  *
  * @alpha
  */
-export type IFluidLayoutRowHeaderRenderProps<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>
-> = {
+export type IFluidLayoutRowHeaderRenderProps<TContent> = {
     /**
      * Fluid layout row.
      */
-    row: TRowFacade;
+    row: IFluidLayoutRowFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -121,27 +100,20 @@ export type IFluidLayoutRowHeaderRenderProps<
  *
  * @alpha
  */
-export type IFluidLayoutRowHeaderRenderer<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TCustomProps = object
-> = (renderProps: IFluidLayoutRowHeaderRenderProps<TContent, TRow, TRowFacade> & TCustomProps) => JSX.Element;
+export type IFluidLayoutRowHeaderRenderer<TContent, TCustomProps = object> = (
+    renderProps: IFluidLayoutRowHeaderRenderProps<TContent> & TCustomProps,
+) => JSX.Element;
 
 /**
  * Default props provided to {@link IFluidLayoutColumnKeyGetter}
  *
  * @alpha
  */
-export type IFluidLayoutColumnKeyGetterProps<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> = {
+export type IFluidLayoutColumnKeyGetterProps<TContent> = {
     /**
      * Fluid layout column.
      */
-    column: TColumnFacade;
+    column: IFluidLayoutColumnFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -158,26 +130,20 @@ export type IFluidLayoutColumnKeyGetterProps<
  *
  * @alpha
  */
-export type IFluidLayoutColumnKeyGetter<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> = (props: IFluidLayoutColumnKeyGetterProps<TContent, TColumn, TColumnFacade>) => string;
+export type IFluidLayoutColumnKeyGetter<TContent> = (
+    props: IFluidLayoutColumnKeyGetterProps<TContent>,
+) => string;
 
 /**
  * Default props provided to {@link IFluidLayoutColumnRenderer}
  *
  * @alpha
  */
-export type IFluidLayoutColumnRenderProps<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> = {
+export type IFluidLayoutColumnRenderProps<TContent, TCustomProps = object> = {
     /**
      * Fluid layout column.
      */
-    column: TColumnFacade;
+    column: IFluidLayoutColumnFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -187,7 +153,7 @@ export type IFluidLayoutColumnRenderProps<
     /**
      * Default renderer of the column - can be used as a fallback for custom columnRenderer.
      */
-    DefaultColumnRenderer: IFluidLayoutColumnRenderer<TContent, TColumn, TColumnFacade>;
+    DefaultColumnRenderer: IFluidLayoutColumnRenderer<TContent, TCustomProps>;
 
     /**
      * Additional column css class name.
@@ -211,13 +177,8 @@ export type IFluidLayoutColumnRenderProps<
  *
  * @alpha
  */
-export type IFluidLayoutColumnRenderer<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>,
-    TCustomProps = object
-> = (
-    renderProps: IFluidLayoutColumnRenderProps<TContent, TColumn, TColumnFacade> & TCustomProps,
+export type IFluidLayoutColumnRenderer<TContent, TCustomProps = object> = (
+    renderProps: IFluidLayoutColumnRenderProps<TContent> & TCustomProps,
 ) => JSX.Element;
 
 /**
@@ -225,15 +186,11 @@ export type IFluidLayoutColumnRenderer<
  *
  * @alpha
  */
-export type IFluidLayoutContentRenderProps<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> = {
+export type IFluidLayoutContentRenderProps<TContent> = {
     /**
      * Fluid layout column.
      */
-    column: TColumnFacade;
+    column: IFluidLayoutColumnFacade<TContent>;
 
     /**
      * Current screen type with respect to the set breakpoints.
@@ -247,13 +204,8 @@ export type IFluidLayoutContentRenderProps<
  *
  * @alpha
  */
-export type IFluidLayoutContentRenderer<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>,
-    TCustomProps = object
-> = (
-    renderProps: IFluidLayoutContentRenderProps<TContent, TColumn, TColumnFacade> & TCustomProps,
+export type IFluidLayoutContentRenderer<TContent, TCustomProps = object> = (
+    renderProps: IFluidLayoutContentRenderProps<TContent> & TCustomProps,
 ) => JSX.Element;
 
 /**
@@ -262,56 +214,48 @@ export type IFluidLayoutContentRenderer<
  *
  * @alpha
  */
-export type IFluidLayoutRenderer<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TLayout extends IFluidLayout<TContent>,
-    TLayoutFacade extends IFluidLayoutFacade<TContent, TLayout>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> = {
+export type IFluidLayoutRenderer<TContent> = {
     /**
      * Fluid layout definition to render.
      */
-    layout: TLayout;
+    layout: IFluidLayout<TContent>;
 
     /**
      * Layout facade constructor (e.g. to support IDashboardViewLayoutFacade).
      */
-    layoutFacadeConstructor?: (layout: TLayout) => TLayoutFacade;
+    layoutFacadeConstructor?: (layout: IFluidLayout<TContent>) => IFluidLayoutFacade<TContent>;
 
     /**
      * Callback to determine a unique key of the row.
      * Check {@link IFluidLayoutRowKeyGetter} for more details.
      */
-    rowKeyGetter?: IFluidLayoutRowKeyGetter<TContent, TRow, TRowFacade>;
+    rowKeyGetter?: IFluidLayoutRowKeyGetter<TContent>;
 
     /**
      * Render props callback to customize row rendering.
      */
-    rowRenderer?: IFluidLayoutRowRenderer<TContent, TRow, TRowFacade>;
+    rowRenderer?: IFluidLayoutRowRenderer<TContent>;
 
     /**
      * Render props callback to customize row header rendering.
      */
-    rowHeaderRenderer?: IFluidLayoutRowHeaderRenderer<TContent, TRow, TRowFacade>;
+    rowHeaderRenderer?: IFluidLayoutRowHeaderRenderer<TContent>;
 
     /**
      * Callback to determine a unique key of the column.
      * Check {@link IFluidLayoutColumnKeyGetter} for more details.
      */
-    columnKeyGetter?: IFluidLayoutColumnKeyGetter<TContent, TColumn, TColumnFacade>;
+    columnKeyGetter?: IFluidLayoutColumnKeyGetter<TContent>;
 
     /**
      * Render props callback to customize column rendering.
      */
-    columnRenderer?: IFluidLayoutColumnRenderer<TContent, TColumn, TColumnFacade>;
+    columnRenderer?: IFluidLayoutColumnRenderer<TContent>;
 
     /**
      * Render props callback to specify how to render the content of the layout.
      */
-    contentRenderer: IFluidLayoutContentRenderer<TContent, TColumn, TColumnFacade>;
+    contentRenderer: IFluidLayoutContentRenderer<TContent>;
 
     /**
      * Additional css class name for the root element.

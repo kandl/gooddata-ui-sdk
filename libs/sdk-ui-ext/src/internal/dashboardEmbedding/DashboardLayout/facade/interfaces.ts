@@ -14,18 +14,12 @@ import {
     IFluidLayoutRowFacade,
 } from "@gooddata/sdk-backend-spi";
 import { ObjRef } from "@gooddata/sdk-model";
-import {
-    IDashboardViewLayout,
-    IDashboardViewLayoutRow,
-    IDashboardViewLayoutColumn,
-    IDashboardViewLayoutContent,
-} from "../interfaces/dashboardLayout";
+import { IDashboardViewLayout, IDashboardViewLayoutContent } from "../interfaces/dashboardLayout";
 
 /**
  * @alpha
  */
-export interface IDashboardViewLayoutColumnFacade<TContent>
-    extends IFluidLayoutColumnFacade<TContent, IDashboardViewLayoutColumn<TContent>> {
+export interface IDashboardViewLayoutColumnFacade<TContent> extends IFluidLayoutColumnFacade<TContent> {
     hasWidgetContent(): this is IDashboardViewLayoutColumnFacade<IWidget>;
     hasWidgetDefinitionContent(): this is IDashboardViewLayoutColumnFacade<IWidgetDefinition>;
     hasKpiWidgetContent(): this is IDashboardViewLayoutColumnFacade<IKpiWidget>;
@@ -47,17 +41,12 @@ export interface IDashboardViewLayoutColumnFacade<TContent>
 /**
  * @alpha
  */
-export type IDashboardViewLayoutColumnsFacade<TContent> = IFluidLayoutColumnsFacade<
-    TContent,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>
->;
+export type IDashboardViewLayoutColumnsFacade<TContent> = IFluidLayoutColumnsFacade<TContent>;
 
 /**
  * @alpha
  */
-export interface IDashboardViewLayoutRowFacade<TContent>
-    extends IFluidLayoutRowFacade<TContent, IDashboardViewLayoutRow<TContent>> {
+export interface IDashboardViewLayoutRowFacade<TContent> extends IFluidLayoutRowFacade<TContent> {
     // overrides
     columns(): IDashboardViewLayoutColumnsFacade<TContent>;
     layout(): IDashboardViewLayoutFacade<TContent>;
@@ -66,17 +55,12 @@ export interface IDashboardViewLayoutRowFacade<TContent>
 /**
  * @alpha
  */
-export type IDashboardViewLayoutRowsFacade<TContent> = IFluidLayoutRowsFacade<
-    TContent,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>
->;
+export type IDashboardViewLayoutRowsFacade<TContent> = IFluidLayoutRowsFacade<TContent>;
 
 /**
  * @alpha
  */
-export interface IDashboardViewLayoutFacade<TContent>
-    extends IFluidLayoutFacade<TContent, IDashboardViewLayout<TContent>> {
+export interface IDashboardViewLayoutFacade<TContent> extends IFluidLayoutFacade<TContent> {
     // overrides
     rows(): IDashboardViewLayoutRowsFacade<TContent>;
 }

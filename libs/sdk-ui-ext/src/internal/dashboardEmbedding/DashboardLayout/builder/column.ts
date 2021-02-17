@@ -7,32 +7,23 @@ import {
     isKpiWidget,
     isInsightWidget,
     isInsightWidgetDefinition,
+    IFluidLayoutColumnFacade,
 } from "@gooddata/sdk-backend-spi";
 import { ObjRef } from "@gooddata/sdk-model";
 import invariant from "ts-invariant";
-import { IDashboardViewLayoutColumnFacade } from "../facade/interfaces";
-import {
-    IDashboardViewLayoutRow,
-    IDashboardViewLayoutColumn,
-    IDashboardViewLayoutContent,
-} from "../interfaces/dashboardLayout";
+import { IDashboardViewLayoutRow, IDashboardViewLayoutContent } from "../interfaces/dashboardLayout";
 import { IDashboardViewLayoutColumnBuilder, IDashboardViewLayoutRowBuilder } from "./interfaces";
 import { InsightWidgetBuilder, KpiWidgetBuilder } from "@gooddata/sdk-backend-base";
 import identity from "lodash/identity";
 
 export class DashboardViewLayoutColumnBuilder<TContent extends IDashboardViewLayoutContent<any>>
-    extends FluidLayoutColumnBuilder<
-        TContent,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayoutColumnFacade<TContent>
-    >
+    extends FluidLayoutColumnBuilder<TContent>
     implements IDashboardViewLayoutColumnBuilder<TContent> {
     protected constructor(
         protected setRow: (
             valueOrUpdateCallback: ValueOrUpdateCallback<IDashboardViewLayoutRow<TContent>>,
         ) => void,
-        protected getColumnFacade: () => IDashboardViewLayoutColumnFacade<TContent>,
+        protected getColumnFacade: () => IFluidLayoutColumnFacade<TContent>,
         protected columnIndex: number,
     ) {
         super(setRow, getColumnFacade, columnIndex);

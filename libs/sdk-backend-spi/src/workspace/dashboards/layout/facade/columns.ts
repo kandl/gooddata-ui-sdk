@@ -12,12 +12,8 @@ import { FluidLayoutColumnFacade } from "./column";
 /**
  * @alpha
  */
-export class FluidLayoutColumnsFacade<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> implements IFluidLayoutColumnsFacade<TContent, TColumn, TColumnFacade> {
-    protected constructor(protected readonly columnFacades: TColumnFacade[]) {}
+export class FluidLayoutColumnsFacade<TContent> implements IFluidLayoutColumnsFacade<TContent> {
+    protected constructor(protected readonly columnFacades: IFluidLayoutColumnFacade<TContent>[]) {}
 
     public static for<TContent>(
         rowFacade: IFluidLayoutRowFacadeImpl<TContent>,
@@ -29,46 +25,50 @@ export class FluidLayoutColumnsFacade<
         return new FluidLayoutColumnsFacade(columnFacades);
     }
 
-    public raw(): TColumn[] {
+    public raw(): IFluidLayoutColumn<TContent>[] {
         return this.columnFacades.map((columnFacade) => columnFacade.raw());
     }
 
-    public column(columnIndex: number): TColumnFacade | undefined {
+    public column(columnIndex: number): IFluidLayoutColumnFacade<TContent> | undefined {
         return this.columnFacades[columnIndex];
     }
 
-    public map<TReturn>(callback: (column: TColumnFacade) => TReturn): TReturn[] {
+    public map<TReturn>(callback: (column: IFluidLayoutColumnFacade<TContent>) => TReturn): TReturn[] {
         return this.columnFacades.map(callback);
     }
 
-    public flatMap<TReturn>(callback: (column: TColumnFacade) => TReturn[]): TReturn[] {
+    public flatMap<TReturn>(callback: (column: IFluidLayoutColumnFacade<TContent>) => TReturn[]): TReturn[] {
         return flatMap(this.columnFacades, callback);
     }
 
     public reduce<TReturn>(
-        callback: (acc: TReturn, row: TColumnFacade) => TReturn,
+        callback: (acc: TReturn, row: IFluidLayoutColumnFacade<TContent>) => TReturn,
         initialValue: TReturn,
     ): TReturn {
         return this.columnFacades.reduce(callback, initialValue);
     }
 
-    public find(pred: (row: TColumnFacade) => boolean): TColumnFacade | undefined {
+    public find(
+        pred: (row: IFluidLayoutColumnFacade<TContent>) => boolean,
+    ): IFluidLayoutColumnFacade<TContent> | undefined {
         return this.columnFacades.find(pred);
     }
 
-    public every(pred: (row: TColumnFacade) => boolean): boolean {
+    public every(pred: (row: IFluidLayoutColumnFacade<TContent>) => boolean): boolean {
         return this.columnFacades.every(pred);
     }
 
-    public some(pred: (row: TColumnFacade) => boolean): boolean {
+    public some(pred: (row: IFluidLayoutColumnFacade<TContent>) => boolean): boolean {
         return this.columnFacades.some(pred);
     }
 
-    public filter(pred: (row: TColumnFacade) => boolean): TColumnFacade[] {
+    public filter(
+        pred: (row: IFluidLayoutColumnFacade<TContent>) => boolean,
+    ): IFluidLayoutColumnFacade<TContent>[] {
         return this.columnFacades.filter(pred);
     }
 
-    public all(): TColumnFacade[] {
+    public all(): IFluidLayoutColumnFacade<TContent>[] {
         return this.columnFacades;
     }
 

@@ -11,12 +11,7 @@ import { FluidLayoutColumnsFacade } from "@gooddata/sdk-backend-spi";
 /**
  * @alpha
  */
-export class DashboardViewLayoutColumnsFacade<TContent>
-    extends FluidLayoutColumnsFacade<
-        TContent,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayoutColumnFacade<TContent>
-    >
+export class DashboardViewLayoutColumnsFacade<TContent> extends FluidLayoutColumnsFacade<TContent>
     implements IDashboardViewLayoutColumnsFacade<TContent> {
     protected constructor(protected readonly columnFacades: IDashboardViewLayoutColumnFacade<TContent>[]) {
         super(columnFacades);

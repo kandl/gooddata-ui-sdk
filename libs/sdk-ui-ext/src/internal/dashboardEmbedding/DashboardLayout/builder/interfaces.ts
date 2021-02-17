@@ -10,18 +10,6 @@ import {
     FluidLayoutColumnModifications,
 } from "@gooddata/sdk-backend-spi";
 import { ObjRef } from "@gooddata/sdk-model";
-import {
-    IDashboardViewLayout,
-    IDashboardViewLayoutColumn,
-    IDashboardViewLayoutRow,
-} from "../interfaces/dashboardLayout";
-import {
-    IDashboardViewLayoutColumnFacade,
-    IDashboardViewLayoutColumnsFacade,
-    IDashboardViewLayoutFacade,
-    IDashboardViewLayoutRowFacade,
-    IDashboardViewLayoutRowsFacade,
-} from "../facade/interfaces";
 import { KpiWidgetBuilder, InsightWidgetBuilder } from "@gooddata/sdk-backend-base";
 
 /**
@@ -29,83 +17,41 @@ import { KpiWidgetBuilder, InsightWidgetBuilder } from "@gooddata/sdk-backend-ba
  *
  * @alpha
  */
-export type DashboardViewLayoutRowsSelector<TContent> = FluidLayoutRowsSelector<
-    TContent,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>,
-    IDashboardViewLayoutRowsFacade<TContent>
->;
+export type DashboardViewLayoutRowsSelector<TContent> = FluidLayoutRowsSelector<TContent>;
 
 /**
  * Represents a query to select a subset of row columns.
  *
  * @alpha
  */
-export type DashboardViewLayoutColumnsSelector<TContent> = FluidLayoutColumnsSelector<
-    TContent,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnsFacade<TContent>
->;
+export type DashboardViewLayoutColumnsSelector<TContent> = FluidLayoutColumnsSelector<TContent>;
 
 /**
  * Represents a callback to modify the layout.
  *
  * @alpha
  */
-export type DashboardViewLayoutModifications<TContent> = FluidLayoutModifications<
-    TContent,
-    IDashboardViewLayout<TContent>,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>,
-    IDashboardViewLayoutRowsFacade<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnsFacade<TContent>,
-    IDashboardViewLayoutFacade<TContent>,
-    IDashboardViewLayoutColumnBuilder<TContent>,
-    IDashboardViewLayoutRowBuilder<TContent>,
-    IDashboardViewLayoutBuilder<TContent>
->;
+export type DashboardViewLayoutModifications<TContent> = FluidLayoutModifications<TContent>;
 
 /**
  * Represents a callback to modify the layout row.
  *
  * @alpha
  */
-export type DashboardViewLayoutRowModifications<TContent> = FluidLayoutRowModifications<
-    TContent,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnsFacade<TContent>,
-    IDashboardViewLayoutColumnBuilder<TContent>,
-    IDashboardViewLayoutRowBuilder<TContent>
->;
+export type DashboardViewLayoutRowModifications<TContent> = FluidLayoutRowModifications<TContent>;
 
 /**
  * Represents a callback to modify the layout column.
  *
  * @alpha
  */
-export type DashboardViewLayoutColumnModifications<TContent> = FluidLayoutColumnModifications<
-    TContent,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnBuilder<TContent>
->;
+export type DashboardViewLayoutColumnModifications<TContent> = FluidLayoutColumnModifications<TContent>;
 /**
  * Builder for convenient creation or transformation of any {@link IDashboardViewLayoutColumn}.
  *
  * @alpha
  */
-export interface IDashboardViewLayoutColumnBuilder<TContent>
-    extends IFluidLayoutColumnBuilder<
-        TContent,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayoutColumnFacade<TContent>
-    > {
+export interface IDashboardViewLayoutColumnBuilder<TContent> extends IFluidLayoutColumnBuilder<TContent> {
     newInsightWidget(insight: ObjRef, create?: (builder: InsightWidgetBuilder) => InsightWidgetBuilder): this;
     modifyInsightWidget(modify: (builder: InsightWidgetBuilder) => InsightWidgetBuilder): this;
     newKpiWidget(measure: ObjRef, create?: (builder: KpiWidgetBuilder) => KpiWidgetBuilder): this;
@@ -117,15 +63,7 @@ export interface IDashboardViewLayoutColumnBuilder<TContent>
  *
  * @alpha
  */
-export type IDashboardViewLayoutRowBuilder<TContent> = IFluidLayoutRowBuilder<
-    TContent,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnsFacade<TContent>,
-    IDashboardViewLayoutColumnBuilder<TContent>
->;
+export type IDashboardViewLayoutRowBuilder<TContent> = IFluidLayoutRowBuilder<TContent>;
 
 /**
  * Builder for convenient creation or transformation of any {@link IDashboardViewLayout}.
@@ -133,16 +71,4 @@ export type IDashboardViewLayoutRowBuilder<TContent> = IFluidLayoutRowBuilder<
  *
  * @alpha
  */
-export type IDashboardViewLayoutBuilder<TContent> = IFluidLayoutBuilder<
-    TContent,
-    IDashboardViewLayout<TContent>,
-    IDashboardViewLayoutRow<TContent>,
-    IDashboardViewLayoutColumn<TContent>,
-    IDashboardViewLayoutRowFacade<TContent>,
-    IDashboardViewLayoutRowsFacade<TContent>,
-    IDashboardViewLayoutColumnFacade<TContent>,
-    IDashboardViewLayoutColumnsFacade<TContent>,
-    IDashboardViewLayoutFacade<TContent>,
-    IDashboardViewLayoutColumnBuilder<TContent>,
-    IDashboardViewLayoutRowBuilder<TContent>
->;
+export type IDashboardViewLayoutBuilder<TContent> = IFluidLayoutBuilder<TContent>;

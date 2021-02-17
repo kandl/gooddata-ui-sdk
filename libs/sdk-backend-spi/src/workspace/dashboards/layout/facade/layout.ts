@@ -8,9 +8,8 @@ import { FluidLayoutRowsFacade } from "./rows";
 /**
  * @alpha
  */
-export class FluidLayoutFacade<TContent, TLayout extends IFluidLayout<TContent>>
-    implements IFluidLayoutFacade<TContent, TLayout> {
-    protected constructor(protected layout: TLayout) {}
+export class FluidLayoutFacade<TContent> implements IFluidLayoutFacade<TContent> {
+    protected constructor(protected layout: IFluidLayout<TContent>) {}
 
     /**
      * Creates an instance of FluidLayoutFacade
@@ -29,7 +28,7 @@ export class FluidLayoutFacade<TContent, TLayout extends IFluidLayout<TContent>>
         return this.layout.size;
     }
 
-    public raw(): TLayout {
+    public raw(): IFluidLayout<TContent> {
         return this.layout;
     }
 }

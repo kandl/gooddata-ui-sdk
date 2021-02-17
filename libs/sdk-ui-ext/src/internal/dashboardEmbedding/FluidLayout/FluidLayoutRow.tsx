@@ -1,12 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
 import React from "react";
-import {
-    IFluidLayoutColumn,
-    IFluidLayoutColumnFacade,
-    IFluidLayoutRow,
-    IFluidLayoutRowFacade,
-    ResponsiveScreenType,
-} from "@gooddata/sdk-backend-spi";
+import { IFluidLayoutRowFacade, ResponsiveScreenType } from "@gooddata/sdk-backend-spi";
 import {
     IFluidLayoutColumnKeyGetter,
     IFluidLayoutColumnRenderer,
@@ -21,30 +15,18 @@ import { FluidLayoutRowRenderer } from "./FluidLayoutRowRenderer";
 /**
  * @alpha
  */
-export interface IFluidLayoutRowProps<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> {
-    row: TRowFacade;
-    rowKeyGetter?: IFluidLayoutRowKeyGetter<TContent, TRow, TRowFacade>;
-    rowRenderer?: IFluidLayoutRowRenderer<TContent, TRow, TRowFacade>;
-    rowHeaderRenderer?: IFluidLayoutRowHeaderRenderer<TContent, TRow, TRowFacade>;
-    columnKeyGetter?: IFluidLayoutColumnKeyGetter<TContent, TColumn, TColumnFacade>;
-    columnRenderer?: IFluidLayoutColumnRenderer<TContent, TColumn, TColumnFacade>;
-    contentRenderer?: IFluidLayoutContentRenderer<TContent, TColumn, TColumnFacade>;
+export interface IFluidLayoutRowProps<TContent> {
+    row: IFluidLayoutRowFacade<TContent>;
+    rowKeyGetter?: IFluidLayoutRowKeyGetter<TContent>;
+    rowRenderer?: IFluidLayoutRowRenderer<TContent>;
+    rowHeaderRenderer?: IFluidLayoutRowHeaderRenderer<TContent>;
+    columnKeyGetter?: IFluidLayoutColumnKeyGetter<TContent>;
+    columnRenderer?: IFluidLayoutColumnRenderer<TContent>;
+    contentRenderer?: IFluidLayoutContentRenderer<TContent>;
     screen: ResponsiveScreenType;
 }
 
-export function FluidLayoutRow<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
->(props: IFluidLayoutRowProps<TContent, TRow, TColumn, TRowFacade, TColumnFacade>): JSX.Element {
+export function FluidLayoutRow<TContent>(props: IFluidLayoutRowProps<TContent>): JSX.Element {
     const {
         row,
         rowRenderer = FluidLayoutRowRenderer,
@@ -56,7 +38,7 @@ export function FluidLayoutRow<
     } = props;
     const renderProps = { row, screen };
 
-    const columns = row.columns().map((columnFacade: TColumnFacade) => {
+    const columns = row.columns().map((columnFacade) => {
         return (
             <FluidLayoutColumn
                 key={columnKeyGetter({ column: columnFacade, screen })}

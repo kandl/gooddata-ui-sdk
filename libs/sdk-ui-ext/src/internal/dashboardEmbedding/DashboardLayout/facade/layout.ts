@@ -9,8 +9,7 @@ import { DashboardViewLayoutRowsFacade } from "./rows";
  * TODO: RAIL-2869 add docs
  * @alpha
  */
-export class DashboardViewLayoutFacade<TContent>
-    extends FluidLayoutFacade<TContent, IDashboardViewLayout<TContent>>
+export class DashboardViewLayoutFacade<TContent> extends FluidLayoutFacade<TContent>
     implements IDashboardViewLayoutFacade<TContent> {
     protected constructor(protected readonly layout: IDashboardViewLayout<TContent>) {
         super(layout);

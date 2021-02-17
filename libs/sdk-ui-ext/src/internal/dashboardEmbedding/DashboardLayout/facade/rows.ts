@@ -1,6 +1,6 @@
 // (C) 2019-2021 GoodData Corporation
 import { FluidLayoutRowsFacade } from "@gooddata/sdk-backend-spi";
-import { IDashboardViewLayout, IDashboardViewLayoutRow } from "../interfaces/dashboardLayout";
+import { IDashboardViewLayoutRow } from "../interfaces/dashboardLayout";
 import {
     IDashboardViewLayoutRowsFacade,
     IDashboardViewLayoutFacade,
@@ -11,14 +11,7 @@ import { DashboardViewLayoutRowFacade } from "./row";
 /**
  * @alpha
  */
-export class DashboardViewLayoutRowsFacade<TContent>
-    extends FluidLayoutRowsFacade<
-        TContent,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayoutRowFacade<TContent>,
-        IDashboardViewLayout<TContent>,
-        IDashboardViewLayoutFacade<TContent>
-    >
+export class DashboardViewLayoutRowsFacade<TContent> extends FluidLayoutRowsFacade<TContent>
     implements IDashboardViewLayoutRowsFacade<TContent> {
     protected constructor(
         protected readonly layoutFacade: IDashboardViewLayoutFacade<TContent>,

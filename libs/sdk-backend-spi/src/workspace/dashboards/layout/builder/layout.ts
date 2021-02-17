@@ -4,28 +4,15 @@ import difference from "lodash/difference";
 import isArray from "lodash/isArray";
 import identity from "lodash/identity";
 import { UnexpectedError } from "../../../../errors/index";
-import {
-    IFluidLayoutColumnFacade,
-    IFluidLayoutColumnsFacade,
-    IFluidLayoutFacade,
-    IFluidLayoutRowFacade,
-    IFluidLayoutRowsFacade,
-} from "../facade/interfaces";
+import { IFluidLayoutFacade } from "../facade/interfaces";
 import { FluidLayoutFacade } from "../facade/layout";
-import {
-    IFluidLayout,
-    IFluidLayoutColumn,
-    IFluidLayoutRow,
-    IFluidLayoutSize,
-    isFluidLayout,
-} from "../fluidLayout";
+import { IFluidLayout, IFluidLayoutRow, IFluidLayoutSize, isFluidLayout } from "../fluidLayout";
 import {
     FluidLayoutModifications,
     FluidLayoutRowModifications,
     FluidLayoutRowsSelector,
     IFluidLayoutBuilder,
     IFluidLayoutBuilderImpl,
-    IFluidLayoutColumnBuilder,
     IFluidLayoutRowBuilder,
     IFluidLayoutRowBuilderImpl,
     ValueOrUpdateCallback,
@@ -36,45 +23,11 @@ import { resolveValueOrUpdateCallback } from "./utils";
 /**
  * @alpha
  */
-export class FluidLayoutBuilder<
-    TContent,
-    TLayout extends IFluidLayout<TContent>,
-    TRow extends IFluidLayoutRow<TContent>,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TRowsFacade extends IFluidLayoutRowsFacade<TContent, TRow, TRowFacade>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>,
-    TColumnsFacade extends IFluidLayoutColumnsFacade<TContent, TColumn, TColumnFacade>,
-    TLayoutFacade extends IFluidLayoutFacade<TContent, TLayout>,
-    TColumnBuilder extends IFluidLayoutColumnBuilder<TContent, TColumn, TColumnFacade>,
-    TRowBuilder extends IFluidLayoutRowBuilder<
-        TContent,
-        TRow,
-        TColumn,
-        TRowFacade,
-        TColumnFacade,
-        TColumnsFacade,
-        TColumnBuilder
-    >
->
-    implements
-        IFluidLayoutBuilder<
-            TContent,
-            TLayout,
-            TRow,
-            TColumn,
-            TRowFacade,
-            TRowsFacade,
-            TColumnFacade,
-            TColumnsFacade,
-            TLayoutFacade,
-            TColumnBuilder,
-            TRowBuilder
-        > {
+export class FluidLayoutBuilder<TContent> implements IFluidLayoutBuilder<TContent> {
     protected constructor(
-        protected layoutFacade: TLayoutFacade,
-        protected layoutFacadeConstructor: (layout: TLayout) => TLayoutFacade,
-        protected getRowBuilder: (rowIndex: number) => TRowBuilder,
+        protected layoutFacade: IFluidLayoutFacade<TContent>,
+        protected layoutFacadeConstructor: (layout: IFluidLayout<TContent>) => IFluidLayoutFacade<TContent>,
+        protected getRowBuilder: (rowIndex: number) => IFluidLayoutRowBuilder<TContent>,
     ) {}
 
     /**
@@ -116,16 +69,7 @@ export class FluidLayoutBuilder<
     }
 
     public addRow(
-        create: FluidLayoutRowModifications<
-            TContent,
-            TColumn,
-            TRow,
-            TRowFacade,
-            TColumnFacade,
-            TColumnsFacade,
-            TColumnBuilder,
-            TRowBuilder
-        > = identity,
+        create: FluidLayoutRowModifications<TContent> = identity,
         index: number = this.facade().rows().count(),
     ): this {
         const emptyFluidRow: IFluidLayoutRow<TContent> = {
@@ -143,19 +87,7 @@ export class FluidLayoutBuilder<
         return this;
     }
 
-    public modifyRow(
-        index: number,
-        modify: FluidLayoutRowModifications<
-            TContent,
-            TColumn,
-            TRow,
-            TRowFacade,
-            TColumnFacade,
-            TColumnsFacade,
-            TColumnBuilder,
-            TRowBuilder
-        >,
-    ): this {
+    public modifyRow(index: number, modify: FluidLayoutRowModifications<TContent>): this {
         const rowFacade = this.facade().rows().row(index);
         if (!rowFacade) {
             throw new UnexpectedError(`Cannot modify the row - row at index ${index} does not exist!`);
@@ -180,7 +112,7 @@ export class FluidLayoutBuilder<
     }
 
     public moveRow(fromIndex: number, toIndex: number): this {
-        const row = this.facade().rows().row(fromIndex)?.raw() as TRow;
+        const row = this.facade().rows().row(fromIndex)?.raw();
         if (!row) {
             throw new UnexpectedError(`Cannot move the row - row at index ${fromIndex} does not exist!`);
         }
@@ -189,10 +121,8 @@ export class FluidLayoutBuilder<
         return this;
     }
 
-    public removeRows(
-        selector: FluidLayoutRowsSelector<TContent, TRow, TRowFacade, TRowsFacade> = (rows) => rows.all(),
-    ): this {
-        const rowsToRemove = selector(this.facade().rows() as TRowsFacade);
+    public removeRows(selector: FluidLayoutRowsSelector<TContent> = (rows) => rows.all()): this {
+        const rowsToRemove = selector(this.facade().rows());
         if (isArray(rowsToRemove)) {
             this.setLayout((layout) => {
                 const updatedRows = difference(
@@ -215,19 +145,10 @@ export class FluidLayoutBuilder<
     }
 
     public modifyRows(
-        modify: FluidLayoutRowModifications<
-            TContent,
-            TColumn,
-            TRow,
-            TRowFacade,
-            TColumnFacade,
-            TColumnsFacade,
-            TColumnBuilder,
-            TRowBuilder
-        >,
-        selector: FluidLayoutRowsSelector<TContent, TRow, TRowFacade, TRowsFacade> = (rows) => rows.all(),
+        modify: FluidLayoutRowModifications<TContent>,
+        selector: FluidLayoutRowsSelector<TContent> = (rows) => rows.all(),
     ): this {
-        const rowsToModify = selector(this.facade().rows() as TRowsFacade);
+        const rowsToModify = selector(this.facade().rows());
         if (isArray(rowsToModify)) {
             rowsToModify.forEach((row) => {
                 this.modifyRow(row.index(), modify);
@@ -238,37 +159,22 @@ export class FluidLayoutBuilder<
         return this;
     }
 
-    public setLayout = (valueOrUpdateCallback: ValueOrUpdateCallback<TLayout>): this => {
+    public setLayout = (valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayout<TContent>>): this => {
         const updatedLayout = resolveValueOrUpdateCallback(valueOrUpdateCallback, this.build());
         this.layoutFacade = this.layoutFacadeConstructor(updatedLayout);
         return this;
     };
 
-    public facade(): TLayoutFacade {
+    public facade(): IFluidLayoutFacade<TContent> {
         return this.layoutFacade;
     }
 
-    public modify(
-        modifications: FluidLayoutModifications<
-            TContent,
-            TLayout,
-            TRow,
-            TColumn,
-            TRowFacade,
-            TRowsFacade,
-            TColumnFacade,
-            TColumnsFacade,
-            TLayoutFacade,
-            TColumnBuilder,
-            TRowBuilder,
-            this
-        >,
-    ): this {
+    public modify(modifications: FluidLayoutModifications<TContent>): this {
         modifications(this, this.facade());
         return this;
     }
 
-    public build(): TLayout {
+    public build(): IFluidLayout<TContent> {
         return this.layoutFacade.raw();
     }
 }

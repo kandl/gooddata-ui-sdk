@@ -19,15 +19,10 @@ import { IFluidLayoutRowBuilderImpl } from "./interfaces";
 /**
  * @alpha
  */
-export class FluidLayoutColumnBuilder<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TRow extends IFluidLayoutRow<TContent>,
-    TColumnFacade extends IFluidLayoutColumnFacade<TContent, TColumn>
-> implements IFluidLayoutColumnBuilder<TContent, TColumn, TColumnFacade> {
+export class FluidLayoutColumnBuilder<TContent> implements IFluidLayoutColumnBuilder<TContent> {
     protected constructor(
-        protected setRow: (valueOrUpdateCallback: ValueOrUpdateCallback<TRow>) => void,
-        protected getColumnFacade: () => TColumnFacade,
+        protected setRow: (valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayoutRow<TContent>>) => void,
+        protected getColumnFacade: () => IFluidLayoutColumnFacade<TContent>,
         protected columnIndex: number,
     ) {}
 
@@ -67,7 +62,7 @@ export class FluidLayoutColumnBuilder<
         return this;
     }
 
-    public setColumn = (valueOrUpdateCallback: ValueOrUpdateCallback<TColumn>): this => {
+    public setColumn = (valueOrUpdateCallback: ValueOrUpdateCallback<IFluidLayoutColumn<TContent>>): this => {
         this.setRow((row) => {
             const updatedColumns = [...row.columns];
             updatedColumns[this.columnIndex] = resolveValueOrUpdateCallback(
@@ -82,18 +77,16 @@ export class FluidLayoutColumnBuilder<
         return this;
     };
 
-    public modify(
-        modifications: FluidLayoutColumnModifications<TContent, TColumn, TColumnFacade, this>,
-    ): this {
+    public modify(modifications: FluidLayoutColumnModifications<TContent>): this {
         modifications(this, this.facade());
         return this;
     }
 
-    public build(): TColumn {
+    public build(): IFluidLayoutColumn<TContent> {
         return this.facade().raw();
     }
 
-    public facade(): TColumnFacade {
+    public facade(): IFluidLayoutColumnFacade<TContent> {
         return this.getColumnFacade();
     }
 }

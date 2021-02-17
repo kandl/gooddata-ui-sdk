@@ -3,7 +3,6 @@ import isEqual from "lodash/isEqual";
 import isNil from "lodash/isNil";
 import {
     IFluidLayoutColumn,
-    IFluidLayoutRow,
     IFluidLayoutSize,
     IFluidLayoutSizeByScreen,
     ResponsiveScreenType,
@@ -19,15 +18,10 @@ import {
 /**
  * @alpha
  */
-export class FluidLayoutColumnFacade<
-    TContent,
-    TColumn extends IFluidLayoutColumn<TContent>,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>
-> implements IFluidLayoutColumnFacade<TContent, TColumn> {
+export class FluidLayoutColumnFacade<TContent> implements IFluidLayoutColumnFacade<TContent> {
     protected constructor(
-        protected readonly rowFacade: TRowFacade,
-        protected readonly column: TColumn,
+        protected readonly rowFacade: IFluidLayoutRowFacade<TContent>,
+        protected readonly column: IFluidLayoutColumn<TContent>,
         protected readonly columnIndex: number,
     ) {}
 
@@ -39,7 +33,7 @@ export class FluidLayoutColumnFacade<
         return new FluidLayoutColumnFacade(rowFacade, column, index);
     }
 
-    public raw(): TColumn {
+    public raw(): IFluidLayoutColumn<TContent> {
         return this.column;
     }
 
@@ -87,7 +81,7 @@ export class FluidLayoutColumnFacade<
         return this.indexIs(this.rowFacade.columns().count() - 1);
     }
 
-    public testRaw(pred: (column: TColumn) => boolean): boolean {
+    public testRaw(pred: (column: IFluidLayoutColumn<TContent>) => boolean): boolean {
         return pred(this.raw());
     }
 

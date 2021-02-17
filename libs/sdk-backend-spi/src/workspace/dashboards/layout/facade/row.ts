@@ -1,7 +1,7 @@
 // (C) 2019-2021 GoodData Corporation
 import isEqual from "lodash/isEqual";
 import isNil from "lodash/isNil";
-import { IFluidLayout, IFluidLayoutRow, IFluidLayoutSectionHeader } from "../fluidLayout";
+import { IFluidLayoutRow, IFluidLayoutSectionHeader } from "../fluidLayout";
 import { FluidLayoutColumnsFacade } from "./columns";
 import {
     IFluidLayoutRowFacade,
@@ -14,15 +14,10 @@ import {
 /**
  * @alpha
  */
-export class FluidLayoutRowFacade<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TLayout extends IFluidLayout<TContent>,
-    TLayoutFacade extends IFluidLayoutFacade<TContent, TLayout>
-> implements IFluidLayoutRowFacade<TContent, TRow> {
+export class FluidLayoutRowFacade<TContent> implements IFluidLayoutRowFacade<TContent> {
     protected constructor(
-        protected readonly layoutFacade: TLayoutFacade,
-        protected readonly row: TRow,
+        protected readonly layoutFacade: IFluidLayoutFacade<TContent>,
+        protected readonly row: IFluidLayoutRow<TContent>,
         protected readonly rowIndex: number,
     ) {}
 
@@ -34,7 +29,7 @@ export class FluidLayoutRowFacade<
         return new FluidLayoutRowFacade(layoutFacade, row, index);
     }
 
-    public raw(): TRow {
+    public raw(): IFluidLayoutRow<TContent> {
         return this.row;
     }
 
@@ -62,7 +57,7 @@ export class FluidLayoutRowFacade<
         return this.indexIs(this.layoutFacade.rows().count() - 1);
     }
 
-    public testRaw(pred: (row: TRow) => boolean): boolean {
+    public testRaw(pred: (row: IFluidLayoutRow<TContent>) => boolean): boolean {
         return pred(this.raw());
     }
 

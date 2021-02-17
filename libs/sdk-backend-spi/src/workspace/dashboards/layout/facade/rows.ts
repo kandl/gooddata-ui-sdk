@@ -1,6 +1,6 @@
 // (C) 2019-2021 GoodData Corporation
 import flatMap from "lodash/flatMap";
-import { IFluidLayout, IFluidLayoutRow } from "../fluidLayout";
+import { IFluidLayoutRow } from "../fluidLayout";
 import {
     IFluidLayoutRowsFacade,
     IFluidLayoutRowFacade,
@@ -13,16 +13,10 @@ import { FluidLayoutRowFacade } from "./row";
 /**
  * @alpha
  */
-export class FluidLayoutRowsFacade<
-    TContent,
-    TRow extends IFluidLayoutRow<TContent>,
-    TRowFacade extends IFluidLayoutRowFacade<TContent, TRow>,
-    TLayout extends IFluidLayout<TContent>,
-    TLayoutFacade extends IFluidLayoutFacade<TContent, TLayout>
-> implements IFluidLayoutRowsFacade<TContent, TRow, TRowFacade> {
+export class FluidLayoutRowsFacade<TContent> implements IFluidLayoutRowsFacade<TContent> {
     protected constructor(
-        protected readonly layoutFacade: TLayoutFacade,
-        protected readonly rowFacades: TRowFacade[],
+        protected readonly layoutFacade: IFluidLayoutFacade<TContent>,
+        protected readonly rowFacades: IFluidLayoutRowFacade<TContent>[],
     ) {}
 
     public static for<TContent>(
@@ -33,46 +27,50 @@ export class FluidLayoutRowsFacade<
         return new FluidLayoutRowsFacade(layoutFacade, rowFacades);
     }
 
-    public raw(): TRow[] {
+    public raw(): IFluidLayoutRow<TContent>[] {
         return this.rowFacades.map((row) => row.raw());
     }
 
-    public row(rowIndex: number): TRowFacade | undefined {
+    public row(rowIndex: number): IFluidLayoutRowFacade<TContent> | undefined {
         return this.rowFacades[rowIndex];
     }
 
-    public map<TReturn>(callback: (row: TRowFacade) => TReturn): TReturn[] {
+    public map<TReturn>(callback: (row: IFluidLayoutRowFacade<TContent>) => TReturn): TReturn[] {
         return this.rowFacades.map(callback);
     }
 
-    public flatMap<TReturn>(callback: (row: TRowFacade) => TReturn[]): TReturn[] {
+    public flatMap<TReturn>(callback: (row: IFluidLayoutRowFacade<TContent>) => TReturn[]): TReturn[] {
         return flatMap(this.rowFacades, callback);
     }
 
     public reduce<TReturn>(
-        callback: (acc: TReturn, row: TRowFacade) => TReturn,
+        callback: (acc: TReturn, row: IFluidLayoutRowFacade<TContent>) => TReturn,
         initialValue: TReturn,
     ): TReturn {
         return this.rowFacades.reduce(callback, initialValue);
     }
 
-    public find(pred: (row: TRowFacade) => boolean): TRowFacade | undefined {
+    public find(
+        pred: (row: IFluidLayoutRowFacade<TContent>) => boolean,
+    ): IFluidLayoutRowFacade<TContent> | undefined {
         return this.rowFacades.find(pred);
     }
 
-    public every(pred: (row: TRowFacade) => boolean): boolean {
+    public every(pred: (row: IFluidLayoutRowFacade<TContent>) => boolean): boolean {
         return this.rowFacades.every(pred);
     }
 
-    public some(pred: (row: TRowFacade) => boolean): boolean {
+    public some(pred: (row: IFluidLayoutRowFacade<TContent>) => boolean): boolean {
         return this.rowFacades.some(pred);
     }
 
-    public filter(pred: (row: TRowFacade) => boolean): TRowFacade[] {
+    public filter(
+        pred: (row: IFluidLayoutRowFacade<TContent>) => boolean,
+    ): IFluidLayoutRowFacade<TContent>[] {
         return this.rowFacades.filter(pred);
     }
 
-    public all(): TRowFacade[] {
+    public all(): IFluidLayoutRowFacade<TContent>[] {
         return this.rowFacades;
     }
 

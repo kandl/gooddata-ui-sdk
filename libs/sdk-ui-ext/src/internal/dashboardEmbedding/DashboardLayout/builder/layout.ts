@@ -1,43 +1,16 @@
 // (C) 2019-2021 GoodData Corporation
 import invariant from "ts-invariant";
 import { isFluidLayout, FluidLayoutBuilder } from "@gooddata/sdk-backend-spi";
-import {
-    IDashboardViewLayoutColumnFacade,
-    IDashboardViewLayoutColumnsFacade,
-    IDashboardViewLayoutFacade,
-    IDashboardViewLayoutRowFacade,
-    IDashboardViewLayoutRowsFacade,
-} from "../facade/interfaces";
+import { IDashboardViewLayoutFacade } from "../facade/interfaces";
 import { DashboardViewLayoutFacade } from "../facade/layout";
-import {
-    IDashboardViewLayoutBuilder,
-    IDashboardViewLayoutColumnBuilder,
-    IDashboardViewLayoutRowBuilder,
-} from "./interfaces";
+import { IDashboardViewLayoutBuilder, IDashboardViewLayoutRowBuilder } from "./interfaces";
 import { DashboardViewLayoutRowBuilder } from "./row";
-import {
-    IDashboardViewLayout,
-    IDashboardViewLayoutColumn,
-    IDashboardViewLayoutRow,
-} from "../interfaces/dashboardLayout";
+import { IDashboardViewLayout } from "../interfaces/dashboardLayout";
 
 /**
  * @alpha
  */
-export class DashboardViewLayoutBuilder<TContent>
-    extends FluidLayoutBuilder<
-        TContent,
-        IDashboardViewLayout<TContent>,
-        IDashboardViewLayoutRow<TContent>,
-        IDashboardViewLayoutColumn<TContent>,
-        IDashboardViewLayoutRowFacade<TContent>,
-        IDashboardViewLayoutRowsFacade<TContent>,
-        IDashboardViewLayoutColumnFacade<TContent>,
-        IDashboardViewLayoutColumnsFacade<TContent>,
-        IDashboardViewLayoutFacade<TContent>,
-        IDashboardViewLayoutColumnBuilder<TContent>,
-        IDashboardViewLayoutRowBuilder<TContent>
-    >
+export class DashboardViewLayoutBuilder<TContent> extends FluidLayoutBuilder<TContent>
     implements IDashboardViewLayoutBuilder<TContent> {
     protected constructor(
         protected layoutFacade: IDashboardViewLayoutFacade<TContent>,
