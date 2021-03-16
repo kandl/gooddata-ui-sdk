@@ -17,6 +17,7 @@ import {
 } from "./workspaceObjects";
 import { tigerOrganizationObjectsClientFactory } from "./OrganizationObjects";
 import { tigerValidObjectsClientFactory } from "./validObjects";
+import { tigerDeclarativeLayoutClientFactory } from "./layout";
 import {
     axios as defaultAxios,
     newAxios,
@@ -55,6 +56,7 @@ export {
     LabelElementsRequestArgs,
     tigerValidObjectsClientFactory,
     tigerOrganizationObjectsClientFactory,
+    tigerDeclarativeLayoutClientFactory,
 };
 
 export interface ITigerClient {
@@ -64,6 +66,7 @@ export interface ITigerClient {
     labelElements: ReturnType<typeof tigerLabelElementsClientFactory>;
     validObjects: ReturnType<typeof tigerValidObjectsClientFactory>;
     organizationObjects: ReturnType<typeof tigerOrganizationObjectsClientFactory>;
+    declarativeLayout: ReturnType<typeof tigerDeclarativeLayoutClientFactory>;
 
     /**
      * Updates tiger client to send the provided API TOKEN in `Authorization` header of all
@@ -85,6 +88,7 @@ export const tigerClientFactory = (axios: AxiosInstance): ITigerClient => {
     const workspaceObjects = tigerWorkspaceObjectsClientFactory(axios);
     const validObjects = tigerValidObjectsClientFactory(axios);
     const organizationObjects = tigerOrganizationObjectsClientFactory(axios);
+    const declarativeLayout = tigerDeclarativeLayoutClientFactory(axios);
 
     return {
         axios,
@@ -93,6 +97,7 @@ export const tigerClientFactory = (axios: AxiosInstance): ITigerClient => {
         workspaceObjects,
         validObjects,
         organizationObjects,
+        declarativeLayout,
         setApiToken: (token: string | undefined): void => {
             setAxiosAuthorizationToken(axios, token);
         },
