@@ -10,6 +10,7 @@ import {
     PlaceholdersResolvedValues,
 } from "./base";
 import { usePlaceholdersContext, PlaceholdersState } from "./context";
+import invariant from "ts-invariant";
 import {
     setPlaceholder,
     resolvePlaceholderValue,
@@ -20,20 +21,28 @@ import {
 /**
  * React hook to obtain/set placeholder value.
  * See {@link IPlaceholder}.
+ *
+ * Note: When placeholder is not provided, setting its value will result in the error.
+ *
  * @public
  */
 export function usePlaceholder<T extends IPlaceholder<any>>(
-    placeholder: T,
+    placeholder?: T,
 ): [
     PlaceholderValue<T> | undefined,
     (valueOrUpdateCallback: ValueOrUpdateCallback<PlaceholderValue<T> | undefined>) => void,
 ] {
     const { state, updateState } = usePlaceholdersContext();
-    const resolvedPlaceholderValue = resolvePlaceholderValue(placeholder, state);
+    const resolvedPlaceholderValue = placeholder && resolvePlaceholderValue(placeholder, state);
 
     const setPlaceholderValue = useCallback(
         (valueOrUpdateCallback: ValueOrUpdateCallback<PlaceholderValue<T> | undefined>) => {
             updateState((s): PlaceholdersState => {
+                invariant(
+                    placeholder,
+                    "usePlaceholder: Cannot set value of the placeholder - placeholder was not provided.",
+                );
+
                 const resoledPlaceholderValue = resolvePlaceholderValue(
                     placeholder,
                     s,
