@@ -29,7 +29,6 @@ import {
     IBucketItem,
     IDrillDownContext,
     IExtendedReferencePoint,
-    IImplicitDrillDown,
     IReferencePoint,
     IUiConfig,
     IVisConstruct,
@@ -55,7 +54,7 @@ import {
 import { setColumnBarChartUiConfig } from "../../utils/uiConfigHelpers/columnBarChartUiConfigHelper";
 import { PluggableBaseChart } from "./baseChart/PluggableBaseChart";
 import { addIntersectionFiltersToInsight, modifyBucketsAttributesForDrillDown } from "./drillDownUtil";
-
+import { IDrillDownDefinition } from "../../dashboardEmbedding/types";
 export class PluggableColumnBarCharts extends PluggableBaseChart {
     constructor(props: IVisConstruct) {
         super(props);
@@ -111,7 +110,7 @@ export class PluggableColumnBarCharts extends PluggableBaseChart {
         return hasStackByAttributes ? arrayUtils.shiftArrayRight(intersection) : intersection;
     }
 
-    private addFiltersForColumnBar(source: IInsight, drillConfig: IImplicitDrillDown, event: IDrillEvent) {
+    private addFiltersForColumnBar(source: IInsight, drillConfig: IDrillDownDefinition, event: IDrillEvent) {
         const clicked = drillDownFromAttributeLocalId(drillConfig);
 
         const reorderedIntersection = this.adjustIntersectionForColumnBar(source, event);

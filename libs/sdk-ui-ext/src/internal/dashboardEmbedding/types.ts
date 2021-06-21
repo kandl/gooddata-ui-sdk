@@ -7,6 +7,7 @@ import {
     IPositiveAttributeFilter,
     INegativeAttributeFilter,
     ObjRef,
+    LocalIdRef,
 } from "@gooddata/sdk-model";
 import { IDrillEvent, ILocale, OnFiredDrillEvent } from "@gooddata/sdk-ui";
 
@@ -40,6 +41,15 @@ export type IDashboardFilter =
  */
 export interface IDrillDownDefinition {
     type: "drillDown";
+
+    /**
+     * Local identifier of the attribute that triggered the drill down.
+     */
+    origin: LocalIdRef;
+
+    /**
+     * Target attribute display form for drill down.
+     */
     target: ObjRef;
 }
 
@@ -64,7 +74,7 @@ export interface IDashboardDrillEvent extends IDrillEvent {
     /**
      * Reference to the widget that triggered the drill event.
      */
-    widgetRef?: ObjRef;
+    widgetRef: ObjRef;
 }
 
 /**

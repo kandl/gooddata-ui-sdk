@@ -46,6 +46,7 @@ import {
 } from "./insight";
 import { DashboardAlertCreated, DashboardAlertUpdated, DashboardAlertRemoved } from "./alerts";
 import { DashboardScheduledEmailCreated } from "./scheduledEmail";
+import { DashboardDrillPerformed } from "./drill";
 
 export { IDashboardEvent, DashboardEventType, isDashboardEvent } from "./base";
 export {
@@ -105,6 +106,7 @@ export {
 } from "./insight";
 export { DashboardAlertCreated, DashboardAlertRemoved, DashboardAlertUpdated } from "./alerts";
 export { DashboardScheduledEmailCreated } from "./scheduledEmail";
+export { DashboardDrillPerformed } from "./drill";
 
 /**
  * @internal
@@ -149,4 +151,5 @@ export type DashboardEvents =
     | DashboardAlertCreated
     | DashboardAlertRemoved
     | DashboardAlertUpdated
-    | DashboardScheduledEmailCreated;
+    | DashboardScheduledEmailCreated
+    | DashboardDrillPerformed;

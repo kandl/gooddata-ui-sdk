@@ -45,7 +45,8 @@ export type DashboardEventType =
     | "GDC.DASH/EVT.ALERT.CREATED"
     | "GDC.DASH/EVT.ALERT.UPDATED"
     | "GDC.DASH/EVT.ALERT.REMOVED"
-    | "GDC.DASH/EVT.SCHEDULED_EMAIL.CREATED";
+    | "GDC.DASH/EVT.SCHEDULED_EMAIL.CREATED"
+    | "GDC.DASH/EVT.DRILL.PERFORMED";
 
 /**
  * Base type for all dashboard events.

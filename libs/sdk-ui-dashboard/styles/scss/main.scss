@@ -2,3 +2,11 @@
 @import "globals";
 @import "filterBar";
 @import "topBar";
+@import "drillModalPicker";
+@import "drillModal";
+
+// TODO: add font-family to overlay in sdk-ui-kit (as it is rendered outside of the root element)?
+body {
+    background: $gd-dashboards-content-backgroundColor;
+    font-family: $gd-font-primary;
+}

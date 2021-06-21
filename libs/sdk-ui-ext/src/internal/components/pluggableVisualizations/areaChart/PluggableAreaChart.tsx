@@ -21,7 +21,6 @@ import {
     IBucketOfFun,
     IDrillDownContext,
     IExtendedReferencePoint,
-    IImplicitDrillDown,
     IReferencePoint,
     IUiConfig,
     IVisConstruct,
@@ -62,6 +61,7 @@ import {
     modifyBucketsAttributesForDrillDown,
     reverseAndTrimIntersection,
 } from "../drillDownUtil";
+import { IDrillDownDefinition } from "../../../dashboardEmbedding/types";
 
 export class PluggableAreaChart extends PluggableBaseChart {
     constructor(props: IVisConstruct) {
@@ -145,7 +145,7 @@ export class PluggableAreaChart extends PluggableBaseChart {
         return AREA_CHART_SUPPORTED_PROPERTIES;
     }
 
-    private addFilters(source: IInsight, drillConfig: IImplicitDrillDown, event: IDrillEvent) {
+    private addFilters(source: IInsight, drillConfig: IDrillDownDefinition, event: IDrillEvent) {
         const cutIntersection = reverseAndTrimIntersection(drillConfig, event.drillContext.intersection);
         return addIntersectionFiltersToInsight(source, cutIntersection);
     }

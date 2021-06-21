@@ -7,9 +7,15 @@ import isEqual from "lodash/isEqual";
 import compose from "lodash/flowRight";
 import { injectIntl, WrappedComponentProps } from "react-intl";
 import { IExecutionFactory, IExportResult, ITheme, IUserWorkspaceSettings } from "@gooddata/sdk-backend-spi";
-import { IInsightDefinition, insightProperties, IColorPalette, insightTitle } from "@gooddata/sdk-model";
+import {
+    IInsightDefinition,
+    insightProperties,
+    IColorPalette,
+    insightTitle,
+    IInsight,
+} from "@gooddata/sdk-model";
 
-import { IVisualization, IVisProps, FullVisualizationCatalog } from "../internal";
+import { IVisualization, IVisProps, FullVisualizationCatalog, IDrillDownContext } from "../internal";
 import {
     OnError,
     fillMissingTitles,
@@ -22,6 +28,7 @@ import {
     IExportFunction,
     IExtendedExportConfig,
     IntlWrapper,
+    IDrillEvent,
 } from "@gooddata/sdk-ui";
 import {
     ExecutionFactoryUpgradingToExecByReference,
@@ -36,8 +43,17 @@ import { IInsightViewProps } from "./types";
 export interface IInsightRendererProps
     extends Omit<
         IInsightViewProps,
-        "insight" | "TitleComponent" | "onInsightLoaded" | "showTitle" | "afterRender"
+        "insight" | "TitleComponent" | "onInsightLoaded" | "showTitle" | "afterRender" | "onDrill"
     > {
+    onDrill?: (
+        event: IDrillEvent,
+        exposedVisualizationCallbacks: {
+            getInsightWithDrillDownApplied(
+                sourceVisualization: IInsight,
+                drillDownContext: IDrillDownContext,
+            ): IInsight;
+        },
+    ) => void;
     insight: IInsightDefinition | undefined;
     locale: ILocale;
     settings: IUserWorkspaceSettings | undefined;
@@ -145,7 +161,12 @@ class InsightRendererCore extends React.PureComponent<IInsightRendererProps & Wr
                     this.props.onLoadingChanged?.({ isLoading });
                 },
                 pushData: this.props.pushData,
-                onDrill: this.props.onDrill,
+                onDrill: (drillEvent) => {
+                    this.props.onDrill?.(drillEvent, {
+                        // I'm not sure about better way how to propagate this method bottom-up.
+                        getInsightWithDrillDownApplied: this.getInsightWithDrillDownApplied.bind(this),
+                    });
+                },
                 onExportReady: this.onExportReadyDecorator,
             },
             configPanelElement: ".gd-configuration-panel-content", // this is apparently a well-know constant (see BaseVisualization)
@@ -227,6 +248,13 @@ class InsightRendererCore extends React.PureComponent<IInsightRendererProps & Wr
 
     public componentWillUnmount() {
         this.unmountVisualization();
+    }
+
+    public getInsightWithDrillDownApplied(
+        sourceVisualization: IInsight,
+        drillDownContext: IDrillDownContext,
+    ): IInsight {
+        return this.visualization.getInsightWithDrillDownApplied(sourceVisualization, drillDownContext);
     }
 
     public render(): React.ReactNode {

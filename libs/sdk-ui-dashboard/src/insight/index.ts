@@ -2,3 +2,4 @@
 export { DashboardInsight } from "./DashboardInsight";
 export { DefaultDashboardInsight } from "./DefaultDashboardInsight";
 export { DashboardInsightProps } from "./types";
+export { InsightWithDrillSelect as InsightWithDrillPicker } from "./InsightWithDrillPicker";

@@ -3,19 +3,21 @@ import React from "react";
 import { FilterContextItem, IAnalyticalBackend, IInsightWidget } from "@gooddata/sdk-backend-spi";
 import { IInsight } from "@gooddata/sdk-model";
 import { IDrillableItem, IErrorProps, IHeaderPredicate, ILoadingProps, OnError } from "@gooddata/sdk-ui";
-import { OnFiredDashboardViewDrillEvent } from "@gooddata/sdk-ui-ext";
+import { DrillStep, OnDashboardDrill } from "../drill/Types";
 
 /**
  * @internal
  */
 export interface DashboardInsightProps {
+    onDrillSelect?: (drillStep: DrillStep) => void;
+    disableWidgetImplicitDrills?: boolean;
     insightWidget: IInsightWidget;
     insight: IInsight;
     backend?: IAnalyticalBackend;
     workspace?: string;
     filters?: FilterContextItem[];
     drillableItems?: Array<IDrillableItem | IHeaderPredicate>;
-    onDrill?: OnFiredDashboardViewDrillEvent;
+    onDrill?: OnDashboardDrill;
     onError?: OnError;
     ErrorComponent?: React.ComponentType<IErrorProps>;
     LoadingComponent?: React.ComponentType<ILoadingProps>;

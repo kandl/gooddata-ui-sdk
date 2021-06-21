@@ -7,11 +7,11 @@ import { AXIS, AXIS_NAME } from "../../../constants/axis";
 import { ATTRIBUTE, BUCKETS, DATE } from "../../../constants/bucket";
 import { LINE_CHART_SUPPORTED_PROPERTIES } from "../../../constants/supportedProperties";
 import { DEFAULT_LINE_UICONFIG, LINE_UICONFIG_WITH_MULTIPLE_DATES } from "../../../constants/uiConfig";
+import { IDrillDownDefinition } from "../../../dashboardEmbedding/types";
 import {
     IBucketItem,
     IDrillDownContext,
     IExtendedReferencePoint,
-    IImplicitDrillDown,
     IReferencePoint,
     IVisConstruct,
     IUiConfig,
@@ -204,7 +204,7 @@ export class PluggableLineChart extends PluggableBaseChart {
         return Promise.resolve(sanitizeFilters(newReferencePoint));
     }
 
-    private addFilters(source: IInsight, drillConfig: IImplicitDrillDown, event: IDrillEvent) {
+    private addFilters(source: IInsight, drillConfig: IDrillDownDefinition, event: IDrillEvent) {
         const cutIntersection = reverseAndTrimIntersection(drillConfig, event.drillContext.intersection);
         return addIntersectionFiltersToInsight(source, cutIntersection);
     }
