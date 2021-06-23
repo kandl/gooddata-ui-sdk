@@ -24,11 +24,11 @@ import { DashboardContext } from "../types/commonTypes";
 import { configSliceReducer } from "./config";
 import { dateFilterConfigSliceReducer } from "./dateFilterConfig";
 import { permissionsSliceReducer } from "./permissions";
-import { alertsSliceReducer } from "./alerts/index";
+import { alertsSliceReducer } from "./alerts";
 import { catalogSliceReducer } from "./catalog";
 import { spawn } from "redux-saga/effects";
 import { userSliceReducer } from "./user";
-import { metaSliceReducer } from "./meta/index";
+import { metaSliceReducer } from "./meta";
 import { DashboardState } from "./types";
 import { AllQueryServices } from "../queryServices";
 import { createQueryProcessingModule } from "./_infra/queryProcessing";
@@ -36,6 +36,7 @@ import { IDashboardQueryService } from "./_infra/queryService";
 import values from "lodash/values";
 import merge from "lodash/merge";
 import keyBy from "lodash/keyBy";
+import { listedDashboardsSliceReducer } from "./listedDashboards";
 
 /**
  * TODO: unfortunate. normally the typings get inferred from store. However since this code creates store
@@ -175,6 +176,9 @@ export function createDashboardStore(config: DashboardStoreConfig): ReduxedDashb
                     "GDC.DASH/EVT.COMMAND.FAILED",
                     "GDC.DASH/EVT.QUERY.FAILED",
                     "@@QUERY.ENVELOPE",
+                    // Drill contains non-serializable dataView
+                    "GDC.DASH/CMD.DRILL.PERFORM",
+                    "GDC.DASH/EVT.DRILL.PERFORMED",
                 ],
                 ignoredActionPaths: ["ctx"],
             },
@@ -196,6 +200,7 @@ export function createDashboardStore(config: DashboardStoreConfig): ReduxedDashb
         user: userSliceReducer,
         meta: metaSliceReducer,
         _queryCache: queryProcessing.queryCacheReducer,
+        listedDashboards: listedDashboardsSliceReducer,
     });
 
     const store = configureStore({

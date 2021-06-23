@@ -128,4 +128,12 @@
 
 .overlay-wrapper {
     z-index: 5001;
+
+    @media #{$medium-up} {
+        // z-index: auto;
+
+        &.gd-header-menu-overlay {
+            z-index: 5001;
+        }
+    }
 }

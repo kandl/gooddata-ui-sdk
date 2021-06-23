@@ -31,8 +31,8 @@ import { IDashboardAttributeFilter } from '@gooddata/sdk-backend-spi';
 import { IDashboardAttributeFilterParent } from '@gooddata/sdk-backend-spi';
 import { IDashboardDateFilter } from '@gooddata/sdk-backend-spi';
 import { IDashboardDateFilterConfig as IDashboardDateFilterConfig_2 } from '@gooddata/sdk-backend-spi';
+import { IDashboardDrillEvent } from '@gooddata/sdk-ui-ext';
 import { IDashboardFilter } from '@gooddata/sdk-ui-ext';
-import { IDashboardFilter as IDashboardFilter_2 } from '@gooddata/sdk-ui-ext/esm';
 import { IDashboardFilterReference } from '@gooddata/sdk-backend-spi';
 import { IDashboardLayout } from '@gooddata/sdk-backend-spi';
 import { IDashboardLayoutItem } from '@gooddata/sdk-backend-spi';
@@ -41,6 +41,8 @@ import { IDashboardLayoutSectionHeader } from '@gooddata/sdk-backend-spi';
 import { IDateFilterConfig } from '@gooddata/sdk-backend-spi';
 import { IDateFilterOptionsByType } from '@gooddata/sdk-ui-filters';
 import { IDrillableItem } from '@gooddata/sdk-ui';
+import { IDrillDownContext } from '@gooddata/sdk-ui-ext/esm/internal';
+import { IDrillDownDefinition } from '@gooddata/sdk-ui-ext';
 import { IErrorProps } from '@gooddata/sdk-ui';
 import { IFilterContextDefinition } from '@gooddata/sdk-backend-spi';
 import { IHeaderPredicate } from '@gooddata/sdk-ui';
@@ -52,6 +54,7 @@ import { IKpiWidgetDefinition } from '@gooddata/sdk-backend-spi';
 import { ILegacyKpi } from '@gooddata/sdk-backend-spi';
 import { ILegacyKpiComparisonDirection } from '@gooddata/sdk-backend-spi';
 import { ILegacyKpiComparisonTypeComparison } from '@gooddata/sdk-backend-spi';
+import { IListedDashboard } from '@gooddata/sdk-backend-spi';
 import { ILoadingProps } from '@gooddata/sdk-ui';
 import { ILocale } from '@gooddata/sdk-ui';
 import { InsightDisplayFormUsage } from '@gooddata/sdk-model';
@@ -60,6 +63,7 @@ import { IScheduledMail } from '@gooddata/sdk-backend-spi';
 import { IScheduledMailDefinition } from '@gooddata/sdk-backend-spi';
 import { ISeparators } from '@gooddata/sdk-backend-spi';
 import { ISettings } from '@gooddata/sdk-backend-spi';
+import { ITheme } from '@gooddata/sdk-backend-spi';
 import { IUser } from '@gooddata/sdk-backend-spi';
 import { IWidget } from '@gooddata/sdk-backend-spi';
 import { IWidgetAlert } from '@gooddata/sdk-backend-spi';
@@ -68,7 +72,6 @@ import { IWorkspacePermissions } from '@gooddata/sdk-backend-spi';
 import { ObjRef } from '@gooddata/sdk-model';
 import { OnError } from '@gooddata/sdk-ui';
 import { OnFiredDashboardViewDrillEvent } from '@gooddata/sdk-ui-ext';
-import { OnFiredDashboardViewDrillEvent as OnFiredDashboardViewDrillEvent_2 } from '@gooddata/sdk-ui-ext/esm';
 import { Patch } from 'immer';
 import { default as React_2 } from 'react';
 import { ScreenSize } from '@gooddata/sdk-backend-spi';
@@ -462,10 +465,10 @@ export interface DashboardCommandRejected extends IDashboardEvent {
 }
 
 // @internal (undocumented)
-export type DashboardCommands = LoadDashboard | SaveDashboard | SaveDashboardAs | RenameDashboard | ResetDashboard | ChangeDateFilterSelection | AddAttributeFilter | RemoveAttributeFilters | MoveAttributeFilter | ChangeAttributeFilterSelection | SetAttributeFilterParent | AddLayoutSection | MoveLayoutSection | RemoveLayoutSection | ChangeLayoutSectionHeader | AddSectionItems | ReplaceSectionItem | MoveSectionItem | RemoveSectionItem | UndoLayoutChanges | ChangeKpiWidgetHeader | ChangeKpiWidgetMeasure | ChangeKpiWidgetFilterSettings | ChangeKpiWidgetComparison | RefreshKpiWidget | ChangeInsightWidgetHeader | ChangeInsightWidgetFilterSettings | ChangeInsightWidgetVisProperties | ChangeInsightWidgetInsight | ModifyDrillsForInsightWidget | RemoveDrillsForInsightWidget | RefreshInsightWidget | CreateAlert | UpdateAlert | RemoveAlert | CreateScheduledEmail;
+export type DashboardCommands = LoadDashboard | SaveDashboard | SaveDashboardAs | RenameDashboard | ResetDashboard | ChangeDateFilterSelection | AddAttributeFilter | RemoveAttributeFilters | MoveAttributeFilter | ChangeAttributeFilterSelection | SetAttributeFilterParent | AddLayoutSection | MoveLayoutSection | RemoveLayoutSection | ChangeLayoutSectionHeader | AddSectionItems | ReplaceSectionItem | MoveSectionItem | RemoveSectionItem | UndoLayoutChanges | ChangeKpiWidgetHeader | ChangeKpiWidgetMeasure | ChangeKpiWidgetFilterSettings | ChangeKpiWidgetComparison | RefreshKpiWidget | ChangeInsightWidgetHeader | ChangeInsightWidgetFilterSettings | ChangeInsightWidgetVisProperties | ChangeInsightWidgetInsight | ModifyDrillsForInsightWidget | RemoveDrillsForInsightWidget | RefreshInsightWidget | CreateAlert | UpdateAlert | RemoveAlert | CreateScheduledEmail | PerformDrill;
 
 // @internal
-export type DashboardCommandType = "GDC.DASH/CMD.LOAD" | "GDC.DASH/CMD.SAVE" | "GDC.DASH/CMD.SAVEAS" | "GDC.DASH/CMD.RESET" | "GDC.DASH/CMD.RENAME" | "GDC.DASH/CMD.DATE_FILTER.CHANGE_SELECTION" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.ADD" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.REMOVE" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.MOVE" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.CHANGE_SELECTION" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.SET_PARENT" | "GDC.DASH/CMD.FLUID_LAYOUT.ADD_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.MOVE_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.REMOVE_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.CHANGE_SECTION_HEADER" | "GDC.DASH/CMD.FLUID_LAYOUT.ADD_ITEMS" | "GDC.DASH/CMD.FLUID_LAYOUT.REPLACE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.MOVE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.REMOVE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.UNDO" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_HEADER" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_MEASURE" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_FILTER_SETTINGS" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_COMPARISON" | "GDC.DASH/CMD.KPI_WIDGET.REFRESH" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_HEADER" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_FILTER_SETTINGS" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_PROPERTIES" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_INSIGHT" | "GDC.DASH/CMD.INSIGHT_WIDGET.MODIFY_DRILLS" | "GDC.DASH/CMD.INSIGHT_WIDGET.REMOVE_DRILLS" | "GDC.DASH/CMD.INSIGHT_WIDGET.REFRESH" | "GDC.DASH/CMD.ALERT.CREATE" | "GDC.DASH/CMD.ALERT.UPDATE" | "GDC.DASH/CMD.ALERT.REMOVE" | "GDC.DASH/CMD.SCHEDULED_EMAIL.CREATE";
+export type DashboardCommandType = "GDC.DASH/CMD.LOAD" | "GDC.DASH/CMD.SAVE" | "GDC.DASH/CMD.SAVEAS" | "GDC.DASH/CMD.RESET" | "GDC.DASH/CMD.RENAME" | "GDC.DASH/CMD.DATE_FILTER.CHANGE_SELECTION" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.ADD" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.REMOVE" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.MOVE" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.CHANGE_SELECTION" | "GDC.DASH/CMD.ATTRIBUTE_FILTER.SET_PARENT" | "GDC.DASH/CMD.FLUID_LAYOUT.ADD_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.MOVE_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.REMOVE_SECTION" | "GDC.DASH/CMD.FLUID_LAYOUT.CHANGE_SECTION_HEADER" | "GDC.DASH/CMD.FLUID_LAYOUT.ADD_ITEMS" | "GDC.DASH/CMD.FLUID_LAYOUT.REPLACE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.MOVE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.REMOVE_ITEM" | "GDC.DASH/CMD.FLUID_LAYOUT.UNDO" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_HEADER" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_MEASURE" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_FILTER_SETTINGS" | "GDC.DASH/CMD.KPI_WIDGET.CHANGE_COMPARISON" | "GDC.DASH/CMD.KPI_WIDGET.REFRESH" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_HEADER" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_FILTER_SETTINGS" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_PROPERTIES" | "GDC.DASH/CMD.INSIGHT_WIDGET.CHANGE_INSIGHT" | "GDC.DASH/CMD.INSIGHT_WIDGET.MODIFY_DRILLS" | "GDC.DASH/CMD.INSIGHT_WIDGET.REMOVE_DRILLS" | "GDC.DASH/CMD.INSIGHT_WIDGET.REFRESH" | "GDC.DASH/CMD.ALERT.CREATE" | "GDC.DASH/CMD.ALERT.UPDATE" | "GDC.DASH/CMD.ALERT.REMOVE" | "GDC.DASH/CMD.SCHEDULED_EMAIL.CREATE" | "GDC.DASH/CMD.DRILL.PERFORM";
 
 // @internal
 export type DashboardConfig = {
@@ -515,6 +518,29 @@ export interface DashboardDateFilterSelectionChanged extends IDashboardEvent {
 // @internal
 export type DashboardDispatch = Dispatch<AnyAction>;
 
+// @internal (undocumented)
+export interface DashboardDrillContext {
+    // (undocumented)
+    getInsightWithDrillDownApplied(sourceVisualization: IInsight, drillDownContext: IDrillDownContext): IInsight;
+    // (undocumented)
+    insight?: IInsight;
+    // (undocumented)
+    widget?: IInsightWidget;
+}
+
+// @internal (undocumented)
+export type DashboardDrillDefinition = DrillDefinition | IDrillDownDefinition;
+
+// @internal
+export interface DashboardDrillPerformed extends IDashboardEvent {
+    // (undocumented)
+    readonly payload: {
+        readonly drillEvent: IDashboardDrillEvent;
+    };
+    // (undocumented)
+    readonly type: "GDC.DASH/EVT.DRILL.PERFORMED";
+}
+
 // @internal
 export type DashboardEventHandler = {
     eval: (type: DashboardEventType) => boolean;
@@ -522,10 +548,10 @@ export type DashboardEventHandler = {
 };
 
 // @internal (undocumented)
-export type DashboardEvents = DashboardLoaded | DateFilterValidationFailed | DashboardCommandFailed | DashboardCommandRejected | DashboardQueryFailed | DashboardQueryRejected | DashboardQueryStarted | DashboardQueryCompleted<any, any> | DashboardSaved | DashboardCopySaved | DashboardRenamed | DashboardWasReset | DashboardDateFilterSelectionChanged | DashboardAttributeFilterAdded | DashboardAttributeFilterRemoved | DashboardAttributeFilterMoved | DashboardAttributeFilterSelectionChanged | DashboardAttributeFilterParentChanged | DashboardFilterContextChanged | DashboardLayoutSectionAdded | DashboardLayoutSectionMoved | DashboardLayoutSectionRemoved | DashboardLayoutSectionHeaderChanged | DashboardLayoutSectionItemsAdded | DashboardLayoutSectionItemReplaced | DashboardLayoutSectionItemMoved | DashboardLayoutSectionItemRemoved | DashboardLayoutChanged | DashboardKpiWidgetHeaderChanged | DashboardKpiWidgetMeasureChanged | DashboardKpiWidgetFilterSettingsChanged | DashboardKpiWidgetComparisonChanged | DashboardKpiWidgetChanged | DashboardInsightWidgetHeaderChanged | DashboardInsightWidgetFilterSettingsChanged | DashboardInsightWidgetVisPropertiesChanged | DashboardInsightWidgetInsightSwitched | DashboardInsightWidgetDrillsModified | DashboardInsightWidgetDrillsRemoved | DashboardInsightWidgetChanged | DashboardAlertCreated | DashboardAlertRemoved | DashboardAlertUpdated | DashboardScheduledEmailCreated;
+export type DashboardEvents = DashboardLoaded | DateFilterValidationFailed | DashboardCommandFailed | DashboardCommandRejected | DashboardQueryFailed | DashboardQueryRejected | DashboardQueryStarted | DashboardQueryCompleted<any, any> | DashboardSaved | DashboardCopySaved | DashboardRenamed | DashboardWasReset | DashboardDateFilterSelectionChanged | DashboardAttributeFilterAdded | DashboardAttributeFilterRemoved | DashboardAttributeFilterMoved | DashboardAttributeFilterSelectionChanged | DashboardAttributeFilterParentChanged | DashboardFilterContextChanged | DashboardLayoutSectionAdded | DashboardLayoutSectionMoved | DashboardLayoutSectionRemoved | DashboardLayoutSectionHeaderChanged | DashboardLayoutSectionItemsAdded | DashboardLayoutSectionItemReplaced | DashboardLayoutSectionItemMoved | DashboardLayoutSectionItemRemoved | DashboardLayoutChanged | DashboardKpiWidgetHeaderChanged | DashboardKpiWidgetMeasureChanged | DashboardKpiWidgetFilterSettingsChanged | DashboardKpiWidgetComparisonChanged | DashboardKpiWidgetChanged | DashboardInsightWidgetHeaderChanged | DashboardInsightWidgetFilterSettingsChanged | DashboardInsightWidgetVisPropertiesChanged | DashboardInsightWidgetInsightSwitched | DashboardInsightWidgetDrillsModified | DashboardInsightWidgetDrillsRemoved | DashboardInsightWidgetChanged | DashboardAlertCreated | DashboardAlertRemoved | DashboardAlertUpdated | DashboardScheduledEmailCreated | DashboardDrillPerformed;
 
 // @internal (undocumented)
-export type DashboardEventType = "GDC.DASH/EVT.COMMAND.FAILED" | "GDC.DASH/EVT.COMMAND.REJECTED" | "GDC.DASH/EVT.QUERY.FAILED" | "GDC.DASH/EVT.QUERY.REJECTED" | "GDC.DASH/EVT.QUERY.STARTED" | "GDC.DASH/EVT.QUERY.COMPLETED" | "GDC.DASH/EVT.LOADED" | "GDC.DASH/EVT.SAVED" | "GDC.DASH/EVT.COPY_SAVED" | "GDC.DASH/EVT.RENAMED" | "GDC.DASH/EVT.RESET" | "GDC.DASH/EVT.DATE_FILTER.VALIDATION.FAILED" | "GDC.DASH/EVT.DATE_FILTER.SELECTION_CHANGED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.ADDED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.REMOVED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.MOVED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.SELECTION_CHANGED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.PARENT_CHANGED" | "GDC.DASH/EVT.FILTERS.FILTER_CONTEXT_CHANGED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_ADDED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_MOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_REMOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_HEADER_CHANGED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEMS_ADDED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_REPLACED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_MOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_REMOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.LAYOUT_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.HEADER_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.MEASURE_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.FILTER_SETTINGS_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.COMPARISON_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.WIDGET_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.HEADER_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.FILTER_SETTINGS_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.PROPERTIES_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.INSIGHT_SWITCHED" | "GDC.DASH/EVT.INSIGHT_WIDGET.DRILLS_MODIFIED" | "GDC.DASH/EVT.INSIGHT_WIDGET.DRILLS_REMOVED" | "GDC.DASH/EVT.INSIGHT_WIDGET.WIDGET_CHANGED" | "GDC.DASH/EVT.ALERT.CREATED" | "GDC.DASH/EVT.ALERT.UPDATED" | "GDC.DASH/EVT.ALERT.REMOVED" | "GDC.DASH/EVT.SCHEDULED_EMAIL.CREATED";
+export type DashboardEventType = "GDC.DASH/EVT.COMMAND.FAILED" | "GDC.DASH/EVT.COMMAND.REJECTED" | "GDC.DASH/EVT.QUERY.FAILED" | "GDC.DASH/EVT.QUERY.REJECTED" | "GDC.DASH/EVT.QUERY.STARTED" | "GDC.DASH/EVT.QUERY.COMPLETED" | "GDC.DASH/EVT.LOADED" | "GDC.DASH/EVT.SAVED" | "GDC.DASH/EVT.COPY_SAVED" | "GDC.DASH/EVT.RENAMED" | "GDC.DASH/EVT.RESET" | "GDC.DASH/EVT.DATE_FILTER.VALIDATION.FAILED" | "GDC.DASH/EVT.DATE_FILTER.SELECTION_CHANGED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.ADDED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.REMOVED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.MOVED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.SELECTION_CHANGED" | "GDC.DASH/EVT.ATTRIBUTE_FILTER.PARENT_CHANGED" | "GDC.DASH/EVT.FILTERS.FILTER_CONTEXT_CHANGED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_ADDED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_MOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_REMOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.SECTION_HEADER_CHANGED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEMS_ADDED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_REPLACED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_MOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.ITEM_REMOVED" | "GDC.DASH/EVT.FLUID_LAYOUT.LAYOUT_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.HEADER_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.MEASURE_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.FILTER_SETTINGS_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.COMPARISON_CHANGED" | "GDC.DASH/EVT.KPI_WIDGET.WIDGET_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.HEADER_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.FILTER_SETTINGS_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.PROPERTIES_CHANGED" | "GDC.DASH/EVT.INSIGHT_WIDGET.INSIGHT_SWITCHED" | "GDC.DASH/EVT.INSIGHT_WIDGET.DRILLS_MODIFIED" | "GDC.DASH/EVT.INSIGHT_WIDGET.DRILLS_REMOVED" | "GDC.DASH/EVT.INSIGHT_WIDGET.WIDGET_CHANGED" | "GDC.DASH/EVT.ALERT.CREATED" | "GDC.DASH/EVT.ALERT.UPDATED" | "GDC.DASH/EVT.ALERT.REMOVED" | "GDC.DASH/EVT.SCHEDULED_EMAIL.CREATED" | "GDC.DASH/EVT.DRILL.PERFORMED";
 
 // @internal
 export interface DashboardFilterContextChanged extends IDashboardEvent {
@@ -547,6 +573,8 @@ export interface DashboardInsightProps {
     // (undocumented)
     clientHeight?: number;
     // (undocumented)
+    disableWidgetImplicitDrills?: boolean;
+    // (undocumented)
     drillableItems?: Array<IDrillableItem | IHeaderPredicate>;
     // (undocumented)
     ErrorComponent?: React_2.ComponentType<IErrorProps>;
@@ -559,7 +587,9 @@ export interface DashboardInsightProps {
     // (undocumented)
     LoadingComponent?: React_2.ComponentType<ILoadingProps>;
     // (undocumented)
-    onDrill?: OnFiredDashboardViewDrillEvent;
+    onDrill?: OnDashboardDrill;
+    // (undocumented)
+    onDrillSelect?: (drillStep: DrillStep) => void;
     // (undocumented)
     onError?: OnError;
     // (undocumented)
@@ -658,9 +688,9 @@ export interface DashboardKpiProps {
     filters?: FilterContextItem[];
     kpiWidget: IKpiWidget;
     LoadingComponent?: React_2.ComponentType<ILoadingProps>;
-    onDrill?: OnFiredDashboardViewDrillEvent_2;
+    onDrill?: OnFiredDashboardViewDrillEvent;
     onError?: OnError;
-    onFiltersChange?: (filters: IDashboardFilter_2[]) => void;
+    onFiltersChange?: (filters: IDashboardFilter[]) => void;
     workspace?: string;
 }
 
@@ -965,6 +995,7 @@ export type DashboardState = {
     meta: DashboardMetaState;
     insights: EntityState<IInsight>;
     alerts: EntityState<IWidgetAlert>;
+    listedDashboards: EntityState<IListedDashboard>;
     _queryCache: {
         [queryName: string]: any;
     };
@@ -1032,6 +1063,9 @@ export type DateFilterValidationResult = "TOO_MANY_CONFIGS" | "NO_CONFIG" | Date
 export const DefaultDashboardInsight: React_2.FC<DashboardInsightProps>;
 
 // @internal (undocumented)
+export const DefaultDashboardInsightWithDrillDialog: (props: DashboardInsightProps) => JSX.Element;
+
+// @internal (undocumented)
 export const DefaultDashboardKpi: React_2.FC<DashboardKpiProps>;
 
 // @internal (undocumented)
@@ -1042,6 +1076,16 @@ export const DefaultDashboardWidget: (props: DashboardWidgetProps) => JSX.Elemen
 
 // @internal (undocumented)
 export const DefaultScheduledEmailDialog: React_2.FC<ScheduledEmailDialogProps>;
+
+// @internal (undocumented)
+export interface DrillStep {
+    // (undocumented)
+    drillDefinition: DashboardDrillDefinition;
+    // (undocumented)
+    drillEvent: IDashboardDrillEvent;
+    // (undocumented)
+    insight?: IInsight;
+}
 
 // @internal
 export function eagerRemoveSectionItem(sectionIndex: number, itemIndex: number, stashIdentifier?: StashedDashboardItemsId, correlationId?: string): RemoveSectionItem;
@@ -1151,6 +1195,8 @@ export interface IDashboardProps {
         Component?: React_2.ComponentType<ScheduledEmailDialogProps>;
         defaultComponentProps?: ScheduledEmailDialogProps;
     };
+    theme?: ITheme;
+    themeModifier?: (theme: ITheme) => ITheme;
     topBarConfig?: {
         Component?: TopBarComponent;
         defaultComponentProps?: IDefaultTopBarProps;
@@ -1427,6 +1473,22 @@ export type ObjectAvailabilityConfig = {
 };
 
 // @internal (undocumented)
+export type OnDashboardDrill = (drillEvent: IDashboardDrillEvent, drillContext: DashboardDrillContext) => void;
+
+// @internal
+export interface PerformDrill extends IDashboardCommand {
+    // (undocumented)
+    readonly payload: {
+        readonly drillEvent: IDashboardDrillEvent;
+    };
+    // (undocumented)
+    readonly type: "GDC.DASH/CMD.DRILL.PERFORM";
+}
+
+// @internal
+export function performDrill(drillEvent: IDashboardDrillEvent, correlationId?: string): PerformDrill;
+
+// @internal (undocumented)
 export interface PermissionsState {
     // (undocumented)
     permissions?: IWorkspacePermissions;
@@ -1656,7 +1718,7 @@ export const selectAllCatalogDisplayFormsMap: import("@reduxjs/toolkit").OutputS
 export const selectAttributesWithDrillDown: import("@reduxjs/toolkit").OutputSelector<DashboardState, (ICatalogAttribute | ICatalogDateAttribute)[], (res1: ICatalogAttribute[], res2: import("@gooddata/sdk-backend-spi").ICatalogDateDataset[]) => (ICatalogAttribute | ICatalogDateAttribute)[]>;
 
 // @internal
-export const selectBasicLayout: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget>, (res: IDashboardLayout<import("../../types/layoutTypes").ExtendedDashboardWidget>) => IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget>>;
+export const selectBasicLayout: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget>, (res: IDashboardLayout<ExtendedDashboardWidget>) => IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget>>;
 
 // @internal
 export const selectCanListUsersInProject: import("@reduxjs/toolkit").OutputSelector<DashboardState, boolean, (res: import("@gooddata/sdk-backend-spi").IWorkspacePermissions) => boolean>;
@@ -1683,10 +1745,10 @@ export const selectConfig: import("@reduxjs/toolkit").OutputSelector<DashboardSt
 export const selectDashboardLoading: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("./loadingState").LoadingState, (res: DashboardState) => import("./loadingState").LoadingState>;
 
 // @internal
-export const selectDashboardRef: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-model").ObjRef, (res: Pick<import("@gooddata/sdk-backend-spi").IDashboard, "title" | "ref" | "description" | "uri" | "updated" | "created" | "isLocked">) => import("@gooddata/sdk-model").ObjRef>;
+export const selectDashboardRef: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-model").ObjRef, (res: Pick<import("@gooddata/sdk-backend-spi").IDashboard, "title" | "ref" | "description" | "uri" | "updated" | "isLocked" | "created">) => import("@gooddata/sdk-model").ObjRef>;
 
 // @internal
-export const selectDashboardTitle: import("@reduxjs/toolkit").OutputSelector<DashboardState, string, (res: Pick<import("@gooddata/sdk-backend-spi").IDashboard, "title" | "ref" | "description" | "uri" | "updated" | "created" | "isLocked">) => string>;
+export const selectDashboardTitle: import("@reduxjs/toolkit").OutputSelector<DashboardState, string, (res: Pick<import("@gooddata/sdk-backend-spi").IDashboard, "title" | "ref" | "description" | "uri" | "updated" | "isLocked" | "created">) => string>;
 
 // @internal
 export const selectDashboardUriRef: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-model").UriRef, (res: string) => import("@gooddata/sdk-model").UriRef>;
@@ -1736,6 +1798,12 @@ export const selectEnableKPIDashboardScheduleRecipients: import("@reduxjs/toolki
 export const selectFilterContext: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-backend-spi").IFilterContextDefinition, (res: import("./filterContextState").FilterContextState) => import("@gooddata/sdk-backend-spi").IFilterContextDefinition>;
 
 // @internal
+export const selectFilterContextAttributeFilters: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardAttributeFilter[], (res: FilterContextItem[]) => IDashboardAttributeFilter[]>;
+
+// @internal
+export const selectFilterContextDateFilter: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardDateFilter | undefined, (res: FilterContextItem[]) => IDashboardDateFilter | undefined>;
+
+// @internal
 export const selectFilterContextFilters: import("@reduxjs/toolkit").OutputSelector<DashboardState, FilterContextItem[], (res: import("@gooddata/sdk-backend-spi").IFilterContextDefinition) => FilterContextItem[]>;
 
 // @internal
@@ -1765,7 +1833,10 @@ export const selectInsightsById: (state: DashboardState) => import("@reduxjs/too
 export const selectIsReadOnly: import("@reduxjs/toolkit").OutputSelector<DashboardState, boolean, (res: import("../..").ResolvedDashboardConfig) => boolean>;
 
 // @internal
-export const selectLayout: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardLayout<import("../../types/layoutTypes").ExtendedDashboardWidget>, (res: LayoutState) => IDashboardLayout<import("../../types/layoutTypes").ExtendedDashboardWidget>>;
+export const selectLayout: import("@reduxjs/toolkit").OutputSelector<DashboardState, IDashboardLayout<ExtendedDashboardWidget>, (res: LayoutState) => IDashboardLayout<ExtendedDashboardWidget>>;
+
+// @internal
+export const selectLayoutFacade: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-ui-ext/esm/internal").IDashboardLayoutFacade<ExtendedDashboardWidget>, (res: LayoutState) => import("@gooddata/sdk-ui-ext/esm/internal").IDashboardLayoutFacade<ExtendedDashboardWidget>>;
 
 // @internal
 export const selectLocale: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-ui").ILocale, (res: import("../..").ResolvedDashboardConfig) => import("@gooddata/sdk-ui").ILocale>;
@@ -1790,6 +1861,9 @@ export const selectStash: import("@reduxjs/toolkit").OutputSelector<DashboardSta
 
 // @internal
 export const selectUser: import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-backend-spi").IUser, (res: import("./userState").UserState) => import("@gooddata/sdk-backend-spi").IUser>;
+
+// @internal
+export const selectWidgetByRef: ((ref: ObjRef) => import("@reduxjs/toolkit").OutputSelector<DashboardState, import("@gooddata/sdk-backend-spi").IKpiWidget | import("@gooddata/sdk-backend-spi").IKpiWidgetDefinition | import("@gooddata/sdk-backend-spi").IInsightWidget | import("@gooddata/sdk-backend-spi").IInsightWidgetDefinition | IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget> | import("../../types/layoutTypes").KpiPlaceholderWidget | import("../../types/layoutTypes").InsightPlaceholderWidget | undefined, (res: import("@gooddata/sdk-ui-ext/esm/internal").IDashboardLayoutFacade<ExtendedDashboardWidget>) => import("@gooddata/sdk-backend-spi").IKpiWidget | import("@gooddata/sdk-backend-spi").IKpiWidgetDefinition | import("@gooddata/sdk-backend-spi").IInsightWidget | import("@gooddata/sdk-backend-spi").IInsightWidgetDefinition | IDashboardLayout<import("@gooddata/sdk-backend-spi").DashboardWidget> | import("../../types/layoutTypes").KpiPlaceholderWidget | import("../../types/layoutTypes").InsightPlaceholderWidget | undefined>) & import("lodash").MemoizedFunction;
 
 // @internal (undocumented)
 export interface SetAttributeFilterParent extends IDashboardCommand {
@@ -1865,6 +1939,12 @@ export const useDashboardDispatch: () => Dispatch<AnyAction>;
 export const useDashboardSelector: TypedUseSelectorHook<DashboardState>;
 
 // @internal (undocumented)
+export const useDrill: (onSuccess?: ((event: DashboardDrillPerformed) => void) | undefined, onError?: ((event: DashboardCommandFailed) => void) | undefined, onBeforeRun?: (() => void) | undefined) => {
+    run: (drillEvent: import("@gooddata/sdk-ui-ext").IDashboardDrillEvent, correlationId?: string | undefined) => void;
+    status?: "error" | "running" | "success" | undefined;
+};
+
+// @internal (undocumented)
 export interface UserState {
     // (undocumented)
     user?: IUser;
@@ -1879,6 +1959,14 @@ export type WidgetFilterSettings = {
 // @internal (undocumented)
 export type WidgetHeader = {
     title?: string;
+};
+
+// @internal (undocumented)
+export type WithDrillSelectProps = {
+    onDrillSelect?: (drillStep: DrillStep) => void;
+    children: (props: {
+        handleDrillSelect: OnDashboardDrill;
+    }) => JSX.Element;
 };
 
 

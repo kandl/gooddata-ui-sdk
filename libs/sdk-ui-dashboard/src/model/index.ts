@@ -38,11 +38,19 @@ export { FilterContextState } from "./state/filterContext/filterContextState";
 export {
     selectFilterContext,
     selectFilterContextFilters,
+    selectFilterContextDateFilter,
+    selectFilterContextAttributeFilters,
 } from "./state/filterContext/filterContextSelectors";
 
 export { UndoEnhancedState, UndoEntry } from "./state/_infra/undoEnhancer";
 export { LayoutState, LayoutStash } from "./state/layout/layoutState";
-export { selectLayout, selectStash, selectBasicLayout } from "./state/layout/layoutSelectors";
+export {
+    selectLayout,
+    selectStash,
+    selectBasicLayout,
+    selectLayoutFacade,
+    selectWidgetByRef,
+} from "./state/layout/layoutSelectors";
 export { DateFilterConfigState } from "./state/dateFilterConfig/dateFilterConfigState";
 export {
     selectDateFilterConfigOverrides,

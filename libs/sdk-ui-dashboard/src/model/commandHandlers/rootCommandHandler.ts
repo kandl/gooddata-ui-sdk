@@ -26,6 +26,7 @@ import { updateAlertHandler } from "./alerts/updateAlertHandler";
 import { createScheduledEmailHandler } from "./scheduledEmail/createScheduledEmailHandler";
 import { replaceSectionItemHandler } from "./layout/replaceSectionItemHandler";
 import { isDashboardEvent } from "../events/base";
+import { performDrillHandler } from "./drill/performDrillHandler";
 
 const DefaultCommandHandlers = {
     "GDC.DASH/CMD.LOAD": loadDashboardHandler,
@@ -64,6 +65,7 @@ const DefaultCommandHandlers = {
     "GDC.DASH/CMD.ALERT.UPDATE": updateAlertHandler,
     "GDC.DASH/CMD.ALERT.REMOVE": removeAlertHandler,
     "GDC.DASH/CMD.SCHEDULED_EMAIL.CREATE": createScheduledEmailHandler,
+    "GDC.DASH/CMD.DRILL.PERFORM": performDrillHandler,
 };
 
 function* unhandledCommand(ctx: DashboardContext, cmd: IDashboardCommand) {
