@@ -1,5 +1,5 @@
 // (C) 2021 GoodData Corporation
-import { IInsightDefinition } from "@gooddata/sdk-model";
+import { IInsight, IInsightDefinition } from "@gooddata/sdk-model";
 
 import {
     IVisualizationSizeInfo,
@@ -57,5 +57,9 @@ export class HeadlineDescriptor implements IVisualizationDescriptor {
             return DASHBOARD_LAYOUT_DEFAULT_KPI_HEIGHT;
         }
         return MAX_VISUALIZATION_HEIGHT;
+    }
+
+    public applyDrillDown(insight: IInsight): IInsight {
+        return insight;
     }
 }
