@@ -3,15 +3,15 @@ import { SagaIterator } from "redux-saga";
 import { dispatchDashboardEvent } from "../../eventEmitter/eventDispatcher";
 import { DashboardContext } from "../../types/commonTypes";
 import { internalErrorOccurred } from "../../events/general";
-import { PerformDrill } from "../../commands/drill";
-import { drillPerformed } from "../../events/drill";
+import { Drill } from "../../commands/drill";
+import { drillTriggered } from "../../events/drill";
 
-export function* performDrillHandler(ctx: DashboardContext, cmd: PerformDrill): SagaIterator<void> {
+export function* performDrillHandler(ctx: DashboardContext, cmd: Drill): SagaIterator<void> {
     // eslint-disable-next-line no-console
     console.debug("handling perform drill", cmd, "in context", ctx);
 
     try {
-        yield dispatchDashboardEvent(drillPerformed(ctx, cmd.payload.drillEvent, cmd.correlationId));
+        yield dispatchDashboardEvent(drillTriggered(ctx, cmd.payload.drillEvent, cmd.correlationId));
     } catch (e) {
         yield dispatchDashboardEvent(
             internalErrorOccurred(

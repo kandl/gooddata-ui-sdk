@@ -1,19 +1,19 @@
 // (C) 2020-2021 GoodData Corporation
 
 import { useDashboardCommandProcessing } from "../dashboard/useDashboardCommandProcessing";
-import { DashboardDrillPerformed, DashboardCommandFailed, performDrill } from "../model";
+import { DashboardDrillTriggered, DashboardCommandFailed, drill } from "../model";
 
 /**
  * @internal
  */
 export const useDrill = (
-    onSuccess?: (event: DashboardDrillPerformed) => void,
+    onSuccess?: (event: DashboardDrillTriggered) => void,
     onError?: (event: DashboardCommandFailed) => void,
     onBeforeRun?: () => void,
 ) => {
     return useDashboardCommandProcessing({
-        commandCreator: performDrill,
-        successEvent: "GDC.DASH/EVT.DRILL.PERFORMED",
+        commandCreator: drill,
+        successEvent: "GDC.DASH/EVT.DRILL.TRIGGERED",
         errorEvent: "GDC.DASH/EVT.COMMAND.FAILED",
         onSuccess,
         onError,

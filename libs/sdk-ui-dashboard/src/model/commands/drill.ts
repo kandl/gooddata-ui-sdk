@@ -14,8 +14,8 @@ import {
  *
  * @internal
  */
-export interface PerformDrill extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM";
+export interface Drill extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL";
     readonly payload: {
         readonly drillEvent: IDashboardDrillEvent;
     };
@@ -27,11 +27,49 @@ export interface PerformDrill extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrill(drillEvent: IDashboardDrillEvent, correlationId?: string): PerformDrill {
+export function drill(drillEvent: IDashboardDrillEvent, correlationId?: string): Drill {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM",
+        type: "GDC.DASH/CMD.DRILL",
         correlationId,
         payload: {
+            drillEvent,
+        },
+    };
+}
+
+//
+//
+//
+
+/**
+ * Performs drill down.
+ *
+ * @internal
+ */
+export interface DrillDown extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_DOWN";
+    readonly payload: {
+        readonly drillDefinition: IDrillDownDefinition;
+        readonly drillEvent: IDashboardDrillEvent;
+    };
+}
+
+/**
+ * Creates the PerformDrillDown command.
+ * Dispatching this command will result into loading additional data and then triggering relevant drill events.
+ *
+ * @internal
+ */
+export function drillDown(
+    drillDefinition: IDrillDownDefinition,
+    drillEvent: IDashboardDrillEvent,
+    correlationId?: string,
+): DrillDown {
+    return {
+        type: "GDC.DASH/CMD.DRILL.DRILL_DOWN",
+        correlationId,
+        payload: {
+            drillDefinition,
             drillEvent,
         },
     };
@@ -46,8 +84,8 @@ export function performDrill(drillEvent: IDashboardDrillEvent, correlationId?: s
  *
  * @internal
  */
-export interface PerformDrillToInsight extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_INSIGHT";
+export interface DrillToInsight extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_TO_INSIGHT";
     readonly payload: {
         readonly drillDefinition: IDrillToInsight;
         readonly drillEvent: IDashboardDrillEvent;
@@ -60,13 +98,13 @@ export interface PerformDrillToInsight extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrillToInsight(
+export function drillToInsight(
     drillDefinition: IDrillToInsight,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
-): PerformDrillToInsight {
+): DrillToInsight {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_INSIGHT",
+        type: "GDC.DASH/CMD.DRILL.DRILL_TO_INSIGHT",
         correlationId,
         payload: {
             drillDefinition,
@@ -84,8 +122,8 @@ export function performDrillToInsight(
  *
  * @internal
  */
-export interface PerformDrillToDashboard extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_DASHBOARD";
+export interface DrillToDashboard extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_TO_DASHBOARD";
     readonly payload: {
         readonly drillDefinition: IDrillToDashboard;
         readonly drillEvent: IDashboardDrillEvent;
@@ -98,13 +136,13 @@ export interface PerformDrillToDashboard extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrillToDashboard(
+export function drillToDashboard(
     drillDefinition: IDrillToDashboard,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
-): PerformDrillToDashboard {
+): DrillToDashboard {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_DASHBOARD",
+        type: "GDC.DASH/CMD.DRILL.DRILL_TO_DASHBOARD",
         correlationId,
         payload: {
             drillDefinition,
@@ -122,8 +160,8 @@ export function performDrillToDashboard(
  *
  * @internal
  */
-export interface PerformDrillToCustomUrl extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_CUSTOM_URL";
+export interface DrillToCustomUrl extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_TO_CUSTOM_URL";
     readonly payload: {
         readonly drillDefinition: IDrillToCustomUrl;
         readonly drillEvent: IDashboardDrillEvent;
@@ -136,13 +174,13 @@ export interface PerformDrillToCustomUrl extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrillToCustomUrl(
+export function drillToCustomUrl(
     drillDefinition: IDrillToCustomUrl,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
-): PerformDrillToCustomUrl {
+): DrillToCustomUrl {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_CUSTOM_URL",
+        type: "GDC.DASH/CMD.DRILL.DRILL_TO_CUSTOM_URL",
         correlationId,
         payload: {
             drillDefinition,
@@ -160,8 +198,8 @@ export function performDrillToCustomUrl(
  *
  * @internal
  */
-export interface PerformDrillToAttributeUrl extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_ATTRIBUTE_URL";
+export interface DrillToAttributeUrl extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_TO_ATTRIBUTE_URL";
     readonly payload: {
         readonly drillDefinition: IDrillToAttributeUrl;
         readonly drillEvent: IDashboardDrillEvent;
@@ -174,51 +212,13 @@ export interface PerformDrillToAttributeUrl extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrillToAttributeUrl(
+export function drillToAttributeUrl(
     drillDefinition: IDrillToAttributeUrl,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
-): PerformDrillToAttributeUrl {
+): DrillToAttributeUrl {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_ATTRIBUTE_URL",
-        correlationId,
-        payload: {
-            drillDefinition,
-            drillEvent,
-        },
-    };
-}
-
-//
-//
-//
-
-/**
- * Performs drill down.
- *
- * @internal
- */
-export interface PerformDrillDown extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_DOWN";
-    readonly payload: {
-        readonly drillDefinition: IDrillDownDefinition;
-        readonly drillEvent: IDashboardDrillEvent;
-    };
-}
-
-/**
- * Creates the PerformDrillDown command.
- * Dispatching this command will result into loading additional data and then triggering relevant drill events.
- *
- * @internal
- */
-export function performDrillDown(
-    drillDefinition: IDrillDownDefinition,
-    drillEvent: IDashboardDrillEvent,
-    correlationId?: string,
-): PerformDrillDown {
-    return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_DOWN",
+        type: "GDC.DASH/CMD.DRILL.DRILL_TO_ATTRIBUTE_URL",
         correlationId,
         payload: {
             drillDefinition,
@@ -236,8 +236,8 @@ export function performDrillDown(
  *
  * @internal
  */
-export interface PerformDrillToLegacyDashboard extends IDashboardCommand {
-    readonly type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_LEGACY_DASHBOARD";
+export interface DrillToLegacyDashboard extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.DRILL_TO_LEGACY_DASHBOARD";
     readonly payload: {
         readonly drillDefinition: IDrillToLegacyDashboard;
         readonly drillEvent: IDashboardDrillEvent;
@@ -250,13 +250,13 @@ export interface PerformDrillToLegacyDashboard extends IDashboardCommand {
  *
  * @internal
  */
-export function performDrillToLegacyDashboard(
+export function drillToLegacyDashboard(
     drillDefinition: IDrillToLegacyDashboard,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
-): PerformDrillToLegacyDashboard {
+): DrillToLegacyDashboard {
     return {
-        type: "GDC.DASH/CMD.DRILL.PERFORM.DRILL_TO_LEGACY_DASHBOARD",
+        type: "GDC.DASH/CMD.DRILL.DRILL_TO_LEGACY_DASHBOARD",
         correlationId,
         payload: {
             drillDefinition,
