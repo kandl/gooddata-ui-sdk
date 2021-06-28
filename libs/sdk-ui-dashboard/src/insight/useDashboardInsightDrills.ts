@@ -16,9 +16,8 @@ import {
 import { IDashboardDrillEvent } from "@gooddata/sdk-ui-ext";
 import { useDashboardSelector, selectAttributesWithDrillDown } from "../model";
 import { getImplicitDrillsWithPredicates } from "../model/_staging/drills/drillingUtils";
-import { useDrill } from "../drill/useDrill";
-import { IDrillDownContext } from "@gooddata/sdk-ui-ext/esm/internal";
 import { OnDashboardDrill } from "../drill/interfaces";
+
 /**
  * @internal
  */
@@ -35,8 +34,6 @@ export interface UseDashboardInsightDrillsProps {
  */
 export const useDashboardInsightDrills = (props: UseDashboardInsightDrillsProps) => {
     const { insightWidget, insight, drillableItems, disableWidgetImplicitDrills, onDrill } = props;
-
-    const { run: performDrill } = useDrill();
 
     const attributesWithDrillDown = useDashboardSelector(selectAttributesWithDrillDown);
     const [possibleDrills, setPossibleDrills] = useState<IAvailableDrillTargetAttribute[]>([]);
@@ -62,7 +59,7 @@ export const useDashboardInsightDrills = (props: UseDashboardInsightDrillsProps)
             attributesWithDrillDown,
             disableWidgetImplicitDrills,
         );
-    }, [insightWidget.drills, possibleDrills, attributesWithDrillDown]);
+    }, [insightWidget.drills, possibleDrills, attributesWithDrillDown, disableWidgetImplicitDrills]);
 
     const implicitDrills = useMemo(() => {
         return flatMap(implicitDrillDefinitions, (info) => info.predicates);
@@ -86,18 +83,8 @@ export const useDashboardInsightDrills = (props: UseDashboardInsightDrillsProps)
     const drillableItemsToUse = props.onDrill ? drillableItems ?? implicitDrills : undefined;
 
     const handleDrill = onDrill
-        ? (
-              event: IDrillEvent,
-              exposedVisualizationCallbacks: {
-                  getInsightWithDrillDownApplied(
-                      sourceVisualization: IInsight,
-                      drillDownContext: IDrillDownContext,
-                  ): IInsight;
-              },
-              handleDrillSelect: OnDashboardDrill,
-          ) => {
+        ? (event: IDrillEvent) => {
               const drillContext = {
-                  ...exposedVisualizationCallbacks,
                   insight,
                   widget: insightWidget,
               };
@@ -108,8 +95,6 @@ export const useDashboardInsightDrills = (props: UseDashboardInsightDrillsProps)
 
               // if there are drillable items, we do not want to return any drillDefinitions as the implicit drills are not even used
               if (drillableItems && typeof onDrill === "function") {
-                  performDrill(enrichedEvent);
-                  handleDrillSelect(enrichedEvent, drillContext);
                   return onDrill(enrichedEvent, drillContext);
               }
 
@@ -127,8 +112,6 @@ export const useDashboardInsightDrills = (props: UseDashboardInsightDrillsProps)
                   ...enrichedEvent,
                   drillDefinitions: matchingImplicitDrillDefinitions.map((info) => info.drillDefinition),
               };
-              performDrill(enrichedEvent);
-              handleDrillSelect(enrichedEvent, drillContext);
               return typeof onDrill === "function" && onDrill(enrichedEvent, drillContext);
           }
         : undefined;

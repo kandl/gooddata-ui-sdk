@@ -70,14 +70,14 @@ const getDashboardTitle = (dashboardRef: ObjRef, dashboardList: IListedDashboard
 };
 
 export const createDrillSelectItems = (
-    drillDefinition: DashboardDrillDefinition[],
+    drillDefinitions: DashboardDrillDefinition[],
     drillEvent: IDrillEvent,
     insights: IInsight[],
     dashboardList: IListedDashboard[],
     dashboardTitle: string,
     moreDetailsMessage: string,
 ): DrillSelectItem[] => {
-    return drillDefinition.map((drillDefinition): DrillSelectItem => {
+    return drillDefinitions.map((drillDefinition): DrillSelectItem => {
         invariant(
             !isDrillToLegacyDashboard(drillDefinition),
             "Drill to pixel perfect dashboards from insight is not supported.",

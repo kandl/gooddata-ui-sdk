@@ -109,6 +109,7 @@ export function* loadDashboardHandler(ctx: DashboardContext, cmd: LoadDashboard)
                 metaActions.setMeta({
                     ref: dashboard.ref,
                     uri: dashboard.uri,
+                    identifier: dashboard.identifier,
                     title: dashboard.title,
                     updated: dashboard.updated,
                     description: dashboard.description,

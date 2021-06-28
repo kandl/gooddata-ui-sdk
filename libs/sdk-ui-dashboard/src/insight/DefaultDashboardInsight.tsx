@@ -22,7 +22,6 @@ import {
     selectSettings,
 } from "../model";
 import { DashboardInsightProps } from "./types";
-import { WithDrillSelect } from "../drill/DrillSelect/WithDrillSelect";
 import { useResolveDashboardInsightFilters } from "./useResolveDashboardInsightFilters";
 import { useResolveDashboardInsightProperties } from "./useResolveDashboardInsightProperties";
 import { useDashboardInsightDrills } from "./useDashboardInsightDrills";
@@ -45,7 +44,6 @@ export const DefaultDashboardInsight: React.FC<DashboardInsightProps> = (props):
         LoadingComponent: CustomLoadingComponent,
         clientHeight,
         disableWidgetImplicitDrills,
-        onDrillSelect,
         onDrill,
     } = props;
     const { ErrorComponent, LoadingComponent } = useDashboardComponentsContext({
@@ -127,53 +125,40 @@ export const DefaultDashboardInsight: React.FC<DashboardInsightProps> = (props):
     const error = insightWithAddedFilters.error ?? visualizationError;
 
     return (
-        <WithDrillSelect onDrillSelect={onDrillSelect}>
-            {({ handleDrillSelect }) => {
-                return (
-                    <div style={insightStyle}>
-                        <div style={insightPositionStyle}>
-                            <IntlWrapper locale={locale}>
-                                {(insightWithAddedFilters.status === "loading" ||
-                                    insightWithAddedFilters.status === "pending" ||
-                                    isVisualizationLoading) && <LoadingComponent />}
-                                {error && (
-                                    <InsightError
-                                        error={error}
-                                        ErrorComponent={ErrorComponent}
-                                        clientHeight={
-                                            settings?.enableKDWidgetCustomHeight ? clientHeight : undefined
-                                        }
-                                        height={null} // make sure the error is aligned to the top (this is the behavior in gdc-dashboards)
-                                    />
-                                )}
-                                {insightWithAddedFilters.status === "success" && (
-                                    <InsightRenderer
-                                        insight={insightWithAddedWidgetProperties}
-                                        backend={effectiveBackend}
-                                        workspace={effectiveWorkspace}
-                                        drillableItems={drillableItemsToUse}
-                                        onDrill={
-                                            handleDrill
-                                                ? (drillEvent, drillContext) =>
-                                                      handleDrill(drillEvent, drillContext, handleDrillSelect)
-                                                : undefined
-                                        }
-                                        config={chartConfig}
-                                        onLoadingChanged={handleLoadingChanged}
-                                        locale={locale}
-                                        settings={settings as IUserWorkspaceSettings}
-                                        colorPalette={colorPalette}
-                                        onError={handleError}
-                                        pushData={handlePushData}
-                                        ErrorComponent={ErrorComponent}
-                                        LoadingComponent={LoadingComponent}
-                                    />
-                                )}
-                            </IntlWrapper>
-                        </div>
-                    </div>
-                );
-            }}
-        </WithDrillSelect>
+        <div style={insightStyle}>
+            <div style={insightPositionStyle}>
+                <IntlWrapper locale={locale}>
+                    {(insightWithAddedFilters.status === "loading" ||
+                        insightWithAddedFilters.status === "pending" ||
+                        isVisualizationLoading) && <LoadingComponent />}
+                    {error && (
+                        <InsightError
+                            error={error}
+                            ErrorComponent={ErrorComponent}
+                            clientHeight={settings?.enableKDWidgetCustomHeight ? clientHeight : undefined}
+                            height={null} // make sure the error is aligned to the top (this is the behavior in gdc-dashboards)
+                        />
+                    )}
+                    {insightWithAddedFilters.status === "success" && (
+                        <InsightRenderer
+                            insight={insightWithAddedWidgetProperties}
+                            backend={effectiveBackend}
+                            workspace={effectiveWorkspace}
+                            drillableItems={drillableItemsToUse}
+                            onDrill={handleDrill}
+                            config={chartConfig}
+                            onLoadingChanged={handleLoadingChanged}
+                            locale={locale}
+                            settings={settings as IUserWorkspaceSettings}
+                            colorPalette={colorPalette}
+                            onError={handleError}
+                            pushData={handlePushData}
+                            ErrorComponent={ErrorComponent}
+                            LoadingComponent={LoadingComponent}
+                        />
+                    )}
+                </IntlWrapper>
+            </div>
+        </div>
     );
 };

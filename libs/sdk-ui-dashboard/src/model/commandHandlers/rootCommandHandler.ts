@@ -27,8 +27,15 @@ import { createScheduledEmailHandler } from "./scheduledEmail/createScheduledEma
 import { replaceSectionItemHandler } from "./layout/replaceSectionItemHandler";
 import { isDashboardEvent } from "../events/base";
 import { performDrillHandler } from "./drill/performDrillHandler";
+import { performDrillDownHandler } from "./drill/performDrilDownHandler";
+import { performDrillToInsightHandler } from "./drill/performDrillToInsightHandler";
+import { performDrillToCustomUrlHandler } from "./drill/performDrillToCustomUrlHandler";
+import { performDrillToAttributeUrlHandler } from "./drill/performDrillToAttributeUrlHandler";
+import { performDrillToDashboardHandler } from "./drill/performDrillToDashboardHandler";
 
-const DefaultCommandHandlers = {
+const DefaultCommandHandlers: {
+    [cmd in DashboardCommands["type"]]?: (...args: any[]) => SagaIterator<any>;
+} = {
     "GDC.DASH/CMD.LOAD": loadDashboardHandler,
     "GDC.DASH/CMD.SAVE": unhandledCommand,
     "GDC.DASH/CMD.SAVEAS": unhandledCommand,
@@ -65,7 +72,12 @@ const DefaultCommandHandlers = {
     "GDC.DASH/CMD.ALERT.UPDATE": updateAlertHandler,
     "GDC.DASH/CMD.ALERT.REMOVE": removeAlertHandler,
     "GDC.DASH/CMD.SCHEDULED_EMAIL.CREATE": createScheduledEmailHandler,
-    "GDC.DASH/CMD.DRILL.PERFORM": performDrillHandler,
+    "GDC.DASH/CMD.DRILL": performDrillHandler,
+    "GDC.DASH/CMD.DRILL.DRILL_DOWN": performDrillDownHandler,
+    "GDC.DASH/CMD.DRILL.DRILL_TO_INSIGHT": performDrillToInsightHandler,
+    "GDC.DASH/CMD.DRILL.DRILL_TO_DASHBOARD": performDrillToDashboardHandler,
+    "GDC.DASH/CMD.DRILL.DRILL_TO_ATTRIBUTE_URL": performDrillToAttributeUrlHandler,
+    "GDC.DASH/CMD.DRILL.DRILL_TO_CUSTOM_URL": performDrillToCustomUrlHandler,
 };
 
 function* unhandledCommand(ctx: DashboardContext, cmd: IDashboardCommand) {

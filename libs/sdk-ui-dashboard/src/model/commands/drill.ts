@@ -8,6 +8,8 @@ import {
     IDrillToInsight,
     IDrillToLegacyDashboard,
 } from "@gooddata/sdk-backend-spi";
+import { DashboardDrillContext } from "../../drill/interfaces";
+import { IInsight } from "@gooddata/sdk-model";
 
 /**
  * Performs drill.
@@ -18,6 +20,7 @@ export interface Drill extends IDashboardCommand {
     readonly type: "GDC.DASH/CMD.DRILL";
     readonly payload: {
         readonly drillEvent: IDashboardDrillEvent;
+        readonly drillContext: DashboardDrillContext;
     };
 }
 
@@ -27,12 +30,17 @@ export interface Drill extends IDashboardCommand {
  *
  * @internal
  */
-export function drill(drillEvent: IDashboardDrillEvent, correlationId?: string): Drill {
+export function drill(
+    drillEvent: IDashboardDrillEvent,
+    drillContext: DashboardDrillContext,
+    correlationId?: string,
+): Drill {
     return {
         type: "GDC.DASH/CMD.DRILL",
         correlationId,
         payload: {
             drillEvent,
+            drillContext,
         },
     };
 }
@@ -49,6 +57,7 @@ export function drill(drillEvent: IDashboardDrillEvent, correlationId?: string):
 export interface DrillDown extends IDashboardCommand {
     readonly type: "GDC.DASH/CMD.DRILL.DRILL_DOWN";
     readonly payload: {
+        readonly insight: IInsight;
         readonly drillDefinition: IDrillDownDefinition;
         readonly drillEvent: IDashboardDrillEvent;
     };
@@ -61,6 +70,7 @@ export interface DrillDown extends IDashboardCommand {
  * @internal
  */
 export function drillDown(
+    insight: IInsight,
     drillDefinition: IDrillDownDefinition,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
@@ -69,6 +79,7 @@ export function drillDown(
         type: "GDC.DASH/CMD.DRILL.DRILL_DOWN",
         correlationId,
         payload: {
+            insight,
             drillDefinition,
             drillEvent,
         },

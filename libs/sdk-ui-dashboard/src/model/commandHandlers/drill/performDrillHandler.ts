@@ -8,15 +8,17 @@ import { drillTriggered } from "../../events/drill";
 
 export function* performDrillHandler(ctx: DashboardContext, cmd: Drill): SagaIterator<void> {
     // eslint-disable-next-line no-console
-    console.debug("handling perform drill", cmd, "in context", ctx);
+    console.debug("handling drill", cmd, "in context", ctx);
 
     try {
-        yield dispatchDashboardEvent(drillTriggered(ctx, cmd.payload.drillEvent, cmd.correlationId));
+        yield dispatchDashboardEvent(
+            drillTriggered(ctx, cmd.payload.drillEvent, cmd.payload.drillContext, cmd.correlationId),
+        );
     } catch (e) {
         yield dispatchDashboardEvent(
             internalErrorOccurred(
                 ctx,
-                "An unexpected error has occurred while creating alert",
+                "An unexpected error has occurred while drilling",
                 e,
                 cmd.correlationId,
             ),

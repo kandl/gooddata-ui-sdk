@@ -12,7 +12,6 @@ import {
     isDrillToCustomUrl,
     IListedDashboard,
 } from "@gooddata/sdk-backend-spi";
-import { IDrillDownContext } from "@gooddata/sdk-ui-ext/esm/internal";
 
 /**
  * @internal
@@ -31,12 +30,15 @@ export type OnDashboardDrill = (
  * @internal
  */
 export interface DashboardDrillContext {
+    /**
+     * Particular insight that triggered the drill event.
+     */
     insight?: IInsight;
+
+    /**
+     * Particular widget that triggered the drill event.
+     */
     widget?: IInsightWidget;
-    getInsightWithDrillDownApplied(
-        sourceVisualization: IInsight,
-        drillDownContext: IDrillDownContext,
-    ): IInsight;
 }
 
 /**

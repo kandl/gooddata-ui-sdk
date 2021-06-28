@@ -1,7 +1,13 @@
 // (C) 2020 GoodData Corporation
 import React from "react";
-import { IInsightWidget } from "@gooddata/sdk-backend-spi";
-import { insightTitle } from "@gooddata/sdk-model";
+import {
+    IDrillToAttributeUrl,
+    IDrillToCustomUrl,
+    IDrillToDashboard,
+    IDrillToInsight,
+    IInsightWidget,
+} from "@gooddata/sdk-backend-spi";
+import { IFilter, IInsight, insightTitle } from "@gooddata/sdk-model";
 import stableStringify from "json-stable-stringify";
 import { DrillStep, OnDashboardDrill } from "../interfaces";
 import { DrillDialog } from "./DrillDialog";
@@ -9,19 +15,61 @@ import { useDashboardSelector } from "../../model/state/dashboardStore";
 import { selectWidgetByRef } from "../../model/state/layout/layoutSelectors";
 import { FullScreenOverlay, Overlay, OverlayPositionType, useMediaQuery } from "@gooddata/sdk-ui-kit";
 import { getDrillDownAttributeTitle } from "../utils/drillDownUtils";
-import { DefaultDashboardInsight } from "../../insight/DefaultDashboardInsight";
+import { DefaultDashboardInsightWithDrillSelect } from "../../insight/DefaultDashboardInsightWithDrillSelect";
+import { IDashboardDrillEvent, IDrillDownDefinition } from "@gooddata/sdk-ui-ext";
 
 export interface InsightDrillDialogProps {
     drillSteps: DrillStep[];
     activeDrillStep: DrillStep;
-    onDrillSelect?: (drillStep: DrillStep) => void;
     onDrill?: OnDashboardDrill;
+
+    onDrillDown?: (context: {
+        drillDefinition: IDrillDownDefinition;
+        drillEvent: IDashboardDrillEvent;
+        insight: IInsight;
+    }) => void;
+    //
+    onDrillToInsight?: (context: {
+        drillDefinition: IDrillToInsight;
+        drillEvent: IDashboardDrillEvent;
+        insight: IInsight;
+    }) => void;
+    //
+    onDrillToDashboard?: (context: {
+        drillDefinition: IDrillToDashboard;
+        drillEvent: IDashboardDrillEvent;
+        filters: IFilter[];
+    }) => void;
+    //
+    onDrillToAttributeUrl?: (context: {
+        drillDefinition: IDrillToAttributeUrl;
+        drillEvent: IDashboardDrillEvent;
+        url: string;
+    }) => void;
+    //
+    onDrillToCustomUrl?: (context: {
+        drillDefinition: IDrillToCustomUrl;
+        drillEvent: IDashboardDrillEvent;
+        url: string;
+    }) => void;
+
     onClose: () => void;
     onBackButtonClick: () => void;
 }
 
 export const InsightDrillDialog = (props: InsightDrillDialogProps) => {
-    const { onDrillSelect, drillSteps, activeDrillStep, onDrill, onClose, onBackButtonClick } = props;
+    const {
+        drillSteps,
+        activeDrillStep,
+        onDrill,
+        onClose,
+        onBackButtonClick,
+        onDrillDown,
+        onDrillToAttributeUrl,
+        onDrillToCustomUrl,
+        onDrillToDashboard,
+        onDrillToInsight,
+    } = props;
 
     const breadcrumbs = drillSteps.map((d) =>
         getDrillDownAttributeTitle(d.drillDefinition as any, d.drillEvent),
@@ -60,13 +108,17 @@ export const InsightDrillDialog = (props: InsightDrillDialogProps) => {
                         onCloseDialog={onClose}
                         breadcrumbs={breadcrumbs}
                     >
-                        <DefaultDashboardInsight
+                        <DefaultDashboardInsightWithDrillSelect
                             key={stableStringify(activeDrillStep.insight)}
                             insight={activeDrillStep.insight!}
                             insightWidget={widget}
                             disableWidgetImplicitDrills
-                            onDrillSelect={onDrillSelect}
                             onDrill={onDrill}
+                            onDrillDown={onDrillDown}
+                            onDrillToAttributeUrl={onDrillToAttributeUrl}
+                            onDrillToCustomUrl={onDrillToCustomUrl}
+                            onDrillToDashboard={onDrillToDashboard}
+                            onDrillToInsight={onDrillToInsight}
                         />
                     </DrillDialog>
                 </OverlayComponent>

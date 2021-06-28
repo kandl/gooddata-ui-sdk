@@ -1,16 +1,10 @@
 // (C) 2020 GoodData Corporation
 import React, { useState } from "react";
 import { InsightDrillDialog } from "../drill/DrillDialog/InsightDrillDialog";
-import { DrillStep, DashboardDrillDefinition } from "../drill/interfaces";
+import { DrillStep } from "../drill/interfaces";
 import { DashboardInsightProps } from "./types";
 import last from "lodash/last";
-import { DefaultDashboardInsight } from "./DefaultDashboardInsight";
-import { isDrillDownDefinition } from "@gooddata/sdk-ui-ext";
-import { isDrillToInsight } from "@gooddata/sdk-backend-spi";
-
-const isNextDrillStep = (drillDefinition: DashboardDrillDefinition) => {
-    return isDrillDownDefinition(drillDefinition) || isDrillToInsight(drillDefinition);
-};
+import { DefaultDashboardInsightWithDrillSelect } from "./DefaultDashboardInsightWithDrillSelect";
 
 /**
  * @internal
@@ -21,12 +15,23 @@ export const DefaultDashboardInsightWithDrillDialog = (props: DashboardInsightPr
 
     return (
         <>
-            <DefaultDashboardInsight
+            <DefaultDashboardInsightWithDrillSelect
                 {...props}
-                onDrillSelect={(drillStep) => {
-                    if (isNextDrillStep(drillStep.drillDefinition)) {
-                        setDrillSteps((s) => [...s, drillStep]);
-                    }
+                onDrillDown={({ drillDefinition, drillEvent, insight }) => {
+                    const drillStep: DrillStep = {
+                        drillDefinition,
+                        drillEvent,
+                        insight,
+                    };
+                    setDrillSteps((s) => [...s, drillStep]);
+                }}
+                onDrillToInsight={({ drillDefinition, drillEvent, insight }) => {
+                    const drillStep: DrillStep = {
+                        drillDefinition,
+                        drillEvent,
+                        insight,
+                    };
+                    setDrillSteps((s) => [...s, drillStep]);
                 }}
                 onDrill={(drillEvent, drillContext) => {
                     props.onDrill?.(drillEvent, drillContext);
@@ -36,10 +41,21 @@ export const DefaultDashboardInsightWithDrillDialog = (props: DashboardInsightPr
                 <InsightDrillDialog
                     activeDrillStep={activeDrillStep}
                     drillSteps={drillSteps}
-                    onDrillSelect={(drillStep) => {
-                        if (isNextDrillStep(drillStep.drillDefinition)) {
-                            setDrillSteps((s) => [...s, drillStep]);
-                        }
+                    onDrillDown={({ drillDefinition, drillEvent, insight }) => {
+                        const drillStep: DrillStep = {
+                            drillDefinition,
+                            drillEvent,
+                            insight,
+                        };
+                        setDrillSteps((s) => [...s, drillStep]);
+                    }}
+                    onDrillToInsight={({ drillDefinition, drillEvent, insight }) => {
+                        const drillStep: DrillStep = {
+                            drillDefinition,
+                            drillEvent,
+                            insight,
+                        };
+                        setDrillSteps((s) => [...s, drillStep]);
                     }}
                     onDrill={(drillEvent, drillContext) => {
                         props.onDrill?.(drillEvent, drillContext);

@@ -1,7 +1,15 @@
 // (C) 2021 GoodData Corporation
-import { IDashboardDrillEvent } from "@gooddata/sdk-ui-ext";
+import { IDashboardDrillEvent, IDrillDownDefinition } from "@gooddata/sdk-ui-ext";
 import { DashboardContext } from "../types/commonTypes";
 import { IDashboardEvent } from "./base";
+import { IFilter, IInsight } from "@gooddata/sdk-model";
+import { DashboardDrillContext } from "../../drill/interfaces";
+import {
+    IDrillToDashboard,
+    IDrillToInsight,
+    IDrillToAttributeUrl,
+    IDrillToCustomUrl,
+} from "@gooddata/sdk-backend-spi";
 
 /**
  * This event is emitted after the drill is triggered.
@@ -12,12 +20,14 @@ export interface DashboardDrillTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.TRIGGERED";
     readonly payload: {
         readonly drillEvent: IDashboardDrillEvent;
+        readonly drillContext: DashboardDrillContext;
     };
 }
 
 export function drillTriggered(
     ctx: DashboardContext,
     drillEvent: IDashboardDrillEvent,
+    drillContext: DashboardDrillContext,
     correlationId?: string,
 ): DashboardDrillTriggered {
     return {
@@ -26,6 +36,7 @@ export function drillTriggered(
         correlationId,
         payload: {
             drillEvent,
+            drillContext,
         },
     };
 }
@@ -42,12 +53,16 @@ export function drillTriggered(
 export interface DashboardDrillDownTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.DRILL_DOWN.TRIGGERED";
     readonly payload: {
+        readonly drillDefinition: IDrillDownDefinition;
         readonly drillEvent: IDashboardDrillEvent;
+        readonly insight: IInsight;
     };
 }
 
 export function drillDownTriggered(
     ctx: DashboardContext,
+    insight: IInsight,
+    drillDefinition: IDrillDownDefinition,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): DashboardDrillDownTriggered {
@@ -56,7 +71,9 @@ export function drillDownTriggered(
         ctx,
         correlationId,
         payload: {
+            insight,
             drillEvent,
+            drillDefinition,
         },
     };
 }
@@ -73,12 +90,16 @@ export function drillDownTriggered(
 export interface DashboardDrillToInsightTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.DRILL_TO_INSIGHT.TRIGGERED";
     readonly payload: {
+        readonly drillDefinition: IDrillToInsight;
         readonly drillEvent: IDashboardDrillEvent;
+        readonly insight: IInsight;
     };
 }
 
 export function drillToInsightTriggered(
     ctx: DashboardContext,
+    insight: IInsight,
+    drillDefinition: IDrillToInsight,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): DashboardDrillToInsightTriggered {
@@ -87,7 +108,9 @@ export function drillToInsightTriggered(
         ctx,
         correlationId,
         payload: {
+            insight,
             drillEvent,
+            drillDefinition,
         },
     };
 }
@@ -104,12 +127,16 @@ export function drillToInsightTriggered(
 export interface DashboardDrillToDashboardTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.DRILL_TO_DASHBOARD.TRIGGERED";
     readonly payload: {
+        readonly filters: IFilter[];
         readonly drillEvent: IDashboardDrillEvent;
+        readonly drillDefinition: IDrillToDashboard;
     };
 }
 
 export function drillToDashboardTriggered(
     ctx: DashboardContext,
+    filters: IFilter[],
+    drillDefinition: IDrillToDashboard,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): DashboardDrillToDashboardTriggered {
@@ -118,6 +145,8 @@ export function drillToDashboardTriggered(
         ctx,
         correlationId,
         payload: {
+            filters,
+            drillDefinition,
             drillEvent,
         },
     };
@@ -136,11 +165,15 @@ export interface DashboardDrillToAttributeUrlTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.DRILL_TO_ATTRIBUTE_URL.TRIGGERED";
     readonly payload: {
         readonly drillEvent: IDashboardDrillEvent;
+        readonly drillDefinition: IDrillToAttributeUrl;
+        readonly url: string;
     };
 }
 
 export function drillToAttributeUrlTriggered(
     ctx: DashboardContext,
+    url: string,
+    drillDefinition: IDrillToAttributeUrl,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): DashboardDrillToAttributeUrlTriggered {
@@ -150,6 +183,8 @@ export function drillToAttributeUrlTriggered(
         correlationId,
         payload: {
             drillEvent,
+            drillDefinition,
+            url,
         },
     };
 }
@@ -167,11 +202,15 @@ export interface DashboardDrillToCustomUrlTriggered extends IDashboardEvent {
     readonly type: "GDC.DASH/EVT.DRILL.DRILL_TO_CUSTOM_URL.TRIGGERED";
     readonly payload: {
         readonly drillEvent: IDashboardDrillEvent;
+        readonly drillDefinition: IDrillToCustomUrl;
+        readonly url: string;
     };
 }
 
 export function drillToCustomUrlTriggered(
     ctx: DashboardContext,
+    url: string,
+    drillDefinition: IDrillToCustomUrl,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): DashboardDrillToCustomUrlTriggered {
@@ -180,7 +219,9 @@ export function drillToCustomUrlTriggered(
         ctx,
         correlationId,
         payload: {
+            url,
             drillEvent,
+            drillDefinition,
         },
     };
 }
