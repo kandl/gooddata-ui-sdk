@@ -10,7 +10,6 @@ import {
     IVisConstruct,
     IBucketItem,
     IBucketOfFun,
-    IImplicitDrillDown,
     IDrillDownContext,
     InvalidBucketsSdkError,
     IUiConfig,
@@ -37,6 +36,7 @@ import { bucketIsEmpty, IInsight, IInsightDefinition, insightBucket } from "@goo
 import { transformBuckets } from "./bucketHelper";
 import { modifyBucketsAttributesForDrillDown, addIntersectionFiltersToInsight } from "../drillDownUtil";
 import { drillDownFromAttributeLocalId } from "../../../utils/ImplicitDrillDownHelper";
+import { IDrillDownDefinition } from "../../../dashboardEmbedding/types";
 
 export class PluggableBulletChart extends PluggableBaseChart {
     constructor(props: IVisConstruct) {
@@ -90,7 +90,7 @@ export class PluggableBulletChart extends PluggableBaseChart {
         return Promise.resolve(sanitizeFilters(newReferencePoint));
     }
 
-    private addFiltersForBullet(source: IInsight, drillConfig: IImplicitDrillDown, event: IDrillEvent) {
+    private addFiltersForBullet(source: IInsight, drillConfig: IDrillDownDefinition, event: IDrillEvent) {
         const clicked = drillDownFromAttributeLocalId(drillConfig);
 
         const cutIntersection = getIntersectionPartAfter(event.drillContext.intersection, clicked);

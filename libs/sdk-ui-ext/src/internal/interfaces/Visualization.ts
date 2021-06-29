@@ -4,7 +4,6 @@ import isEmpty from "lodash/isEmpty";
 import { IAnalyticalBackend, IExecutionFactory, ISettings, ITheme } from "@gooddata/sdk-backend-spi";
 import {
     IColorPalette,
-    Identifier,
     IInsight,
     IInsightDefinition,
     ITotal,
@@ -26,6 +25,7 @@ import {
     SdkErrorType,
     VisualizationEnvironment,
 } from "@gooddata/sdk-ui";
+import { IDrillDownDefinition } from "../dashboardEmbedding/types";
 
 export type RenderFunction = (component: any, target: Element) => void;
 
@@ -482,45 +482,11 @@ export function isEmptyAfm(obj: unknown): obj is EmptyAfmSdkError {
 }
 
 /**
- * Source implicit drill down attribute local Identifier
- *
- * @alpha
- */
-export interface IDrillFromAttribute {
-    drillFromAttribute: {
-        localIdentifier: Identifier;
-    };
-}
-
-/**
- * Target implicit drill down attribute display form
- *
- * @alpha
- */
-export interface IDrillToAttribute {
-    drillToAttribute: {
-        attributeDisplayForm: ObjRef;
-    };
-}
-
-/**
- * Implicit drill down definition
- *
- * @alpha
- */
-export interface IImplicitDrillDown {
-    implicitDrillDown: {
-        from: IDrillFromAttribute;
-        drillDownStep: IDrillToAttribute;
-    };
-}
-
-/**
  * Implicit drill down context
  *
  * @alpha
  */
 export interface IDrillDownContext {
-    drillDefinition: IImplicitDrillDown;
+    drillDefinition: IDrillDownDefinition;
     event: IDrillEvent;
 }

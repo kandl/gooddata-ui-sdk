@@ -1,11 +1,18 @@
 // (C) 2021 GoodData Corporation
 import { createSelector } from "@reduxjs/toolkit";
+import { ObjRef, serializeObjRef } from "@gooddata/sdk-model";
+import invariant from "ts-invariant";
 import { DashboardState } from "../types";
 import { LayoutState } from "./layoutState";
-import invariant from "ts-invariant";
 import { IDashboardLayout, IDashboardLayoutItem } from "@gooddata/sdk-backend-spi";
-import { isInsightPlaceholderWidget, isKpiPlaceholderWidget } from "../../types/layoutTypes";
+import {
+    ExtendedDashboardWidget,
+    isInsightPlaceholderWidget,
+    isKpiPlaceholderWidget,
+} from "../../types/layoutTypes";
 import { createUndoableCommandsMapping } from "../_infra/undoEnhancer";
+import { DashboardLayoutFacade } from "@gooddata/sdk-ui-ext/esm/internal";
+import memoize from "lodash/memoize";
 
 const selectSelf = createSelector(
     (state: DashboardState) => state,
@@ -71,3 +78,41 @@ export const selectBasicLayout = createSelector(selectLayout, (layout) => {
 
     return dashboardLayout;
 });
+/**
+ * Returns current layout wrapped in layout facade.
+ *
+ * @internal
+ */
+export const selectLayoutFacade = createSelector(selectSelf, (layoutState) => {
+    return DashboardLayoutFacade.for(layoutState.layout!);
+});
+
+/**
+ * Selects widget by its ref.
+ *
+ * @internal
+ */
+export const selectWidgetByRef = memoize(
+    (ref: ObjRef | undefined) => {
+        return createSelector(selectLayoutFacade, (layoutFacade) => {
+            if (!ref) {
+                return;
+            }
+            // TODO: extend layoutFacade with findWidget method
+            const sections = layoutFacade.sections().all();
+            let item: ExtendedDashboardWidget | undefined;
+            for (const section of sections) {
+                item = section
+                    .items()
+                    .find((item) => item.isWidgetItemWithRef(ref!))
+                    ?.widget();
+                if (item) {
+                    break;
+                }
+            }
+
+            return item;
+        });
+    },
+    (ref) => ref && serializeObjRef(ref),
+);
