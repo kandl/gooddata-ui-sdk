@@ -75,12 +75,10 @@ export function generateConstantsForDataSamples(
         return {
             declarationKind: VariableDeclarationKind.Const,
             isExported: false,
-            declarations: [
-                {
-                    name: rec.getRecordingName(),
-                    initializer: `require('./${path.relative(targetDir, rec.elementFile)}')`,
-                },
-            ],
+            declarations: rec.elementFiles.map((elementsFile) => ({
+                name: rec.getRecordingName(),
+                initializer: `require('./${path.relative(targetDir, elementsFile)}')`,
+            })),
         };
     });
     return [...recConsts, generateDataSampleConst(recordings)];

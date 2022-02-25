@@ -400,7 +400,7 @@
     },
     {
       "name": "@types/spark-md5",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "@types/stringify-object",
@@ -936,7 +936,7 @@
     },
     {
       "name": "spark-md5",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "speed-measure-webpack-plugin",
