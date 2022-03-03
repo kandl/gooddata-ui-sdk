@@ -28,12 +28,10 @@ const gooddataSharePackagesEntries = Object.keys(deps)
 module.exports = async (env, argv) => {
     const backendParam = (env && env.backend) || "recorded";
     // eslint-disable-next-line no-mixed-operators
-    const basePath = (env && env.basePath) || "";
     const isProduction = argv.mode === "production";
 
-    const backendUrl = "https://secure.gooddata.com";
-    const workspace =
-        backendParam === "recorded" ? "reference-workspace" : "l32xdyl4bjuzgf9kkqr2avl55gtuyjwf";
+    const backendUrl = "https://staging3.intgdc.com/";
+    const workspace = "frho3i7qc6epdek7mcgergm9vtm6o5ty";
 
     const proxy = {
         "/gdc": {
@@ -112,7 +110,7 @@ module.exports = async (env, argv) => {
         output: {
             filename: "[name].[contenthash].js",
             path: path.join(__dirname, "dist"),
-            publicPath: `${basePath}/`,
+            publicPath: "./",
         },
         devtool: isProduction ? false : "cheap-module-source-map",
         node: {

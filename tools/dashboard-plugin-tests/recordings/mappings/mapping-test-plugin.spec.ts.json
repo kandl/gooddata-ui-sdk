@@ -1,0 +1,26 @@
+{
+    "mappings": [
+        {
+            "id": "9eeec442-b6bd-4d4a-b252-5454e6047f41",
+            "name": "gdc_account_login",
+            "request": {
+                "url": "/gdc/account/login",
+                "method": "POST"
+            },
+            "response": {
+                "status": 200,
+                "body": "{\"userLogin\":{\"profile\":\"/gdc/account/profile/fbdf74b48900320df823e94aa1eaa7e0\",\"state\":\"/gdc/account/login/fbdf74b48900320df823e94aa1eaa7e0\"}}",
+                "headers": {
+                    "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+                    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+                    "vary": "origin",
+                    "content-type": "application/json",
+                    "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                    "p3p": "CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'",
+                    "pragma": "no-cache"
+                }
+            },
+            "uuid": "9eeec442-b6bd-4d4a-b252-5454e6047f41"
+        }
+    ]
+}

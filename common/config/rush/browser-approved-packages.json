@@ -151,10 +151,6 @@
       "allowedCategories": [ "examples", "production", "tools" ]
     },
     {
-      "name": "@gooddata/sdk-ui-charts",
-      "allowedCategories": [ "examples", "production", "tools" ]
-    },
-    {
       "name": "@gooddata/sdk-ui-dashboard",
       "allowedCategories": [ "examples", "production", "tools" ]
     },
@@ -168,6 +164,10 @@
     },
     {
       "name": "@gooddata/sdk-ui-geo",
+      "allowedCategories": [ "examples", "production", "tools" ]
+    },
+    {
+      "name": "@gooddata/sdk-ui-charts",
       "allowedCategories": [ "examples", "production", "tools" ]
     },
     {
@@ -419,8 +419,16 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@types/wait-on",
+      "allowedCategories": [ "tools" ]
+    },
+    {
       "name": "@types/webpack-env",
       "allowedCategories": [ "examples" ]
+    },
+    {
+      "name": "@types/xml2js",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "@types/yup",
@@ -476,14 +484,6 @@
     },
     {
       "name": "case-sensitive-paths-webpack-plugin",
-      "allowedCategories": [ "tools" ]
-    },
-    {
-      "name": "chalk",
-      "allowedCategories": [ "tools" ]
-    },
-    {
-      "name": "chokidar",
       "allowedCategories": [ "tools" ]
     },
     {
@@ -677,6 +677,14 @@
     {
       "name": "http-status-codes",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "chalk",
+      "allowedCategories": [ "tools" ]
+    },
+    {
+      "name": "chokidar",
+      "allowedCategories": [ "tools" ]
     },
     {
       "name": "immer",
@@ -903,16 +911,16 @@
       "allowedCategories": [ "production" ]
     },
     {
-      "name": "recharts",
-      "allowedCategories": [ "examples" ]
-    },
-    {
       "name": "redux-batched-actions",
       "allowedCategories": [ "production" ]
     },
     {
       "name": "redux-saga",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "recharts",
+      "allowedCategories": [ "examples" ]
     },
     {
       "name": "rimraf",
@@ -963,11 +971,11 @@
       "allowedCategories": [ "production" ]
     },
     {
-      "name": "stylelint-checkstyle-formatter",
+      "name": "stylelint-config-prettier",
       "allowedCategories": [ "production" ]
     },
     {
-      "name": "stylelint-config-prettier",
+      "name": "stylelint-checkstyle-formatter",
       "allowedCategories": [ "production" ]
     },
     {
@@ -1036,7 +1044,7 @@
     },
     {
       "name": "wait-on",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "webpack",
@@ -1056,7 +1064,7 @@
     },
     {
       "name": "xml2js",
-      "allowedCategories": [ "production" ]
+      "allowedCategories": [ "production", "tools" ]
     },
     {
       "name": "yup",

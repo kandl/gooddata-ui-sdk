@@ -1,7 +1,7 @@
 // (C) 2022 GoodData Corporation
 import http from "http";
 import statik from "node-static";
-import { SERVER_PORT, SERVER_URL } from "../constants";
+const { SERVER_PORT, SERVER_URL } = require("../constants.ts");
 
 const fileServer = new statik.Server("./dist");
 

@@ -1,23 +1,13 @@
 // (C) 2019-2022 GoodData Corporation
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
-import { createBearBackend } from "./bearBackend";
-import { createRecordedBackend } from "./recordedBackend";
+import bearFactory, { ContextDeferredAuthProvider } from "@gooddata/sdk-backend-bear";
 import { LocalDashboardPluginsConfig } from "../../types";
-import { createCapturingBackend } from "./capturingBackend";
+import { withLocalDashboardPlugins } from "./withLocalDashboardPlugins";
+import { withTestWorkspaceSettings } from "./withTestWorkspaceSettings";
 
 export function createBackend(localDashboardPluginsConfig: LocalDashboardPluginsConfig): IAnalyticalBackend {
-    switch (BACKEND_TYPE) {
-        case "live": {
-            return createBearBackend(localDashboardPluginsConfig);
-        }
-        case "recorded": {
-            return createRecordedBackend(localDashboardPluginsConfig);
-        }
-        case "capturing": {
-            return createCapturingBackend(localDashboardPluginsConfig);
-        }
-        default: {
-            throw Error("No backend type specified!");
-        }
-    }
+    return withLocalDashboardPlugins(
+        withTestWorkspaceSettings(bearFactory().withAuthentication(new ContextDeferredAuthProvider())),
+        localDashboardPluginsConfig,
+    );
 }

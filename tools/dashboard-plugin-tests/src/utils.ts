@@ -2,7 +2,9 @@
 import { idRef } from "@gooddata/sdk-model";
 import { IDashboardPlugin, IDashboardPluginLink } from "@gooddata/sdk-backend-spi";
 import snakeCase from "lodash/snakeCase";
-import { SERVER_URL } from "./constants";
+const { SERVER_URL } = require("./constants.ts");
+
+// const SERVER_URL = "http://localhost:9500/dashboard-plugin-tests"
 
 export function convertToPluginIdentifier(name: string): string {
     return `dp_${snakeCase(name)}`;

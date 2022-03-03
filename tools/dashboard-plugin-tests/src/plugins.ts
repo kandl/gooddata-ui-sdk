@@ -1,9 +1,8 @@
 // (C) 2019-2022 GoodData Corporation
-import { ReferenceMd } from "@gooddata/reference-workspace";
 import { createLocalTestPlugin, createLocalTestPluginLink } from "./utils";
 import { LocalDashboardPluginsConfig } from "./types";
 
-export const SIMPLE_DASHBOARD = ReferenceMd.Dashboards.SimpleDashboard;
+export const SIMPLE_DASHBOARD = "aaw44pxZplIi";
 
 export const TEST_PLUGIN = createLocalTestPlugin("test-plugin");
 
