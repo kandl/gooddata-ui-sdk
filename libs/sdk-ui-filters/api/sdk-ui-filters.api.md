@@ -140,16 +140,6 @@ export class AttributeFilterHandlerBase implements IAttributeFilterHandlerBase {
     protected stagedSelectionHandler: IStagedAttributeElementsSelectionHandler;
 }
 
-// @alpha (undocumented)
-export class AttributeFilterLoader {
-    // (undocumented)
-    static for(backend: IAnalyticalBackend, workspace: string, attributeFilter: IAttributeFilter): AttributeFilterLoader;
-    // (undocumented)
-    init(): void;
-    // (undocumented)
-    reset(): void;
-}
-
 // @public (undocumented)
 export type AttributeListItem = IAttributeElement | EmptyListItem;
 
@@ -222,16 +212,16 @@ export class DefaultAttributeDisplayFormLoader implements IAttributeDisplayFormL
     // (undocumented)
     loadDisplayFormInfo: (correlation?: Correlation) => void;
     // (undocumented)
-    onDisplayFormLoadCancel: CallbackRegistration<{}>;
+    onDisplayFormLoadCancel: CallbackRegistration<    {}>;
     // (undocumented)
-    onDisplayFormLoadError: CallbackRegistration<{
-        error: Error;
+    onDisplayFormLoadError: CallbackRegistration<    {
+    error: Error;
     }>;
     // (undocumented)
-    onDisplayFormLoadStart: CallbackRegistration<{}>;
+    onDisplayFormLoadStart: CallbackRegistration<    {}>;
     // (undocumented)
-    onDisplayFormLoadSuccess: CallbackRegistration<{
-        displayForm: IAttributeDisplayFormMetadataObject;
+    onDisplayFormLoadSuccess: CallbackRegistration<    {
+    displayForm: IAttributeDisplayFormMetadataObject;
     }>;
 }
 
@@ -257,13 +247,13 @@ export class DefaultAttributeElementsLoader implements IAttributeElementLoader {
     // (undocumented)
     loadParticularElements: (elements: ElementsQueryOptionsElementsSpecification, correlation?: string) => void;
     // (undocumented)
-    onElementsRangeLoadCancel: CallbackRegistration<{}>;
+    onElementsRangeLoadCancel: CallbackRegistration<    {}>;
     // (undocumented)
-    onElementsRangeLoadError: CallbackRegistration<{
-        error: Error;
+    onElementsRangeLoadError: CallbackRegistration<    {
+    error: Error;
     }>;
     // (undocumented)
-    onElementsRangeLoadStart: CallbackRegistration<{}>;
+    onElementsRangeLoadStart: CallbackRegistration<    {}>;
     // (undocumented)
     onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult>;
     // (undocumented)
@@ -310,12 +300,12 @@ export class DefaultStagedAttributeElementsSelectionHandler implements IStagedAt
     // (undocumented)
     invertSelection: () => void;
     // (undocumented)
-    onSelectionChanged: CallbackRegistration<{
-        selection: AttributeElementSelection;
+    onSelectionChanged: CallbackRegistration<    {
+    selection: AttributeElementSelection;
     }>;
     // (undocumented)
-    onSelectionCommitted: CallbackRegistration<{
-        selection: AttributeElementSelection;
+    onSelectionCommitted: CallbackRegistration<    {
+    selection: AttributeElementSelection;
     }>;
     // (undocumented)
     revertSelection: (correlation?: Correlation) => void;
@@ -567,6 +557,12 @@ export interface IAttributeFilterButtonOwnProps {
 
 // @public (undocumented)
 export type IAttributeFilterButtonProps = IAttributeFilterButtonOwnProps & WrappedComponentProps;
+
+// @internal
+export interface IAttributeFilterHandler extends IAttributeDisplayFormLoader, IAttributeElementLoader, IStagedAttributeElementsSelectionHandler {
+    getFilter(): IAttributeFilter;
+    getSelectedItems(): AttributeElementSelectionFull;
+}
 
 // @internal
 export interface IAttributeFilterHandlerBase extends IAttributeDisplayFormLoader, IAttributeElementLoader {
@@ -894,6 +890,10 @@ export interface IStagedAttributeElementsSelectionHandler extends Omit<IAttribut
     revertSelection(): void;
 }
 
+// @internal (undocumented)
+export interface IStagedMultiSelectionAttributeFilterHandler extends IMultiSelectAttributeFilterHandler, IStagedAttributeElementsSelectionHandler {
+}
+
 // @internal
 export interface IStagedSingleAttributeElementSelectionHandler extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
     commitSelection(): void;
@@ -910,6 +910,10 @@ export interface IStagedSingleAttributeElementSelectionHandler extends Omit<ISin
         selection: string | undefined;
     }>;
     revertSelection(): void;
+}
+
+// @internal (undocumented)
+export interface IStagedSingleSelectionAttributeFilterHandler extends ISingleSelectAttributeFilterHandler, IStagedSingleAttributeElementSelectionHandler {
 }
 
 // @public
@@ -986,6 +990,18 @@ export class MeasureValueFilterDropdown extends React_2.PureComponent<IMeasureVa
     render(): React_2.ReactNode;
 }
 
+// @internal (undocumented)
+export function newAttributeFilterHandler(backend: IAnalyticalBackend, workspace: string, filter: IAttributeFilter, selectionMode: "single"): IStagedSingleSelectionAttributeFilterHandler;
+
+// @internal (undocumented)
+export function newAttributeFilterHandler(backend: IAnalyticalBackend, workspace: string, filter: IAttributeFilter, selectionMode: "multi"): IStagedMultiSelectionAttributeFilterHandler;
+
+// @internal (undocumented)
+export const newCallbackHandler: <T extends object = {}>() => {
+    triggerAll: (payload: CallbackPayload<T>) => void;
+    subscribe: CallbackRegistration<T>;
+};
+
 // @beta (undocumented)
 export const RankingFilter: React_2.FC<IRankingFilterProps>;
 
@@ -996,7 +1012,7 @@ export const RankingFilterDropdown: React_2.FC<IRankingFilterDropdownProps>;
 export type RelativeDateFilterOption = IUiRelativeDateFilterForm | IRelativeDateFilterPreset;
 
 // @internal (undocumented)
-export class StagedMultiSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements IMultiSelectAttributeFilterHandler, IStagedAttributeElementsSelectionHandler {
+export class StagedMultiSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements IStagedMultiSelectionAttributeFilterHandler {
     constructor(config: IAttributeFilterHandlerConfig);
     // (undocumented)
     changeSelection: (selection: AttributeElementSelection) => void;
@@ -1025,7 +1041,7 @@ export class StagedMultiSelectionAttributeFilterHandler extends AttributeFilterH
 }
 
 // @internal (undocumented)
-export class StagedSingleSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements ISingleSelectAttributeFilterHandler, IStagedSingleAttributeElementSelectionHandler {
+export class StagedSingleSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements IStagedSingleSelectionAttributeFilterHandler {
     constructor(config: IAttributeFilterHandlerConfig);
     // (undocumented)
     changeSelection: (selection: string | undefined) => void;

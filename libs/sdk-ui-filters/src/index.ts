@@ -76,5 +76,5 @@ export {
     IAttributeDropdownItem,
     ICustomGranularitySelection,
 } from "./RankingFilter/types";
-export { AttributeFilterLoader } from "./AttributeFilterLoader";
-export * from "./AttributeFilterHandler";
+
+export * from "./AttributeFilterLoader";

@@ -1,55 +1,65 @@
 // (C) 2022 GoodData Corporation
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 import { IAttributeFilter } from "@gooddata/sdk-model";
-import { EnhancedStore } from "@reduxjs/toolkit";
-import { Task } from "redux-saga";
+import {
+    StagedMultiSelectionAttributeFilterHandler,
+    StagedSingleSelectionAttributeFilterHandler,
+} from "./handlers";
 
-import { createAttributeFilterStore, AttributeFilterState, actions } from "./internal";
+import {
+    IStagedMultiSelectionAttributeFilterHandler,
+    IStagedSingleSelectionAttributeFilterHandler,
+} from "./types";
+
+export * from "./handlers";
+export * from "./types";
 
 /**
- * @alpha
+ * @internal
  */
-export class AttributeFilterLoader {
-    private store: EnhancedStore<AttributeFilterState>;
-    private rootSagaTask: Task;
+export function newAttributeFilterHandler(
+    backend: IAnalyticalBackend,
+    workspace: string,
+    filter: IAttributeFilter,
+    selectionMode: "single",
+): IStagedSingleSelectionAttributeFilterHandler;
+/**
+ * @internal
+ */
+export function newAttributeFilterHandler(
+    backend: IAnalyticalBackend,
+    workspace: string,
+    filter: IAttributeFilter,
+    selectionMode: "multi",
+): IStagedMultiSelectionAttributeFilterHandler;
+/**
+ * @internal
+ */
+export function newAttributeFilterHandler(
+    backend: IAnalyticalBackend,
+    workspace: string,
+    filter: IAttributeFilter,
+    selectionMode: "single" | "multi",
+): IStagedSingleSelectionAttributeFilterHandler | IStagedMultiSelectionAttributeFilterHandler {
+    // TODO: Integrate store with handlers
+    // const store = createAttributeFilterStore({
+    //     backend: this.backend,
+    //     workspace: this.workspace,
+    //     attributeFilter: this.attributeFilter,
+    //     eventListener: (action, nextState) => {
+    //         // eslint-disable-next-line no-console
+    //         console.log("Action fired:", { action, nextState });
 
-    private constructor(
-        private readonly backend: IAnalyticalBackend,
-        private readonly workspace: string,
-        private readonly attributeFilter: IAttributeFilter,
-    ) {
-        this.initializeStore();
+    //         // Concrete action listening
+    //         if (actions.attributeElementsRequest.match(action)) {
+    //             // React somehow
+    //         }
+    //     },
+    // });
+
+    if (selectionMode === "multi") {
+        return new StagedMultiSelectionAttributeFilterHandler({ backend, workspace, filter });
     }
 
-    private initializeStore() {
-        const { store, rootSagaTask } = createAttributeFilterStore({
-            backend: this.backend,
-            workspace: this.workspace,
-            attributeFilter: this.attributeFilter,
-            eventListener: (action, nextState) => {
-                // eslint-disable-next-line no-console
-                console.log("Action fired:", { action, nextState });
-
-                // Concrete action listening
-                if (actions.attributeElementsRequest.match(action)) {
-                    // React somehow
-                }
-            },
-        });
-        this.store = store;
-        this.rootSagaTask = rootSagaTask;
-    }
-
-    public static for(backend: IAnalyticalBackend, workspace: string, attributeFilter: IAttributeFilter) {
-        return new AttributeFilterLoader(backend, workspace, attributeFilter);
-    }
-
-    public init() {
-        this.store.dispatch(actions.init());
-    }
-
-    public reset() {
-        this.rootSagaTask.cancel();
-        this.initializeStore();
-    }
+    return new StagedSingleSelectionAttributeFilterHandler({ backend, workspace, filter });
 }
