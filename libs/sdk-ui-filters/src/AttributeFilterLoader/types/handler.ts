@@ -1,9 +1,8 @@
 // (C) 2022 GoodData Corporation
 import { IAttributeFilter } from "@gooddata/sdk-model";
-import { AttributeElementSelectionFull } from "./common";
 import { IAttributeDisplayFormLoader } from "./displayForm";
 import { IAttributeElementLoader } from "./elements";
-import { IStagedAttributeElementsSelectionHandler } from "./selection";
+import { AttributeElementSelectionFull, IStagedAttributeElementsSelectionHandler } from "./selection";
 
 // TODO: remove?
 /**

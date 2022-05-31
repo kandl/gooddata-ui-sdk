@@ -21,8 +21,6 @@ import {
     IRelativeDateFilter,
 } from "@gooddata/sdk-model";
 import {
-    AttributeElementSelection,
-    AttributeElementSelectionFull,
     CallbackRegistration,
     Correlation,
     DisplayFormLoad,
@@ -36,6 +34,8 @@ import {
     IAttributeElementLoader,
     IAttributeFilterHandlerBase,
     IStagedAttributeElementsSelectionHandler,
+    AttributeElementSelection,
+    AttributeElementSelectionFull,
 } from "../types";
 import { DefaultAttributeDisplayFormLoader } from "./displayForm";
 import { DefaultStagedAttributeElementsSelectionHandler } from "./selection";

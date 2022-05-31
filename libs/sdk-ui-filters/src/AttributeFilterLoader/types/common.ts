@@ -60,22 +60,6 @@ export interface ILoadRangeOptions {
 /**
  * @alpha
  */
-export interface AttributeElementSelection {
-    items: string[];
-    isInverted: boolean;
-}
-
-/**
- * @alpha
- */
-export interface AttributeElementSelectionFull {
-    elements: IAttributeElement[];
-    isInverted: boolean;
-}
-
-/**
- * @alpha
- */
 export type DisplayFormLoad = (
     backend: IAnalyticalBackend,
     workspace: string,

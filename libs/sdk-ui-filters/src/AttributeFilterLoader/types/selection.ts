@@ -1,7 +1,23 @@
 // (C) 2022 GoodData Corporation
 import { IAttributeElement } from "@gooddata/sdk-model";
 import { IAttributeFilterHandlerBase } from "./base";
-import { AttributeElementSelection, AttributeElementSelectionFull, CallbackRegistration } from "./common";
+import { CallbackRegistration } from "./common";
+
+/**
+ * @alpha
+ */
+export interface AttributeElementSelection {
+    items: string[];
+    isInverted: boolean;
+}
+
+/**
+ * @alpha
+ */
+export interface AttributeElementSelectionFull {
+    elements: IAttributeElement[];
+    isInverted: boolean;
+}
 
 //
 // Single select
@@ -26,7 +42,7 @@ export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHan
  * Handles simple selection of at most one item
  * @alpha
  */
-export interface ISingleAttributeElementSelectionHandler {
+export interface ISingleSelectionHandler {
     //
     // manipulators
     //
@@ -38,14 +54,19 @@ export interface ISingleAttributeElementSelectionHandler {
     //
 
     getSelection(): string | undefined;
+
+    //
+    // callbacks
+    //
+
+    onSelectionChanged: CallbackRegistration<{ selection: string | undefined }>;
 }
 
 /**
  * Handles selection of items with stages: working and committed.
  * @alpha
  */
-export interface IStagedSingleAttributeElementSelectionHandler
-    extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
+export interface IStagedSingleSelectionHandler extends Omit<ISingleSelectionHandler, "getSelection"> {
     //
     // manipulators
     //
@@ -69,8 +90,6 @@ export interface IStagedSingleAttributeElementSelectionHandler
     //
     // callbacks
     //
-    // TODO: this should be probably in ISingleAttributeElementSelectionHandler
-    onSelectionChanged: CallbackRegistration<{ selection: string | undefined }>;
     onSelectionCommitted: CallbackRegistration<{ selection: string | undefined }>;
 }
 
@@ -79,7 +98,7 @@ export interface IStagedSingleAttributeElementSelectionHandler
  */
 export interface IStagedSingleSelectionAttributeFilterHandler
     extends ISingleSelectAttributeFilterHandler,
-        IStagedSingleAttributeElementSelectionHandler {}
+        IStagedSingleSelectionHandler {}
 
 //
 // Multi select
@@ -118,6 +137,11 @@ export interface IAttributeElementsSelectionHandler {
     //
 
     getSelection(): AttributeElementSelection;
+
+    //
+    // callbacks
+    //
+    onSelectionChanged: CallbackRegistration<{ selection: AttributeElementSelection }>;
 }
 
 /**
@@ -150,8 +174,6 @@ export interface IStagedAttributeElementsSelectionHandler
     //
     // callbacks
     //
-    // TODO: this should be probably in IAttributeElementsSelectionHandler
-    onSelectionChanged: CallbackRegistration<{ selection: AttributeElementSelection }>;
     onSelectionCommitted: CallbackRegistration<{ selection: AttributeElementSelection }>;
 }
 
