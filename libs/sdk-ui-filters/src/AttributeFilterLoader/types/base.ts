@@ -5,7 +5,7 @@ import { IAttributeElementLoader } from "./elements";
 
 /**
  * Handles the whole attribute filter experience
- * @internal
+ * @alpha
  */
 export interface IAttributeFilterHandlerBase extends IAttributeDisplayFormLoader, IAttributeElementLoader {
     //

@@ -8,7 +8,7 @@ import { IElementsLoadResult, LoadableStatus, CallbackRegistration, Correlation 
 
 /**
  * Handles the loading of the elements
- * @internal
+ * @alpha
  */
 export interface IAttributeElementLoader {
     //

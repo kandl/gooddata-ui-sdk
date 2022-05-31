@@ -14,29 +14,33 @@ import {
 } from "@gooddata/sdk-model";
 
 /**
- * @internal
+ * @alpha
  */
 export type Correlation = string;
+
 /**
- * @internal
+ * @alpha
  */
 export type Unsubscribe = () => void;
 
 /**
- * @internal
+ * @alpha
  */
+
 export type CallbackPayload<T extends object = {}> = T & { correlation?: Correlation };
+
 /**
- * @internal
+ * @alpha
  */
 export type Callback<T extends object = {}> = (payload: CallbackPayload<T>) => void;
+
 /**
- * @internal
+ * @alpha
  */
 export type CallbackRegistration<T extends object = {}> = (cb: Callback<T>) => Unsubscribe;
 
 /**
- * @internal
+ * @alpha
  */
 export interface IElementsLoadResult {
     readonly items: IAttributeElement[];
@@ -46,7 +50,7 @@ export interface IElementsLoadResult {
 }
 
 /**
- * @internal
+ * @alpha
  */
 export interface ILoadRangeOptions {
     readonly limit: number;
@@ -54,7 +58,7 @@ export interface ILoadRangeOptions {
 }
 
 /**
- * @internal
+ * @alpha
  */
 export interface AttributeElementSelection {
     items: string[];
@@ -62,7 +66,7 @@ export interface AttributeElementSelection {
 }
 
 /**
- * @internal
+ * @alpha
  */
 export interface AttributeElementSelectionFull {
     elements: IAttributeElement[];
@@ -70,7 +74,7 @@ export interface AttributeElementSelectionFull {
 }
 
 /**
- * @internal
+ * @alpha
  */
 export type DisplayFormLoad = (
     backend: IAnalyticalBackend,
@@ -101,7 +105,7 @@ export type ElementsLoad = (config: ElementsLoadConfig) => Promise<IElementsLoad
 
 /**
  * Indicates pending state of a loadable item.
- * @internal
+ * @alpha
  */
 export type LoadablePending = {
     result: undefined;
@@ -111,7 +115,7 @@ export type LoadablePending = {
 
 /**
  * Indicates loading state of a loadable item.
- * @internal
+ * @alpha
  */
 export type LoadableLoading = {
     result: undefined;
@@ -121,7 +125,7 @@ export type LoadableLoading = {
 
 /**
  * Indicates error state of a loadable item.
- * @internal
+ * @alpha
  */
 export type LoadableError<TError> = {
     result: undefined;
@@ -131,7 +135,7 @@ export type LoadableError<TError> = {
 
 /**
  * Indicates success state of a loadable item.
- * @internal
+ * @alpha
  */
 export type LoadableSuccess<TResult> = {
     result: TResult;
@@ -141,7 +145,7 @@ export type LoadableSuccess<TResult> = {
 
 /**
  * Indicates the current state of a loadable item.
- * @internal
+ * @alpha
  */
 export type Loadable<TResult, TError = Error> =
     | LoadablePending
@@ -151,6 +155,6 @@ export type Loadable<TResult, TError = Error> =
 
 /**
  * Indicates the current state of the promise inside of a loadable item.
- * @internal
+ * @alpha
  */
 export type LoadableStatus = Loadable<any, any>["status"];

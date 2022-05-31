@@ -12,7 +12,7 @@ import { CallbackRegistration, IStagedSingleSelectionAttributeFilterHandler } fr
 import { AttributeFilterHandlerBase, IAttributeFilterHandlerConfig } from "./base";
 
 /**
- * @internal
+ * @alpha
  */
 export class StagedSingleSelectionAttributeFilterHandler
     extends AttributeFilterHandlerBase

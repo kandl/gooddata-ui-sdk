@@ -15,7 +15,7 @@ export * from "./handlers";
 export * from "./types";
 
 /**
- * @internal
+ * @alpha
  */
 export function newAttributeFilterHandler(
     backend: IAnalyticalBackend,
@@ -24,7 +24,7 @@ export function newAttributeFilterHandler(
     selectionMode: "single",
 ): IStagedSingleSelectionAttributeFilterHandler;
 /**
- * @internal
+ * @alpha
  */
 export function newAttributeFilterHandler(
     backend: IAnalyticalBackend,
@@ -33,7 +33,7 @@ export function newAttributeFilterHandler(
     selectionMode: "multi",
 ): IStagedMultiSelectionAttributeFilterHandler;
 /**
- * @internal
+ * @alpha
  */
 export function newAttributeFilterHandler(
     backend: IAnalyticalBackend,

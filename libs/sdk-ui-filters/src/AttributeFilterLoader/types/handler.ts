@@ -5,9 +5,10 @@ import { IAttributeDisplayFormLoader } from "./displayForm";
 import { IAttributeElementLoader } from "./elements";
 import { IStagedAttributeElementsSelectionHandler } from "./selection";
 
+// TODO: remove?
 /**
  * Handles the whole attribute filter experience
- * @internal
+ * @alpha
  */
 export interface IAttributeFilterHandler
     extends IAttributeDisplayFormLoader,

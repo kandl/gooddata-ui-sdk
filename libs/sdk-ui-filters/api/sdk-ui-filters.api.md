@@ -45,7 +45,7 @@ export type AbsoluteDateFilterOption = IUiAbsoluteDateFilterForm | IAbsoluteDate
 // @public
 export const AttributeElements: React_2.ComponentType<IAttributeElementsProps>;
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export interface AttributeElementSelection {
     // (undocumented)
     isInverted: boolean;
@@ -53,7 +53,7 @@ export interface AttributeElementSelection {
     items: string[];
 }
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export interface AttributeElementSelectionFull {
     // (undocumented)
     elements: IAttributeElement[];
@@ -67,94 +67,21 @@ export const AttributeFilter: React_2.ComponentType<IAttributeFilterProps>;
 // @public (undocumented)
 export const AttributeFilterButton: React_2.FC<IAttributeFilterButtonOwnProps>;
 
-// @internal (undocumented)
-export class AttributeFilterHandlerBase implements IAttributeFilterHandlerBase {
-    constructor(config: IAttributeFilterHandlerConfig);
-    // (undocumented)
-    cancelDisplayFormInfoLoad: () => void;
-    // (undocumented)
-    cancelElementLoad(): void;
-    // (undocumented)
-    protected displayForm: ObjRef;
-    // (undocumented)
-    protected displayFormLoader: IAttributeDisplayFormLoader;
-    // (undocumented)
-    protected elementLoader: IAttributeElementLoader;
-    // (undocumented)
-    getAllItems: () => IAttributeElement[];
-    // (undocumented)
-    getCountWithCurrentSettings: () => number;
-    // (undocumented)
-    getDisplayFormInfo: () => Loadable<IAttributeDisplayFormMetadataObject>;
-    // (undocumented)
-    getFilter: () => IAttributeFilter;
-    // (undocumented)
-    getItemsByKey: (keys: string[]) => IAttributeElement[];
-    // (undocumented)
-    getLoadingStatus: () => LoadableStatus;
-    // (undocumented)
-    getSearch: () => string;
-    // (undocumented)
-    protected getSelectedItemsBase(): AttributeElementSelectionFull;
-    // (undocumented)
-    getTotalCount: () => number;
-    // (undocumented)
-    protected isElementsByRef: boolean;
-    // (undocumented)
-    loadDisplayFormInfo: (correlation?: Correlation) => void;
-    // (undocumented)
-    loadElementsRange: (offset: number, limit: number, correlation?: Correlation) => void;
-    // (undocumented)
-    loadParticularElements: (elements: ElementsQueryOptionsElementsSpecification, correlation?: Correlation) => void;
-    // (undocumented)
-    onDisplayFormLoadCancel: CallbackRegistration;
-    // (undocumented)
-    onDisplayFormLoadError: CallbackRegistration<{
-        error: Error;
-    }>;
-    // (undocumented)
-    onDisplayFormLoadStart: CallbackRegistration;
-    // (undocumented)
-    onDisplayFormLoadSuccess: CallbackRegistration<{
-        displayForm: IAttributeDisplayFormMetadataObject;
-    }>;
-    // (undocumented)
-    onElementsRangeLoadCancel: CallbackRegistration;
-    // (undocumented)
-    onElementsRangeLoadError: CallbackRegistration<{
-        error: Error;
-    }>;
-    // (undocumented)
-    onElementsRangeLoadStart: CallbackRegistration;
-    // (undocumented)
-    onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult>;
-    // (undocumented)
-    setLimitingAttributeFilters: (filters: IElementsQueryAttributeFilter[], correlation?: Correlation) => void;
-    // (undocumented)
-    setLimitingDateFilters: (filters: IRelativeDateFilter[], correlation?: Correlation) => void;
-    // (undocumented)
-    setLimitingMeasures: (measures: IMeasure[], correlation?: Correlation) => void;
-    // (undocumented)
-    setSearch: (search: string, correlation?: Correlation) => void;
-    // (undocumented)
-    protected stagedSelectionHandler: IStagedAttributeElementsSelectionHandler;
-}
-
 // @public (undocumented)
 export type AttributeListItem = IAttributeElement | EmptyListItem;
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export type Callback<T extends object = {}> = (payload: CallbackPayload<T>) => void;
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export type CallbackPayload<T extends object = {}> = T & {
     correlation?: Correlation;
 };
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export type CallbackRegistration<T extends object = {}> = (cb: Callback<T>) => Unsubscribe;
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export type Correlation = string;
 
 // @public
@@ -202,146 +129,8 @@ export type DateFilterRelativeOptionGroup = {
     [key in DateFilterGranularity]?: Array<IRelativeDateFilterPresetOfGranularity<key>>;
 };
 
-// @internal (undocumented)
-export class DefaultAttributeDisplayFormLoader implements IAttributeDisplayFormLoader {
-    constructor(displayFormRef: ObjRef, backend: IAnalyticalBackend, workspace: string, displayFormLoad?: DisplayFormLoad);
-    // (undocumented)
-    cancelDisplayFormInfoLoad: () => void;
-    // (undocumented)
-    getDisplayFormInfo: () => Loadable<IAttributeDisplayFormMetadataObject>;
-    // (undocumented)
-    loadDisplayFormInfo: (correlation?: Correlation) => void;
-    // (undocumented)
-    onDisplayFormLoadCancel: CallbackRegistration<    {}>;
-    // (undocumented)
-    onDisplayFormLoadError: CallbackRegistration<    {
-    error: Error;
-    }>;
-    // (undocumented)
-    onDisplayFormLoadStart: CallbackRegistration<    {}>;
-    // (undocumented)
-    onDisplayFormLoadSuccess: CallbackRegistration<    {
-    displayForm: IAttributeDisplayFormMetadataObject;
-    }>;
-}
-
-// @internal (undocumented)
-export class DefaultAttributeElementsLoader implements IAttributeElementLoader {
-    constructor(displayFormRef: ObjRef, backend: IAnalyticalBackend, workspace: string, elementsLoad?: ElementsLoad);
-    // (undocumented)
-    cancelElementLoad: () => void;
-    // (undocumented)
-    getAllItems: () => IAttributeElement[];
-    // (undocumented)
-    getCountWithCurrentSettings: () => number;
-    // (undocumented)
-    getItemsByKey: (keys: string[]) => IAttributeElement[];
-    // (undocumented)
-    getLoadingStatus: () => LoadableStatus;
-    // (undocumented)
-    getSearch: () => string;
-    // (undocumented)
-    getTotalCount: () => number;
-    // (undocumented)
-    loadElementsRange: (offset: number, limit: number, correlation?: string) => void;
-    // (undocumented)
-    loadParticularElements: (elements: ElementsQueryOptionsElementsSpecification, correlation?: string) => void;
-    // (undocumented)
-    onElementsRangeLoadCancel: CallbackRegistration<    {}>;
-    // (undocumented)
-    onElementsRangeLoadError: CallbackRegistration<    {
-    error: Error;
-    }>;
-    // (undocumented)
-    onElementsRangeLoadStart: CallbackRegistration<    {}>;
-    // (undocumented)
-    onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult>;
-    // (undocumented)
-    setLimitingAttributeFilters: (filters: IElementsQueryAttributeFilter[], _correlation?: Correlation) => void;
-    // (undocumented)
-    setLimitingDateFilters: (filters: IRelativeDateFilter[], _correlation?: Correlation) => void;
-    // (undocumented)
-    setLimitingMeasures: (measures: IMeasure[], _correlation?: Correlation) => void;
-    // (undocumented)
-    setSearch: (search: string, _correlation?: Correlation) => void;
-}
-
-// @internal (undocumented)
-export class DefaultAttributeElementsSelectionHandler implements IAttributeElementsSelectionHandler {
-    constructor(selection?: AttributeElementSelection);
-    // (undocumented)
-    changeSelection: (selection: AttributeElementSelection) => void;
-    // (undocumented)
-    clearSelection: () => void;
-    // (undocumented)
-    getSelection: () => AttributeElementSelection;
-    // (undocumented)
-    invertSelection: () => void;
-}
-
 // @public
 export const defaultDateFilterOptions: IDateFilterOptionsByType;
-
-// @internal (undocumented)
-export class DefaultStagedAttributeElementsSelectionHandler implements IStagedAttributeElementsSelectionHandler {
-    constructor(initialSelection?: AttributeElementSelection);
-    // (undocumented)
-    changeSelection: (selection: AttributeElementSelection, correlation?: Correlation) => void;
-    // (undocumented)
-    clearSelection: () => void;
-    // (undocumented)
-    commitSelection: (correlation?: Correlation) => void;
-    // (undocumented)
-    protected committedSelectionHandler: IAttributeElementsSelectionHandler;
-    // (undocumented)
-    getCommittedSelection: () => AttributeElementSelection;
-    // (undocumented)
-    getWorkingSelection: () => AttributeElementSelection;
-    // (undocumented)
-    invertSelection: () => void;
-    // (undocumented)
-    onSelectionChanged: CallbackRegistration<    {
-    selection: AttributeElementSelection;
-    }>;
-    // (undocumented)
-    onSelectionCommitted: CallbackRegistration<    {
-    selection: AttributeElementSelection;
-    }>;
-    // (undocumented)
-    revertSelection: (correlation?: Correlation) => void;
-    // (undocumented)
-    protected workingSelectionHandler: IAttributeElementsSelectionHandler;
-}
-
-// @internal (undocumented)
-export type DisplayFormLoad = (backend: IAnalyticalBackend, workspace: string, displayForm: ObjRef) => Promise<IAttributeDisplayFormMetadataObject>;
-
-// @internal (undocumented)
-export type ElementsLoad = (config: ElementsLoadConfig) => Promise<IElementsLoadResult>;
-
-// @internal (undocumented)
-export interface ElementsLoadConfig {
-    // (undocumented)
-    backend: IAnalyticalBackend;
-    // (undocumented)
-    displayForm: ObjRef;
-    // (undocumented)
-    elements?: ElementsQueryOptionsElementsSpecification;
-    // (undocumented)
-    limit: number;
-    // (undocumented)
-    limitingAttributeFilters?: IElementsQueryAttributeFilter[];
-    // (undocumented)
-    limitingDateFilters?: IRelativeDateFilter[];
-    // (undocumented)
-    limitingMeasures?: IMeasure[];
-    // (undocumented)
-    offset: number;
-    // (undocumented)
-    search?: string;
-    // (undocumented)
-    workspace: string;
-}
 
 // @public (undocumented)
 export interface EmptyListItem {
@@ -355,7 +144,7 @@ export function filterVisibleDateFilterOptions(dateFilterOptions: IDateFilterOpt
 // @beta (undocumented)
 export type GranularityIntlKey = "day" | "minute" | "hour" | "week" | "month" | "quarter" | "year";
 
-// @internal
+// @alpha
 export interface IAttributeDisplayFormLoader {
     cancelDisplayFormInfoLoad(): void;
     getDisplayFormInfo(): Loadable<IAttributeDisplayFormMetadataObject>;
@@ -464,7 +253,7 @@ export interface IAttributeDropdownListItemProps extends WrappedComponentProps {
     source?: any;
 }
 
-// @internal
+// @alpha
 export interface IAttributeElementLoader {
     cancelElementLoad(): void;
     // (undocumented)
@@ -519,7 +308,7 @@ export interface IAttributeElementsProps {
     workspace?: string;
 }
 
-// @internal
+// @alpha
 export interface IAttributeElementsSelectionHandler {
     // (undocumented)
     changeSelection(selection: AttributeElementSelection): void;
@@ -558,29 +347,9 @@ export interface IAttributeFilterButtonOwnProps {
 // @public (undocumented)
 export type IAttributeFilterButtonProps = IAttributeFilterButtonOwnProps & WrappedComponentProps;
 
-// @internal
-export interface IAttributeFilterHandler extends IAttributeDisplayFormLoader, IAttributeElementLoader, IStagedAttributeElementsSelectionHandler {
-    getFilter(): IAttributeFilter;
-    getSelectedItems(): AttributeElementSelectionFull;
-}
-
-// @internal
+// @alpha
 export interface IAttributeFilterHandlerBase extends IAttributeDisplayFormLoader, IAttributeElementLoader {
     getFilter(): IAttributeFilter;
-}
-
-// @internal (undocumented)
-export interface IAttributeFilterHandlerConfig {
-    // (undocumented)
-    readonly backend: IAnalyticalBackend;
-    // (undocumented)
-    readonly displayFormLoad?: DisplayFormLoad;
-    // (undocumented)
-    readonly elementsLoad?: ElementsLoad;
-    // (undocumented)
-    readonly filter: IAttributeFilter;
-    // (undocumented)
-    readonly workspace: string;
 }
 
 // @public (undocumented)
@@ -702,7 +471,7 @@ export interface IDateTranslator {
     formatDate: IntlShape["formatDate"];
 }
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export interface IElementsLoadResult {
     // (undocumented)
     readonly items: IAttributeElement[];
@@ -718,14 +487,6 @@ export interface IElementsLoadResult {
 export interface IExtendedDateFilterErrors {
     absoluteForm?: IDateFilterAbsoluteFormErrors;
     relativeForm?: IDateFilterRelativeFormErrors;
-}
-
-// @internal (undocumented)
-export interface ILoadRangeOptions {
-    // (undocumented)
-    readonly limit: number;
-    // (undocumented)
-    readonly offset: number;
 }
 
 // @beta (undocumented)
@@ -790,7 +551,7 @@ export interface IMessageTranslator {
     formatMessage: IntlShape["formatMessage"];
 }
 
-// @internal
+// @alpha
 export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
     getSelectedItems(): AttributeElementSelectionFull;
 }
@@ -853,7 +614,7 @@ export const isAbsoluteDateFilterOption: (obj: unknown) => obj is AbsoluteDateFi
 // @public (undocumented)
 export const isEmptyListItem: (item: Partial<AttributeListItem>) => item is EmptyListItem;
 
-// @internal
+// @alpha
 export interface ISingleAttributeElementSelectionHandler {
     // (undocumented)
     changeSelection(selection: string | undefined): void;
@@ -861,7 +622,7 @@ export interface ISingleAttributeElementSelectionHandler {
     getSelection(): string | undefined;
 }
 
-// @internal
+// @alpha
 export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
     getSelectedItem(): IAttributeElement | undefined;
 }
@@ -872,7 +633,7 @@ export const isNonEmptyListItem: (item: Partial<AttributeListItem>) => item is I
 // @public
 export const isRelativeDateFilterOption: (obj: unknown) => obj is RelativeDateFilterOption;
 
-// @internal
+// @alpha
 export interface IStagedAttributeElementsSelectionHandler extends Omit<IAttributeElementsSelectionHandler, "getSelection"> {
     commitSelection(): void;
     // (undocumented)
@@ -890,11 +651,11 @@ export interface IStagedAttributeElementsSelectionHandler extends Omit<IAttribut
     revertSelection(): void;
 }
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export interface IStagedMultiSelectionAttributeFilterHandler extends IMultiSelectAttributeFilterHandler, IStagedAttributeElementsSelectionHandler {
 }
 
-// @internal
+// @alpha
 export interface IStagedSingleAttributeElementSelectionHandler extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
     commitSelection(): void;
     // (undocumented)
@@ -912,7 +673,7 @@ export interface IStagedSingleAttributeElementSelectionHandler extends Omit<ISin
     revertSelection(): void;
 }
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export interface IStagedSingleSelectionAttributeFilterHandler extends ISingleSelectAttributeFilterHandler, IStagedSingleAttributeElementSelectionHandler {
 }
 
@@ -938,34 +699,34 @@ export type IWarningMessage = {
     severity: "low" | "medium" | "high";
 };
 
-// @internal
+// @alpha
 export type Loadable<TResult, TError = Error> = LoadablePending | LoadableLoading | LoadableError<TError> | LoadableSuccess<TResult>;
 
-// @internal
+// @alpha
 export type LoadableError<TError> = {
     result: undefined;
     error: TError;
     status: "error";
 };
 
-// @internal
+// @alpha
 export type LoadableLoading = {
     result: undefined;
     error: undefined;
     status: "loading";
 };
 
-// @internal
+// @alpha
 export type LoadablePending = {
     result: undefined;
     error: undefined;
     status: "pending";
 };
 
-// @internal
+// @alpha
 export type LoadableStatus = Loadable<any, any>["status"];
 
-// @internal
+// @alpha
 export type LoadableSuccess<TResult> = {
     result: TResult;
     error: undefined;
@@ -990,17 +751,11 @@ export class MeasureValueFilterDropdown extends React_2.PureComponent<IMeasureVa
     render(): React_2.ReactNode;
 }
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export function newAttributeFilterHandler(backend: IAnalyticalBackend, workspace: string, filter: IAttributeFilter, selectionMode: "single"): IStagedSingleSelectionAttributeFilterHandler;
 
-// @internal (undocumented)
+// @alpha (undocumented)
 export function newAttributeFilterHandler(backend: IAnalyticalBackend, workspace: string, filter: IAttributeFilter, selectionMode: "multi"): IStagedMultiSelectionAttributeFilterHandler;
-
-// @internal (undocumented)
-export const newCallbackHandler: <T extends object = {}>() => {
-    triggerAll: (payload: CallbackPayload<T>) => void;
-    subscribe: CallbackRegistration<T>;
-};
 
 // @beta (undocumented)
 export const RankingFilter: React_2.FC<IRankingFilterProps>;
@@ -1011,61 +766,7 @@ export const RankingFilterDropdown: React_2.FC<IRankingFilterDropdownProps>;
 // @public
 export type RelativeDateFilterOption = IUiRelativeDateFilterForm | IRelativeDateFilterPreset;
 
-// @internal (undocumented)
-export class StagedMultiSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements IStagedMultiSelectionAttributeFilterHandler {
-    constructor(config: IAttributeFilterHandlerConfig);
-    // (undocumented)
-    changeSelection: (selection: AttributeElementSelection) => void;
-    // (undocumented)
-    clearSelection: () => void;
-    // (undocumented)
-    commitSelection: () => void;
-    // (undocumented)
-    getCommittedSelection: () => AttributeElementSelection;
-    // (undocumented)
-    getSelectedItems: () => AttributeElementSelectionFull;
-    // (undocumented)
-    getWorkingSelection: () => AttributeElementSelection;
-    // (undocumented)
-    invertSelection: () => void;
-    // (undocumented)
-    onSelectionChanged: CallbackRegistration<{
-        selection: AttributeElementSelection;
-    }>;
-    // (undocumented)
-    onSelectionCommitted: CallbackRegistration<{
-        selection: AttributeElementSelection;
-    }>;
-    // (undocumented)
-    revertSelection: () => void;
-}
-
-// @internal (undocumented)
-export class StagedSingleSelectionAttributeFilterHandler extends AttributeFilterHandlerBase implements IStagedSingleSelectionAttributeFilterHandler {
-    constructor(config: IAttributeFilterHandlerConfig);
-    // (undocumented)
-    changeSelection: (selection: string | undefined) => void;
-    // (undocumented)
-    commitSelection: () => void;
-    // (undocumented)
-    getCommittedSelection: () => string | undefined;
-    // (undocumented)
-    getSelectedItem: () => IAttributeElement | undefined;
-    // (undocumented)
-    getWorkingSelection: () => string | undefined;
-    // (undocumented)
-    onSelectionChanged: CallbackRegistration<{
-        selection: string | undefined;
-    }>;
-    // (undocumented)
-    onSelectionCommitted: CallbackRegistration<{
-        selection: string | undefined;
-    }>;
-    // (undocumented)
-    revertSelection: () => void;
-}
-
-// @internal (undocumented)
+// @alpha (undocumented)
 export type Unsubscribe = () => void;
 
 // @beta (undocumented)

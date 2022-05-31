@@ -77,4 +77,35 @@ export {
     ICustomGranularitySelection,
 } from "./RankingFilter/types";
 
-export * from "./AttributeFilterLoader";
+export {
+    newAttributeFilterHandler,
+    // Base
+    Correlation,
+    Loadable,
+    LoadableError,
+    LoadableLoading,
+    LoadablePending,
+    LoadableSuccess,
+    LoadableStatus,
+    CallbackRegistration,
+    Callback,
+    CallbackPayload,
+    Unsubscribe,
+    IElementsLoadResult,
+    AttributeElementSelection,
+    AttributeElementSelectionFull,
+    // Base handler
+    IAttributeDisplayFormLoader,
+    IAttributeElementLoader,
+    IAttributeFilterHandlerBase,
+    // Single select
+    ISingleSelectAttributeFilterHandler,
+    ISingleAttributeElementSelectionHandler,
+    IStagedSingleAttributeElementSelectionHandler,
+    IStagedSingleSelectionAttributeFilterHandler,
+    // Multi select
+    IMultiSelectAttributeFilterHandler,
+    IAttributeElementsSelectionHandler,
+    IStagedAttributeElementsSelectionHandler,
+    IStagedMultiSelectionAttributeFilterHandler,
+} from "./AttributeFilterLoader";

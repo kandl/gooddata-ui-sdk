@@ -8,7 +8,7 @@ import { IStagedMultiSelectionAttributeFilterHandler } from "../types";
 import { AttributeFilterHandlerBase, IAttributeFilterHandlerConfig } from "./base";
 
 /**
- * @internal
+ * @alpha
  */
 export class StagedMultiSelectionAttributeFilterHandler
     extends AttributeFilterHandlerBase

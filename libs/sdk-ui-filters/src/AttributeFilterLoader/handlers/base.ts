@@ -42,7 +42,7 @@ import { DefaultStagedAttributeElementsSelectionHandler } from "./selection";
 import { DefaultAttributeElementsLoader } from "./elements";
 
 /**
- * @internal
+ * @alpha
  */
 export interface IAttributeFilterHandlerConfig {
     readonly backend: IAnalyticalBackend;
@@ -53,7 +53,7 @@ export interface IAttributeFilterHandlerConfig {
 }
 
 /**
- * @internal
+ * @alpha
  */
 export class AttributeFilterHandlerBase implements IAttributeFilterHandlerBase {
     protected displayFormLoader: IAttributeDisplayFormLoader;
@@ -63,6 +63,7 @@ export class AttributeFilterHandlerBase implements IAttributeFilterHandlerBase {
     protected isElementsByRef: boolean;
     protected stagedSelectionHandler: IStagedAttributeElementsSelectionHandler;
 
+    // TODO: make private
     constructor(config: IAttributeFilterHandlerConfig) {
         this.displayForm = filterObjRef(config.filter);
 

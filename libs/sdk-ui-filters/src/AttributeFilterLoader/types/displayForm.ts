@@ -4,7 +4,7 @@ import { Loadable, CallbackRegistration, Correlation } from "./common";
 
 /**
  * Handles the loading of the display form info (e.g. its title).
- * @internal
+ * @alpha
  */
 export interface IAttributeDisplayFormLoader {
     //

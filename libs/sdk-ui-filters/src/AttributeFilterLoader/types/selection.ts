@@ -3,9 +3,13 @@ import { IAttributeElement } from "@gooddata/sdk-model";
 import { IAttributeFilterHandlerBase } from "./base";
 import { AttributeElementSelection, AttributeElementSelectionFull, CallbackRegistration } from "./common";
 
+//
+// Single select
+//
+
 /**
  * Handles the whole attribute filter experience
- * @internal
+ * @alpha
  */
 export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
     //
@@ -19,8 +23,71 @@ export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHan
 }
 
 /**
+ * Handles simple selection of at most one item
+ * @alpha
+ */
+export interface ISingleAttributeElementSelectionHandler {
+    //
+    // manipulators
+    //
+
+    changeSelection(selection: string | undefined): void;
+
+    //
+    // selectors
+    //
+
+    getSelection(): string | undefined;
+}
+
+/**
+ * Handles selection of items with stages: working and committed.
+ * @alpha
+ */
+export interface IStagedSingleAttributeElementSelectionHandler
+    extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
+    //
+    // manipulators
+    //
+
+    /**
+     * Commit the current working selection making it the new committed selection.
+     */
+    commitSelection(): void;
+
+    /**
+     * Revert the current working selection by resetting it to the committed selection.
+     */
+    revertSelection(): void;
+
+    //
+    // selectors
+    //
+    getWorkingSelection(): string | undefined;
+    getCommittedSelection(): string | undefined;
+
+    //
+    // callbacks
+    //
+    // TODO: this should be probably in ISingleAttributeElementSelectionHandler
+    onSelectionChanged: CallbackRegistration<{ selection: string | undefined }>;
+    onSelectionCommitted: CallbackRegistration<{ selection: string | undefined }>;
+}
+
+/**
+ * @alpha
+ */
+export interface IStagedSingleSelectionAttributeFilterHandler
+    extends ISingleSelectAttributeFilterHandler,
+        IStagedSingleAttributeElementSelectionHandler {}
+
+//
+// Multi select
+//
+
+/**
  * Handles the whole attribute filter experience
- * @internal
+ * @alpha
  */
 export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
     //
@@ -35,7 +102,7 @@ export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHand
 
 /**
  * Handles simple selection of items
- * @internal
+ * @alpha
  */
 export interface IAttributeElementsSelectionHandler {
     //
@@ -54,26 +121,8 @@ export interface IAttributeElementsSelectionHandler {
 }
 
 /**
- * Handles simple selection of at most one item
- * @internal
- */
-export interface ISingleAttributeElementSelectionHandler {
-    //
-    // manipulators
-    //
-
-    changeSelection(selection: string | undefined): void;
-
-    //
-    // selectors
-    //
-
-    getSelection(): string | undefined;
-}
-
-/**
  * Handles selection of items with stages: working and committed.
- * @internal
+ * @alpha
  */
 export interface IStagedAttributeElementsSelectionHandler
     extends Omit<IAttributeElementsSelectionHandler, "getSelection"> {
@@ -101,54 +150,14 @@ export interface IStagedAttributeElementsSelectionHandler
     //
     // callbacks
     //
-
+    // TODO: this should be probably in IAttributeElementsSelectionHandler
     onSelectionChanged: CallbackRegistration<{ selection: AttributeElementSelection }>;
     onSelectionCommitted: CallbackRegistration<{ selection: AttributeElementSelection }>;
 }
 
 /**
- * Handles selection of items with stages: working and committed.
- * @internal
- */
-export interface IStagedSingleAttributeElementSelectionHandler
-    extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
-    //
-    // manipulators
-    //
-
-    /**
-     * Commit the current working selection making it the new committed selection.
-     */
-    commitSelection(): void;
-
-    /**
-     * Revert the current working selection by resetting it to the committed selection.
-     */
-    revertSelection(): void;
-
-    //
-    // selectors
-    //
-    getWorkingSelection(): string | undefined;
-    getCommittedSelection(): string | undefined;
-
-    //
-    // callbacks
-    //
-    onSelectionChanged: CallbackRegistration<{ selection: string | undefined }>;
-    onSelectionCommitted: CallbackRegistration<{ selection: string | undefined }>;
-}
-
-/**
- * @internal
+ * @alpha
  */
 export interface IStagedMultiSelectionAttributeFilterHandler
     extends IMultiSelectAttributeFilterHandler,
         IStagedAttributeElementsSelectionHandler {}
-
-/**
- * @internal
- */
-export interface IStagedSingleSelectionAttributeFilterHandler
-    extends ISingleSelectAttributeFilterHandler,
-        IStagedSingleAttributeElementSelectionHandler {}
