@@ -8,14 +8,13 @@ import { AttributeFiltersOrPlaceholders } from '@gooddata/sdk-ui';
 import { DashboardDateFilterConfigMode } from '@gooddata/sdk-model';
 import { DateFilterGranularity } from '@gooddata/sdk-model';
 import { DateString } from '@gooddata/sdk-model';
-import { ElementsQueryOptionsElementsSpecification } from '@gooddata/sdk-backend-spi';
 import { IAbsoluteDateFilterForm } from '@gooddata/sdk-model';
 import { IAbsoluteDateFilterPreset } from '@gooddata/sdk-model';
 import { IAllTimeDateFilterOption } from '@gooddata/sdk-model';
 import { IAnalyticalBackend } from '@gooddata/sdk-backend-spi';
-import { IAttributeDisplayFormMetadataObject } from '@gooddata/sdk-model';
 import { IAttributeElement } from '@gooddata/sdk-model';
 import { IAttributeFilter } from '@gooddata/sdk-model';
+import { IAttributeMetadataObject } from '@gooddata/sdk-model';
 import { IDateFilter } from '@gooddata/sdk-model';
 import { IElementsQueryAttributeFilter } from '@gooddata/sdk-backend-spi';
 import { IElementsQueryOptions } from '@gooddata/sdk-backend-spi';
@@ -44,14 +43,6 @@ export type AbsoluteDateFilterOption = IUiAbsoluteDateFilterForm | IAbsoluteDate
 
 // @public
 export const AttributeElements: React_2.ComponentType<IAttributeElementsProps>;
-
-// @alpha (undocumented)
-export interface AttributeElementSelection {
-    // (undocumented)
-    isInverted: boolean;
-    // (undocumented)
-    items: string[];
-}
 
 // @alpha (undocumented)
 export interface AttributeElementSelectionFull {
@@ -143,25 +134,6 @@ export function filterVisibleDateFilterOptions(dateFilterOptions: IDateFilterOpt
 
 // @beta (undocumented)
 export type GranularityIntlKey = "day" | "minute" | "hour" | "week" | "month" | "quarter" | "year";
-
-// @alpha
-export interface IAttributeDisplayFormLoader {
-    cancelDisplayFormInfoLoad(): void;
-    getDisplayFormInfo(): Loadable<IAttributeDisplayFormMetadataObject>;
-    loadDisplayFormInfo(correlation?: Correlation): void;
-    // (undocumented)
-    onDisplayFormLoadCancel: CallbackRegistration;
-    // (undocumented)
-    onDisplayFormLoadError: CallbackRegistration<{
-        error: Error;
-    }>;
-    // (undocumented)
-    onDisplayFormLoadStart: CallbackRegistration;
-    // (undocumented)
-    onDisplayFormLoadSuccess: CallbackRegistration<{
-        displayForm: IAttributeDisplayFormMetadataObject;
-    }>;
-}
 
 // @public (undocumented)
 export interface IAttributeDropdownBodyExtendedProps extends IAttributeDropdownBodyProps {
@@ -269,7 +241,6 @@ export interface IAttributeElementLoader {
     // (undocumented)
     getTotalCount(): number;
     loadElementsRange(offset: number, limit: number, correlation?: Correlation): void;
-    loadParticularElements(elements: ElementsQueryOptionsElementsSpecification, correlation?: Correlation): void;
     // (undocumented)
     onElementsRangeLoadCancel: CallbackRegistration;
     // (undocumented)
@@ -283,7 +254,7 @@ export interface IAttributeElementLoader {
     setLimitingAttributeFilters(filters: IElementsQueryAttributeFilter[], correlation?: Correlation): void;
     setLimitingDateFilters(filters: IRelativeDateFilter[], correlation?: Correlation): void;
     setLimitingMeasures(measures: IMeasure[], correlation?: Correlation): void;
-    setSearch(search: string, correlation?: Correlation): void;
+    setSearch(search: string): void;
 }
 
 // @public
@@ -306,18 +277,6 @@ export interface IAttributeElementsProps {
     onError?: OnError;
     options?: IElementsQueryOptions;
     workspace?: string;
-}
-
-// @alpha
-export interface IAttributeElementsSelectionHandler {
-    // (undocumented)
-    changeSelection(selection: AttributeElementSelection): void;
-    // (undocumented)
-    clearSelection(): void;
-    // (undocumented)
-    getSelection(): AttributeElementSelection;
-    // (undocumented)
-    invertSelection(): void;
 }
 
 // @public (undocumented)
@@ -348,7 +307,7 @@ export interface IAttributeFilterButtonOwnProps {
 export type IAttributeFilterButtonProps = IAttributeFilterButtonOwnProps & WrappedComponentProps;
 
 // @alpha
-export interface IAttributeFilterHandlerBase extends IAttributeDisplayFormLoader, IAttributeElementLoader {
+export interface IAttributeFilterHandlerBase extends IAttributeLoader, IAttributeElementLoader {
     getFilter(): IAttributeFilter;
 }
 
@@ -372,6 +331,25 @@ export interface IAttributeFilterProps {
     title?: string;
     titleWithSelection?: boolean;
     workspace?: string;
+}
+
+// @alpha
+export interface IAttributeLoader {
+    cancelAttributeLoad(): void;
+    getAttribute(): Loadable<IAttributeMetadataObject>;
+    loadAttribute(correlation?: Correlation): void;
+    // (undocumented)
+    onAttributeLoadCancel: CallbackRegistration;
+    // (undocumented)
+    onAttributeLoadError: CallbackRegistration<{
+        error: Error;
+    }>;
+    // (undocumented)
+    onAttributeLoadStart: CallbackRegistration;
+    // (undocumented)
+    onAttributeLoadSuccess: CallbackRegistration<{
+        attribute: IAttributeMetadataObject;
+    }>;
 }
 
 // @beta (undocumented)
@@ -489,6 +467,22 @@ export interface IExtendedDateFilterErrors {
     relativeForm?: IDateFilterRelativeFormErrors;
 }
 
+// @alpha
+export interface IInvertableSelectionHandler {
+    // (undocumented)
+    changeSelection(selection: InvertableSelection): void;
+    // (undocumented)
+    clearSelection(): void;
+    // (undocumented)
+    getSelection(): InvertableSelection;
+    // (undocumented)
+    invertSelection(): void;
+    // (undocumented)
+    onSelectionChanged: CallbackRegistration<{
+        selection: InvertableSelection;
+    }>;
+}
+
 // @beta (undocumented)
 export interface IMeasureDropdownItem {
     // (undocumented)
@@ -556,6 +550,14 @@ export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHand
     getSelectedItems(): AttributeElementSelectionFull;
 }
 
+// @alpha (undocumented)
+export interface InvertableSelection {
+    // (undocumented)
+    isInverted: boolean;
+    // (undocumented)
+    items: string[];
+}
+
 // @beta (undocumented)
 export interface IRankingFilterDropdownProps {
     // (undocumented)
@@ -615,16 +617,20 @@ export const isAbsoluteDateFilterOption: (obj: unknown) => obj is AbsoluteDateFi
 export const isEmptyListItem: (item: Partial<AttributeListItem>) => item is EmptyListItem;
 
 // @alpha
-export interface ISingleAttributeElementSelectionHandler {
+export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
+    getSelectedItem(): IAttributeElement | undefined;
+}
+
+// @alpha
+export interface ISingleSelectionHandler {
     // (undocumented)
     changeSelection(selection: string | undefined): void;
     // (undocumented)
     getSelection(): string | undefined;
-}
-
-// @alpha
-export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
-    getSelectedItem(): IAttributeElement | undefined;
+    // (undocumented)
+    onSelectionChanged: CallbackRegistration<{
+        selection: string | undefined;
+    }>;
 }
 
 // @public (undocumented)
@@ -634,47 +640,39 @@ export const isNonEmptyListItem: (item: Partial<AttributeListItem>) => item is I
 export const isRelativeDateFilterOption: (obj: unknown) => obj is RelativeDateFilterOption;
 
 // @alpha
-export interface IStagedAttributeElementsSelectionHandler extends Omit<IAttributeElementsSelectionHandler, "getSelection"> {
+export interface IStagedInvertableSelectionHandler extends Omit<IInvertableSelectionHandler, "getSelection"> {
     commitSelection(): void;
     // (undocumented)
-    getCommittedSelection(): AttributeElementSelection;
+    getCommittedSelection(): InvertableSelection;
     // (undocumented)
-    getWorkingSelection(): AttributeElementSelection;
-    // (undocumented)
-    onSelectionChanged: CallbackRegistration<{
-        selection: AttributeElementSelection;
-    }>;
+    getWorkingSelection(): InvertableSelection;
     // (undocumented)
     onSelectionCommitted: CallbackRegistration<{
-        selection: AttributeElementSelection;
+        selection: InvertableSelection;
     }>;
     revertSelection(): void;
 }
 
 // @alpha (undocumented)
-export interface IStagedMultiSelectionAttributeFilterHandler extends IMultiSelectAttributeFilterHandler, IStagedAttributeElementsSelectionHandler {
+export interface IStagedMultiSelectionAttributeFilterHandler extends IMultiSelectAttributeFilterHandler, IStagedInvertableSelectionHandler {
+}
+
+// @alpha (undocumented)
+export interface IStagedSingleSelectionAttributeFilterHandler extends ISingleSelectAttributeFilterHandler, IStagedSingleSelectionHandler {
 }
 
 // @alpha
-export interface IStagedSingleAttributeElementSelectionHandler extends Omit<ISingleAttributeElementSelectionHandler, "getSelection"> {
+export interface IStagedSingleSelectionHandler extends Omit<ISingleSelectionHandler, "getSelection"> {
     commitSelection(): void;
     // (undocumented)
     getCommittedSelection(): string | undefined;
     // (undocumented)
     getWorkingSelection(): string | undefined;
     // (undocumented)
-    onSelectionChanged: CallbackRegistration<{
-        selection: string | undefined;
-    }>;
-    // (undocumented)
     onSelectionCommitted: CallbackRegistration<{
         selection: string | undefined;
     }>;
     revertSelection(): void;
-}
-
-// @alpha (undocumented)
-export interface IStagedSingleSelectionAttributeFilterHandler extends ISingleSelectAttributeFilterHandler, IStagedSingleAttributeElementSelectionHandler {
 }
 
 // @public

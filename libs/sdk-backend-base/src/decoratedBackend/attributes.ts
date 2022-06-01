@@ -1,13 +1,12 @@
 // (C) 2021-2022 GoodData Corporation
 
+import { IElementsQueryFactory, IWorkspaceAttributesService } from "@gooddata/sdk-backend-spi";
 import {
     IAttributeDisplayFormMetadataObject,
     IAttributeMetadataObject,
-    IElementsQueryFactory,
     IMetadataObject,
-    IWorkspaceAttributesService,
-} from "@gooddata/sdk-backend-spi";
-import { ObjRef } from "@gooddata/sdk-model";
+    ObjRef,
+} from "@gooddata/sdk-model";
 
 /**
  * @alpha
@@ -28,6 +27,10 @@ export abstract class DecoratedWorkspaceAttributesService implements IWorkspaceA
     }
 
     public getAttribute(ref: ObjRef): Promise<IAttributeMetadataObject> {
+        return this.decorated.getAttribute(ref);
+    }
+
+    public getAttributeByDisplayForm(ref: ObjRef): Promise<IAttributeMetadataObject> {
         return this.decorated.getAttribute(ref);
     }
 

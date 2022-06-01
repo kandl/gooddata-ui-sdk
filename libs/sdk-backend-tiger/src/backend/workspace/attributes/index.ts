@@ -1,17 +1,19 @@
 // (C) 2019-2022 GoodData Corporation
 import {
     IElementsQueryFactory,
-    IMetadataObject,
     IWorkspaceAttributesService,
     NotSupported,
     UnexpectedResponseError,
 } from "@gooddata/sdk-backend-spi";
 import {
+    IMetadataObject,
+    areObjRefsEqual,
+    IDataSetMetadataObject,
     IAttributeDisplayFormMetadataObject,
     IAttributeMetadataObject,
-    IDataSetMetadataObject,
-} from "@gooddata/sdk-backend-spi";
-import { areObjRefsEqual, isIdentifierRef, ObjRef } from "@gooddata/sdk-model";
+    isIdentifierRef,
+    ObjRef,
+} from "@gooddata/sdk-model";
 import { TigerAuthenticatedCallGuard } from "../../../types";
 import { TigerWorkspaceElements } from "./elements";
 import {
@@ -53,6 +55,10 @@ export class TigerWorkspaceAttributes implements IWorkspaceAttributesService {
                 refs.find((ref) => areObjRefsEqual(ref, df.ref)),
             );
         });
+    }
+
+    public getAttributeByDisplayForm(ref: ObjRef): Promise<IAttributeMetadataObject> {
+        return this.authCall(async (client) => loadAttributeByDisplayForm(client, this.workspace, ref));
     }
 
     public getAttributes(refs: ObjRef[]): Promise<IAttributeMetadataObject[]> {
@@ -135,6 +141,27 @@ function loadAttribute(
             },
         )
         .then((res) => convertAttributeWithSideloadedLabels(res.data));
+}
+
+function loadAttributeByDisplayForm(
+    client: ITigerClient,
+    workspaceId: string,
+    ref: ObjRef,
+): Promise<IAttributeMetadataObject> {
+    invariant(isIdentifierRef(ref), "tiger backend only supports referencing by identifier");
+
+    return client.entities
+        .getAllEntitiesAttributes(
+            {
+                workspaceId,
+                filter: `labels.id==${ref.identifier}`,
+                include: ["labels"],
+            },
+            {
+                headers: jsonApiHeaders,
+            },
+        )
+        .then((res) => convertAttributesWithSideloadedLabels(res.data)[0]);
 }
 
 function loadAttributes(client: ITigerClient, workspaceId: string): Promise<IAttributeMetadataObject[]> {
