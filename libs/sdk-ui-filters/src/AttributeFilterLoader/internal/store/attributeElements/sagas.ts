@@ -1,7 +1,8 @@
 // (C) 2022 GoodData Corporation
 import { SagaIterator } from "redux-saga";
-import { call, put, SagaReturnType, takeEvery } from "redux-saga/effects";
+import { call, put, select, SagaReturnType, takeEvery } from "redux-saga/effects";
 
+import { selectAttributeFilterDisplayForm } from "../attributeFilter/selectors";
 import { actions } from "../slice";
 import { cancelableCall, getAttributeFilterContext } from "../common/sagas";
 import { loadAttributeElements } from "./effects";
@@ -14,9 +15,13 @@ export function* attributeElementsWorker(): SagaIterator<void> {
 }
 
 function* attributeElementsRequestSaga({
-    payload: { correlationId, displayFormRef, elements, limit, offset },
+    payload: { correlationId, elements, limit, offset },
 }: ReturnType<typeof actions.attributeElementsRequest>): SagaIterator<void> {
     const context: SagaReturnType<typeof getAttributeFilterContext> = yield call(getAttributeFilterContext);
+    const displayFormRef: ReturnType<typeof selectAttributeFilterDisplayForm> = yield select(
+        selectAttributeFilterDisplayForm,
+    );
+
     yield call(() =>
         cancelableCall({
             promise: () =>

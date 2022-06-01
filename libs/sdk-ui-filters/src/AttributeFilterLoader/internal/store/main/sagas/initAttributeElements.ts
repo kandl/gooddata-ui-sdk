@@ -1,19 +1,15 @@
 // (C) 2022 GoodData Corporation
 import { v4 as uuidv4 } from "uuid";
 import { SagaIterator } from "redux-saga";
-import { put, select, take, race } from "redux-saga/effects";
+import { put, take, race } from "redux-saga/effects";
 import { AnyAction } from "@reduxjs/toolkit";
 
-import { selectAttributeFilterDisplayForm } from "../../attributeFilter/selectors";
 import { actions } from "../../slice";
 
 export function* initAttributeElements(): SagaIterator<void> {
     const correlationId = `init_paging_${uuidv4()}`;
-    const displayFormRef: ReturnType<typeof selectAttributeFilterDisplayForm> = yield select(
-        selectAttributeFilterDisplayForm,
-    );
 
-    yield put(actions.attributeElementsRequest({ displayFormRef, correlationId, offset: 0, limit: 550 }));
+    yield put(actions.attributeElementsRequest({ correlationId, offset: 0, limit: 550 }));
 
     const {
         success,

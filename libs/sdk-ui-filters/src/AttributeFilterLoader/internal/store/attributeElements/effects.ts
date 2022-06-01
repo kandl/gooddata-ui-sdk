@@ -43,3 +43,44 @@ export async function loadAttributeElements(
 
     return elementsLoader.query();
 }
+
+// const defaultElementsLoad: ElementsLoad = (config) => {
+//     const {
+//         backend,
+//         displayForm,
+//         limit,
+//         offset,
+//         workspace,
+//         limitingAttributeFilters,
+//         limitingDateFilters,
+//         limitingMeasures,
+//         search,
+//         elements,
+//     } = config;
+//     let loader = backend.workspace(workspace).attributes().elements().forDisplayForm(displayForm);
+//     if (limit) {
+//         loader = loader.withLimit(limit);
+//     }
+//     if (offset) {
+//         loader = loader.withOffset(limit);
+//     }
+//     if (search || elements) {
+//         loader = loader.withOptions({ filter: search, elements });
+//     }
+//     if (limitingDateFilters) {
+//         loader = loader.withDateFilters(limitingDateFilters);
+//     }
+//     if (limitingAttributeFilters) {
+//         loader = loader.withAttributeFilters(limitingAttributeFilters);
+//     }
+//     if (limitingMeasures) {
+//         loader = loader.withMeasures(limitingMeasures);
+//     }
+
+//     return loader.query().then((res) => ({
+//         items: res.items,
+//         limit: res.limit,
+//         offset: res.offset,
+//         totalCount: res.totalCount,
+//     }));
+// };

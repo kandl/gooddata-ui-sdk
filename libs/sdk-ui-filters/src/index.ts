@@ -92,20 +92,20 @@ export {
     CallbackPayload,
     Unsubscribe,
     IElementsLoadResult,
-    AttributeElementSelection,
+    InvertableSelection,
     AttributeElementSelectionFull,
     // Base handler
-    IAttributeDisplayFormLoader,
+    IAttributeLoader,
     IAttributeElementLoader,
     IAttributeFilterHandlerBase,
     // Single select
+    ISingleSelectionHandler,
+    IStagedSingleSelectionHandler,
     ISingleSelectAttributeFilterHandler,
-    ISingleAttributeElementSelectionHandler,
-    IStagedSingleAttributeElementSelectionHandler,
     IStagedSingleSelectionAttributeFilterHandler,
     // Multi select
+    IInvertableSelectionHandler,
+    IStagedInvertableSelectionHandler,
     IMultiSelectAttributeFilterHandler,
-    IAttributeElementsSelectionHandler,
-    IStagedAttributeElementsSelectionHandler,
     IStagedMultiSelectionAttributeFilterHandler,
 } from "./AttributeFilterLoader";

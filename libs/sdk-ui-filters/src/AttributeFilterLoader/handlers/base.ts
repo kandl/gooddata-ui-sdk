@@ -7,232 +7,277 @@ import {
 } from "@gooddata/sdk-backend-spi";
 import {
     IAttributeElement,
-    IAttributeDisplayFormMetadataObject,
+    IAttributeMetadataObject,
     ObjRef,
     IAttributeFilter,
-    filterObjRef,
-    newNegativeAttributeFilter,
-    newPositiveAttributeFilter,
-    isNegativeAttributeFilter,
-    filterAttributeElements,
-    isAttributeElementsByRef,
-    IAttributeElements,
+    // filterObjRef,
+    // newNegativeAttributeFilter,
+    // newPositiveAttributeFilter,
+    // isNegativeAttributeFilter,
+    // filterAttributeElements,
+    // isAttributeElementsByRef,
+    // IAttributeElements,
     IMeasure,
     IRelativeDateFilter,
 } from "@gooddata/sdk-model";
 import {
     CallbackRegistration,
     Correlation,
-    DisplayFormLoad,
-    ElementsLoad,
     IElementsLoadResult,
     Loadable,
     LoadableStatus,
 } from "../types/common";
 import {
-    IAttributeDisplayFormLoader,
-    IAttributeElementLoader,
+    // IAttributeLoader,
+    // IAttributeElementLoader,
     IAttributeFilterHandlerBase,
-    IStagedAttributeElementsSelectionHandler,
-    AttributeElementSelection,
-    AttributeElementSelectionFull,
+    // IStagedInvertableSelectionHandler,
+    // InvertableSelection,
+    // AttributeElementSelectionFull,
 } from "../types";
-import { DefaultAttributeDisplayFormLoader } from "./displayForm";
-import { DefaultStagedAttributeElementsSelectionHandler } from "./selection";
-import { DefaultAttributeElementsLoader } from "./elements";
+// import { DefaultAttributeDisplayFormLoader } from "./attribute";
+// import { DefaultStagedAttributeElementsSelectionHandler } from "./selection";
+// import { DefaultAttributeElementsLoader } from "./elements";
+import {
+    actions,
+    AttributeFilterStore,
+    createAttributeFilterStore,
+    selectAttribute,
+    selectAttributeElements,
+    selectAttributeElementsTotalCount,
+    selectAttributeElementsTotalCountWithCurrentSettings,
+    selectAttributeFilter,
+    selectSearch,
+} from "../internal";
+import { newCallbackHandler } from "./common";
 
 /**
- * @alpha
+ * @internal
+ */
+export interface ElementsLoadConfig {
+    backend: IAnalyticalBackend;
+    workspace: string;
+    displayForm: ObjRef;
+    offset: number;
+    limit: number;
+    search?: string;
+    limitingAttributeFilters?: IElementsQueryAttributeFilter[];
+    limitingMeasures?: IMeasure[];
+    limitingDateFilters?: IRelativeDateFilter[];
+    elements?: ElementsQueryOptionsElementsSpecification;
+}
+
+/**
+ * @internal
  */
 export interface IAttributeFilterHandlerConfig {
     readonly backend: IAnalyticalBackend;
     readonly workspace: string;
     readonly filter: IAttributeFilter;
-    readonly displayFormLoad?: DisplayFormLoad;
-    readonly elementsLoad?: ElementsLoad;
 }
 
 /**
  * @alpha
  */
 export class AttributeFilterHandlerBase implements IAttributeFilterHandlerBase {
-    protected displayFormLoader: IAttributeDisplayFormLoader;
-    protected elementLoader: IAttributeElementLoader;
+    // protected attributeLoader: IAttributeLoader;
+    // protected elementLoader: IAttributeElementLoader;
 
-    protected displayForm: ObjRef;
-    protected isElementsByRef: boolean;
-    protected stagedSelectionHandler: IStagedAttributeElementsSelectionHandler;
+    // protected displayForm: ObjRef;
+    // protected isElementsByRef: boolean;
+    // protected stagedSelectionHandler: IStagedInvertableSelectionHandler;
+    private callbacks = {
+        // Elements
+        elementsRangeLoadStart: newCallbackHandler(),
+        elementsRangeLoadSuccess: newCallbackHandler<IElementsLoadResult>(),
+        elementsRangeLoadError: newCallbackHandler<{ error: Error }>(),
+        elementsRangeLoadCancel: newCallbackHandler(),
+
+        // Attribute
+        attributeLoadStart: newCallbackHandler(),
+        attributeLoadSuccess: newCallbackHandler<{ attribute: IAttributeMetadataObject }>(),
+        attributeLoadError: newCallbackHandler<{ error: Error }>(),
+        attributeLoadCancel: newCallbackHandler(),
+    };
+
+    protected redux: AttributeFilterStore;
 
     // TODO: make private
-    constructor(config: IAttributeFilterHandlerConfig) {
-        this.displayForm = filterObjRef(config.filter);
+    protected constructor(config: IAttributeFilterHandlerConfig) {
+        this.redux = createAttributeFilterStore({
+            backend: config.backend,
+            workspace: config.workspace,
+            attributeFilter: config.filter,
+            // TODO: callback registration & unsubscribe
+            eventListener: (action, nextState) => {
+                // eslint-disable-next-line no-console
+                console.log("Action fired:", { action, nextState });
 
-        this.displayFormLoader = new DefaultAttributeDisplayFormLoader(
-            this.displayForm,
-            config.backend,
-            config.workspace,
-            config.displayFormLoad,
-        );
+                // Concrete action listening
+                if (actions.attributeElementsRequest.match(action)) {
+                    // React somehow
+                }
+            },
+        });
 
-        const elements = filterAttributeElements(config.filter);
-
-        const initialSelection: AttributeElementSelection = {
-            isInverted: isNegativeAttributeFilter(config.filter),
-            items: isAttributeElementsByRef(elements) ? elements.uris : elements.values,
-        };
-
-        this.isElementsByRef = isAttributeElementsByRef(elements);
-
-        this.stagedSelectionHandler = new DefaultStagedAttributeElementsSelectionHandler(initialSelection);
-
-        this.elementLoader = new DefaultAttributeElementsLoader(
-            this.displayForm,
-            config.backend,
-            config.workspace,
-            config.elementsLoad,
-        );
-
-        this.init(initialSelection);
+        this.redux.dispatch(actions.init());
     }
 
-    private init = (selection: AttributeElementSelection) => {
-        const correlation = "__INIT__";
-        this.loadDisplayFormInfo(correlation);
-        this.ensureSelectionLoaded(selection, correlation);
-    };
+    // public static for = (config: IAttributeFilterHandlerConfig) => {
 
-    private ensureSelectionLoaded = (selection: AttributeElementSelection, correlation: Correlation) => {
-        this.elementLoader.loadParticularElements(
-            {
-                uris: selection.items, // TODO detect other types of filters: value, primaryValue,...
-            },
-            correlation,
-        );
-    };
+    // }
+
+    // private init = (selection: InvertableSelection) => {
+    //     const correlation = "__INIT__";
+    //     this.loadAttribute(correlation);
+    //     this.ensureSelectionLoaded(selection, correlation);
+    // };
+
+    // private ensureSelectionLoaded = (selection: InvertableSelection, correlation: Correlation) => {
+    //     this.elementLoader.loadParticularElements(
+    //         {
+    //             uris: selection.items, // TODO detect other types of filters: value, primaryValue,...
+    //         },
+    //         correlation,
+    //     );
+    // };
 
     // manipulators
-    loadDisplayFormInfo = (correlation: Correlation = uuid()): void => {
-        return this.displayFormLoader.loadDisplayFormInfo(correlation);
+    loadAttribute = (correlation: Correlation = uuid()): void => {
+        this.redux.dispatch(actions.attributeRequest({ correlationId: correlation }));
     };
 
-    cancelDisplayFormInfoLoad = (): void => {
-        return this.displayFormLoader.cancelDisplayFormInfoLoad();
+    cancelAttributeLoad = (): void => {
+        this.redux.dispatch(actions.attributeCancelRequest());
     };
 
     loadElementsRange = (offset: number, limit: number, correlation: Correlation = uuid()): void => {
-        return this.elementLoader.loadElementsRange(offset, limit, correlation);
+        this.redux.dispatch(actions.attributeElementsRequest({ limit, offset, correlationId: correlation }));
     };
 
-    loadParticularElements = (
-        elements: ElementsQueryOptionsElementsSpecification,
-        correlation: Correlation = uuid(),
-    ): void => {
-        return this.elementLoader.loadParticularElements(elements, correlation);
-    };
+    // TODO: init callbacks (onSelectionLoaded)
+    // loadParticularElements = (
+    //     elements: ElementsQueryOptionsElementsSpecification,
+    //     correlation: Correlation = uuid(),
+    // ): void => {
+    //     return this.elementLoader.loadParticularElements(elements, correlation);
+    // };
 
     cancelElementLoad(): void {
-        return this.elementLoader.cancelElementLoad();
+        this.redux.dispatch(actions.attributeElementsCancelRequest());
     }
 
-    setSearch = (search: string, correlation: Correlation = uuid()): void => {
-        this.stagedSelectionHandler.changeSelection({ isInverted: true, items: [] }); // maybe not?
-        return this.elementLoader.setSearch(search, correlation);
+    setSearch = (search: string): void => {
+        // TODO: Reset selection?
+        // this.stagedSelectionHandler.changeSelection({ isInverted: true, items: [] }); // maybe not?
+        this.redux.dispatch(actions.setSearch({ search }));
     };
 
-    setLimitingMeasures = (measures: IMeasure[], correlation: Correlation = uuid()): void => {
-        return this.elementLoader.setLimitingMeasures(measures, correlation);
+    setLimitingMeasures = (_measures: IMeasure[], _correlation: Correlation = uuid()): void => {
+        // TODO: implement
+        // return this.elementLoader.setLimitingMeasures(measures, correlation);
     };
 
     setLimitingAttributeFilters = (
-        filters: IElementsQueryAttributeFilter[],
-        correlation: Correlation = uuid(),
+        _filters: IElementsQueryAttributeFilter[],
+        _correlation: Correlation = uuid(),
     ): void => {
-        return this.elementLoader.setLimitingAttributeFilters(filters, correlation);
+        // TODO: implement
+        // return this.elementLoader.setLimitingAttributeFilters(filters, correlation);
     };
 
-    setLimitingDateFilters = (filters: IRelativeDateFilter[], correlation: Correlation = uuid()): void => {
-        return this.elementLoader.setLimitingDateFilters(filters, correlation);
+    setLimitingDateFilters = (_filters: IRelativeDateFilter[], _correlation: Correlation = uuid()): void => {
+        // TODO: implement
+        // return this.elementLoader.setLimitingDateFilters(filters, correlation);
     };
 
     // selectors
-    protected getSelectedItemsBase(): AttributeElementSelectionFull {
-        const selection = this.stagedSelectionHandler.getWorkingSelection();
-        return {
-            isInverted: selection.isInverted,
-            elements: this.getItemsByKey(selection.items),
-        };
-    }
+    // protected getSelectedItemsBase(): AttributeElementSelectionFull {
+    //     const selection = this.stagedSelectionHandler.getWorkingSelection();
+    //     return {
+    //         isInverted: selection.isInverted,
+    //         elements: this.getItemsByKey(selection.items),
+    //     };
+    // }
 
     getSearch = (): string => {
-        return this.elementLoader.getSearch();
+        return this.redux.select(selectSearch);
     };
 
     getAllItems = (): IAttributeElement[] => {
-        return this.elementLoader.getAllItems();
+        return this.redux.select(selectAttributeElements);
     };
 
-    getItemsByKey = (keys: string[]): IAttributeElement[] => {
-        return this.elementLoader.getItemsByKey(keys);
+    getItemsByKey = (_keys: string[]): IAttributeElement[] => {
+        // TODO implement selector for it
+        return [];
     };
 
     getTotalCount = (): number => {
-        return this.elementLoader.getTotalCount();
+        return this.redux.select(selectAttributeElementsTotalCount);
     };
 
     getCountWithCurrentSettings = (): number => {
-        return this.elementLoader.getCountWithCurrentSettings();
+        return this.redux.select(selectAttributeElementsTotalCountWithCurrentSettings);
     };
 
-    getDisplayFormInfo = (): Loadable<IAttributeDisplayFormMetadataObject> => {
-        return this.displayFormLoader.getDisplayFormInfo();
+    getAttribute = (): Loadable<IAttributeMetadataObject> => {
+        // TODO
+        return {
+            result: this.redux.select(selectAttribute),
+            error: undefined,
+            status: "success",
+        };
     };
 
     getFilter = (): IAttributeFilter => {
-        const committedSelection = this.stagedSelectionHandler.getCommittedSelection();
-        const elements: IAttributeElements = this.isElementsByRef
-            ? { uris: committedSelection.items }
-            : { values: committedSelection.items };
-        return committedSelection.isInverted
-            ? newNegativeAttributeFilter(this.displayForm, elements)
-            : newPositiveAttributeFilter(this.displayForm, elements);
+        // TODO
+        // const committedSelection = this.stagedSelectionHandler.getCommittedSelection();
+        // const elements: IAttributeElements = this.isElementsByRef
+        //     ? { uris: committedSelection.items }
+        //     : { values: committedSelection.items };
+        // return committedSelection.isInverted
+        //     ? newNegativeAttributeFilter(this.displayForm, elements)
+        //     : newPositiveAttributeFilter(this.displayForm, elements);
+        return this.redux.select(selectAttributeFilter);
     };
 
     getLoadingStatus = (): LoadableStatus => {
-        return this.elementLoader.getLoadingStatus();
+        // TODO
+        // return this.elementLoader.getLoadingStatus();
+        return "success";
     };
 
     // callbacks
     onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
-        return this.elementLoader.onElementsRangeLoadSuccess(cb);
+        return this.callbacks.elementsRangeLoadSuccess.subscribe(cb);
     };
 
     onElementsRangeLoadStart: CallbackRegistration = (cb) => {
-        return this.elementLoader.onElementsRangeLoadStart(cb);
+        return this.callbacks.elementsRangeLoadStart.subscribe(cb);
     };
 
     onElementsRangeLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
-        return this.elementLoader.onElementsRangeLoadError(cb);
+        return this.callbacks.elementsRangeLoadError.subscribe(cb);
     };
 
     onElementsRangeLoadCancel: CallbackRegistration = (cb) => {
-        return this.elementLoader.onElementsRangeLoadCancel(cb);
+        return this.callbacks.elementsRangeLoadCancel.subscribe(cb);
     };
 
-    onDisplayFormLoadSuccess: CallbackRegistration<{ displayForm: IAttributeDisplayFormMetadataObject }> = (
-        cb,
-    ) => {
-        return this.displayFormLoader.onDisplayFormLoadSuccess(cb);
+    onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }> = (cb) => {
+        return this.callbacks.attributeLoadSuccess.subscribe(cb);
     };
 
-    onDisplayFormLoadStart: CallbackRegistration = (cb) => {
-        return this.displayFormLoader.onDisplayFormLoadStart(cb);
+    onAttributeLoadStart: CallbackRegistration = (cb) => {
+        return this.callbacks.attributeLoadStart.subscribe(cb);
     };
 
-    onDisplayFormLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
-        return this.displayFormLoader.onDisplayFormLoadError(cb);
+    onAttributeLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.callbacks.attributeLoadError.subscribe(cb);
     };
 
-    onDisplayFormLoadCancel: CallbackRegistration = (cb) => {
-        return this.displayFormLoader.onDisplayFormLoadCancel(cb);
+    onAttributeLoadCancel: CallbackRegistration = (cb) => {
+        return this.callbacks.attributeLoadCancel.subscribe(cb);
     };
 }

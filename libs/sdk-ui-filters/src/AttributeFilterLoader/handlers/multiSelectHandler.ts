@@ -1,11 +1,13 @@
 // (C) 2022 GoodData Corporation
+import { CallbackRegistration } from "../types/common";
 import {
-    AttributeElementSelection,
+    IStagedMultiSelectionAttributeFilterHandler,
+    InvertableSelection,
     AttributeElementSelectionFull,
-    CallbackRegistration,
-} from "../types/common";
-import { IStagedMultiSelectionAttributeFilterHandler } from "../types";
+} from "../types";
 import { AttributeFilterHandlerBase, IAttributeFilterHandlerConfig } from "./base";
+import { actions } from "../internal";
+import { newCallbackHandler } from "./common";
 
 /**
  * @alpha
@@ -14,47 +16,64 @@ export class StagedMultiSelectionAttributeFilterHandler
     extends AttributeFilterHandlerBase
     implements IStagedMultiSelectionAttributeFilterHandler
 {
+    private selectionCallbacks = {
+        selectionChanged: newCallbackHandler<{ selection: InvertableSelection }>(),
+        selectionCommited: newCallbackHandler<{ selection: InvertableSelection }>(),
+    };
+
     constructor(config: IAttributeFilterHandlerConfig) {
         super(config);
     }
 
-    changeSelection = (selection: AttributeElementSelection): void => {
-        return this.stagedSelectionHandler.changeSelection(selection);
+    changeSelection = (_selection: InvertableSelection): void => {
+        this.redux.dispatch(actions.changeSelection());
     };
 
     revertSelection = (): void => {
-        return this.stagedSelectionHandler.revertSelection();
+        this.redux.dispatch(actions.revertSelection());
     };
 
     commitSelection = (): void => {
-        return this.stagedSelectionHandler.commitSelection();
+        this.redux.dispatch(actions.commitSelection());
     };
 
     invertSelection = (): void => {
-        return this.stagedSelectionHandler.invertSelection();
+        this.redux.dispatch(actions.invertSelection());
     };
 
     clearSelection = (): void => {
-        return this.stagedSelectionHandler.clearSelection();
+        this.redux.dispatch(actions.clearSelection());
     };
 
-    getWorkingSelection = (): AttributeElementSelection => {
-        return this.stagedSelectionHandler.getWorkingSelection();
+    getWorkingSelection = (): InvertableSelection => {
+        // TODO: return this.redux.select();
+        return {
+            isInverted: false,
+            items: [],
+        };
     };
 
     getSelectedItems = (): AttributeElementSelectionFull => {
-        return this.getSelectedItemsBase();
+        // TODO: return this.redux.select();
+        return {
+            isInverted: false,
+            elements: [],
+        };
     };
 
-    getCommittedSelection = (): AttributeElementSelection => {
-        return this.stagedSelectionHandler.getCommittedSelection();
+    getCommittedSelection = (): InvertableSelection => {
+        // TODO: return this.redux.select();
+        return {
+            isInverted: true,
+            items: [],
+        };
     };
 
-    onSelectionChanged: CallbackRegistration<{ selection: AttributeElementSelection }> = (cb) => {
-        return this.stagedSelectionHandler.onSelectionChanged(cb);
+    onSelectionChanged: CallbackRegistration<{ selection: InvertableSelection }> = (cb) => {
+        return this.selectionCallbacks.selectionChanged.subscribe(cb);
     };
 
-    onSelectionCommitted: CallbackRegistration<{ selection: AttributeElementSelection }> = (cb) => {
-        return this.stagedSelectionHandler.onSelectionCommitted(cb);
+    onSelectionCommitted: CallbackRegistration<{ selection: InvertableSelection }> = (cb) => {
+        return this.selectionCallbacks.selectionCommited.subscribe(cb);
     };
 }

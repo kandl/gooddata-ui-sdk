@@ -41,22 +41,6 @@ export function newAttributeFilterHandler(
     filter: IAttributeFilter,
     selectionMode: "single" | "multi",
 ): IStagedSingleSelectionAttributeFilterHandler | IStagedMultiSelectionAttributeFilterHandler {
-    // TODO: Integrate store with handlers
-    // const store = createAttributeFilterStore({
-    //     backend: this.backend,
-    //     workspace: this.workspace,
-    //     attributeFilter: this.attributeFilter,
-    //     eventListener: (action, nextState) => {
-    //         // eslint-disable-next-line no-console
-    //         console.log("Action fired:", { action, nextState });
-
-    //         // Concrete action listening
-    //         if (actions.attributeElementsRequest.match(action)) {
-    //             // React somehow
-    //         }
-    //     },
-    // });
-
     if (selectionMode === "multi") {
         return new StagedMultiSelectionAttributeFilterHandler({ backend, workspace, filter });
     }

@@ -6,3 +6,19 @@ import { selectState } from "../common/selectors";
  * @internal
  */
 export const selectAttributeElements = createSelector(selectState, (state) => state.attributeElements);
+
+/**
+ * @internal
+ */
+export const selectAttributeElementsTotalCount = createSelector(
+    selectState,
+    (state) => state.attributeElementsTotalCount,
+);
+
+/**
+ * @internal
+ */
+export const selectAttributeElementsTotalCountWithCurrentSettings = createSelector(
+    selectState,
+    (state) => state.attributeElementsTotalCountWithCurrentSettings,
+);

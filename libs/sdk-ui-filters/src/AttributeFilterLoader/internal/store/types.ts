@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
-import { Action, EnhancedStore } from "@reduxjs/toolkit";
+import { Action, AnyAction, EnhancedStore } from "@reduxjs/toolkit";
 import { Task } from "redux-saga";
 import { IAttributeFilter } from "@gooddata/sdk-model";
 import { AttributeFilterState } from "./state";
@@ -14,6 +14,8 @@ import { AttributeFilterState } from "./state";
 export interface AttributeFilterStore {
     context: AttributeFilterStoreContext;
     store: EnhancedStore<AttributeFilterState>;
+    dispatch: (action: AnyAction) => void;
+    select: <T>(selector: (state: AttributeFilterState) => T) => T;
     rootSagaTask: Task;
 }
 

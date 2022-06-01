@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 import {
-    ElementsQueryOptionsElementsSpecification,
+    // ElementsQueryOptionsElementsSpecification,
     IElementsQueryAttributeFilter,
 } from "@gooddata/sdk-backend-spi";
 import { IAttributeElement, IMeasure, IRelativeDateFilter } from "@gooddata/sdk-model";
@@ -44,10 +44,10 @@ export interface IAttributeElementLoader {
      * @param elements - the elements to load
      * @param correlation - the correlation value
      */
-    loadParticularElements(
-        elements: ElementsQueryOptionsElementsSpecification,
-        correlation?: Correlation,
-    ): void;
+    // loadParticularElements(
+    //     elements: ElementsQueryOptionsElementsSpecification,
+    //     correlation?: Correlation,
+    // ): void;
 
     /**
      * Set the search value used to filter the elements.
@@ -62,7 +62,7 @@ export interface IAttributeElementLoader {
      * @param search - the search string to use. Use empty string to reset search.
      * @param correlation - the correlation value // TODO is this useful here?
      */
-    setSearch(search: string, correlation?: Correlation): void;
+    setSearch(search: string): void;
 
     /**
      * Set the measure that will limit the available elements.

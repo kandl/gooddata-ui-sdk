@@ -6,3 +6,8 @@ import { selectState } from "../common/selectors";
  * @internal
  */
 export const selectSelection = createSelector(selectState, (state) => state.selectedAttributeElements);
+
+/**
+ * @internal
+ */
+export const selectIsInverted = createSelector(selectState, (state) => state.isInverted);

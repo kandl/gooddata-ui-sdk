@@ -1,11 +1,12 @@
 // (C) 2022 GoodData Corporation
-// import { v4 as uuidv4 } from "uuid";
 import { SagaIterator } from "redux-saga";
-import { call, put, SagaReturnType, takeLatest } from "redux-saga/effects";
+import { call, put, select, SagaReturnType, takeLatest } from "redux-saga/effects";
 
+import { selectAttributeFilterDisplayForm } from "../attributeFilter/selectors";
 import { cancelableCall, getAttributeFilterContext } from "../common/sagas";
 import { actions } from "../slice";
-import { loadAttribute } from "./effects";
+
+import { loadAttributeByDisplayForm } from "./effects";
 
 /**
  * @internal
@@ -15,13 +16,17 @@ export function* attributeWorker(): SagaIterator<void> {
 }
 
 function* attributeRequestSaga({
-    payload: { attributeRef, correlationId },
+    payload: { correlationId },
 }: ReturnType<typeof actions.attributeRequest>): SagaIterator<void> {
     const context: SagaReturnType<typeof getAttributeFilterContext> = yield call(getAttributeFilterContext);
+    const displayFormRef: ReturnType<typeof selectAttributeFilterDisplayForm> = yield select(
+        selectAttributeFilterDisplayForm,
+    );
 
+    // TODO: attributeCancelRequest
     yield call(() =>
         cancelableCall({
-            promise: () => loadAttribute(context, attributeRef),
+            promise: () => loadAttributeByDisplayForm(context, displayFormRef),
             onSuccess: function* (attribute) {
                 yield put(actions.attributeSuccess({ attribute, correlationId }));
             },

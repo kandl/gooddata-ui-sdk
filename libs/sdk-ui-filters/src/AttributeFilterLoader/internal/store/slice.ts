@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     attributeReducers,
     attributeElementsReducers,
-    displayFormReducers,
     attributeFilterReducers,
     selectionReducers,
     mainReducers,
@@ -14,7 +13,6 @@ const attributeFilterSlice = createSlice({
     name: "attributeFilterSlice",
     initialState: initialState,
     reducers: {
-        ...displayFormReducers,
         ...attributeReducers,
         ...attributeElementsReducers,
         ...attributeFilterReducers,

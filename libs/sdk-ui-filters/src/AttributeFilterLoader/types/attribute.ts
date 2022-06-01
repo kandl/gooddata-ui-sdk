@@ -1,12 +1,12 @@
 // (C) 2022 GoodData Corporation
-import { IAttributeDisplayFormMetadataObject } from "@gooddata/sdk-model";
+import { IAttributeMetadataObject } from "@gooddata/sdk-model";
 import { Loadable, CallbackRegistration, Correlation } from "./common";
 
 /**
  * Handles the loading of the display form info (e.g. its title).
  * @alpha
  */
-export interface IAttributeDisplayFormLoader {
+export interface IAttributeLoader {
     //
     // manipulators
     //
@@ -21,12 +21,12 @@ export interface IAttributeDisplayFormLoader {
      *
      * @param correlation - the correlation value
      */
-    loadDisplayFormInfo(correlation?: Correlation): void;
+    loadAttribute(correlation?: Correlation): void;
 
     /**
      * Cancel the loading of the display form if any is in progress.
      */
-    cancelDisplayFormInfoLoad(): void;
+    cancelAttributeLoad(): void;
 
     //
     // selectors
@@ -36,14 +36,14 @@ export interface IAttributeDisplayFormLoader {
      * Get the currently loaded value of the display form.
      * @privateRemarks
      */
-    getDisplayFormInfo(): Loadable<IAttributeDisplayFormMetadataObject>;
+    getAttribute(): Loadable<IAttributeMetadataObject>;
 
     //
     // callbacks
     //
 
-    onDisplayFormLoadStart: CallbackRegistration;
-    onDisplayFormLoadSuccess: CallbackRegistration<{ displayForm: IAttributeDisplayFormMetadataObject }>;
-    onDisplayFormLoadError: CallbackRegistration<{ error: Error }>;
-    onDisplayFormLoadCancel: CallbackRegistration;
+    onAttributeLoadStart: CallbackRegistration;
+    onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }>;
+    onAttributeLoadError: CallbackRegistration<{ error: Error }>;
+    onAttributeLoadCancel: CallbackRegistration;
 }

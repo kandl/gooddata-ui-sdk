@@ -1,17 +1,6 @@
 // (C) 2022 GoodData Corporation
 /* eslint-disable @typescript-eslint/ban-types */
-import {
-    ElementsQueryOptionsElementsSpecification,
-    IAnalyticalBackend,
-    IElementsQueryAttributeFilter,
-} from "@gooddata/sdk-backend-spi";
-import {
-    IAttributeElement,
-    IAttributeDisplayFormMetadataObject,
-    ObjRef,
-    IMeasure,
-    IRelativeDateFilter,
-} from "@gooddata/sdk-model";
+import { IAttributeElement } from "@gooddata/sdk-model";
 
 /**
  * @alpha
@@ -56,36 +45,6 @@ export interface ILoadRangeOptions {
     readonly limit: number;
     readonly offset: number;
 }
-
-/**
- * @alpha
- */
-export type DisplayFormLoad = (
-    backend: IAnalyticalBackend,
-    workspace: string,
-    displayForm: ObjRef,
-) => Promise<IAttributeDisplayFormMetadataObject>;
-
-/**
- * @internal
- */
-export interface ElementsLoadConfig {
-    backend: IAnalyticalBackend;
-    workspace: string;
-    displayForm: ObjRef;
-    offset: number;
-    limit: number;
-    search?: string;
-    limitingAttributeFilters?: IElementsQueryAttributeFilter[];
-    limitingMeasures?: IMeasure[];
-    limitingDateFilters?: IRelativeDateFilter[];
-    elements?: ElementsQueryOptionsElementsSpecification;
-}
-
-/**
- * @internal
- */
-export type ElementsLoad = (config: ElementsLoadConfig) => Promise<IElementsLoadResult>;
 
 /**
  * Indicates pending state of a loadable item.

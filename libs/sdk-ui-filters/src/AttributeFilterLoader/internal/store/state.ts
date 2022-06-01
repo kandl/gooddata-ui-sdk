@@ -2,7 +2,7 @@
 import { CaseReducer, AnyAction } from "@reduxjs/toolkit";
 import { IElementsQueryAttributeFilter } from "@gooddata/sdk-backend-spi";
 import {
-    IAttributeDisplayFormMetadataObject,
+    // IAttributeDisplayFormMetadataObject,
     IAttributeElement,
     IAttributeFilter,
     IAttributeMetadataObject,
@@ -15,16 +15,18 @@ import {
  * @internal
  */
 export interface AttributeFilterState {
-    // Attribute filter component state
+    // Attribute filter
     attributeFilter?: IAttributeFilter;
+
+    // Current selection
     isInverted?: boolean;
     selectedAttributeElements?: IAttributeElement[];
 
     // Backend data / metadata
-    displayForm?: IAttributeDisplayFormMetadataObject;
     attribute?: IAttributeMetadataObject;
     attributeElements?: IAttributeElement[];
     attributeElementsTotalCount?: number;
+    attributeElementsTotalCountWithCurrentSettings?: number;
 
     // Load attribute elements options
     search?: string;

@@ -7,18 +7,20 @@ import { Callback, CallbackPayload, CallbackRegistration } from "../types/common
  */
 export const newCallbackHandler = <T extends object = {}>() => {
     let subscribers: Array<Callback<T>> = [];
+
     const subscribe: CallbackRegistration<T> = (cb) => {
         subscribers.push(cb);
-        return () => {
+        return function unsubscribe() {
             subscribers = subscribers.filter((i) => i != cb);
         };
     };
-    const triggerAll = (payload: CallbackPayload<T>) => {
+
+    const invoke = (payload: CallbackPayload<T>) => {
         subscribers.forEach((cb) => cb(payload));
     };
 
     return {
-        triggerAll,
+        invoke,
         subscribe,
     };
 };

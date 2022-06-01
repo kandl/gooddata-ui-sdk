@@ -1,5 +1,5 @@
 // (C) 2022 GoodData Corporation
-import { Action, configureStore, Middleware } from "@reduxjs/toolkit";
+import { Action, AnyAction, configureStore, Middleware } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { sliceReducer } from "./slice";
 import { rootSaga } from "./rootSaga";
@@ -49,5 +49,11 @@ export function createAttributeFilterStore(context: AttributeFilterStoreContext)
         store,
         rootSagaTask,
         context,
+        dispatch: (action: AnyAction) => {
+            store.dispatch(action);
+        },
+        select: (selector) => {
+            return selector(store.getState());
+        },
     };
 }

@@ -1,13 +1,13 @@
 // (C) 2022 GoodData Corporation
 import { IAttributeFilter } from "@gooddata/sdk-model";
-import { IAttributeDisplayFormLoader } from "./displayForm";
+import { IAttributeLoader } from "./attribute";
 import { IAttributeElementLoader } from "./elements";
 
 /**
  * Handles the whole attribute filter experience
  * @alpha
  */
-export interface IAttributeFilterHandlerBase extends IAttributeDisplayFormLoader, IAttributeElementLoader {
+export interface IAttributeFilterHandlerBase extends IAttributeLoader, IAttributeElementLoader {
     //
     // selectors
     //

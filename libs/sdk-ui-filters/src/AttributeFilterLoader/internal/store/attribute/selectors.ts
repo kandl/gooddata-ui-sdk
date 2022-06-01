@@ -7,7 +7,7 @@ import { selectState } from "../common/selectors";
  */
 export const selectAttribute = createSelector(selectState, (state) => state.attribute);
 
-/**
- * @internal
- */
-export const selectAttributeError = createSelector(selectState, (state) => state.attributeError);
+// /**
+//  * @internal
+//  */
+// export const selectAttributeError = createSelector(selectState, (state) => state.attributeError);

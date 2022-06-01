@@ -2,27 +2,24 @@
 import { v4 as uuidv4 } from "uuid";
 import { SagaIterator } from "redux-saga";
 import { put, select, take, race } from "redux-saga/effects";
-
-import {
-    selectAttributeFilterDisplayForm,
-    selectAttributeFilterElements,
-} from "../../attributeFilter/selectors";
-import { actions } from "../../slice";
 import { AnyAction } from "@reduxjs/toolkit";
+import { isNegativeAttributeFilter } from "@gooddata/sdk-model";
+
+import { selectAttributeFilter, selectAttributeFilterElements } from "../../attributeFilter/selectors";
+import { actions } from "../../slice";
 
 /**
  * @internal
  */
 export function* initSelection(): SagaIterator<void> {
     const correlationId = `init_selection_${uuidv4()}`;
-    const displayFormRef: ReturnType<typeof selectAttributeFilterDisplayForm> = yield select(
-        selectAttributeFilterDisplayForm,
-    );
+    const attributeFilter: ReturnType<typeof selectAttributeFilter> = yield select(selectAttributeFilter);
+
     const elements: ReturnType<typeof selectAttributeFilterElements> = yield select(
         selectAttributeFilterElements,
     );
 
-    yield put(actions.attributeElementsRequest({ displayFormRef, correlationId, elements }));
+    yield put(actions.attributeElementsRequest({ correlationId, elements }));
 
     const {
         success,
@@ -49,6 +46,7 @@ export function* initSelection(): SagaIterator<void> {
 
     if (success) {
         yield put(actions.setSelection({ selection: success.payload.attributeElements }));
+        yield put(actions.setIsInverted({ isInverted: isNegativeAttributeFilter(attributeFilter) }));
     } else if (error || cancel) {
         // Handle cleanup?
     }

@@ -3,40 +3,9 @@ import { IAttributeElement } from "@gooddata/sdk-model";
 import { IAttributeFilterHandlerBase } from "./base";
 import { CallbackRegistration } from "./common";
 
-/**
- * @alpha
- */
-export interface AttributeElementSelection {
-    items: string[];
-    isInverted: boolean;
-}
-
-/**
- * @alpha
- */
-export interface AttributeElementSelectionFull {
-    elements: IAttributeElement[];
-    isInverted: boolean;
-}
-
 //
 // Single select
 //
-
-/**
- * Handles the whole attribute filter experience
- * @alpha
- */
-export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
-    //
-    // selectors
-    //
-
-    /**
-     * Get the currently selected attribute element (using the working selection).
-     */
-    getSelectedItem(): IAttributeElement | undefined;
-}
 
 /**
  * Handles simple selection of at most one item
@@ -93,6 +62,23 @@ export interface IStagedSingleSelectionHandler extends Omit<ISingleSelectionHand
     onSelectionCommitted: CallbackRegistration<{ selection: string | undefined }>;
 }
 
+// Single select attribute handler
+
+/**
+ * Handles the whole attribute filter experience
+ * @alpha
+ */
+export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
+    //
+    // selectors
+    //
+
+    /**
+     * Get the currently selected attribute element (using the working selection).
+     */
+    getSelectedItem(): IAttributeElement | undefined;
+}
+
 /**
  * @alpha
  */
@@ -101,34 +87,27 @@ export interface IStagedSingleSelectionAttributeFilterHandler
         IStagedSingleSelectionHandler {}
 
 //
-// Multi select
+// Invertable selection
 //
 
 /**
- * Handles the whole attribute filter experience
  * @alpha
  */
-export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
-    //
-    // selectors
-    //
-
-    /**
-     * Get the currently selected attribute elements (using the working selection).
-     */
-    getSelectedItems(): AttributeElementSelectionFull;
+export interface InvertableSelection {
+    items: string[];
+    isInverted: boolean;
 }
 
 /**
  * Handles simple selection of items
  * @alpha
  */
-export interface IAttributeElementsSelectionHandler {
+export interface IInvertableSelectionHandler {
     //
     // manipulators
     //
 
-    changeSelection(selection: AttributeElementSelection): void;
+    changeSelection(selection: InvertableSelection): void;
     invertSelection(): void;
     clearSelection(): void;
 
@@ -136,20 +115,19 @@ export interface IAttributeElementsSelectionHandler {
     // selectors
     //
 
-    getSelection(): AttributeElementSelection;
+    getSelection(): InvertableSelection;
 
     //
     // callbacks
     //
-    onSelectionChanged: CallbackRegistration<{ selection: AttributeElementSelection }>;
+    onSelectionChanged: CallbackRegistration<{ selection: InvertableSelection }>;
 }
 
 /**
  * Handles selection of items with stages: working and committed.
  * @alpha
  */
-export interface IStagedAttributeElementsSelectionHandler
-    extends Omit<IAttributeElementsSelectionHandler, "getSelection"> {
+export interface IStagedInvertableSelectionHandler extends Omit<IInvertableSelectionHandler, "getSelection"> {
     //
     // manipulators
     //
@@ -168,13 +146,40 @@ export interface IStagedAttributeElementsSelectionHandler
     // selectors
     //
 
-    getWorkingSelection(): AttributeElementSelection;
-    getCommittedSelection(): AttributeElementSelection;
+    getWorkingSelection(): InvertableSelection;
+    getCommittedSelection(): InvertableSelection;
 
     //
     // callbacks
     //
-    onSelectionCommitted: CallbackRegistration<{ selection: AttributeElementSelection }>;
+    onSelectionCommitted: CallbackRegistration<{ selection: InvertableSelection }>;
+}
+
+//
+// Multi select
+//
+
+/**
+ * @alpha
+ */
+export interface AttributeElementSelectionFull {
+    elements: IAttributeElement[];
+    isInverted: boolean;
+}
+
+/**
+ * Handles the whole attribute filter experience
+ * @alpha
+ */
+export interface IMultiSelectAttributeFilterHandler extends IAttributeFilterHandlerBase {
+    //
+    // selectors
+    //
+
+    /**
+     * Get the currently selected attribute elements (using the working selection).
+     */
+    getSelectedItems(): AttributeElementSelectionFull;
 }
 
 /**
@@ -182,4 +187,4 @@ export interface IStagedAttributeElementsSelectionHandler
  */
 export interface IStagedMultiSelectionAttributeFilterHandler
     extends IMultiSelectAttributeFilterHandler,
-        IStagedAttributeElementsSelectionHandler {}
+        IStagedInvertableSelectionHandler {}

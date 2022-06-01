@@ -1,13 +1,11 @@
 // (C) 2021-2022 GoodData Corporation
 import { PayloadAction } from "@reduxjs/toolkit";
-import { IAttributeMetadataObject, ObjRef } from "@gooddata/sdk-model";
+import { IAttributeMetadataObject } from "@gooddata/sdk-model";
 import identity from "lodash/identity";
 
 import { AttributeFilterReducer } from "../state";
 
-const attributeRequest: AttributeFilterReducer<
-    PayloadAction<{ attributeRef: ObjRef; correlationId: string }>
-> = identity;
+const attributeRequest: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> = identity;
 
 const attributeSuccess: AttributeFilterReducer<
     PayloadAction<{ attribute: IAttributeMetadataObject; correlationId: string }>
@@ -16,6 +14,8 @@ const attributeSuccess: AttributeFilterReducer<
 };
 
 const attributeError: AttributeFilterReducer<PayloadAction<{ error: any; correlationId: string }>> = identity;
+
+const attributeCancelRequest: AttributeFilterReducer = identity; // TODO: should this also have correlation id?
 
 const attributeCancel: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> = identity;
 
@@ -30,6 +30,7 @@ export const attributeReducers = {
     attributeRequest,
     attributeSuccess,
     attributeError,
-    attributeCancel,
+    attributeCancelRequest,
+    attributeCancel, // should this be an error?
     attributeReset,
 };

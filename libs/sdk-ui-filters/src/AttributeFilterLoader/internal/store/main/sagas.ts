@@ -3,7 +3,7 @@ import { SagaIterator } from "redux-saga";
 import { all, call, takeLatest } from "redux-saga/effects";
 
 import { actions } from "../slice";
-import { initDisplayForm } from "./sagas/initDisplayForm";
+import { initAttribute } from "./sagas/initAttribute";
 import { initSelection } from "./sagas/initSelection";
 import { initAttributeElements } from "./sagas/initAttributeElements";
 
@@ -15,5 +15,34 @@ export function* mainWorker(): SagaIterator<void> {
 }
 
 function* initSaga(): SagaIterator<void> {
-    yield all([call(initDisplayForm), call(initSelection), call(initAttributeElements)]);
+    // this.displayForm = filterObjRef(config.filter);
+
+    // this.attributeLoader = new DefaultAttributeDisplayFormLoader(
+    //     this.displayForm,
+    //     config.backend,
+    //     config.workspace,
+    //     // config.displayFormLoad,
+    // );
+
+    // const elements = filterAttributeElements(config.filter);
+
+    // const initialSelection: InvertableSelection = {
+    //     isInverted: isNegativeAttributeFilter(config.filter),
+    //     items: isAttributeElementsByRef(elements) ? elements.uris : elements.values,
+    // };
+
+    // this.isElementsByRef = isAttributeElementsByRef(elements);
+
+    // this.stagedSelectionHandler = new DefaultStagedAttributeElementsSelectionHandler(initialSelection);
+
+    // this.elementLoader = new DefaultAttributeElementsLoader(
+    //     this.displayForm,
+    //     config.backend,
+    //     config.workspace,
+    //     // config.elementsLoad,
+    // );
+
+    // this.init(initialSelection);
+
+    yield all([call(initAttribute), call(initAttributeElements), call(initSelection)]);
 }

@@ -1,8 +1,8 @@
 // (C) 2022 GoodData Corporation
 import { IAttributeFilter } from "@gooddata/sdk-model";
-import { IAttributeDisplayFormLoader } from "./displayForm";
+import { IAttributeLoader } from "./attribute";
 import { IAttributeElementLoader } from "./elements";
-import { AttributeElementSelectionFull, IStagedAttributeElementsSelectionHandler } from "./selection";
+import { AttributeElementSelectionFull, IStagedInvertableSelectionHandler } from "./selection";
 
 // TODO: remove?
 /**
@@ -10,9 +10,9 @@ import { AttributeElementSelectionFull, IStagedAttributeElementsSelectionHandler
  * @alpha
  */
 export interface IAttributeFilterHandler
-    extends IAttributeDisplayFormLoader,
+    extends IAttributeLoader,
         IAttributeElementLoader,
-        IStagedAttributeElementsSelectionHandler {
+        IStagedInvertableSelectionHandler {
     //
     // selectors
     //
