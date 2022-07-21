@@ -11,9 +11,15 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.onInitStart(onInicStart);
         attributeFilterHandler.onInitSuccess(onInitSuccess);
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus before load");
+
         attributeFilterHandler.init("init");
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus during load");
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus after load");
 
         expect(onInicStart).toHaveBeenCalledTimes(1);
         expect(onInicStart.mock.calls[0]).toMatchSnapshot("onInicStart parameters");
@@ -29,9 +35,15 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.onInitStart(onInicStart);
         attributeFilterHandler.onInitError(onInitError);
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus before load");
+
         attributeFilterHandler.init("init");
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus during load");
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus after load");
 
         expect(onInicStart).toHaveBeenCalledTimes(1);
         expect(onInicStart.mock.calls[0]).toMatchSnapshot("onInicStart parameters");
@@ -47,10 +59,19 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.onInitStart(onInicStart);
         attributeFilterHandler.onInitCancel(onInitCancel);
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus before load");
+
         attributeFilterHandler.init("init1");
+
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus during load");
+
         attributeFilterHandler.init("init2");
 
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus during another load");
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getInitStatus()).toMatchSnapshot("getInitStatus after load");
 
         expect(onInicStart).toHaveBeenCalledTimes(2);
         expect(onInicStart.mock.calls[0]).toMatchSnapshot("onInicStart 1 parameters");

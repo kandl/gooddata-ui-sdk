@@ -2,7 +2,15 @@
 import { SagaIterator } from "redux-saga";
 import { all, fork } from "redux-saga/effects";
 
-import { attributeElementsWorker, attributeWorker, initWorker, loadElementsRangeWorker } from "./sagas";
+import {
+    attributeElementsWorker,
+    attributeWorker,
+    initWorker,
+    loadAttributeWorker,
+    loadInitialElementsPageWorker,
+    loadNextElementsPageWorker,
+    loadCustomElementsWorker,
+} from "./sagas";
 
 export function* rootSaga(): SagaIterator<void> {
     // eslint-disable-next-line no-console
@@ -10,9 +18,15 @@ export function* rootSaga(): SagaIterator<void> {
 
     try {
         yield all(
-            [initWorker, loadElementsRangeWorker, attributeElementsWorker, attributeWorker].map((worker) =>
-                fork(worker),
-            ),
+            [
+                initWorker,
+                attributeElementsWorker,
+                attributeWorker,
+                loadAttributeWorker,
+                loadInitialElementsPageWorker,
+                loadNextElementsPageWorker,
+                loadCustomElementsWorker,
+            ].map((worker) => fork(worker)),
         );
     } catch (e) {
         // eslint-disable-next-line no-console

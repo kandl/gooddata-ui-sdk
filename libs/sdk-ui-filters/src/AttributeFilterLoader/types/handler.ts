@@ -6,6 +6,13 @@ import {
     IStagedSingleSelectionHandler,
 } from "./selection";
 
+/**
+ * Unique key to identify the attribute element - its uri, value or primaryKey
+ *
+ * @alpha
+ */
+export type AttributeElementKey = string;
+
 //
 // Multi select attribute filter handler
 //
@@ -13,7 +20,7 @@ import {
 /**
  * @alpha
  */
-export type InvertableAttributeElementSelection = InvertableSelection<string>;
+export type InvertableAttributeElementSelection = InvertableSelection<AttributeElementKey>;
 
 /**
  * Handles the whole attribute filter experience
@@ -38,7 +45,7 @@ export interface IMultiSelectAttributeFilterHandler
  */
 export interface ISingleSelectAttributeFilterHandler
     extends IAttributeFilterLoader,
-        IStagedSingleSelectionHandler<string | undefined> {
+        IStagedSingleSelectionHandler<AttributeElementKey | undefined> {
     //
     // selectors
     //

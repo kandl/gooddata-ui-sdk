@@ -22,7 +22,25 @@ Object {
 }
 `;
 
-exports[`MultiSelectAttributeFilterHandler should commit selection and trigger callbacks: commited selection 1`] = `
+exports[`MultiSelectAttributeFilterHandler should clear selection and trigger callbacks: onSelectionChanged parameters 1`] = `
+Array [
+  Object {
+    "selection": Object {
+      "isInverted": false,
+      "items": Array [],
+    },
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should clear selection and trigger callbacks: working selection 1`] = `
+Object {
+  "isInverted": false,
+  "items": Array [],
+}
+`;
+
+exports[`MultiSelectAttributeFilterHandler should commit selection and trigger callbacks: committed selection 1`] = `
 Object {
   "isInverted": true,
   "items": Array [
@@ -31,7 +49,7 @@ Object {
 }
 `;
 
-exports[`MultiSelectAttributeFilterHandler should commit selection and trigger callbacks: onSelectionChanged parameters 1`] = `
+exports[`MultiSelectAttributeFilterHandler should commit selection and trigger callbacks: onSelectionCommitted parameters 1`] = `
 Array [
   Object {
     "selection": Object {
@@ -44,7 +62,7 @@ Array [
 ]
 `;
 
-exports[`MultiSelectAttributeFilterHandler should initialize selection and trigger callbacks for negative attribute filter: commited selection 1`] = `
+exports[`MultiSelectAttributeFilterHandler should initialize selection and trigger callbacks for negative attribute filter: committed selection 1`] = `
 Object {
   "isInverted": false,
   "items": Array [
@@ -92,7 +110,7 @@ Object {
 }
 `;
 
-exports[`MultiSelectAttributeFilterHandler should initialize selection and trigger callbacks for positive attribute filter: commited selection 1`] = `
+exports[`MultiSelectAttributeFilterHandler should initialize selection and trigger callbacks for positive attribute filter: committed selection 1`] = `
 Object {
   "isInverted": false,
   "items": Array [

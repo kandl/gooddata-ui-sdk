@@ -19,7 +19,7 @@ describe("MultiSelectAttributeFilterHandler", () => {
         expect(onSelectionCommitted).toHaveBeenCalledTimes(1);
         expect(onSelectionChanged.mock.calls[0]).toMatchSnapshot("onSelectionChanged parameters");
         expect(onSelectionCommitted.mock.calls[0]).toMatchSnapshot("onSelectionCommitted parameters");
-        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("commited selection");
+        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("committed selection");
         expect(attributeFilterHandler.getWorkingSelection()).toMatchSnapshot("working selection");
     });
 
@@ -39,7 +39,7 @@ describe("MultiSelectAttributeFilterHandler", () => {
         expect(onSelectionCommitted).toHaveBeenCalledTimes(1);
         expect(onSelectionChanged.mock.calls[0]).toMatchSnapshot("onSelectionChanged parameters");
         expect(onSelectionCommitted.mock.calls[0]).toMatchSnapshot("onSelectionCommitted parameters");
-        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("commited selection");
+        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("committed selection");
         expect(attributeFilterHandler.getWorkingSelection()).toMatchSnapshot("working selection");
     });
 
@@ -131,7 +131,23 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.commitSelection();
 
         expect(onSelectionCommitted).toHaveBeenCalledTimes(1);
-        expect(onSelectionCommitted.mock.calls[0]).toMatchSnapshot("onSelectionChanged parameters");
-        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("commited selection");
+        expect(onSelectionCommitted.mock.calls[0]).toMatchSnapshot("onSelectionCommitted parameters");
+        expect(attributeFilterHandler.getCommittedSelection()).toMatchSnapshot("committed selection");
+    });
+
+    it("should clear selection and trigger callbacks", async () => {
+        const onSelectionChanged = jest.fn();
+        const attributeFilterHandler = newTestAttributeFilterHandler("positive");
+
+        attributeFilterHandler.init();
+
+        await waitForAsync();
+
+        attributeFilterHandler.onSelectionChanged(onSelectionChanged);
+        attributeFilterHandler.clearSelection();
+
+        expect(onSelectionChanged).toHaveBeenCalledTimes(1);
+        expect(onSelectionChanged.mock.calls[0]).toMatchSnapshot("onSelectionChanged parameters");
+        expect(attributeFilterHandler.getWorkingSelection()).toMatchSnapshot("working selection");
     });
 });

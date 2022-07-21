@@ -18,12 +18,18 @@ describe("MultiSelectAttributeFilterHandler", () => {
         const onAttributeLoadSuccess = jest.fn();
         const attributeFilterHandler = newTestAttributeFilterHandler("positive");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus before load");
+
         attributeFilterHandler.init();
         attributeFilterHandler.onAttributeLoadStart(onAttributeLoadStart);
         attributeFilterHandler.onAttributeLoadSuccess(onAttributeLoadSuccess);
         attributeFilterHandler.loadAttribute("attributeSuccess");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus during load");
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus after load");
 
         expect(attributeFilterHandler.getAttribute()).toMatchSnapshot();
         expect(onAttributeLoadStart).toHaveBeenCalledTimes(1);
@@ -37,6 +43,8 @@ describe("MultiSelectAttributeFilterHandler", () => {
         const onAttributeLoadError = jest.fn();
         const attributeFilterHandler = newTestAttributeFilterHandler("nonExisting");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus before load");
+
         attributeFilterHandler.init();
 
         await waitForAsync();
@@ -45,7 +53,11 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.onAttributeLoadError(onAttributeLoadError);
         attributeFilterHandler.loadAttribute("attributeError");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus during load");
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus after load");
 
         expect(attributeFilterHandler.getAttribute()).toMatchSnapshot();
         expect(onAttributeLoadStart).toHaveBeenCalledTimes(1);
@@ -59,6 +71,8 @@ describe("MultiSelectAttributeFilterHandler", () => {
         const onAttributeLoadCancel = jest.fn();
         const attributeFilterHandler = newTestAttributeFilterHandler("positive");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus before load");
+
         attributeFilterHandler.init();
 
         await waitForAsync();
@@ -66,9 +80,18 @@ describe("MultiSelectAttributeFilterHandler", () => {
         attributeFilterHandler.onAttributeLoadStart(onAttributeLoadStart);
         attributeFilterHandler.onAttributeLoadCancel(onAttributeLoadCancel);
         attributeFilterHandler.loadAttribute("attributeToBeCanceled");
+
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus during load");
+
         attributeFilterHandler.loadAttribute("attributeSuccess");
 
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot(
+            "getAttributeStatus during another load",
+        );
+
         await waitForAsync();
+
+        expect(attributeFilterHandler.getAttributeStatus()).toMatchSnapshot("getAttributeStatus after load");
 
         expect(attributeFilterHandler.getAttribute()).toMatchSnapshot();
         expect(onAttributeLoadStart).toHaveBeenCalledTimes(2);

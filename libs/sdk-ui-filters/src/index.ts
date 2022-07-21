@@ -85,6 +85,7 @@ export {
     Callback,
     CallbackPayload,
     Unsubscribe,
+    AsyncOperationStatus,
     // Loaders
     IElementsLoadResult,
     IAttributeLoader,
@@ -93,6 +94,8 @@ export {
     // Options
     IAttributeFilterHandlerOptions,
     IAttributeFilterHandlerOptionsBase,
+    // Selection
+    AttributeElementKey,
     // Single selection
     ISingleSelectionHandler,
     IStagedSingleSelectionHandler,

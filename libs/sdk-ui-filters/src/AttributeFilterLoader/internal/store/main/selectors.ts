@@ -9,7 +9,7 @@ import difference from "lodash/difference";
 import union from "lodash/union";
 
 import { selectState } from "../common/selectors";
-import { selectCommitedSelection, selectIsCommitedSelectionInverted } from "../selection/selectors";
+import { selectCommittedSelection, selectIsCommittedSelectionInverted } from "../selection/selectors";
 
 /**
  * @internal
@@ -64,7 +64,7 @@ export const selectAttributeFilterDisplayForm = createSelector(selectState, (sta
  */
 export const selectAttributeFilterElements = createSelector(
     selectAttributeFilterElementsForm,
-    selectCommitedSelection,
+    selectCommittedSelection,
     (elementsForm, selection): IAttributeElements =>
         elementsForm === "uris" ? { uris: selection } : { values: selection },
 );
@@ -74,8 +74,8 @@ export const selectAttributeFilterElements = createSelector(
  */
 export const selectAttributeFilterElementsWithHiddenElementsResolved = createSelector(
     selectAttributeFilterElementsForm,
-    selectCommitedSelection,
-    selectIsCommitedSelectionInverted,
+    selectCommittedSelection,
+    selectIsCommittedSelectionInverted,
     selectHiddenElements,
     (elementsForm, selection, isInverted, hiddenElements): IAttributeElements => {
         const updatedSelection = isInverted
@@ -91,10 +91,20 @@ export const selectAttributeFilterElementsWithHiddenElementsResolved = createSel
  */
 export const selectAttributeFilter = createSelector(
     selectAttributeFilterDisplayForm,
-    selectIsCommitedSelectionInverted,
+    selectIsCommittedSelectionInverted,
     selectAttributeFilterElementsWithHiddenElementsResolved,
     (displayForm, isInverted, elements) =>
         isInverted
             ? newNegativeAttributeFilter(displayForm, elements)
             : newPositiveAttributeFilter(displayForm, elements),
 );
+
+/**
+ * @internal
+ */
+export const selectInitStatus = createSelector(selectState, (state) => state.initStatus);
+
+/**
+ * @internal
+ */
+export const selectInitError = createSelector(selectState, (state) => state.initError);

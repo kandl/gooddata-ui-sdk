@@ -38,6 +38,14 @@ Array [
 ]
 `;
 
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger cancel callback on another attribute call: getAttributeStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger cancel callback on another attribute call: getAttributeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger cancel callback on another attribute call: getAttributeStatus during another load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger cancel callback on another attribute call: getAttributeStatus during load 1`] = `"loading"`;
+
 exports[`MultiSelectAttributeFilterHandler should load attribute and trigger cancel callback on another attribute call: onAttributeLoadCancel parameters 1`] = `
 Array [
   Object {
@@ -55,6 +63,12 @@ Array [
 `;
 
 exports[`MultiSelectAttributeFilterHandler should load attribute and trigger error callback 1`] = `undefined`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger error callback: getAttributeStatus after load 1`] = `"error"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger error callback: getAttributeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger error callback: getAttributeStatus during load 1`] = `"loading"`;
 
 exports[`MultiSelectAttributeFilterHandler should load attribute and trigger error callback: onAttributeLoadError parameters 1`] = `
 Array [
@@ -87,6 +101,12 @@ Object {
   "uri": "/gdc/md/referenceworkspace/obj/1054",
 }
 `;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger success callback: getAttributeStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger success callback: getAttributeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should load attribute and trigger success callback: getAttributeStatus during load 1`] = `"loading"`;
 
 exports[`MultiSelectAttributeFilterHandler should load attribute and trigger success callback: onAttributeLoadStart parameters 1`] = `
 Array [

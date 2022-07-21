@@ -13,9 +13,15 @@ import {
     IMeasure,
     IRelativeDateFilter,
 } from "@gooddata/sdk-model";
-import { CallbackRegistration, Correlation, IElementsLoadResult } from "../types/common";
+import {
+    AsyncOperationStatus,
+    CallbackRegistration,
+    Correlation,
+    IElementsLoadResult,
+} from "../types/common";
 import { IAttributeFilterHandlerConfig, IAttributeFilterLoader } from "../types";
 import { AttributeFilterReduxBridge } from "./bridge/index";
+import { GoodDataSdkError } from "@gooddata/sdk-ui";
 
 /**
  * @internal
@@ -38,8 +44,10 @@ export interface ElementsLoadConfig {
  */
 export class AttributeFilterLoader implements IAttributeFilterLoader {
     protected bridge: AttributeFilterReduxBridge;
+    protected config: IAttributeFilterHandlerConfig;
 
     protected constructor(config: IAttributeFilterHandlerConfig) {
+        this.config = config;
         this.bridge = new AttributeFilterReduxBridge(config);
     }
 
@@ -48,24 +56,54 @@ export class AttributeFilterLoader implements IAttributeFilterLoader {
         this.bridge.init(correlation);
     };
 
-    loadAttribute = (correlation: Correlation = uuid()): void => {
-        this.bridge.loadAttribute(correlation);
+    // loadAttribute = (correlation: Correlation = uuid()): void => {
+    //     this.bridge.loadAttribute(correlation);
+    // };
+
+    // cancelAttributeLoad = (): void => {
+    //     this.bridge.cancelAttributeLoad();
+    // };
+
+    loadInitialElementsPage = (correlation: Correlation = uuid()): void => {
+        this.bridge.loadInitialElementsPage(correlation);
     };
 
-    cancelAttributeLoad = (): void => {
-        this.bridge.cancelAttributeLoad();
+    // TODO: remove correlation?
+    cancelInitialElementsPageLoad(correlation: Correlation = uuid()): void {
+        this.bridge.cancelInitialElementsPageLoad(correlation);
+    }
+
+    loadNextElementsPage = (correlation: Correlation = uuid()): void => {
+        this.bridge.loadNextElementsPage(correlation);
     };
 
-    loadElementsRange = (offset: number, limit: number, correlation: Correlation = uuid()): void => {
-        this.bridge.loadElementsRange(offset, limit, correlation);
+    // TODO: remove correlation?
+    cancelNextElementsPageLoad(correlation: Correlation = uuid()): void {
+        this.bridge.cancelNextElementsPageLoad(correlation);
+    }
+
+    // TODO: options
+    loadCustomElements = (options: any, correlation: Correlation = uuid()): void => {
+        this.bridge.loadCustomElements(options, correlation);
     };
 
-    cancelElementLoad(): void {
-        this.bridge.cancelElementLoad();
+    // TODO: remove correlation?
+    cancelCustomElementsLoad(correlation: Correlation = uuid()): void {
+        this.bridge.cancelCustomElementsLoad(correlation);
     }
 
     setSearch = (search: string): void => {
         this.bridge.setSearch(search);
+    };
+
+    setLimit = (_limit: number): void => {
+        // TODO
+        // this.bridge.setSearch(search);
+    };
+
+    setOrder = (_order: "asc" | "desc"): void => {
+        // TODO
+        // this.bridge.setSearch(search);
     };
 
     setLimitingMeasures = (measures: IMeasure[]): void => {
@@ -85,24 +123,64 @@ export class AttributeFilterLoader implements IAttributeFilterLoader {
         return this.bridge.getSearch();
     };
 
-    getAllItems = (): IAttributeElement[] => {
-        return this.bridge.getAllItems();
+    getAllElements = (): IAttributeElement[] => {
+        return this.bridge.getAllElements();
     };
 
-    getItemsByKey = (keys: string[]): IAttributeElement[] => {
-        return this.bridge.getItemsByKey(keys);
+    getElementsByKey = (keys: string[]): IAttributeElement[] => {
+        return this.bridge.getElementsByKey(keys);
     };
 
-    getTotalCount = (): number => {
+    getTotalElementsCount = (): number => {
         return this.bridge.getTotalCount();
     };
 
-    getCountWithCurrentSettings = (): number => {
-        return this.bridge.getCountWithCurrentSettings();
+    getTotalElementsCountWithCurrentSettings = (): number => {
+        return this.bridge.getTotalCountWithCurrentSettings();
     };
 
     getAttribute = (): IAttributeMetadataObject | undefined => {
         return this.bridge.getAttribute();
+    };
+
+    // getAttributeStatus = (): AsyncOperationStatus => {
+    //     return this.bridge.getAttributeStatus();
+    // };
+
+    // getAttributeError = (): GoodDataSdkError => {
+    //     return this.bridge.getAttributeError();
+    // };
+
+    // getLoadInitialElementsPageStatus = (): AsyncOperationStatus => {
+    //     return this.bridge.getLoadInitialElementsPageStatus();
+    // };
+
+    // getLoadInitialElementsPageError = (): GoodDataSdkError => {
+    //     return this.bridge.getLoadInitialElementsPageError();
+    // };
+
+    getInitialElementsPageLoadStatus = (): AsyncOperationStatus => {
+        return this.bridge.getInitialElementsPageLoadStatus();
+    };
+
+    getInitialElementsPageLoadError = (): GoodDataSdkError => {
+        return this.bridge.getInitialElementsPageLoadError();
+    };
+
+    getNextElementsPageLoadStatus = (): AsyncOperationStatus => {
+        return this.bridge.getNextElementsPageLoadStatus();
+    };
+
+    getNextElementsPageLoadError = (): GoodDataSdkError => {
+        return this.bridge.getNextElementsPageLoadError();
+    };
+
+    getInitStatus = (): AsyncOperationStatus => {
+        return this.bridge.getInitStatus();
+    };
+
+    getInitError = (): GoodDataSdkError => {
+        return this.bridge.getInitError();
     };
 
     getFilter = (): IAttributeFilter => {
@@ -110,20 +188,52 @@ export class AttributeFilterLoader implements IAttributeFilterLoader {
     };
 
     // callbacks
-    onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
-        return this.bridge.onElementsRangeLoadSuccess(cb);
+    onLoadInitialElementsPageSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.bridge.onLoadInitialElementsPageSuccess(cb);
     };
 
-    onElementsRangeLoadStart: CallbackRegistration = (cb) => {
-        return this.bridge.onElementsRangeLoadStart(cb);
+    onLoadInitialElementsPageStart: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadInitialElementsPageStart(cb);
     };
 
-    onElementsRangeLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
-        return this.bridge.onElementsRangeLoadError(cb);
+    onLoadInitialElementsPageError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.bridge.onLoadInitialElementsPageError(cb);
     };
 
-    onElementsRangeLoadCancel: CallbackRegistration = (cb) => {
-        return this.bridge.onElementsRangeLoadCancel(cb);
+    onLoadInitialElementsPageCancel: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadInitialElementsPageCancel(cb);
+    };
+
+    onLoadNextElementsPageSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.bridge.onLoadNextElementsPageSuccess(cb);
+    };
+
+    onLoadNextElementsPageStart: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadNextElementsPageStart(cb);
+    };
+
+    onLoadNextElementsPageError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.bridge.onLoadNextElementsPageError(cb);
+    };
+
+    onLoadNextElementsPageCancel: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadNextElementsPageCancel(cb);
+    };
+
+    onLoadCustomElementsSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.bridge.onLoadCustomElementsSuccess(cb);
+    };
+
+    onLoadCustomElementsStart: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadCustomElementsStart(cb);
+    };
+
+    onLoadCustomElementsError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.bridge.onLoadCustomElementsError(cb);
+    };
+
+    onLoadCustomElementsCancel: CallbackRegistration = (cb) => {
+        return this.bridge.onLoadCustomElementsCancel(cb);
     };
 
     onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }> = (cb) => {
@@ -142,11 +252,17 @@ export class AttributeFilterLoader implements IAttributeFilterLoader {
         return this.bridge.onAttributeLoadCancel(cb);
     };
 
+    // TODO: callback params
     onInitStart: CallbackRegistration = (cb) => {
         return this.bridge.onInitStart(cb);
     };
 
-    onInitSuccess: CallbackRegistration = (cb) => {
+    // TODO ??? or separate init / attribute?
+    onInitSuccess: CallbackRegistration<{
+        attribute: IAttributeMetadataObject;
+        particularElements: any;
+        elementsRange: any;
+    }> = (cb) => {
         return this.bridge.onInitSuccess(cb);
     };
 
@@ -156,5 +272,10 @@ export class AttributeFilterLoader implements IAttributeFilterLoader {
 
     onInitCancel: CallbackRegistration = (cb) => {
         return this.bridge.onInitCancel(cb);
+    };
+
+    // TODO:
+    onUpdate: () => {
+        // do something
     };
 }

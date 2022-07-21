@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 import { SagaIterator } from "redux-saga";
-import { call, SagaReturnType } from "redux-saga/effects";
+import { call, put, SagaReturnType } from "redux-saga/effects";
 
 import { asyncRequestSaga } from "../../common/asyncRequestSaga";
 import { actions } from "../../slice";
@@ -20,6 +20,15 @@ export function* initAttributeSaga(initCorrelationId: string): SagaIterator<void
         );
 
     const result: SagaReturnType<typeof initAttribute> = yield call(initAttribute);
+
+    if (result.success) {
+        yield put(
+            actions.setAttribute({
+                attribute: result.success.payload.attribute,
+            }),
+        );
+    }
+
     if (result.error) {
         throw result.error.payload.error;
     }

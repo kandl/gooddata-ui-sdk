@@ -2,7 +2,6 @@
 import identity from "lodash/identity";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { IElementsQueryAttributeFilter } from "@gooddata/sdk-backend-spi";
-import { AttributeFilterReducer } from "../state";
 import {
     filterObjRef,
     IMeasure,
@@ -14,7 +13,9 @@ import {
     isNegativeAttributeFilter,
     IAttributeElement,
 } from "@gooddata/sdk-model";
-import { ILoadAttributeElementsOptions } from "../attributeElements/types";
+
+import { AttributeFilterReducer } from "../state";
+import { AsyncOperationStatus } from "../../../types/common";
 
 /**
  * @internal
@@ -31,18 +32,29 @@ const init: AttributeFilterReducer<PayloadAction<InitActionPayload>> = (state, a
     const elements = filterAttributeElements(action.payload.attributeFilter);
     state.elementsForm = isAttributeElementsByValue(elements) ? "values" : "uris";
     const elementKeys = isAttributeElementsByValue(elements) ? elements.values : elements.uris;
-    state.commitedSelection = elementKeys;
+    state.committedSelection = elementKeys;
     state.workingSelection = elementKeys;
     const isInverted = isNegativeAttributeFilter(action.payload.attributeFilter);
-    state.isCommitedSelectionInverted = isInverted;
+    state.isCommittedSelectionInverted = isInverted;
     state.isWorkingSelectionInverted = isInverted;
     state.hiddenElements = action.payload.hiddenElements;
     state.staticElements = action.payload.staticElements;
 };
 
 const initSuccess: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> = identity;
-const initError: AttributeFilterReducer<PayloadAction<{ error: any; correlationId: string }>> = identity;
+
+const initError: AttributeFilterReducer<PayloadAction<{ error: any; correlationId: string }>> = (
+    state,
+    action,
+) => {
+    state.initError = action.payload.error;
+};
+
 const initCancel: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> = identity;
+
+const setInitStatus: AttributeFilterReducer<PayloadAction<AsyncOperationStatus>> = (state, action) => {
+    state.initStatus = action.payload;
+};
 
 const reset: AttributeFilterReducer = identity;
 
@@ -85,31 +97,6 @@ const setHiddenElements: AttributeFilterReducer<PayloadAction<{ hiddenElements: 
     state.hiddenElements = action.payload.hiddenElements;
 };
 
-const loadElementsRangeRequest: AttributeFilterReducer<
-    PayloadAction<{
-        options: Omit<ILoadAttributeElementsOptions, "displayFormRef">;
-        correlationId?: string;
-    }>
-> = identity;
-
-const loadElementsRangeSuccess: AttributeFilterReducer<
-    PayloadAction<{
-        attributeElements: IAttributeElement[];
-        totalCount: number;
-        correlationId?: string;
-        limit: number;
-        offset: number;
-    }>
-> = identity;
-
-const loadElementsRangeError: AttributeFilterReducer<PayloadAction<{ error: any; correlationId: string }>> =
-    identity;
-
-const loadElementsRangeCancelRequest: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> =
-    identity;
-
-const loadElementsRangeCancel: AttributeFilterReducer<PayloadAction<{ correlationId: string }>> = identity;
-
 /**
  * @internal
  */
@@ -118,6 +105,7 @@ export const mainReducers = {
     initSuccess,
     initError,
     initCancel,
+    setInitStatus,
     //
     setDisplayForm,
     setElementsForm,
@@ -126,12 +114,6 @@ export const mainReducers = {
     setLimitingMeasures,
     setLimitingDateFilters,
     setHiddenElements,
-    //
-    loadElementsRangeRequest,
-    loadElementsRangeSuccess,
-    loadElementsRangeError,
-    loadElementsRangeCancelRequest,
-    loadElementsRangeCancel,
     //
     reset,
 };

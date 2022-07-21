@@ -45,3 +45,8 @@ export interface ILoadRangeOptions {
     readonly limit: number;
     readonly offset: number;
 }
+
+/**
+ * @alpha
+ */
+export type AsyncOperationStatus = "pending" | "loading" | "success" | "error" | "canceled";

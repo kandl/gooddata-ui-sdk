@@ -1,6 +1,7 @@
 // (C) 2022 GoodData Corporation
 import { IAttributeMetadataObject } from "@gooddata/sdk-model";
-import { CallbackRegistration, Correlation } from "../common";
+// import { GoodDataSdkError } from "@gooddata/sdk-ui";
+// import { AsyncOperationStatus, CallbackRegistration, Correlation } from "../common";
 
 /**
  * Handles the loading of the display form info (e.g. its title).
@@ -21,12 +22,12 @@ export interface IAttributeLoader {
      *
      * @param correlation - the correlation value
      */
-    loadAttribute(correlation?: Correlation): void;
+    // loadAttribute(correlation?: Correlation): void;
 
     /**
      * Cancel the loading of the attribute if any is in progress.
      */
-    cancelAttributeLoad(): void;
+    // cancelAttributeLoad(): void;
 
     //
     // selectors
@@ -39,12 +40,14 @@ export interface IAttributeLoader {
      * Returns undefined, if the attribute is not loaded yet.
      */
     getAttribute(): IAttributeMetadataObject | undefined;
+    // getAttributeStatus(): AsyncOperationStatus;
+    // getAttributeError(): GoodDataSdkError;
 
     //
     // callbacks
     //
-    onAttributeLoadStart: CallbackRegistration;
-    onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }>;
-    onAttributeLoadError: CallbackRegistration<{ error: Error }>;
-    onAttributeLoadCancel: CallbackRegistration;
+    // onAttributeLoadStart: CallbackRegistration;
+    // onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }>;
+    // onAttributeLoadError: CallbackRegistration<{ error: Error }>;
+    // onAttributeLoadCancel: CallbackRegistration;
 }

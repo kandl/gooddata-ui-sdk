@@ -1,7 +1,10 @@
 // (C) 2019-2022 GoodData Corporation
 import { ReferenceMd, ReferenceRecordings } from "@gooddata/reference-workspace";
 import { recordedBackend } from "@gooddata/sdk-backend-mockingbird";
-import { IElementsQueryAttributeFilter } from "@gooddata/sdk-backend-spi";
+import {
+    ElementsQueryOptionsElementsSpecification,
+    IElementsQueryAttributeFilter,
+} from "@gooddata/sdk-backend-spi";
 import {
     IAttributeFilter,
     idRef,
@@ -14,6 +17,17 @@ import {
 } from "@gooddata/sdk-model";
 
 import { newAttributeFilterHandler } from "../factory";
+
+export const particularAttributeElements: ElementsQueryOptionsElementsSpecification = {
+    uris: [
+        "/gdc/md/referenceworkspace/obj/1054/elements?id=460491",
+        "/gdc/md/referenceworkspace/obj/1054/elements?id=166497",
+    ],
+};
+
+export const anotherParticularAttributeElements: ElementsQueryOptionsElementsSpecification = {
+    uris: ["/gdc/md/referenceworkspace/obj/1054/elements?id=166339"],
+};
 
 export const limitingAttributeFilters: IElementsQueryAttributeFilter[] = [
     {

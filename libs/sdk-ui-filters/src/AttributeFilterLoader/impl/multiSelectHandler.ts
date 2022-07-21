@@ -36,12 +36,20 @@ export class MultiSelectAttributeFilterHandler
     };
 
     clearSelection = (): void => {
-        this.bridge.invertMultiSelection();
+        this.bridge.clearMultiSelection();
     };
 
     // selectors
     getWorkingSelection = (): InvertableAttributeElementSelection => {
         return this.bridge.getWorkingMultiSelection();
+    };
+
+    getIsWorkingSelectionEmpty = (): boolean => {
+        return this.bridge.getIsWorkingSelectionEmpty();
+    };
+
+    getIsWorkingSelectionChanged = (): boolean => {
+        return this.bridge.getIsWorkingSelectionChanged();
     };
 
     getCommittedSelection = (): InvertableAttributeElementSelection => {

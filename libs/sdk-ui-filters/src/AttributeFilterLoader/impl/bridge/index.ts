@@ -1,5 +1,4 @@
 // (C) 2022 GoodData Corporation
-import { v4 as uuid } from "uuid";
 import invariant from "ts-invariant";
 import compact from "lodash/compact";
 import {
@@ -15,7 +14,12 @@ import {
     IMeasure,
     IRelativeDateFilter,
 } from "@gooddata/sdk-model";
-import { CallbackRegistration, Correlation, IElementsLoadResult } from "../../types/common";
+import {
+    AsyncOperationStatus,
+    CallbackRegistration,
+    Correlation,
+    IElementsLoadResult,
+} from "../../types/common";
 import { IAttributeFilterHandlerConfig, InvertableAttributeElementSelection } from "../../types";
 import {
     actions,
@@ -28,12 +32,27 @@ import {
     selectAttributeFilter,
     selectSearch,
     selectWorkingSelection,
-    selectCommitedSelection,
+    selectCommittedSelection,
     selectAttributeElementsMap,
     getElementsByKeys,
+    selectAttributeStatus,
+    selectAttributeError,
+    selectInitStatus,
+    selectInitError,
+    selectLoadInitialElementsPageStatus,
+    selectLoadInitialElementsPageError,
+    selectLoadNextElementsPageStatus,
+    selectLoadNextElementsPageError,
 } from "../../internal";
 import { newAttributeFilterCallbacks } from "./callbacks";
-import { selectInvertableCommitedSelection, selectInvertableWorkingSelection } from "./selectors";
+import {
+    selectInvertableCommittedSelection,
+    selectInvertableWorkingSelection,
+    selectIsWorkingSelectionChanged,
+    selectIsWorkingSelectionEmpty,
+} from "./selectors";
+import { GoodDataSdkError } from "@gooddata/sdk-ui";
+import { ILoadAttributeElementsOptions } from "../../internal/store/attributeElements/types";
 
 /**
  * @internal
@@ -77,7 +96,7 @@ export class AttributeFilterReduxBridge {
         });
     };
 
-    init = (correlation?: string): void => {
+    init = (correlation: string): void => {
         this.redux.dispatch(
             actions.init({
                 correlationId: correlation,
@@ -94,24 +113,42 @@ export class AttributeFilterReduxBridge {
         this.initializeBridge();
     };
 
-    loadAttribute = (correlation: Correlation = uuid()): void => {
-        this.redux.dispatch(actions.attributeRequest({ correlationId: correlation }));
+    loadAttribute = (correlation: Correlation): void => {
+        this.redux.dispatch(actions.loadAttributeRequest({ correlationId: correlation }));
     };
 
     cancelAttributeLoad = (): void => {
-        this.redux.dispatch(actions.attributeCancelRequest());
+        this.redux.dispatch(actions.loadAttributeCancelRequest());
     };
 
-    loadElementsRange = (offset: number, limit: number, correlation: Correlation = uuid()): void => {
-        this.redux.dispatch(
-            actions.loadElementsRangeRequest({ options: { limit, offset }, correlationId: correlation }),
-        );
+    loadInitialElementsPage = (correlation: Correlation): void => {
+        this.redux.dispatch(actions.loadInitialElementsPageRequest({ correlationId: correlation }));
     };
 
-    cancelElementLoad(): void {
-        this.redux.dispatch(actions.loadElementsRangeCancelRequest());
+    // remove correlation id
+    cancelInitialElementsPageLoad = (correlation: Correlation): void => {
+        this.redux.dispatch(actions.loadInitialElementsPageCancelRequest({ correlationId: correlation }));
+    };
+
+    loadNextElementsPage = (correlation: Correlation): void => {
+        this.redux.dispatch(actions.loadNextElementsPageRequest({ correlationId: correlation }));
+    };
+
+    // remove correlation id
+    cancelNextElementsPageLoad(correlation: Correlation): void {
+        this.redux.dispatch(actions.loadNextElementsPageCancelRequest({ correlationId: correlation }));
     }
 
+    loadCustomElements = (options: ILoadAttributeElementsOptions, correlation: Correlation): void => {
+        this.redux.dispatch(actions.loadCustomElementsRequest({ options, correlationId: correlation }));
+    };
+
+    // remove correlation id
+    cancelCustomElementsLoad(correlation: Correlation): void {
+        this.redux.dispatch(actions.loadCustomElementsCancelRequest({ correlationId: correlation }));
+    }
+
+    // Manipulators
     setSearch = (search: string): void => {
         this.redux.dispatch(actions.setSearch({ search }));
     };
@@ -132,11 +169,11 @@ export class AttributeFilterReduxBridge {
         return this.redux.select(selectSearch);
     };
 
-    getAllItems = (): IAttributeElement[] => {
+    getAllElements = (): IAttributeElement[] => {
         return this.redux.select(selectAttributeElements);
     };
 
-    getItemsByKey = (keys: string[]): IAttributeElement[] => {
+    getElementsByKey = (keys: string[]): IAttributeElement[] => {
         const elementsMap = this.redux.select(selectAttributeElementsMap);
         return getElementsByKeys(keys, elementsMap);
     };
@@ -145,12 +182,44 @@ export class AttributeFilterReduxBridge {
         return this.redux.select(selectAttributeElementsTotalCount);
     };
 
-    getCountWithCurrentSettings = (): number => {
+    getTotalCountWithCurrentSettings = (): number => {
         return this.redux.select(selectAttributeElementsTotalCountWithCurrentSettings);
     };
 
     getAttribute = (): IAttributeMetadataObject | undefined => {
         return this.redux.select(selectAttribute);
+    };
+
+    getAttributeStatus = (): AsyncOperationStatus => {
+        return this.redux.select(selectAttributeStatus);
+    };
+
+    getAttributeError = (): GoodDataSdkError => {
+        return this.redux.select(selectAttributeError);
+    };
+
+    getInitialElementsPageLoadStatus = (): AsyncOperationStatus => {
+        return this.redux.select(selectLoadInitialElementsPageStatus);
+    };
+
+    getInitialElementsPageLoadError = (): GoodDataSdkError => {
+        return this.redux.select(selectLoadInitialElementsPageError);
+    };
+
+    getNextElementsPageLoadStatus = (): AsyncOperationStatus => {
+        return this.redux.select(selectLoadNextElementsPageStatus);
+    };
+
+    getNextElementsPageLoadError = (): GoodDataSdkError => {
+        return this.redux.select(selectLoadNextElementsPageError);
+    };
+
+    getInitStatus = (): AsyncOperationStatus => {
+        return this.redux.select(selectInitStatus);
+    };
+
+    getInitError = (): GoodDataSdkError => {
+        return this.redux.select(selectInitError);
     };
 
     getFilter = (): IAttributeFilter => {
@@ -190,7 +259,15 @@ export class AttributeFilterReduxBridge {
     };
 
     getCommittedMultiSelection = (): InvertableAttributeElementSelection => {
-        return this.redux.select(selectInvertableCommitedSelection);
+        return this.redux.select(selectInvertableCommittedSelection);
+    };
+
+    getIsWorkingSelectionEmpty = (): boolean => {
+        return this.redux.select(selectIsWorkingSelectionEmpty);
+    };
+
+    getIsWorkingSelectionChanged = (): boolean => {
+        return this.redux.select(selectIsWorkingSelectionChanged);
     };
 
     changeSingleSelection = (selection: string | undefined): void => {
@@ -220,7 +297,7 @@ export class AttributeFilterReduxBridge {
     };
 
     getCommittedSingleSelection = (): string | undefined => {
-        const [element, ...maybeMoreElements] = this.redux.select(selectCommitedSelection);
+        const [element, ...maybeMoreElements] = this.redux.select(selectCommittedSelection);
         invariant(
             !maybeMoreElements.length,
             "Trying to invoke single select method, but multiple elements are selected.",
@@ -237,7 +314,7 @@ export class AttributeFilterReduxBridge {
     onMultiSelectionCommitted: CallbackRegistration<{ selection: InvertableAttributeElementSelection }> = (
         cb,
     ) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.selectionCommited);
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.selectionCommitted);
     };
 
     onSingleSelectionChanged: CallbackRegistration<{ selection: string | undefined }> = (cb) => {
@@ -250,40 +327,78 @@ export class AttributeFilterReduxBridge {
     onSingleSelectionCommitted: CallbackRegistration<{ selection: string | undefined }> = (cb) => {
         return this.callbacks.registerCallback(
             ({ selection }) => cb({ selection: selection[0] }),
-            this.callbacks.registrations.selectionCommited,
+            this.callbacks.registrations.selectionCommitted,
         );
     };
 
-    onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.elementsRangeLoadSuccess);
+    onLoadInitialElementsPageSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.callbacks.registerCallback(
+            cb,
+            this.callbacks.registrations.loadInitialElementsPageSuccess,
+        );
     };
 
-    onElementsRangeLoadStart: CallbackRegistration = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.elementsRangeLoadStart);
+    onLoadInitialElementsPageStart: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadInitialElementsPageStart);
     };
 
-    onElementsRangeLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.elementsRangeLoadError);
+    onLoadInitialElementsPageError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadInitialElementsPageError);
     };
 
-    onElementsRangeLoadCancel: CallbackRegistration = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.elementsRangeLoadCancel);
+    onLoadInitialElementsPageCancel: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(
+            cb,
+            this.callbacks.registrations.loadInitialElementsPageCancel,
+        );
+    };
+
+    onLoadNextElementsPageSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadNextElementsPageSuccess);
+    };
+
+    onLoadNextElementsPageStart: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadNextElementsPageStart);
+    };
+
+    onLoadNextElementsPageError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadNextElementsPageError);
+    };
+
+    onLoadNextElementsPageCancel: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadNextElementsPageCancel);
+    };
+
+    onLoadCustomElementsSuccess: CallbackRegistration<IElementsLoadResult> = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadCustomElementsSuccess);
+    };
+
+    onLoadCustomElementsStart: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadCustomElementsStart);
+    };
+
+    onLoadCustomElementsError: CallbackRegistration<{ error: Error }> = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadCustomElementsError);
+    };
+
+    onLoadCustomElementsCancel: CallbackRegistration = (cb) => {
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadCustomElementsCancel);
     };
 
     onAttributeLoadSuccess: CallbackRegistration<{ attribute: IAttributeMetadataObject }> = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.attributeLoadSuccess);
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadAttributeSuccess);
     };
 
     onAttributeLoadStart: CallbackRegistration = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.attributeLoadStart);
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadAttributeStart);
     };
 
     onAttributeLoadError: CallbackRegistration<{ error: Error }> = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.attributeLoadError);
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadAttributeError);
     };
 
     onAttributeLoadCancel: CallbackRegistration = (cb) => {
-        return this.callbacks.registerCallback(cb, this.callbacks.registrations.attributeLoadCancel);
+        return this.callbacks.registerCallback(cb, this.callbacks.registrations.loadAttributeCancel);
     };
 
     onInitStart: CallbackRegistration = (cb) => {

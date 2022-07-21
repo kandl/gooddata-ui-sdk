@@ -7,10 +7,12 @@ import { AttributeFilterState, initialState } from "./state";
 import { AttributeFilterStore, AttributeFilterStoreContext } from "./types";
 
 const nonSerializableActions = [
-    actions.initError.type,
     actions.attributeError.type,
-    actions.loadElementsRangeError.type,
     actions.attributeElementsError.type,
+    actions.initError.type,
+    actions.loadAttributeError.type,
+    // actions.loadElementsRangeError.type,
+    // actions.loadParticularElementsError.type,
 ];
 
 // We cannot handle event listeners inside saga, as once the root saga is canceled,
@@ -52,6 +54,12 @@ export function createAttributeFilterStore(context: AttributeFilterStoreContext)
                 thunk: false,
                 serializableCheck: {
                     ignoredActions: nonSerializableActions,
+                    ignoredPaths: [
+                        "initError",
+                        "attributeError",
+                        // "elementsRangeError",
+                        // "particularElementsError",
+                    ],
                 },
             }).concat([sagaMiddleware, eventListeningMiddleware(context.eventListener)]);
         },

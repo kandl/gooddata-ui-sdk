@@ -2,7 +2,7 @@
 import { SagaIterator } from "redux-saga";
 import { put, select, call, SagaReturnType } from "redux-saga/effects";
 import { asyncRequestSaga } from "../../common/asyncRequestSaga";
-import { selectIsCommitedSelectionInverted } from "../../selection/selectors";
+import { selectIsCommittedSelectionInverted } from "../../selection/selectors";
 import { actions } from "../../slice";
 import { selectAttributeFilterElements } from "../selectors";
 
@@ -11,8 +11,8 @@ import { selectAttributeFilterElements } from "../selectors";
  */
 export function* initSelectionSaga(initCorrelationId: string): SagaIterator<void> {
     const correlationId = `init_selection_${initCorrelationId}`;
-    const isInverted: ReturnType<typeof selectIsCommitedSelectionInverted> = yield select(
-        selectIsCommitedSelectionInverted,
+    const isInverted: ReturnType<typeof selectIsCommittedSelectionInverted> = yield select(
+        selectIsCommittedSelectionInverted,
     );
     const elements: ReturnType<typeof selectAttributeFilterElements> = yield select(
         selectAttributeFilterElements,

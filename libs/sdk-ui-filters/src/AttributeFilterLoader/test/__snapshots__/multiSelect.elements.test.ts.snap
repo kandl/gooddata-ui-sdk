@@ -145,6 +145,14 @@ Array [
 ]
 `;
 
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on another loadElementsRange call: getElementsRangeStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on another loadElementsRange call: getElementsRangeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on another loadElementsRange call: getElementsRangeStatus during another load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on another loadElementsRange call: getElementsRangeStatus during load 1`] = `"loading"`;
+
 exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on another loadElementsRange call: onElementsRangeLoadCancel parameters 1`] = `
 Array [
   Object {
@@ -194,6 +202,12 @@ Array [
 ]
 `;
 
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on cancel: getElementsRangeStatus after cancel 1`] = `"canceled"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on cancel: getElementsRangeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on cancel: getElementsRangeStatus during load 1`] = `"loading"`;
+
 exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange cancel callback on cancel: onElementsRangeLoadCancel parameters 1`] = `
 Array [
   Object {
@@ -209,6 +223,12 @@ Array [
   },
 ]
 `;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange error callback: getElementsRangeStatus after load 1`] = `"error"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange error callback: getElementsRangeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange error callback: getElementsRangeStatus during load 1`] = `"loading"`;
 
 exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange error callback: onElementsRangeLoadError parameters 1`] = `
 Array [
@@ -226,6 +246,12 @@ Array [
   },
 ]
 `;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange success callback: getElementsRangeStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange success callback: getElementsRangeStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange success callback: getElementsRangeStatus during load 1`] = `"loading"`;
 
 exports[`MultiSelectAttributeFilterHandler should trigger loadElementsRange success callback: onElementsRangeLoadStart parameters 1`] = `
 Array [
@@ -260,6 +286,127 @@ Array [
     "limit": 4,
     "offset": 0,
     "totalCount": 7,
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: getParticularElementsStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: getParticularElementsStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: getParticularElementsStatus during another load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: getParticularElementsStatus during load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: onParticularElementsLoadCancel parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsToBeCanceled",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: onParticularElementsLoadStart parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsToBeCanceled",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on another loadLoadParticularElements call: onParticularElementsLoadSuccess parameters 1`] = `
+Array [
+  Object {
+    "attributeElements": Array [
+      Object {
+        "title": "PhoenixSoft",
+        "uri": "/gdc/md/referenceworkspace/obj/1054/elements?id=166339",
+      },
+    ],
+    "correlation": "loadParticularElementsSuccess",
+    "limit": undefined,
+    "offset": undefined,
+    "totalCount": 1,
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on cancel: getParticularElementsStatus after cancel 1`] = `"canceled"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on cancel: getParticularElementsStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on cancel: getParticularElementsStatus during load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on cancel: onParticularElementsLoadCancel parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsToBeCanceled",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements cancel callback on cancel: onParticularElementsLoadStart parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsToBeCanceled",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements error callback: getParticularElementsStatus after load 1`] = `"error"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements error callback: getParticularElementsStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements error callback: getParticularElementsStatus during load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements error callback: onParticularElementsLoadError parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsError",
+    "error": [Error: No element recordings for df non-existing-displayForm],
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements error callback: onParticularElementsLoadStart parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsError",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements success callback: getParticularElementsStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements success callback: getParticularElementsStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements success callback: getParticularElementsStatus during load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements success callback: onParticularElementsLoadStart parameters 1`] = `
+Array [
+  Object {
+    "correlation": "loadParticularElementsSuccess",
+  },
+]
+`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger loadParticularElements success callback: onParticularElementsLoadSuccess parameters 1`] = `
+Array [
+  Object {
+    "attributeElements": Array [
+      Object {
+        "title": "TouchAll",
+        "uri": "/gdc/md/referenceworkspace/obj/1054/elements?id=460491",
+      },
+      Object {
+        "title": "WonderKid",
+        "uri": "/gdc/md/referenceworkspace/obj/1054/elements?id=166497",
+      },
+    ],
+    "correlation": "loadParticularElementsSuccess",
+    "limit": undefined,
+    "offset": undefined,
+    "totalCount": 2,
   },
 ]
 `;

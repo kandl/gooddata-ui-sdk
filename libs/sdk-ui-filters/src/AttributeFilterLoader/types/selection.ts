@@ -50,6 +50,8 @@ export interface IStagedSingleSelectionHandler<T> extends Omit<ISingleSelectionH
     //
     getWorkingSelection(): T;
     getCommittedSelection(): T;
+    getIsWorkingSelectionEmpty(): boolean;
+    getIsWorkingSelectionChanged(): boolean;
 
     //
     // callbacks
@@ -116,6 +118,9 @@ export interface IStagedInvertableSelectionHandler<T extends InvertableSelection
     // selectors
     //
     getWorkingSelection(): T;
+    getIsWorkingSelectionEmpty(): boolean;
+    getIsWorkingSelectionChanged(): boolean;
+
     getCommittedSelection(): T;
 
     //

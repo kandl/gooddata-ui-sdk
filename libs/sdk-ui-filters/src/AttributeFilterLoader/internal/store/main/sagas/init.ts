@@ -17,7 +17,10 @@ export function* initWorker(): SagaIterator<void> {
 }
 
 function* initSaga(action: PayloadAction<InitActionPayload>): SagaIterator<void> {
+    // todo: cancel running element loads
     try {
+        yield put(actions.setInitStatus("loading"));
+
         if (action.payload.hiddenElements?.length > 0) {
             yield call(initAttributeSaga, action.payload.correlationId);
             // these need the attribute loaded for the hiddenElements to work
@@ -33,11 +36,14 @@ function* initSaga(action: PayloadAction<InitActionPayload>): SagaIterator<void>
             ]);
         }
 
+        yield put(actions.setInitStatus("success"));
         yield put(actions.initSuccess({ correlationId: action.payload.correlationId }));
     } catch (error) {
+        yield put(actions.setInitStatus("error"));
         yield put(actions.initError({ error, correlationId: action.payload.correlationId }));
     } finally {
         if (yield cancelled()) {
+            yield put(actions.setInitStatus("canceled"));
             yield put(actions.initCancel({ correlationId: action.payload.correlationId }));
         }
     }

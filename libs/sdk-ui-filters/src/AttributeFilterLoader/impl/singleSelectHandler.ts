@@ -58,6 +58,14 @@ export class SingleSelectAttributeFilterHandler
         return this.bridge.getWorkingSingleSelection();
     };
 
+    getIsWorkingSelectionEmpty = (): boolean => {
+        return this.bridge.getIsWorkingSelectionEmpty();
+    };
+
+    getIsWorkingSelectionChanged = (): boolean => {
+        return this.bridge.getIsWorkingSelectionChanged();
+    };
+
     getCommittedSelection = (): string | undefined => {
         return this.bridge.getCommittedSingleSelection();
     };

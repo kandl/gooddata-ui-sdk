@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: getInitStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: getInitStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: getInitStatus during another load 1`] = `"loading"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: getInitStatus during load 1`] = `"loading"`;
+
 exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: onInicStart 1 parameters 1`] = `
 Array [
   Object {
@@ -18,6 +26,12 @@ Array [
 
 exports[`MultiSelectAttributeFilterHandler should trigger init cancel callback on another init call: onInitCancel parameters 1`] = `undefined`;
 
+exports[`MultiSelectAttributeFilterHandler should trigger init error callback: getInitStatus after load 1`] = `"error"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init error callback: getInitStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init error callback: getInitStatus during load 1`] = `"loading"`;
+
 exports[`MultiSelectAttributeFilterHandler should trigger init error callback: onInicStart parameters 1`] = `
 Array [
   Object {
@@ -34,6 +48,12 @@ Array [
   },
 ]
 `;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init success callback: getInitStatus after load 1`] = `"success"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init success callback: getInitStatus before load 1`] = `"pending"`;
+
+exports[`MultiSelectAttributeFilterHandler should trigger init success callback: getInitStatus during load 1`] = `"loading"`;
 
 exports[`MultiSelectAttributeFilterHandler should trigger init success callback: onInicStart parameters 1`] = `
 Array [

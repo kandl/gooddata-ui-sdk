@@ -31,13 +31,13 @@ export function* initAttributeElementsSaga(initCorrelationId: string): SagaItera
         );
 
         yield put(
-            actions.setAttributeElementsTotalCount({
+            actions.setAttributeElementsTotalCountWithCurrentSettings({
                 totalCount: success.payload.totalCount,
             }),
         );
 
         yield put(
-            actions.setAttributeElementsTotalCountWithCurrentSettings({
+            actions.setAttributeElementsTotalCount({
                 totalCount: success.payload.totalCount,
             }),
         );

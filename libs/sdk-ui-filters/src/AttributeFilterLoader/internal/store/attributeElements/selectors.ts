@@ -57,3 +57,35 @@ export const selectAttributeElementsTotalCountWithCurrentSettings = createSelect
  * @internal
  */
 export const selectStaticElements = createSelector(selectState, (state) => state.staticElements ?? []);
+
+/**
+ * @internal
+ */
+export const selectLoadNextElementsPageStatus = createSelector(
+    selectState,
+    (state) => state.loadAttributeElementsNextPageStatus,
+);
+
+/**
+ * @internal
+ */
+export const selectLoadNextElementsPageError = createSelector(
+    selectState,
+    (state) => state.loadAttributeElementsNextPageError,
+);
+
+/**
+ * @internal
+ */
+export const selectLoadInitialElementsPageStatus = createSelector(
+    selectState,
+    (state) => state.loadAttributeElementsInitialPageStatus,
+);
+
+/**
+ * @internal
+ */
+export const selectLoadInitialElementsPageError = createSelector(
+    selectState,
+    (state) => state.loadAttributeElementsInitialPageError,
+);

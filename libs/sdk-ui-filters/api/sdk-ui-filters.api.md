@@ -8,6 +8,7 @@ import { AttributeFiltersOrPlaceholders } from '@gooddata/sdk-ui';
 import { DashboardDateFilterConfigMode } from '@gooddata/sdk-model';
 import { DateFilterGranularity } from '@gooddata/sdk-model';
 import { DateString } from '@gooddata/sdk-model';
+import { GoodDataSdkError } from '@gooddata/sdk-ui';
 import { IAbsoluteDateFilterForm } from '@gooddata/sdk-model';
 import { IAbsoluteDateFilterPreset } from '@gooddata/sdk-model';
 import { IAllTimeDateFilterOption } from '@gooddata/sdk-model';
@@ -40,6 +41,12 @@ import { WrappedComponentProps } from 'react-intl';
 
 // @public
 export type AbsoluteDateFilterOption = IUiAbsoluteDateFilterForm | IAbsoluteDateFilterPreset;
+
+// @alpha (undocumented)
+export type AsyncOperationStatus = "pending" | "loading" | "success" | "error" | "canceled";
+
+// @alpha
+export type AttributeElementKey = string;
 
 // @public
 export const AttributeElements: React_2.ComponentType<IAttributeElementsProps>;
@@ -221,31 +228,68 @@ export interface IAttributeDropdownListItemProps extends WrappedComponentProps {
 
 // @alpha
 export interface IAttributeElementLoader {
-    cancelElementLoad(): void;
     // (undocumented)
-    getAllItems(): IAttributeElement[];
+    cancelCustomElementsLoad(): void;
+    cancelInitialElementsPageLoad(): void;
     // (undocumented)
-    getCountWithCurrentSettings(): number;
+    cancelNextElementsPageLoad(): void;
     // (undocumented)
-    getItemsByKey(keys: string[]): IAttributeElement[];
+    getAllElements(): IAttributeElement[];
+    // (undocumented)
+    getElementsByKey(keys: string[]): IAttributeElement[];
+    // (undocumented)
+    getInitialElementsPageLoadError(): GoodDataSdkError;
+    // (undocumented)
+    getInitialElementsPageLoadStatus(): AsyncOperationStatus;
+    // (undocumented)
+    getNextElementsPageLoadError(): GoodDataSdkError;
+    // (undocumented)
+    getNextElementsPageLoadStatus(): AsyncOperationStatus;
     // (undocumented)
     getSearch(): string;
     // (undocumented)
-    getTotalCount(): number;
-    loadElementsRange(offset: number, limit: number, correlation?: Correlation): void;
+    getTotalElementsCount(): number;
     // (undocumented)
-    onElementsRangeLoadCancel: CallbackRegistration;
+    getTotalElementsCountWithCurrentSettings(): number;
     // (undocumented)
-    onElementsRangeLoadError: CallbackRegistration<{
+    loadCustomElements(options: any, correlation?: Correlation): void;
+    loadInitialElementsPage(correlation?: Correlation): void;
+    loadNextElementsPage(correlation?: Correlation): void;
+    // (undocumented)
+    onLoadCustomElementsCancel: CallbackRegistration;
+    // (undocumented)
+    onLoadCustomElementsError: CallbackRegistration<{
         error: Error;
     }>;
     // (undocumented)
-    onElementsRangeLoadStart: CallbackRegistration;
+    onLoadCustomElementsStart: CallbackRegistration;
     // (undocumented)
-    onElementsRangeLoadSuccess: CallbackRegistration<IElementsLoadResult>;
+    onLoadCustomElementsSuccess: CallbackRegistration<IElementsLoadResult>;
+    // (undocumented)
+    onLoadInitialElementsPageCancel: CallbackRegistration;
+    // (undocumented)
+    onLoadInitialElementsPageError: CallbackRegistration<{
+        error: Error;
+    }>;
+    // (undocumented)
+    onLoadInitialElementsPageStart: CallbackRegistration;
+    // (undocumented)
+    onLoadInitialElementsPageSuccess: CallbackRegistration<IElementsLoadResult>;
+    // (undocumented)
+    onLoadNextElementsPageCancel: CallbackRegistration;
+    // (undocumented)
+    onLoadNextElementsPageError: CallbackRegistration<{
+        error: Error;
+    }>;
+    // (undocumented)
+    onLoadNextElementsPageStart: CallbackRegistration;
+    // (undocumented)
+    onLoadNextElementsPageSuccess: CallbackRegistration<IElementsLoadResult>;
+    setLimit(limit: number): void;
     setLimitingAttributeFilters(filters: IElementsQueryAttributeFilter[]): void;
     setLimitingDateFilters(filters: IRelativeDateFilter[]): void;
     setLimitingMeasures(measures: IMeasure[]): void;
+    setOrder(order: "asc" | "desc"): void;
     setSearch(search: string): void;
 }
 
@@ -314,6 +358,10 @@ export interface IAttributeFilterHandlerOptionsBase {
 export interface IAttributeFilterLoader extends IAttributeLoader, IAttributeElementLoader {
     getFilter(): IAttributeFilter;
     // (undocumented)
+    getInitError(): GoodDataSdkError;
+    // (undocumented)
+    getInitStatus(): AsyncOperationStatus;
+    // (undocumented)
     init(correlation?: Correlation): void;
     // (undocumented)
     onInitCancel: CallbackRegistration;
@@ -324,7 +372,9 @@ export interface IAttributeFilterLoader extends IAttributeLoader, IAttributeElem
     // (undocumented)
     onInitStart: CallbackRegistration;
     // (undocumented)
-    onInitSuccess: CallbackRegistration;
+    onInitSuccess: CallbackRegistration<{
+        attribute: IAttributeMetadataObject;
+    }>;
 }
 
 // @public (undocumented)
@@ -351,21 +401,7 @@ export interface IAttributeFilterProps {
 
 // @alpha
 export interface IAttributeLoader {
-    cancelAttributeLoad(): void;
     getAttribute(): IAttributeMetadataObject | undefined;
-    loadAttribute(correlation?: Correlation): void;
-    // (undocumented)
-    onAttributeLoadCancel: CallbackRegistration;
-    // (undocumented)
-    onAttributeLoadError: CallbackRegistration<{
-        error: Error;
-    }>;
-    // (undocumented)
-    onAttributeLoadStart: CallbackRegistration;
-    // (undocumented)
-    onAttributeLoadSuccess: CallbackRegistration<{
-        attribute: IAttributeMetadataObject;
-    }>;
 }
 
 // @beta (undocumented)
@@ -572,7 +608,7 @@ export interface IMultiSelectAttributeFilterHandlerOptions extends IAttributeFil
 }
 
 // @alpha (undocumented)
-export type InvertableAttributeElementSelection = InvertableSelection<string>;
+export type InvertableAttributeElementSelection = InvertableSelection<AttributeElementKey>;
 
 // @alpha (undocumented)
 export interface InvertableSelection<T> {
@@ -641,7 +677,7 @@ export const isAbsoluteDateFilterOption: (obj: unknown) => obj is AbsoluteDateFi
 export const isEmptyListItem: (item: Partial<AttributeListItem>) => item is EmptyListItem;
 
 // @alpha
-export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterLoader, IStagedSingleSelectionHandler<string | undefined> {
+export interface ISingleSelectAttributeFilterHandler extends IAttributeFilterLoader, IStagedSingleSelectionHandler<AttributeElementKey | undefined> {
 }
 
 // @alpha
@@ -674,6 +710,10 @@ export interface IStagedInvertableSelectionHandler<T extends InvertableSelection
     // (undocumented)
     getCommittedSelection(): T;
     // (undocumented)
+    getIsWorkingSelectionChanged(): boolean;
+    // (undocumented)
+    getIsWorkingSelectionEmpty(): boolean;
+    // (undocumented)
     getWorkingSelection(): T;
     // (undocumented)
     onSelectionCommitted: CallbackRegistration<{
@@ -687,6 +727,10 @@ export interface IStagedSingleSelectionHandler<T> extends Omit<ISingleSelectionH
     commitSelection(): void;
     // (undocumented)
     getCommittedSelection(): T;
+    // (undocumented)
+    getIsWorkingSelectionChanged(): boolean;
+    // (undocumented)
+    getIsWorkingSelectionEmpty(): boolean;
     // (undocumented)
     getWorkingSelection(): T;
     // (undocumented)

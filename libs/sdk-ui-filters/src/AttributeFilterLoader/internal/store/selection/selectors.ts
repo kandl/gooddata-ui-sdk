@@ -19,12 +19,12 @@ export const selectIsWorkingSelectionInverted = createSelector(
 /**
  * @internal
  */
-export const selectCommitedSelection = createSelector(selectState, (state) => state.commitedSelection);
+export const selectCommittedSelection = createSelector(selectState, (state) => state.committedSelection);
 
 /**
  * @internal
  */
-export const selectIsCommitedSelectionInverted = createSelector(
+export const selectIsCommittedSelectionInverted = createSelector(
     selectState,
-    (state) => state.isCommitedSelectionInverted,
+    (state) => state.isCommittedSelectionInverted,
 );

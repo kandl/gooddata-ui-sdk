@@ -4,8 +4,8 @@ import isNil from "lodash/isNil";
 
 import { AttributeFilterReducer } from "../state";
 import {
-    selectCommitedSelection,
-    selectIsCommitedSelectionInverted,
+    selectCommittedSelection,
+    selectIsCommittedSelectionInverted,
     selectIsWorkingSelectionInverted,
     selectWorkingSelection,
 } from "./selectors";
@@ -21,19 +21,19 @@ const changeSelection: AttributeFilterReducer<
 };
 
 const revertSelection: AttributeFilterReducer = (state) => {
-    const commitedSelection = selectCommitedSelection(state);
-    const isCommitedSelectionInverted = selectIsCommitedSelectionInverted(state);
+    const committedSelection = selectCommittedSelection(state);
+    const isCommittedSelectionInverted = selectIsCommittedSelectionInverted(state);
 
-    state.workingSelection = commitedSelection;
-    state.isWorkingSelectionInverted = isCommitedSelectionInverted;
+    state.workingSelection = committedSelection;
+    state.isWorkingSelectionInverted = isCommittedSelectionInverted;
 };
 
 const commitSelection: AttributeFilterReducer = (state) => {
     const workingSelection = selectWorkingSelection(state);
     const isWorkingSelectionInverted = selectIsWorkingSelectionInverted(state);
 
-    state.commitedSelection = workingSelection;
-    state.isCommitedSelectionInverted = isWorkingSelectionInverted;
+    state.committedSelection = workingSelection;
+    state.isCommittedSelectionInverted = isWorkingSelectionInverted;
 };
 
 const invertSelection: AttributeFilterReducer = (state) => {
