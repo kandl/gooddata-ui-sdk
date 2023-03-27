@@ -1,12 +1,11 @@
 // (C) 2007-2022 GoodData Corporation
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const { DefinePlugin, EnvironmentPlugin, ProvidePlugin } = require("webpack");
+const { EnvironmentPlugin, ProvidePlugin } = require("webpack");
 const path = require("path");
 const { URL } = require("url");
 require("dotenv").config();
 
-const PORT = 3001;
 const BACKEND_URL = "https://public-examples.gooddata.com";
 
 module.exports = (_env, argv) => {
@@ -120,9 +119,6 @@ module.exports = (_env, argv) => {
                 new ProvidePlugin({
                     process: "process/browser",
                 }),
-                new DefinePlugin({
-                    PORT: JSON.stringify(PORT),
-                }),
                 new HtmlWebpackPlugin({
                     template: "./src/public/index.html",
                     favicon: "./src/public/favicon.ico",
@@ -134,7 +130,6 @@ module.exports = (_env, argv) => {
                 static: {
                     directory: path.join(__dirname, "dist"),
                 },
-                port: PORT,
                 host: "127.0.0.1",
                 proxy,
                 server: protocol === "https:" ? "https" : "http",
