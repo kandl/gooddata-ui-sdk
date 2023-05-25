@@ -1,20 +1,20 @@
 // (C) 2021-2023 GoodData Corporation
-import { ActionOptions, TargetAppLanguage } from "../_base/types";
-import { logError, logInfo, logSuccess, logWarn } from "../_base/terminal/loggers";
+import { ActionOptions, TargetAppLanguage } from "../_base/types.js";
+import { logError, logInfo, logSuccess, logWarn } from "../_base/terminal/loggers.js";
 import * as path from "path";
 import fse from "fs-extra";
 import tar from "tar";
 import url from "url";
-import { getDashboardPluginTemplateArchive } from "../dashboard-plugin-template";
+import { getDashboardPluginTemplateArchive } from "../dashboard-plugin-template.js";
 import {
     convertToPluginDirectory,
     genericErrorReporter,
     readJsonSync,
     writeAsJsonSync,
-} from "../_base/utils";
-import { processTigerFiles } from "./processTigerFiles";
-import { getInitCmdActionConfig, InitCmdActionConfig } from "./actionConfig";
-import { FileReplacementSpec, replaceInFiles } from "./replaceInFiles";
+} from "../_base/utils.js";
+import { processTigerFiles } from "./processTigerFiles.js";
+import { getInitCmdActionConfig, InitCmdActionConfig } from "./actionConfig.js";
+import { FileReplacementSpec, replaceInFiles } from "./replaceInFiles.js";
 import { sync as spawnSync } from "cross-spawn";
 
 //

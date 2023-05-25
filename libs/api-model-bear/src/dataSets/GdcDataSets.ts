@@ -1,7 +1,7 @@
 // (C) 2019-2020 GoodData Corporation
 
-import { GdcMetadata } from "../meta/GdcMetadata";
-import { Uri, BooleanAsString } from "../aliases";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
+import { Uri, BooleanAsString } from "../aliases.js";
 
 /**
  * @public

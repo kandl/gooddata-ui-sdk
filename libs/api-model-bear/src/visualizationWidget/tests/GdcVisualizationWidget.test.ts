@@ -1,8 +1,8 @@
 // (C) 2021 GoodData Corporation
 
-import { GdcVisualizationWidget } from "../GdcVisualizationWidget";
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
-import { drillFromAttribute, drillFromMeasure } from "./GdcVisualizationWidget.fixtures";
+import { GdcVisualizationWidget } from "../GdcVisualizationWidget.js";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
+import { drillFromAttribute, drillFromMeasure } from "./GdcVisualizationWidget.fixtures.js";
 
 describe("GdcVisualizationWidget", () => {
     describe("DrillFromType", () => {

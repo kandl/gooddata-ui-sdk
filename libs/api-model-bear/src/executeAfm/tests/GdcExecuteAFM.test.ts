@@ -1,6 +1,6 @@
 // (C) 2019-2020 GoodData Corporation
-import { GdcExecuteAFM as AFM } from "../GdcExecuteAFM";
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
+import { GdcExecuteAFM as AFM } from "../GdcExecuteAFM.js";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
 import {
     relativeDateFilter,
     absoluteDateFilter,
@@ -20,7 +20,7 @@ import {
     measureLocatorItem,
     rankingFilter,
     localIdentifierQualifier,
-} from "./GdcExecuteAFM.fixtures";
+} from "./GdcExecuteAFM.fixtures.js";
 
 describe("GdcExecuteAFM", () => {
     describe("isDateFilter", () => {

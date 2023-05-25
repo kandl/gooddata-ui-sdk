@@ -1,7 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
-import range from "lodash/range";
+import range from "lodash/range.js";
 import { GdcExecuteAFM, GdcExecution } from "@gooddata/api-model-bear";
 import {
     ExecuteAfmModule,
@@ -9,8 +9,8 @@ import {
     getNextOffset,
     mergePage,
     replaceLimitAndOffsetInUri,
-} from "../execute-afm";
-import { XhrModule } from "../../xhr";
+} from "../execute-afm.js";
+import { XhrModule } from "../../xhr.js";
 
 const DEFAULT_TEST_LIMIT = 1000;
 

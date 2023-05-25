@@ -3,7 +3,7 @@
 import { ReferenceRecordings } from "@gooddata/reference-workspace";
 import { IWorkspaceDescriptor } from "@gooddata/sdk-backend-spi";
 
-import { recordedBackend } from "../index";
+import { recordedBackend } from "../index.js";
 
 describe("recordedBackend", () => {
     describe("organization", () => {

@@ -1,6 +1,6 @@
 // (C) 2007-2023 GoodData Corporation
-import { GdcMetadata } from "../meta/GdcMetadata";
-import isEmpty from "lodash/isEmpty";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
+import isEmpty from "lodash/isEmpty.js";
 
 /**
  * @public

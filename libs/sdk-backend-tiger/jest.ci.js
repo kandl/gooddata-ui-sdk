@@ -1,7 +1,8 @@
 // (C) 2019 GoodData Corporation
-const ciBase = require("../../common/config/jest/jest.config.ci.base.js");
+import base from "../../common/config/jest/jest.config.ci.base.mjs";
 
-module.exports = {
-    ...ciBase,
+export default {
+    ...base,
     testRegex: "(/src).*\\.test\\.tsx?$",
+    setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 };

@@ -18,21 +18,21 @@ import {
     IEntitlements,
 } from "@gooddata/sdk-backend-spi";
 import { IInsight } from "@gooddata/sdk-model";
-import invariant from "ts-invariant";
-import isEmpty from "lodash/isEmpty";
-import isError from "lodash/isError";
-import { convertApiError, isApiResponseError } from "../utils/errorHandling";
-import { BearWorkspace } from "./workspace";
-import { BearWorkspaceQueryFactory } from "./workspaces";
-import { BearUserService } from "./user";
-import { convertInsight } from "../convertors/toBackend/InsightConverter";
+import { invariant } from "ts-invariant";
+import isEmpty from "lodash/isEmpty.js";
+import isError from "lodash/isError.js";
+import { convertApiError, isApiResponseError } from "../utils/errorHandling.js";
+import { BearWorkspace } from "./workspace/index.js";
+import { BearWorkspaceQueryFactory } from "./workspaces/index.js";
+import { BearUserService } from "./user/index.js";
+import { convertInsight } from "../convertors/toBackend/InsightConverter.js";
 import {
     GdcUser,
     GdcProjectDashboard,
     GdcMetadataObject,
     GdcVisualizationObject,
 } from "@gooddata/api-model-bear";
-import { sanitizeDrillingActivationPostMessageData } from "./drillingPostMessageData";
+import { sanitizeDrillingActivationPostMessageData } from "./drillingPostMessageData/index.js";
 import {
     IAuthProviderCallGuard,
     NoopAuthProvider,
@@ -42,9 +42,9 @@ import {
     TelemetryData,
 } from "@gooddata/sdk-backend-base";
 import { IDrillableItemsCommandBody } from "@gooddata/sdk-embedding";
-import { BearOrganization, BearOrganizations } from "./organization";
+import { BearOrganization, BearOrganizations } from "./organization/index.js";
 import packageJson from "../../package.json";
-import { BearEntitlements } from "./entitlements";
+import { BearEntitlements } from "./entitlements/index.js";
 
 const CAPABILITIES: IBackendCapabilities = {
     canCalculateGrandTotals: true,

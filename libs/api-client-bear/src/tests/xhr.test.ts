@@ -1,10 +1,11 @@
 // (C) 2007-2022 GoodData Corporation
 import "isomorphic-fetch";
 import fetchMock, { MockOptions } from "fetch-mock";
-import isPlainObject from "lodash/isPlainObject";
+import isPlainObject from "lodash/isPlainObject.js";
+import pkgJson from "../../package.json";
 
-import { handlePolling, originPackageHeaders, XhrModule, thisPackage } from "../xhr";
-import { ConfigModule } from "../config";
+import { handlePolling, originPackageHeaders, XhrModule, thisPackage } from "../xhr.js";
+import { ConfigModule } from "../config.js";
 
 function isHashMap(obj: any): obj is { [t: string]: string } {
     return isPlainObject(obj);
@@ -25,9 +26,6 @@ const parsedDummyBody = { test: "ok" };
 
 describe("thisPackage", () => {
     it("should equal to current package name and version", () => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const pkgJson = require("../../package.json");
-
         expect(thisPackage).toEqual({ name: pkgJson.name, version: pkgJson.version });
     });
 });

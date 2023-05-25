@@ -1,6 +1,6 @@
 // (C) 2007-2018 GoodData Corporation
-import { GdcVisualizationObject } from "../GdcVisualizationObject";
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
+import { GdcVisualizationObject } from "../GdcVisualizationObject.js";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
 import {
     attribute,
     simpleMeasure,
@@ -13,7 +13,7 @@ import {
     positiveAttributeFilter,
     negativeAttributeFilter,
     measureValueFilter,
-} from "./GdcVisualizationObject.fixtures";
+} from "./GdcVisualizationObject.fixtures.js";
 
 describe("GdcVisualizationObject", () => {
     describe("isMeasure", () => {

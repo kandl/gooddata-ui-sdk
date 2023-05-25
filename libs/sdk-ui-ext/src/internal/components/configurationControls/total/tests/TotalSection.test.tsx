@@ -2,10 +2,10 @@
 import React from "react";
 import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import noop from "lodash/noop";
+import noop from "lodash/noop.js";
 
-import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider";
-import TotalSection, { ITotalSectionProps } from "../TotalSection";
+import { InternalIntlWrapper } from "../../../../utils/internalIntlProvider.js";
+import TotalSection, { ITotalSectionProps } from "../TotalSection.js";
 
 describe("TotalSection", () => {
     const defaultProps: ITotalSectionProps = {

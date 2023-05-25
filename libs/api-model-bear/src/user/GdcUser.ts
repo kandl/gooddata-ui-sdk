@@ -1,6 +1,6 @@
 // (C) 2007-2022 GoodData Corporation
-import { BooleanAsString, Timestamp, Email, Uri, TimeIso8601, DateString } from "../aliases";
-import { GdcMetadata } from "../meta/GdcMetadata";
+import { BooleanAsString, Timestamp, Email, Uri, TimeIso8601, DateString } from "../aliases.js";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
 
 /**
  * @public

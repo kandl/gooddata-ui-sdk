@@ -1,7 +1,7 @@
 // (C) 2019 GoodData Corporation
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
-import { GdcFilterContext } from "../GdcFilterContext";
-import { attributeFilter, dateFilter } from "./GdcFilterContext.fixtures";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
+import { GdcFilterContext } from "../GdcFilterContext.js";
+import { attributeFilter, dateFilter } from "./GdcFilterContext.fixtures.js";
 
 describe("GdcFilterContext", () => {
     describe("isAttributeFilter", () => {

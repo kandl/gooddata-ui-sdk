@@ -1,8 +1,8 @@
 // (C) 2023 GoodData Corporation
 import { ReferenceMd } from "@gooddata/reference-workspace";
 import { IWaterfallChartProps, WaterfallChart } from "@gooddata/sdk-ui-charts";
-import { scenariosFor } from "../../../src";
-import { ScenarioGroupNames } from "../_infra/groupNames";
+import { scenariosFor } from "../../../src/index.js";
+import { ScenarioGroupNames } from "../_infra/groupNames.js";
 import { modifyMeasure } from "@gooddata/sdk-model";
 
 export const WaterfallChartWithSingleMeasureAndViewBy = {
@@ -40,7 +40,7 @@ export default scenariosFor<IWaterfallChartProps>("WaterfallChart", WaterfallCha
         ...WaterfallChartWithMultiMeasuresAndTotalMetric,
         config: {
             total: {
-                measures: ["m_fact.opportunitysnapshot.amount_sum"]
-            }
-        }
+                measures: ["m_fact.opportunitysnapshot.amount_sum"],
+            },
+        },
     });

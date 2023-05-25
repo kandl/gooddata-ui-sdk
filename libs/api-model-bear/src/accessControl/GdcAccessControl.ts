@@ -1,6 +1,6 @@
 // (C) 2021 GoodData Corporation
-import { GdcUser } from "../user/GdcUser";
-import { GdcUserGroup } from "../userGroup/GdcUserGroup";
+import { GdcUser } from "../user/GdcUser.js";
+import { GdcUserGroup } from "../userGroup/GdcUserGroup.js";
 
 /**
  * @alpha

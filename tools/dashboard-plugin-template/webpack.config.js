@@ -57,8 +57,7 @@ module.exports = (_env, argv) => {
 
     const commonConfig = {
         mode: isProduction ? "production" : "development",
-        // support IE11 only in production, in dev it is not necessary and it also would prevent hot reload
-        target: isProduction ? ["web", "es5"] : "web",
+        target: "web",
         devtool: isProduction ? false : "eval-cheap-module-source-map",
         output: {
             publicPath: "auto",
@@ -131,7 +130,7 @@ module.exports = (_env, argv) => {
                     include: path.resolve(__dirname, "src"),
                     use: ["source-map-loader"],
                 },
-            ].filter(Boolean),
+            ].filter(Boolean),                      
         },
         plugins: [
             new CaseSensitivePathsPlugin(),
@@ -149,6 +148,7 @@ module.exports = (_env, argv) => {
     return [
         {
             ...commonConfig,
+            experiments: {topLevelAwait: true},
             entry: "./src/index",
             name: "harness",
             ignoreWarnings: [/Failed to parse source map/], // some of the dependencies have invalid source maps, we do not care that much

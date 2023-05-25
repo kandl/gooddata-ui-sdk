@@ -9,33 +9,33 @@
  *
  * @packageDocumentation
  */
-export { GdcExecuteAFM } from "./executeAfm/GdcExecuteAFM";
-export { GdcExecution } from "./executeAfm/GdcExecution";
-export { GdcExport } from "./export/GdcExport";
-export { GdcExtendedDateFilters } from "./extendedDateFilters/GdcExtendedDateFilters";
-export { GdcVisualizationObject } from "./visualizationObject/GdcVisualizationObject";
-export { GdcVisualizationClass } from "./visualizationObject/GdcVisualizationClass";
-export { GdcVisualizationWidget } from "./visualizationWidget/GdcVisualizationWidget";
-export { GdcFilterContext } from "./filterContext/GdcFilterContext";
-export { GdcDashboardLayout } from "./dashboard/GdcDashboardLayout";
-export { GdcDashboard } from "./dashboard/GdcDashboard";
-export { GdcDashboardPlugin } from "./dashboardPlugin/GdcDashboardPlugin";
-export { GdcCatalog } from "./catalog/GdcCatalog";
-export { GdcKpi } from "./kpi/GdcKpi";
-export { GdcMetadata } from "./meta/GdcMetadata";
-export { GdcDataSetsCsv } from "./dataSets/GdcDataSetsCsv";
-export { GdcDataSets } from "./dataSets/GdcDataSets";
-export { GdcDateDataSets } from "./dateDataSets/GdcDateDataSets";
-export { GdcProject } from "./project/GdcProject";
-export { GdcUser } from "./user/GdcUser";
-export { GdcMetadataObject } from "./meta/GdcMetadataObject";
-export { GdcScheduledMail } from "./scheduledMail/GdcScheduledMail";
-export { GdcProjectDashboard } from "./projectDashboard/GdcProjectDashboard";
-export { GdcPaging } from "./base/GdcPaging";
-export { GdcReport } from "./report/GdcReport";
-export { GdcUserGroup } from "./userGroup/GdcUserGroup";
-export { GdcAccessControl } from "./accessControl/GdcAccessControl";
-export { GdcOrganization } from "./organization/GdcOrganization";
+export { GdcExecuteAFM } from "./executeAfm/GdcExecuteAFM.js";
+export { GdcExecution } from "./executeAfm/GdcExecution.js";
+export { GdcExport } from "./export/GdcExport.js";
+export { GdcExtendedDateFilters } from "./extendedDateFilters/GdcExtendedDateFilters.js";
+export { GdcVisualizationObject } from "./visualizationObject/GdcVisualizationObject.js";
+export { GdcVisualizationClass } from "./visualizationObject/GdcVisualizationClass.js";
+export { GdcVisualizationWidget } from "./visualizationWidget/GdcVisualizationWidget.js";
+export { GdcFilterContext } from "./filterContext/GdcFilterContext.js";
+export { GdcDashboardLayout } from "./dashboard/GdcDashboardLayout.js";
+export { GdcDashboard } from "./dashboard/GdcDashboard.js";
+export { GdcDashboardPlugin } from "./dashboardPlugin/GdcDashboardPlugin.js";
+export { GdcCatalog } from "./catalog/GdcCatalog.js";
+export { GdcKpi } from "./kpi/GdcKpi.js";
+export { GdcMetadata } from "./meta/GdcMetadata.js";
+export { GdcDataSetsCsv } from "./dataSets/GdcDataSetsCsv.js";
+export { GdcDataSets } from "./dataSets/GdcDataSets.js";
+export { GdcDateDataSets } from "./dateDataSets/GdcDateDataSets.js";
+export { GdcProject } from "./project/GdcProject.js";
+export { GdcUser } from "./user/GdcUser.js";
+export { GdcMetadataObject } from "./meta/GdcMetadataObject.js";
+export { GdcScheduledMail } from "./scheduledMail/GdcScheduledMail.js";
+export { GdcProjectDashboard } from "./projectDashboard/GdcProjectDashboard.js";
+export { GdcPaging } from "./base/GdcPaging.js";
+export { GdcReport } from "./report/GdcReport.js";
+export { GdcUserGroup } from "./userGroup/GdcUserGroup.js";
+export { GdcAccessControl } from "./accessControl/GdcAccessControl.js";
+export { GdcOrganization } from "./organization/GdcOrganization.js";
 export {
     BooleanAsString,
     DateString,
@@ -48,7 +48,7 @@ export {
     Uri,
     ThemeFontUri,
     ThemeColor,
-} from "./aliases";
+} from "./aliases.js";
 
-export { sanitizeFiltersForExport } from "./filterContext/utils";
-export { getAttributesDisplayForms } from "./visualizationObject/utils";
+export { sanitizeFiltersForExport } from "./filterContext/utils.js";
+export { getAttributesDisplayForms } from "./visualizationObject/utils.js";

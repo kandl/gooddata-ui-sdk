@@ -1,5 +1,5 @@
 // (C) 2019-2022 GoodData Corporation
-import isEmpty from "lodash/isEmpty";
+import isEmpty from "lodash/isEmpty.js";
 import { IBucket, IFilter, ISortItem, VisualizationProperties } from "@gooddata/sdk-model";
 import {
     AfmObjectIdentifier,
@@ -7,7 +7,7 @@ import {
     MeasureDefinition,
     SortKeyAttribute,
     SortKeyValue,
-} from "../generated/afm-rest-api";
+} from "../generated/afm-rest-api/index.js";
 
 export namespace VisualizationObjectModelV1 {
     /**

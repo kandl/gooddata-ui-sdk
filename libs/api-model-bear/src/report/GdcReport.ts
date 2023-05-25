@@ -1,8 +1,8 @@
 // (C) 2021 GoodData Corporation
 
-import { GdcMetadata } from "../meta/GdcMetadata";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
 import IObjectMeta = GdcMetadata.IObjectMeta;
-import { Uri } from "../aliases";
+import { Uri } from "../aliases.js";
 
 /**
  * @public

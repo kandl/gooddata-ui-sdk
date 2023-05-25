@@ -1,8 +1,8 @@
 // (C) 2019 GoodData Corporation
 
-import { catalogAttribute, catalogMetric, catalogFact } from "../../../__mocks__/catalog";
-import { GdcCatalog } from "../GdcCatalog";
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
+import { catalogAttribute, catalogMetric, catalogFact } from "../../../__mocks__/catalog.js";
+import { GdcCatalog } from "../GdcCatalog.js";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
 
 describe("catalog attribute type guard", () => {
     describe("isCatalogAttribute", () => {

@@ -1,5 +1,5 @@
 // (C) 2007-2019 GoodData Corporation
-import { isExportFinished } from "../export";
+import { isExportFinished } from "../export.js";
 
 describe("export utils", () => {
     describe("isExportFinished", () => {

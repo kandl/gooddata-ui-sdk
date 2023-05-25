@@ -1,5 +1,5 @@
 // (C) 2021 GoodData Corporation
-import { Timestamp, Uri } from "../aliases";
+import { Timestamp, Uri } from "../aliases.js";
 
 /**
  * @alpha

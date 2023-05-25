@@ -1,22 +1,22 @@
 // (C) 2019-2022 GoodData Corporation
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { dummyBackend, dummyBackendEmptyData } from "@gooddata/sdk-backend-mockingbird";
-import { createDummyPromise } from "../../base/react/tests/toolkit";
-import { DataViewFacade } from "../../base/results/facade";
+import { createDummyPromise } from "../../base/react/tests/toolkit.js";
+import { DataViewFacade } from "../../base/results/facade.js";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
-import { Execute, IExecuteProps } from "../Execute";
+import { Execute, IExecuteProps } from "../Execute.js";
 import { ReferenceMd } from "@gooddata/reference-workspace";
 import { newAttributeSort, newPositiveAttributeFilter, newTotal } from "@gooddata/sdk-model";
-import { createExecution, CreateExecutionOptions } from "../createExecution";
-import { LoadingComponent } from "../../base/react/LoadingComponent";
-import { IExecuteErrorComponent } from "../interfaces";
+import { createExecution, CreateExecutionOptions } from "../createExecution.js";
+import { LoadingComponent } from "../../base/react/LoadingComponent.js";
+import { IExecuteErrorComponent } from "../interfaces.js";
+import { Mock, vi } from "vitest";
 
 const DummyBackendEmptyData = dummyBackendEmptyData();
-const makeChild = () => jest.fn((_) => <div />);
+const makeChild = () => vi.fn((_) => <div />);
 const renderDummyExecutor = (
-    child: jest.Mock<JSX.Element>,
+    child: Mock,
     props: Omit<IExecuteProps, "backend" | "workspace" | "children" | "seriesBy"> = {},
     backend: IAnalyticalBackend = DummyBackendEmptyData,
 ) => {
@@ -55,13 +55,14 @@ describe("Execute", () => {
     it("should stop loading when execution is resolved and inject data view facade", async () => {
         const child = makeChild();
         renderDummyExecutor(child);
-        await createDummyPromise({ delay: 100 });
 
-        expect(child).toHaveBeenCalledWith({
-            isLoading: false,
-            error: undefined,
-            result: expect.any(DataViewFacade),
-            reload: expect.any(Function),
+        waitFor(() => {
+            expect(child).toHaveBeenCalledWith({
+                isLoading: false,
+                error: undefined,
+                result: expect.any(DataViewFacade),
+                reload: expect.any(Function),
+            });
         });
     });
 
@@ -78,10 +79,10 @@ describe("Execute", () => {
         });
     });
 
-    it("should start loading after invoking injected reload function", async () => {
-        const child = jest.fn(({ reload }) => <button onClick={reload}>Reload</button>);
+    it("should start loading after invoking injected reload function", () => {
+        const child = vi.fn(({ reload }) => <button onClick={reload}>Reload</button>);
         renderDummyExecutor(child, { loadOnMount: false });
-        await userEvent.click(screen.getByText("Reload"));
+        fireEvent.click(screen.getByText("Reload"));
 
         expect(child).toHaveBeenCalledWith({
             isLoading: false,
@@ -99,9 +100,9 @@ describe("Execute", () => {
 
     it("should invoke onLoadingStart, onLoadingChanged and onLoadingFinish events", async () => {
         const child = makeChild();
-        const onLoadingStart = jest.fn();
-        const onLoadingChanged = jest.fn();
-        const onLoadingFinish = jest.fn();
+        const onLoadingStart = vi.fn();
+        const onLoadingChanged = vi.fn();
+        const onLoadingFinish = vi.fn();
 
         renderDummyExecutor(child, {
             onLoadingChanged,
@@ -118,10 +119,10 @@ describe("Execute", () => {
 
     it("should invoke onError when execution fails with a NoDataError without a DataView", async () => {
         const child = makeChild();
-        const onLoadingStart = jest.fn();
-        const onLoadingChanged = jest.fn();
-        const onLoadingFinish = jest.fn();
-        const onError = jest.fn();
+        const onLoadingStart = vi.fn();
+        const onLoadingChanged = vi.fn();
+        const onLoadingFinish = vi.fn();
+        const onError = vi.fn();
 
         renderDummyExecutor(
             child,
@@ -144,10 +145,10 @@ describe("Execute", () => {
 
     it("should NOT invoke onError when execution fails with a NoDataError with a DataView", async () => {
         const child = makeChild();
-        const onLoadingStart = jest.fn();
-        const onLoadingChanged = jest.fn();
-        const onLoadingFinish = jest.fn();
-        const onError = jest.fn();
+        const onLoadingStart = vi.fn();
+        const onLoadingChanged = vi.fn();
+        const onLoadingFinish = vi.fn();
+        const onError = vi.fn();
 
         renderDummyExecutor(
             child,
@@ -228,9 +229,9 @@ describe("Execute", () => {
             </Execute>,
         );
 
-        await createDummyPromise({ delay: 100 });
-
-        expect(screen.queryByText("ERROR")).toBeInTheDocument();
+        waitFor(() => {
+            expect(screen.queryByText("ERROR")).toBeInTheDocument();
+        });
     });
 });
 

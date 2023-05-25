@@ -10,8 +10,8 @@ import {
     isUriRef,
     newInsightDefinition,
 } from "@gooddata/sdk-model";
-import { RecordedInsights } from "../insights";
-import { recordedBackend } from "../index";
+import { RecordedInsights } from "../insights.js";
+import { recordedBackend } from "../index.js";
 import { ReferenceRecordings } from "@gooddata/reference-workspace";
 
 /**

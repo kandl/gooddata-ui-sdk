@@ -3,13 +3,13 @@ import "isomorphic-fetch";
 import { GdcMetadata } from "@gooddata/api-model-bear";
 import fetchMock from "fetch-mock";
 
-import range from "lodash/range";
-import find from "lodash/find";
-import { mockPollingRequest } from "./utils/polling";
-import { MetadataModule } from "../metadata";
-import { XhrModule } from "../xhr";
-import * as fixtures from "./metadata.fixtures";
-import { SortDirection } from "../interfaces";
+import range from "lodash/range.js";
+import find from "lodash/find.js";
+import { mockPollingRequest } from "./utils/polling.js";
+import { MetadataModule } from "../metadata.js";
+import { XhrModule } from "../xhr.js";
+import * as fixtures from "./metadata.fixtures.js";
+import { SortDirection } from "../interfaces.js";
 
 const createMd = () => new MetadataModule(new XhrModule(fetch, {}));
 

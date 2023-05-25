@@ -1,5 +1,5 @@
 // (C) 2019 GoodData Corporation
-import { GdcFilterContext } from "../GdcFilterContext";
+import { GdcFilterContext } from "../GdcFilterContext.js";
 
 export const attributeFilter: GdcFilterContext.IAttributeFilter = {
     attributeFilter: {

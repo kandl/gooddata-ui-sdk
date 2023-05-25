@@ -1,8 +1,8 @@
 // (C) 2007-2022 GoodData Corporation
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
-import { UserModule } from "../user";
-import { ApiResponse, XhrModule } from "../xhr";
+import { UserModule } from "../user.js";
+import { ApiResponse, XhrModule } from "../xhr.js";
 
 const createUser = () => new UserModule(new XhrModule(fetch, {}));
 

@@ -1,6 +1,6 @@
 // (C) 2019-2023 GoodData Corporation
 import { AxiosInstance, AxiosResponse } from "axios";
-import invariant from "ts-invariant";
+import { invariant } from "ts-invariant";
 import {
     IAnalyticalBackendConfig,
     IBackendCapabilities,
@@ -20,18 +20,18 @@ import {
     isContractExpired,
 } from "@gooddata/sdk-backend-spi";
 import { newAxios, tigerClientFactory, ITigerClient } from "@gooddata/api-client-tiger";
-import isEmpty from "lodash/isEmpty";
-import isError from "lodash/isError";
-import isString from "lodash/isString";
-import inRange from "lodash/inRange";
-import identity from "lodash/identity";
-import omit from "lodash/omit";
+import isEmpty from "lodash/isEmpty.js";
+import isError from "lodash/isError.js";
+import isString from "lodash/isString.js";
+import inRange from "lodash/inRange.js";
+import identity from "lodash/identity.js";
+import omit from "lodash/omit.js";
 
-import { convertApiError } from "../utils/errorHandling";
+import { convertApiError } from "../utils/errorHandling.js";
 
-import { TigerWorkspace } from "./workspace";
-import { TigerWorkspaceQueryFactory } from "./workspaces";
-import { TigerUserService } from "./user";
+import { TigerWorkspace } from "./workspace/index.js";
+import { TigerWorkspaceQueryFactory } from "./workspaces/index.js";
+import { TigerUserService } from "./user/index.js";
 import {
     AuthProviderCallGuard,
     AuthenticatedAsyncCall,
@@ -40,12 +40,12 @@ import {
     AnonymousAuthProvider,
     IAuthProviderCallGuard,
 } from "@gooddata/sdk-backend-base";
-import { DateFormatter } from "../convertors/fromBackend/dateFormatting/types";
-import { defaultDateFormatter } from "../convertors/fromBackend/dateFormatting/defaultDateFormatter";
-import { TigerOrganization, TigerOrganizations } from "./organization";
+import { DateFormatter } from "../convertors/fromBackend/dateFormatting/types.js";
+import { defaultDateFormatter } from "../convertors/fromBackend/dateFormatting/defaultDateFormatter.js";
+import { TigerOrganization, TigerOrganizations } from "./organization/index.js";
 import packageJson from "../../package.json";
-import { TigerSpecificFunctions, buildTigerSpecificFunctions } from "./tigerSpecificFunctions";
-import { TigerEntitlements } from "./entitlements";
+import { TigerSpecificFunctions, buildTigerSpecificFunctions } from "./tigerSpecificFunctions.js";
+import { TigerEntitlements } from "./entitlements/index.js";
 
 const CAPABILITIES: IBackendCapabilities = {
     hasTypeScopedIdentifiers: true,

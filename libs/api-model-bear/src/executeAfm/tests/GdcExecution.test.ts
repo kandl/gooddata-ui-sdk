@@ -1,13 +1,13 @@
 // (C) 2007-2018 GoodData Corporation
-import { InvalidInputTestCases } from "../../../__mocks__/typeGuards";
-import { GdcExecution } from "../GdcExecution";
+import { InvalidInputTestCases } from "../../../__mocks__/typeGuards.js";
+import { GdcExecution } from "../GdcExecution.js";
 import {
     attributeHeaderItem,
     measureHeaderItem,
     totalHeaderItem,
     attributeHeader,
     measureGroupGroup,
-} from "./GdcExecution.fixtures";
+} from "./GdcExecution.fixtures.js";
 import isAttributeHeaderItem = GdcExecution.isAttributeHeaderItem;
 import isMeasureHeaderItem = GdcExecution.isMeasureHeaderItem;
 import isTotalHeaderItem = GdcExecution.isTotalHeaderItem;

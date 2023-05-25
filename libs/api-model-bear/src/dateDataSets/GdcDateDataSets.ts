@@ -1,5 +1,5 @@
 // (C) 2007-2020 GoodData Corporation
-import { GdcMetadata } from "../meta/GdcMetadata";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
 /**
  *
  * @public

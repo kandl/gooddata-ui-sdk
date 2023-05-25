@@ -4,11 +4,11 @@ import { ReferenceMd } from "@gooddata/reference-workspace";
 import { newAttributeSort, newTotal } from "@gooddata/sdk-model";
 import { IPivotTableProps, PivotTable } from "@gooddata/sdk-ui-pivot";
 import { requestPages } from "@gooddata/mock-handling";
-import { scenariosFor } from "../../src";
+import { scenariosFor } from "../../src/index.js";
 import {
     PivotTableWithSingleMeasureAndTwoRowsAndCols,
     PivotTableWithTwoMeasuresAndTwoRowsAndCols,
-} from "./base";
+} from "./base.js";
 
 export const PivotTableWithTwoMeasuresAndTotals = {
     ...PivotTableWithTwoMeasuresAndTwoRowsAndCols,

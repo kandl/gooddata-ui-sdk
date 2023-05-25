@@ -1,6 +1,6 @@
 // (C) 2007-2022 GoodData Corporation
-import isEmpty from "lodash/fp/isEmpty";
-import has from "lodash/has";
+import isEmpty from "lodash/fp/isEmpty.js";
+import has from "lodash/has.js";
 import {
     Timestamp,
     MaqlExpression,
@@ -9,8 +9,8 @@ import {
     BooleanAsString,
     ThemeColor,
     ThemeFontUri,
-} from "../aliases";
-import { GdcExecuteAFM } from "../executeAfm/GdcExecuteAFM";
+} from "../aliases.js";
+import { GdcExecuteAFM } from "../executeAfm/GdcExecuteAFM.js";
 
 /**
  * @public

@@ -2,10 +2,14 @@
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
 import { GdcFilterContext, GdcExport } from "@gooddata/api-model-bear";
-import { DashboardModule } from "../dashboard";
-import { XhrModule } from "../../xhr";
-import { ACCEPTED_REQUEST_STATUS, BAD_REQUEST_STATUS, SUCCESS_REQUEST_STATUS } from "../../constants/errors";
-import { mockPollingRequest, mockPollingRequestWithStatus } from "../../tests/utils/polling";
+import { DashboardModule } from "../dashboard.js";
+import { XhrModule } from "../../xhr.js";
+import {
+    ACCEPTED_REQUEST_STATUS,
+    BAD_REQUEST_STATUS,
+    SUCCESS_REQUEST_STATUS,
+} from "../../constants/errors.js";
+import { mockPollingRequest, mockPollingRequestWithStatus } from "../../tests/utils/polling.js";
 
 const dashboardExportModuleMock = () => new DashboardModule(new XhrModule(fetch, {}));
 

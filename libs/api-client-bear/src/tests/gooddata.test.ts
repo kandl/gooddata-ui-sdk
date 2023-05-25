@@ -1,7 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
-import { factory } from "../gooddata";
+import { factory } from "../gooddata.js";
 
 const createSDK = (config = {}) => factory(fetch)(config);
 

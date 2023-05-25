@@ -1,7 +1,7 @@
 // (C) 2020 GoodData Corporation
-import isEmpty from "lodash/isEmpty";
-import { GdcMetadata } from "../meta/GdcMetadata";
-import { DateString, Email, Timestamp, Uri } from "../aliases";
+import isEmpty from "lodash/isEmpty.js";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
+import { DateString, Email, Timestamp, Uri } from "../aliases.js";
 
 /**
  * @public

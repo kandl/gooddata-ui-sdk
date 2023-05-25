@@ -1,16 +1,16 @@
 // (C) 2007-2021 GoodData Corporation
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
-import { ReportModule } from "../report";
-import { XhrModule, ApiResponseError } from "../../xhr";
-import { mockPollingRequest, mockPollingRequestWithStatus } from "../../tests/utils/polling";
+import { ReportModule } from "../report.js";
+import { XhrModule, ApiResponseError } from "../../xhr.js";
+import { mockPollingRequest, mockPollingRequestWithStatus } from "../../tests/utils/polling.js";
 import {
     SUCCESS_REQUEST_STATUS,
     ACCEPTED_REQUEST_STATUS,
     BAD_REQUEST_STATUS,
     BAD_REQUEST_MESSAGE,
     ERROR_RESTRICTED_MESSAGE,
-} from "../../constants/errors";
+} from "../../constants/errors.js";
 import { GdcExport } from "@gooddata/api-model-bear";
 
 const mockedReportModule = () => new ReportModule(new XhrModule(fetch, {}));
