@@ -1,6 +1,6 @@
 // (C) 2019-2020 GoodData Corporation
-import isArray from "lodash/isArray";
-import isEmpty from "lodash/isEmpty";
+import isArray from "lodash/isArray.js";
+import isEmpty from "lodash/isEmpty.js";
 
 /**
  * Types defined here exactly match types accepted by the executeAfm resource.

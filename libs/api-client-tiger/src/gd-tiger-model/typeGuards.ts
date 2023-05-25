@@ -8,7 +8,7 @@ import {
     ResultDimensionHeader,
     MeasureExecutionResultHeader,
     TotalExecutionResultHeader,
-} from "../generated/afm-rest-api";
+} from "../generated/afm-rest-api/index.js";
 import {
     JsonApiFilterContextIn,
     JsonApiVisualizationObjectOutWithLinks,
@@ -16,7 +16,7 @@ import {
     JsonApiDashboardPluginOutWithLinksTypeEnum,
     JsonApiFilterContextInTypeEnum,
     JsonApiVisualizationObjectOutWithLinksTypeEnum,
-} from "../generated/metadata-json-api";
+} from "../generated/metadata-json-api/index.js";
 
 export function isAttributeHeader(header: ResultDimensionHeader): header is AttributeHeaderOut {
     return header && (header as AttributeHeaderOut).attributeHeader !== undefined;

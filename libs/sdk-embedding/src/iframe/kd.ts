@@ -1,5 +1,5 @@
 // (C) 2020-2023 GoodData Corporation
-import isObject from "lodash/isObject";
+import isObject from "lodash/isObject.js";
 import {
     IGdcMessageEvent,
     getEventType,
@@ -8,7 +8,7 @@ import {
     IDrillableItemsCommandBody,
     EmbeddedGdc,
     IObjectMeta,
-} from "./common";
+} from "./common.js";
 import { ObjRef } from "@gooddata/sdk-model";
 import { GdcVisualizationObject } from "@gooddata/api-model-bear";
 

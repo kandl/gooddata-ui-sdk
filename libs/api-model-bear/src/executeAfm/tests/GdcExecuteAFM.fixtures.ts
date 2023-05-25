@@ -1,5 +1,5 @@
 // (C) 2019-2020 GoodData Corporation
-import { GdcExecuteAFM as AFM } from "../GdcExecuteAFM";
+import { GdcExecuteAFM as AFM } from "../GdcExecuteAFM.js";
 
 export const expressionFilter: AFM.CompatibilityFilter = {
     expression: {

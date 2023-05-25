@@ -1,5 +1,5 @@
 // (C) 2019 GoodData Corporation
-import { GdcVisualizationObject } from "../GdcVisualizationObject";
+import { GdcVisualizationObject } from "../GdcVisualizationObject.js";
 import IMeasure = GdcVisualizationObject.IMeasure;
 import IAttribute = GdcVisualizationObject.IAttribute;
 import DateFilter = GdcVisualizationObject.DateFilter;

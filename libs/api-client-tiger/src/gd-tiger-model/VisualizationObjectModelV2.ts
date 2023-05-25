@@ -1,5 +1,5 @@
 // (C) 2019-2021 GoodData Corporation
-import isEmpty from "lodash/isEmpty";
+import isEmpty from "lodash/isEmpty.js";
 import { IBucket, IFilter, ISortItem, VisualizationProperties } from "@gooddata/sdk-model";
 
 export namespace VisualizationObjectModelV2 {

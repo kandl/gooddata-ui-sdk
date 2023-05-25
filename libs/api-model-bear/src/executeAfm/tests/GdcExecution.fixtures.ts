@@ -1,5 +1,5 @@
 // (C) 2019 GoodData Corporation
-import { GdcExecution } from "../GdcExecution";
+import { GdcExecution } from "../GdcExecution.js";
 import IResultHeaderItem = GdcExecution.IResultHeaderItem;
 import IHeader = GdcExecution.IHeader;
 

@@ -1,6 +1,6 @@
 // (C) 2007-2021 GoodData Corporation
-import { GdcVisualizationObject } from "../visualizationObject/GdcVisualizationObject";
-import isEmpty from "lodash/isEmpty";
+import { GdcVisualizationObject } from "../visualizationObject/GdcVisualizationObject.js";
+import isEmpty from "lodash/isEmpty.js";
 
 /**
  * @public

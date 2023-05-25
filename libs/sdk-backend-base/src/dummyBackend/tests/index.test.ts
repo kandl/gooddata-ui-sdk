@@ -2,7 +2,7 @@
 
 import { IWorkspaceDescriptor } from "@gooddata/sdk-backend-spi";
 
-import { dummyBackend } from "../index";
+import { dummyBackend } from "../index.js";
 import { idRef } from "@gooddata/sdk-model";
 
 describe("dummyBackend", () => {

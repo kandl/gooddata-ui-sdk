@@ -27,8 +27,8 @@ export {
     ISimpleDrillableItemsCommandBody,
     isCommandFailedData,
     getEventType,
-} from "./iframe/common";
+} from "./iframe/common.js";
 
-export { EmbeddedAnalyticalDesigner } from "./iframe/ad";
+export { EmbeddedAnalyticalDesigner } from "./iframe/ad.js";
 
-export { EmbeddedKpiDashboard } from "./iframe/kd";
+export { EmbeddedKpiDashboard } from "./iframe/kd.js";

@@ -1,6 +1,6 @@
 // (C) 2019-2022 GoodData Corporation
-import { GdcPaging } from "../base/GdcPaging";
-import { Uri } from "../aliases";
+import { GdcPaging } from "../base/GdcPaging.js";
+import { Uri } from "../aliases.js";
 
 /**
  * @public

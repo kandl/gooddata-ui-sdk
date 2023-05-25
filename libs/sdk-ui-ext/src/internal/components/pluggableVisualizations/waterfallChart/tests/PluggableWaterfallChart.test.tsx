@@ -1,11 +1,11 @@
 // (C) 2023 GoodData Corporation
-import noop from "lodash/noop";
+import noop from "lodash/noop.js";
 import { dummyBackend } from "@gooddata/sdk-backend-mockingbird";
 
-import { PluggableWaterfallChart } from "../PluggableWaterfallChart";
-import * as referencePointMocks from "../../../../tests/mocks/referencePointMocks";
-import * as testMocks from "../../../../tests/mocks/testMocks";
-import { getLastRenderEl } from "../../tests/testHelpers";
+import { PluggableWaterfallChart } from "../PluggableWaterfallChart.js";
+import * as referencePointMocks from "../../../../tests/mocks/referencePointMocks.js";
+import * as testMocks from "../../../../tests/mocks/testMocks.js";
+import { getLastRenderEl } from "../../tests/testHelpers.js";
 
 describe("PluggableWaterfallChart", () => {
     const mockElement = document.createElement("div");

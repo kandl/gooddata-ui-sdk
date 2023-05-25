@@ -1,5 +1,5 @@
 // (C) 2019 GoodData Corporation
-import { CatalogExportError, isAttribute, isCatalogExportError, isFact, isMetric } from "../types";
+import { CatalogExportError, isAttribute, isCatalogExportError, isFact, isMetric } from "../types.js";
 
 describe("catalog type guards", () => {
     const STD_INVALID: Array<[boolean, string, any]> = [

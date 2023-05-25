@@ -1,5 +1,5 @@
 // (C) 2007-2018 GoodData Corporation
-import { sortDefinitions } from "../utils/definitions";
+import { sortDefinitions } from "../utils/definitions.js";
 
 describe("sortDefinitions", () => {
     it("returns empty array for no definition", () => {

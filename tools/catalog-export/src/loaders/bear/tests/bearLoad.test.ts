@@ -1,7 +1,5 @@
 // (C) 2007-2021 GoodData Corporation
-import { bearLoad } from "../bearLoad";
-
-jest.mock("@gooddata/api-client-bear");
+import { bearLoad } from "../bearLoad.js";
 
 describe("bearLoad", () => {
     it("should transfer project ID", async () => {

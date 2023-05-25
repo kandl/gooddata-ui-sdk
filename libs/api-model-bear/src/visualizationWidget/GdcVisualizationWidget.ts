@@ -1,10 +1,10 @@
 // (C) 2020-2022 GoodData Corporation
-import isEmpty from "lodash/fp/isEmpty";
-import has from "lodash/has";
-import { GdcMetadata } from "../meta/GdcMetadata";
-import { GdcExtendedDateFilters } from "../extendedDateFilters/GdcExtendedDateFilters";
-import { GdcVisualizationObject } from "../visualizationObject/GdcVisualizationObject";
-import { Identifier } from "../aliases";
+import isEmpty from "lodash/fp/isEmpty.js";
+import has from "lodash/has.js";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
+import { GdcExtendedDateFilters } from "../extendedDateFilters/GdcExtendedDateFilters.js";
+import { GdcVisualizationObject } from "../visualizationObject/GdcVisualizationObject.js";
+import { Identifier } from "../aliases.js";
 
 /**
  * @public

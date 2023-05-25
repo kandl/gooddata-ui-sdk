@@ -1,6 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
-import { setHost, postEvent, setConfig, addListener, removeListener } from "../messagingUtils";
-import { IGdcMessageEvent } from "../../iframe/common";
+import { setHost, postEvent, setConfig, addListener, removeListener } from "../messagingUtils.js";
+import { IGdcMessageEvent } from "../../iframe/common.js";
 
 describe("Post events", () => {
     const event = {

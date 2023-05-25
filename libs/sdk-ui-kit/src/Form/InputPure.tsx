@@ -2,11 +2,11 @@
 import React from "react";
 import cx from "classnames";
 import NativeListener from "react-native-listener";
-import noop from "lodash/noop";
+import noop from "lodash/noop.js";
 
-import { ENUM_KEY_CODE } from "../typings/utilities";
-import { IDomNative, IDomNativeProps } from "../typings/domNative";
-import { runAutofocus } from "./focus";
+import { ENUM_KEY_CODE } from "../typings/utilities.js";
+import { IDomNative, IDomNativeProps } from "../typings/domNative.js";
+import { runAutofocus } from "./focus.js";
 
 /**
  * @internal

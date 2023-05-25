@@ -2,10 +2,10 @@
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
 
-import { AttributesMapLoaderModule, getMissingUrisInAttributesMap } from "../attributesMapLoader";
-import { XhrModule } from "../../xhr";
-import { MetadataModule } from "../../metadata";
-import * as fixtures from "./attributesMapLoader.fixtures";
+import { AttributesMapLoaderModule, getMissingUrisInAttributesMap } from "../attributesMapLoader.js";
+import { XhrModule } from "../../xhr.js";
+import { MetadataModule } from "../../metadata.js";
+import * as fixtures from "./attributesMapLoader.fixtures.js";
 
 const createAttributesMapLoader = () =>
     new AttributesMapLoaderModule(new MetadataModule(new XhrModule(fetch, {})));

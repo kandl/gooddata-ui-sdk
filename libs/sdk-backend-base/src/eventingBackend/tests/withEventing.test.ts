@@ -1,8 +1,8 @@
 // (C) 2007-2021 GoodData Corporation
 import { IAnalyticalBackend, IPreparedExecution } from "@gooddata/sdk-backend-spi";
 import { newMeasure } from "@gooddata/sdk-model";
-import { dummyBackend, dummyBackendEmptyData } from "../../dummyBackend";
-import { withEventing } from "../index";
+import { dummyBackend, dummyBackendEmptyData } from "../../dummyBackend/index.js";
+import { withEventing } from "../index.js";
 
 function prepareExecution(backend: IAnalyticalBackend): IPreparedExecution {
     return backend

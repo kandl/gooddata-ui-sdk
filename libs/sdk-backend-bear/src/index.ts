@@ -12,13 +12,13 @@
  * @packageDocumentation
  */
 import { IAnalyticalBackendConfig, IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
-import { BearBackend, BearBackendConfig } from "./backend";
+import { BearBackend, BearBackendConfig } from "./backend/index.js";
 import {
     FixedLoginAndPasswordAuthProvider,
     ContextDeferredAuthProvider,
     BearAuthProviderBase,
     AnonymousAuthProvider,
-} from "./auth";
+} from "./auth.js";
 
 /**
  * Returns function which creates instances of Analytical Backend implementation which works with the 'bear'
@@ -52,9 +52,9 @@ import {
     convertWidget,
     convertLayoutSize,
     convertLayoutItemSize,
-} from "./convertors/toBackend/DashboardConverter";
-import { convertInsight, convertInsightDefinition } from "./convertors/toBackend/InsightConverter";
-import { toAfmExecution } from "./convertors/toBackend/afm/ExecutionConverter";
+} from "./convertors/toBackend/DashboardConverter.js";
+import { convertInsight, convertInsightDefinition } from "./convertors/toBackend/InsightConverter.js";
+import { toAfmExecution } from "./convertors/toBackend/afm/ExecutionConverter.js";
 
 /**
  * Some of the convertors from bear types are exported through this so that they can be used by our
@@ -74,12 +74,12 @@ export const BearToBackendConvertors = {
     convertLayoutItemSize,
 };
 
-import { convertVisualization, convertBucket } from "./convertors/fromBackend/VisualizationConverter";
+import { convertVisualization, convertBucket } from "./convertors/fromBackend/VisualizationConverter.js";
 import {
     convertReferencesToUris,
     convertUrisToReferences,
-} from "./convertors/fromBackend/ReferenceConverter";
-import { serializeProperties, deserializeProperties } from "./convertors/fromBackend/PropertiesConverter";
+} from "./convertors/fromBackend/ReferenceConverter.js";
+import { serializeProperties, deserializeProperties } from "./convertors/fromBackend/PropertiesConverter.js";
 
 import {
     convertFilterContext,
@@ -91,7 +91,7 @@ import {
     convertDashboardDateFilterConfig,
     convertLayoutSize as convertLayoutSizeFromBackend,
     convertLayoutItemSize as convertLayoutItemSizeFromBackend,
-} from "./convertors/fromBackend/DashboardConverter";
+} from "./convertors/fromBackend/DashboardConverter/index.js";
 
 /**
  * Some of the convertors to bear types are exported through this so that they can be used by our
@@ -124,4 +124,4 @@ export {
     ReferenceConverter,
     IConversionData,
     IdGenerator,
-} from "./convertors/fromBackend/ReferenceConverter";
+} from "./convertors/fromBackend/ReferenceConverter.js";

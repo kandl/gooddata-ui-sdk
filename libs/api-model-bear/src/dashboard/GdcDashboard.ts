@@ -1,7 +1,7 @@
 // (C) 2020-2021 GoodData Corporation
-import { GdcMetadata } from "../meta/GdcMetadata";
-import { GdcDashboardLayout } from "./GdcDashboardLayout";
-import { GdcExtendedDateFilters } from "../extendedDateFilters/GdcExtendedDateFilters";
+import { GdcMetadata } from "../meta/GdcMetadata.js";
+import { GdcDashboardLayout } from "./GdcDashboardLayout.js";
+import { GdcExtendedDateFilters } from "../extendedDateFilters/GdcExtendedDateFilters.js";
 
 /**
  * @public

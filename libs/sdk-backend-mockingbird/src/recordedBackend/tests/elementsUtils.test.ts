@@ -15,8 +15,8 @@ import {
     resolveLimitingItems,
     resolveSelectedElements,
     resolveStringFilter,
-} from "../elementsUtils";
-import { AttributeElementsFiltering } from "../types";
+} from "../elementsUtils.js";
+import { AttributeElementsFiltering } from "../types.js";
 
 describe("elementsUtils", () => {
     const elements: IAttributeElement[] =

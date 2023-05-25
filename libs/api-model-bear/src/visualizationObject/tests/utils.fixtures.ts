@@ -1,5 +1,5 @@
 // (C) 2019 GoodData Corporation
-import { GdcVisualizationObject } from "../GdcVisualizationObject";
+import { GdcVisualizationObject } from "../GdcVisualizationObject.js";
 
 export const mdObjectWithAttributes: GdcVisualizationObject.IVisualizationObjectContent = {
     buckets: [

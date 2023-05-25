@@ -1,6 +1,6 @@
 // (C) 2019-2021 GoodData Corporation
 import range from "lodash/range";
-import { InMemoryPaging } from "../paging";
+import { InMemoryPaging } from "../paging.js";
 
 describe("InMemoryPaging", () => {
     const Items = range(125);

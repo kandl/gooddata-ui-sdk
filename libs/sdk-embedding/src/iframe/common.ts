@@ -1,6 +1,6 @@
 // (C) 2020-2023 GoodData Corporation
-import isEmpty from "lodash/isEmpty";
-import isObject from "lodash/isObject";
+import isEmpty from "lodash/isEmpty.js";
+import isObject from "lodash/isObject.js";
 import { GdcExecuteAFM } from "@gooddata/api-model-bear";
 
 /**

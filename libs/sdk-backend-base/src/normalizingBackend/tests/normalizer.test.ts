@@ -29,7 +29,7 @@ import {
     newTotal,
 } from "@gooddata/sdk-model";
 import { ReferenceMd, ReferenceMdExt } from "@gooddata/reference-workspace";
-import { Denormalizer, Normalizer } from "../normalizer";
+import { Denormalizer, Normalizer } from "../normalizer.js";
 
 // cannot be constructed using model functions - so doing this
 const EmptyMvf = (measure: IMeasure): IMeasureValueFilter => {

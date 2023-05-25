@@ -2,12 +2,12 @@
 import "isomorphic-fetch";
 import fetchMock from "fetch-mock";
 
-import cloneDeep from "lodash/cloneDeep";
-import * as fixtures from "./catalogue.fixtures";
-import { CatalogueModule, unwrapItemDescriptionObject } from "../catalogue";
-import { XhrModule } from "../xhr";
-import { ExecutionModule } from "../execution";
-import { MetadataModule } from "../metadata";
+import cloneDeep from "lodash/cloneDeep.js";
+import * as fixtures from "./catalogue.fixtures.js";
+import { CatalogueModule, unwrapItemDescriptionObject } from "../catalogue.js";
+import { XhrModule } from "../xhr.js";
+import { ExecutionModule } from "../execution.js";
+import { MetadataModule } from "../metadata.js";
 
 function createCatalogue() {
     const xhr = new XhrModule(fetch, {});

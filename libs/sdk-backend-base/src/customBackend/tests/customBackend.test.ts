@@ -1,6 +1,6 @@
 // (C) 2019-2021 GoodData Corporation
 
-import { customBackend } from "../index";
+import { customBackend } from "../index.js";
 import {
     IAuthenticatedPrincipal,
     IAuthenticationContext,
@@ -9,10 +9,10 @@ import {
     IExecutionResult,
     NotAuthenticated,
 } from "@gooddata/sdk-backend-spi";
-import { dummyDataView } from "../../dummyBackend";
+import { dummyDataView } from "../../dummyBackend/index.js";
 import { ReferenceMd } from "@gooddata/reference-workspace";
 import { newDefForItems } from "@gooddata/sdk-model";
-import { AnonymousAuthProvider } from "../../toolkit/auth";
+import { AnonymousAuthProvider } from "../../toolkit/auth.js";
 import {
     ApiClientProvider,
     CustomBackendConfig,
@@ -20,7 +20,7 @@ import {
     DataProviderContext,
     ResultProvider,
     ResultProviderContext,
-} from "../config";
+} from "../config.js";
 
 function client(): ApiClientProvider {
     let i = 1;
