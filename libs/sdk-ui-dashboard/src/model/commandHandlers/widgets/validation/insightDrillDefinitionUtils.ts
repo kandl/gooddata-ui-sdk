@@ -172,7 +172,7 @@ function validateDrillToDashboardDefinition(
             // md object has to be identifier
             result = {
                 ...drillDefinition,
-                target: idRef(targetDashboard.identifier, "analyticalDashboard"),
+                target: idRef(targetDashboard.id, "analyticalDashboard"),
             };
         }
 

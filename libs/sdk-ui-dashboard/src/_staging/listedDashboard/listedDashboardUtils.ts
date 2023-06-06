@@ -7,13 +7,13 @@ import { IDashboard, IListedDashboard } from "@gooddata/sdk-model";
  * @internal
  */
 export const createListedDashboard = (dashboard: IDashboard): IListedDashboard => {
-    const { created, description, identifier, ref, title, updated, uri, tags, shareStatus, isLocked } =
+    const { created, description, id, ref, title, updated, uri, tags, shareStatus, isLocked } =
         dashboard;
 
     return {
         created,
         description,
-        identifier,
+        id,
         ref,
         title,
         updated,

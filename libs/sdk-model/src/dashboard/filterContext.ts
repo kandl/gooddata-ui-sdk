@@ -3,8 +3,8 @@ import isEmpty from "lodash/isEmpty";
 import isNil from "lodash/isNil";
 import { DateFilterGranularity, DateString } from "../dateFilterConfig";
 import { IAttributeElements, isAttributeElementsByRef } from "../execution/filter";
+import { IMetadataObjectIdentity } from "../ldm/metadata";
 import { isObjRef, ObjRef } from "../objRef";
-import { IDashboardObjectIdentity } from "./common";
 
 /**
  * Date filter type - relative
@@ -290,7 +290,7 @@ export interface IFilterContextBase {
  *
  * @alpha
  */
-export interface IFilterContextDefinition extends IFilterContextBase, Partial<IDashboardObjectIdentity> {}
+export interface IFilterContextDefinition extends IFilterContextBase, Partial<IMetadataObjectIdentity> {}
 
 /**
  * Type-guard testing whether the provided object is an instance of {@link IFilterContextDefinition}.
@@ -307,7 +307,7 @@ export function isFilterContextDefinition(obj: unknown): obj is IFilterContextDe
  *
  * @alpha
  */
-export interface IFilterContext extends IFilterContextBase, IDashboardObjectIdentity {}
+export interface IFilterContext extends IFilterContextBase, IMetadataObjectIdentity {}
 
 /**
  * Type-guard testing whether the provided object is an instance of {@link IFilterContext}.
@@ -355,7 +355,7 @@ export function isTempFilterContext(obj: unknown): obj is ITempFilterContext {
     return (
         hasFilterContextBaseProps(obj) &&
         isObjRef((obj as any).ref) &&
-        !(obj as IFilterContext).identifier &&
+        !(obj as IFilterContext).id &&
         !(obj as IFilterContext).title
     );
 }

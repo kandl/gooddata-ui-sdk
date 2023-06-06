@@ -1,6 +1,6 @@
 // (C) 2023 GoodData Corporation
 
-import { IDashboardObjectIdentity } from "@gooddata/sdk-model";
+import { IMetadataObjectIdentity } from "@gooddata/sdk-model";
 
 /**
  * Represents different kinds of accessibility limitation for dashboard.
@@ -17,7 +17,7 @@ export type DashboardAccessibilityLimitation = "forbidden" | "notShared";
  *
  * @alpha
  */
-export interface IInaccessibleDashboard extends IDashboardObjectIdentity {
+export interface IInaccessibleDashboard extends IMetadataObjectIdentity {
     /**
      * Dashboard title
      */

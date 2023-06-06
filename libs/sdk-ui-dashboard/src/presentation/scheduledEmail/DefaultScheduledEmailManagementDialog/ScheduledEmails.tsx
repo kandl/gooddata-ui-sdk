@@ -56,7 +56,7 @@ export const ScheduledEmails: React.FC<IScheduledEmailsProps> = (props) => {
         <>
             {scheduledEmails.map((scheduledEmail) => (
                 <ScheduledEmail
-                    key={scheduledEmail.identifier}
+                    key={scheduledEmail.id}
                     scheduledEmail={scheduledEmail}
                     currentUserEmail={currentUserEmail}
                     onDelete={onDelete}

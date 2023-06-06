@@ -124,7 +124,7 @@ export const selectIsKpiAlertOpenedByWidgetRef = createMemoizedSelector(
                 return false;
             }
 
-            return targetWidget.identifier === openedWidget.identifier;
+            return targetWidget.id === openedWidget.id;
         });
     },
 );
@@ -152,7 +152,7 @@ export const selectIsKpiAlertHighlightedByWidgetRef = createMemoizedSelector(
                     return false;
                 }
 
-                return targetWidget.identifier === highlightedWidget.identifier;
+                return targetWidget.id === highlightedWidget.id;
             },
         );
     },

@@ -68,7 +68,7 @@ export class RecordedDashboards implements IWorkspaceDashboardsService {
                 obj: { dashboard },
             } = recording;
 
-            return isIdentifierRef(ref) ? ref.identifier === dashboard.identifier : ref.uri === dashboard.uri;
+            return isIdentifierRef(ref) ? ref.identifier === dashboard.id : ref.uri === dashboard.uri;
         });
 
         if (recordedDashboard) {
@@ -76,14 +76,14 @@ export class RecordedDashboards implements IWorkspaceDashboardsService {
         }
 
         return this.localDashboards.find((dashboard) => {
-            return isIdentifierRef(ref) ? ref.identifier === dashboard.identifier : ref.uri === dashboard.uri;
+            return isIdentifierRef(ref) ? ref.identifier === dashboard.id : ref.uri === dashboard.uri;
         });
     }
 
     private addOrUpdateLocalDashboard(dashboard: IDashboard): void {
         const ref = dashboard.ref;
         const idx = this.localDashboards.findIndex((dashboard) => {
-            return isIdentifierRef(ref) ? ref.identifier === dashboard.identifier : ref.uri === dashboard.uri;
+            return isIdentifierRef(ref) ? ref.identifier === dashboard.id : ref.uri === dashboard.uri;
         });
 
         if (idx >= 0) {
@@ -101,7 +101,7 @@ export class RecordedDashboards implements IWorkspaceDashboardsService {
             return {
                 ref: dashboard.ref,
                 uri: dashboard.uri,
-                identifier: dashboard.identifier,
+                id: dashboard.id,
                 title: dashboard.title,
                 created: dashboard.created,
                 description: dashboard.description,
@@ -232,7 +232,7 @@ export class RecordedDashboards implements IWorkspaceDashboardsService {
 
             savedDashboard = {
                 ...savedDashboard,
-                identifier: newId,
+                id: newId,
                 uri: newId,
                 ref: idRef(newId),
                 created: "2021-01-01 01:01:00",
@@ -243,13 +243,13 @@ export class RecordedDashboards implements IWorkspaceDashboardsService {
         if (isFilterContextDefinition(savedDashboard.filterContext)) {
             const newId = uuidv4();
             // use either existing identity and default to new identity
-            const { identifier = newId, uri = newId, ref = idRef(newId) } = savedDashboard.filterContext;
+            const { id = newId, uri = newId, ref = idRef(newId) } = savedDashboard.filterContext;
 
             savedDashboard = {
                 ...savedDashboard,
                 filterContext: {
                     ...savedDashboard.filterContext,
-                    identifier,
+                    id,
                     uri,
                     ref,
                 },

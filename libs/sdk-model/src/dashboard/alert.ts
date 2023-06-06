@@ -1,7 +1,7 @@
 // (C) 2019-2022 GoodData Corporation
 import isEmpty from "lodash/isEmpty";
+import { IMetadataObjectIdentity } from "../ldm/metadata";
 import { ObjRef, isObjRef } from "../objRef";
-import { IDashboardObjectIdentity } from "./common";
 import { IFilterContext, IFilterContextDefinition, isFilterContextDefinition } from "./filterContext";
 
 /**
@@ -51,7 +51,7 @@ export interface IWidgetAlertBase {
  * (e.g. when some measure exceeds/drops below the set value)
  * @alpha
  */
-export interface IWidgetAlertDefinition extends IWidgetAlertBase, Partial<IDashboardObjectIdentity> {
+export interface IWidgetAlertDefinition extends IWidgetAlertBase, Partial<IMetadataObjectIdentity> {
     /**
      * Alert filter context
      */
@@ -74,7 +74,7 @@ export function isWidgetAlertDefinition(obj: unknown): obj is IWidgetAlertDefini
  * See {@link IWidgetAlertDefinition}
  * @alpha
  */
-export interface IWidgetAlert extends IWidgetAlertBase, IDashboardObjectIdentity {
+export interface IWidgetAlert extends IWidgetAlertBase, IMetadataObjectIdentity {
     /**
      * Alert filter context
      */

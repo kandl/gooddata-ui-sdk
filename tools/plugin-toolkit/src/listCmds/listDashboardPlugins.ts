@@ -14,7 +14,7 @@ export async function listDashboardPlugins(
 
     return plugins.map((plugin) => {
         return {
-            identifier: plugin.identifier,
+            identifier: plugin.id,
             title: plugin.name,
             description: plugin.description,
             tags: plugin.tags,

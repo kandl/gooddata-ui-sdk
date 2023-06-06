@@ -18,6 +18,8 @@ export interface IMetadataObjectIdentity {
      */
     id: string;
 
+    // identifier: deprecated
+
     /**
      * Metadata object uri
      * Currently, our implementation still depends on converting id to uri (or uri to id)

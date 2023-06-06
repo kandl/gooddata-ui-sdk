@@ -31,7 +31,7 @@ export function WidthResizerHotspot({
     const { resizeStart, resizeEnd, getScrollCorrection } = useResizeHandlers();
 
     const widget = useMemo(() => item.widget() as IWidget, [item]);
-    const widgetIdentifier = widget.identifier;
+    const widgetIdentifier = widget.id;
     const { isWidthResizing, isActive } = useResizeWidthItemStatus(widgetIdentifier);
 
     const [isResizerVisible, setResizerVisibility] = useState<boolean>(false);

@@ -48,7 +48,7 @@ function setWidgetRefsInLayout(layout: IDashboardLayout<IDashboardWidget> | unde
                 ...widget,
                 ref: idRef(temporaryWidgetId),
                 uri: temporaryWidgetId,
-                identifier: temporaryWidgetId,
+                id: temporaryWidgetId,
             };
 
             return fixWidgetLegacyElementUris(convertedWidget);
@@ -99,7 +99,7 @@ export function convertDashboard(
     return {
         type: "IDashboard",
         ref: idRef(id, "analyticalDashboard"),
-        identifier: id,
+        id,
         uri: stripQueryParams(analyticalDashboard.links!.self),
         title,
         description,
@@ -125,7 +125,7 @@ export function convertFilterContextFromBackend(
 
     return {
         ref: idRef(id, type as ObjectType),
-        identifier: id,
+        id,
         uri: filterContext.links!.self,
         title,
         description,
@@ -146,7 +146,7 @@ export function convertDashboardPlugin(plugin: JsonApiDashboardPluginOutDocument
 
     return {
         ref: idRef(id, type as ObjectType),
-        identifier: id,
+        id,
         uri: plugin.links!.self,
         name: title,
         description,
@@ -165,7 +165,7 @@ export function convertDashboardPluginWithLinks(
 
     return {
         ref: idRef(id, type as ObjectType),
-        identifier: id,
+        id,
         uri: plugin.links!.self,
         name: title,
         description,

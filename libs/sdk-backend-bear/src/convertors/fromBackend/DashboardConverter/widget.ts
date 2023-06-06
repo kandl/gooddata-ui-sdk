@@ -50,7 +50,7 @@ export const convertVisualizationWidget = (
     return {
         type: "insight",
         ref: uriRef(uri!),
-        identifier: identifier!,
+        id: identifier!,
         uri: uri!,
         title,
         description: summary!,
@@ -77,7 +77,7 @@ export const convertKpi = (kpi: GdcKpi.IWrappedKPI): IWidget => {
     return {
         type: "kpi",
         ref: uriRef(uri!),
-        identifier: identifier!,
+        id: identifier!,
         uri: uri!,
         title,
         description: summary!,

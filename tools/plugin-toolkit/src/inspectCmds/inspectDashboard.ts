@@ -44,7 +44,7 @@ export async function inspectDashboard(
                     });
 
                     return {
-                        identifier: plugin.identifier,
+                        identifier: plugin.id,
                         title: plugin.name,
                         url: plugin.url,
                         parameters: !isEmpty(link?.parameters) ? link!.parameters : "(none)",

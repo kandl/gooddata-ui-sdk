@@ -60,7 +60,7 @@ export async function addPluginCmdAction(pluginUrl: string, options: ActionOptio
 
         const newPluginObject = await createPluginObject(config);
 
-        logSuccess(`Created new plugin object with ID: ${newPluginObject.identifier}`);
+        logSuccess(`Created new plugin object with ID: ${newPluginObject.id}`);
     } catch (e: any) {
         genericErrorReporter(e);
 

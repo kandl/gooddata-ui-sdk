@@ -46,7 +46,7 @@ export const convertAnalyticalDashboard = (
     return {
         ref: idRef(analyticalDashboard.id, "analyticalDashboard"),
         uri: analyticalDashboard.links!.self,
-        identifier: analyticalDashboard.id,
+        id: analyticalDashboard.id,
         title: attributes?.title ?? "",
         description: attributes?.description ?? "",
         created: "",
@@ -153,7 +153,7 @@ export function getFilterContextFromIncluded(
 
     return {
         ref: idRef(id, type as ObjectType),
-        identifier: id,
+        id,
         uri: filterContext.links!.self,
         title,
         description,

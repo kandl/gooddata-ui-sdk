@@ -45,7 +45,7 @@ async function updateDashboardWithRemovedParams(config: RemovePluginParamsCmdCon
         .getDashboardReferencedObjects(dashboardObj, ["dashboardPlugin"]);
 
     const touchedPlugin = dashboardReferencedObjects.plugins.find((plugin) =>
-        isEqual(plugin.identifier, validIdentifier),
+        isEqual(plugin.id, validIdentifier),
     );
 
     const plugins = dashboardObj.plugins?.map((plugin) => {

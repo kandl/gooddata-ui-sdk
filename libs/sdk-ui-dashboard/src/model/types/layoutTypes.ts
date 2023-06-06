@@ -2,7 +2,7 @@
 
 import {
     idRef,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     IBaseWidget,
     IFilterableWidget,
     IWidget,
@@ -34,7 +34,7 @@ export interface ICustomWidgetBase extends IBaseWidget {
  */
 export interface ICustomWidget
     extends ICustomWidgetBase,
-        IDashboardObjectIdentity,
+        IMetadataObjectIdentity,
         Partial<IFilterableWidget> {}
 
 /**
@@ -43,7 +43,7 @@ export interface ICustomWidget
  *
  * @public
  */
-export interface ICustomWidgetDefinition extends ICustomWidgetBase, Partial<IDashboardObjectIdentity> {}
+export interface ICustomWidgetDefinition extends ICustomWidgetBase, Partial<IMetadataObjectIdentity> {}
 
 /**
  * Creates a new custom widget.
@@ -56,7 +56,7 @@ export interface ICustomWidgetDefinition extends ICustomWidgetBase, Partial<IDas
  * @public
  */
 export function newCustomWidget<TExtra = void>(
-    identifier: string,
+    id: string,
     customType: string,
     extras?: TExtra & Partial<IFilterableWidget>,
 ): TExtra & ICustomWidget {
@@ -65,9 +65,9 @@ export function newCustomWidget<TExtra = void>(
     return {
         type: "customWidget",
         customType,
-        identifier,
-        uri: `_custom_widget_uri/${identifier}`,
-        ref: idRef(identifier),
+        id,
+        uri: `_custom_widget_uri/${id}`,
+        ref: idRef(id),
         ...extrasCopy,
     } as TExtra & ICustomWidget;
 }
@@ -115,7 +115,7 @@ export function isCustomWidgetBase(obj: unknown): obj is ICustomWidgetBase {
  * @internal
  */
 export function extendedWidgetDebugStr(widget: ExtendedDashboardWidget): string {
-    const widgetId = `${widget.identifier}`;
+    const widgetId = `${widget.id}`;
     let widgetType: string = "unknown widget type";
 
     if (isWidget(widget)) {

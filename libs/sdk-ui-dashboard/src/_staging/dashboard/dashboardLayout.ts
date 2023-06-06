@@ -4,7 +4,7 @@ import {
     IInsight,
     insightRef,
     serializeObjRef,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     AnalyticalWidgetType,
     isKpiWidget,
     isInsightWidget,
@@ -141,8 +141,8 @@ export function dashboardLayoutSanitize<T = IDashboardWidget>(
  * it saved by the backend.
  */
 export type IdentityMapping = {
-    original: IDashboardObjectIdentity;
-    updated: IDashboardObjectIdentity;
+    original: IMetadataObjectIdentity;
+    updated: IMetadataObjectIdentity;
 };
 
 /**
@@ -152,7 +152,7 @@ function newIdentityMapping(items: ReadonlyArray<IdentityMapping>): ObjRefMap<Id
     const map = new ObjRefMap<IdentityMapping>({
         type: "insight",
         strictTypeCheck: false,
-        idExtract: (e) => e.original.identifier,
+        idExtract: (e) => e.original.id,
         uriExtract: (e) => e.original.uri,
         refExtract: (e) => e.original.ref,
     });
@@ -160,17 +160,17 @@ function newIdentityMapping(items: ReadonlyArray<IdentityMapping>): ObjRefMap<Id
     return map.fromItems(items);
 }
 
-function getWidgetIdentity(widget: any | undefined): IDashboardObjectIdentity | undefined {
-    const { ref, uri, identifier } = widget ?? {};
+function getWidgetIdentity(widget: any | undefined): IMetadataObjectIdentity | undefined {
+    const { ref, uri, id } = widget ?? {};
 
-    if (!ref || !uri || !identifier) {
+    if (!ref || !uri || !id) {
         return;
     }
 
     return {
         ref,
         uri,
-        identifier,
+        id,
     };
 }
 
@@ -231,7 +231,7 @@ export function dashboardLayoutWidgetIdentityMap<T extends IDashboardWidget>(
     return newIdentityMapping(result);
 }
 
-export type DashboardObjectIdentityPredicate = (identity: IDashboardObjectIdentity) => boolean;
+export type DashboardObjectIdentityPredicate = (identity: IMetadataObjectIdentity) => boolean;
 
 /**
  * Given a layout, this function will go through all of it's item's widgets and remove widget's identity if

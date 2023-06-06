@@ -11,7 +11,7 @@ export interface IDrillTargets {
     /**
      * Identifier of widget to which the drills belong.
      */
-    identifier: Identifier;
+    id: Identifier;
 
     /**
      * URI of the widget to which the drills belong.

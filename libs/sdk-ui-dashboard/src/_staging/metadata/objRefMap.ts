@@ -283,7 +283,7 @@ export function newAttributeMap(
  * @param strictTypeCheck - whether to do strict type checking when getting by identifierRef
  * @alpha
  */
-export function newMapForObjectWithIdentity<T extends { identifier: Identifier; uri: string; ref: ObjRef }>(
+export function newMapForObjectWithIdentity<T extends { id: Identifier; uri: string; ref: ObjRef }>(
     items: T[],
     type?: ObjectType,
     strictTypeCheck: boolean = false,
@@ -291,7 +291,7 @@ export function newMapForObjectWithIdentity<T extends { identifier: Identifier; 
     const map = new ObjRefMap<T>({
         type,
         strictTypeCheck,
-        idExtract: (i) => i.identifier,
+        idExtract: (i) => i.id,
         uriExtract: (i) => i.uri,
         refExtract: (i) => i.ref,
     });

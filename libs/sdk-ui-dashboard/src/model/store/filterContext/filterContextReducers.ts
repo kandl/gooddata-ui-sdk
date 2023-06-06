@@ -13,7 +13,7 @@ import {
     ObjRef,
     DateString,
     DateFilterGranularity,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     DateFilterType,
     FilterContextItem,
     IDashboardAttributeFilter,
@@ -38,7 +38,7 @@ type SetFilterContextPayload = {
     filterContextDefinition: IFilterContextDefinition;
     originalFilterContextDefinition?: IFilterContextDefinition;
     attributeFilterDisplayForms: IAttributeDisplayFormMetadataObject[];
-    filterContextIdentity?: IDashboardObjectIdentity;
+    filterContextIdentity?: IMetadataObjectIdentity;
 };
 
 const setFilterContext: FilterContextReducer<PayloadAction<SetFilterContextPayload>> = (state, action) => {
@@ -84,7 +84,7 @@ const setFilterContext: FilterContextReducer<PayloadAction<SetFilterContextPaylo
 //
 
 type SetFilterContextIdentityPayload = {
-    filterContextIdentity?: IDashboardObjectIdentity;
+    filterContextIdentity?: IMetadataObjectIdentity;
 };
 
 const updateFilterContextIdentity: FilterContextReducer<PayloadAction<SetFilterContextIdentityPayload>> = (

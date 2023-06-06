@@ -41,7 +41,7 @@ export const convertListedDashboard = (
         : {};
     return {
         ref: uriRef(dashboardLink.link),
-        identifier: dashboardLink.identifier!,
+        id: dashboardLink.identifier!,
         uri: dashboardLink.link,
         title: dashboardLink.title!,
         description: dashboardLink.summary!,
@@ -153,7 +153,7 @@ export const convertDashboard = (
         title,
         description: summary!,
 
-        identifier: identifier!,
+        id: identifier!,
         uri: uri!,
         ref: uriRef(uri!),
 

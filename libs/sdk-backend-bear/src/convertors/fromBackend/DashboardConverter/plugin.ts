@@ -16,7 +16,7 @@ export function convertDashboardPlugin(plugin: GdcDashboardPlugin.IWrappedDashbo
         name: title,
         description: summary ?? "",
         uri: uri!,
-        identifier: identifier!,
+        id: identifier!,
         updated: updated,
         created: created,
         tags: tags?.split(" ").filter((t) => t) ?? [],

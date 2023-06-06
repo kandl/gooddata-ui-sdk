@@ -137,7 +137,7 @@ export const DashboardLayoutWidget: IDashboardLayoutWidgetRenderer<
     const overlayShow = useDashboardSelector(selectWidgetsOverlayState(refs));
 
     const { isActive, isResizingColumnOrRow, heightLimitReached, widthLimitReached } = useResizeItemStatus(
-        widget.identifier,
+        widget.id,
     );
 
     const contentRef = useRef<HTMLDivElement | null>(null);

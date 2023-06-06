@@ -9,7 +9,7 @@ import {
     isDashboardDateFilter,
     isDashboardAttributeFilter,
     IDashboardDefinition,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     IDashboard,
     UriRef,
     IFilterContext,
@@ -109,7 +109,7 @@ export const selectPersistedDashboardFilterContextAsFilterContextDefinition: Das
                 description: "",
             };
         } else {
-            const { identifier: _, ref: __, uri: ___, ...definition } = filterContext;
+            const { id: _, ref: __, uri: ___, ...definition } = filterContext;
             return definition;
         }
     },
@@ -143,7 +143,7 @@ export const selectDashboardRef: DashboardSelector<ObjRef | undefined> = createS
 export const selectDashboardId: DashboardSelector<string | undefined> = createSelector(
     selectPersistedDashboard,
     (state) => {
-        return state?.identifier ?? undefined;
+        return state?.id ?? undefined;
     },
 );
 
@@ -466,10 +466,10 @@ export const selectDashboardWorkingDefinition: DashboardSelector<IDashboardDefin
             layout,
             dateFilterConfig,
         ): IDashboardDefinition => {
-            const dashboardIdentity: Partial<IDashboardObjectIdentity> = {
+            const dashboardIdentity: Partial<IMetadataObjectIdentity> = {
                 ref: persistedDashboard?.ref,
                 uri: persistedDashboard?.uri,
-                identifier: persistedDashboard?.identifier,
+                id: persistedDashboard?.id,
             };
 
             const pluginsProp = persistedDashboard?.plugins ? { plugins: persistedDashboard.plugins } : {};

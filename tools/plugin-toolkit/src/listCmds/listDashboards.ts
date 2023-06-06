@@ -14,7 +14,7 @@ export async function listDashboards(
 
     return dashboards.map((dashboard) => {
         return {
-            identifier: dashboard.identifier,
+            identifier: dashboard.id,
             title: dashboard.title,
             description: dashboard.description,
             tags: dashboard.tags ?? [],

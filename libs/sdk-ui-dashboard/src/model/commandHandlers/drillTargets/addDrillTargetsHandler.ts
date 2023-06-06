@@ -35,11 +35,11 @@ export function* addDrillTargetsHandler(
         cmd,
     );
 
-    const { ref, uri, identifier } = insightWidget;
+    const { ref, uri, id } = insightWidget;
 
     yield put(
         drillTargetsActions.addDrillTargets({
-            identifier,
+            id,
             uri,
             ref,
             availableDrillTargets: drillTarget,

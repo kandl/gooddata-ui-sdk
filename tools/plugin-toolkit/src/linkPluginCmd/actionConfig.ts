@@ -51,19 +51,19 @@ function createDuplicatePluginLinkValidator(
             return true;
         }
 
-        if (plugins.some((plugin) => plugin.identifier === identifier)) {
+        if (plugins.some((plugin) => plugin.id === identifier)) {
             return (
-                `Dashboard ${dashboard.identifier} already uses plugin ${identifier}. ` +
+                `Dashboard ${dashboard.id} already uses plugin ${identifier}. ` +
                 "Dashboard can only link each plugin once. Consider using parameterization instead."
             );
         }
 
         const otherPluginWithSameEp = plugins.find((plugin) => plugin.url.endsWith(entryPoint));
         if (otherPluginWithSameEp) {
-            const { identifier: otherIdentifier, name } = otherPluginWithSameEp;
+            const { id: otherIdentifier, name } = otherPluginWithSameEp;
 
             return (
-                `Dashboard ${dashboard.identifier} is already linked with another plugin (${otherIdentifier} - ${name}) ` +
+                `Dashboard ${dashboard.id} is already linked with another plugin (${otherIdentifier} - ${name}) ` +
                 "that has same entry point as the plugin that you want to link now. This is likely another version of " +
                 "the same plugin. Adding two versions of the same plugin is not supported. Note: " +
                 "renaming the entry point files will not help as you will then encounter load-time errors."

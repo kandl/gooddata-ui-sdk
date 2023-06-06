@@ -58,7 +58,7 @@ function hasWidgetProps(obj: unknown): boolean {
 export function widgetId(widget: IWidget): string {
     invariant(widget, "widget to get identifier of must be specified");
 
-    return widget.identifier;
+    return widget.id;
 }
 
 /**

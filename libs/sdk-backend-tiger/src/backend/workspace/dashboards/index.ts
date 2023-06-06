@@ -201,7 +201,7 @@ export class TigerWorkspaceDashboards implements IWorkspaceDashboardsService {
             description: "temp-filter-context-description",
             ref: { identifier: `identifier-${exportId}` },
             uri: `uri-${exportId}`,
-            identifier: `identifier-${exportId}`,
+            id: `identifier-${exportId}`,
         };
     };
 
@@ -573,7 +573,7 @@ export class TigerWorkspaceDashboards implements IWorkspaceDashboardsService {
 
         return validDashboardRefs.map((ref) => ({
             ref,
-            identifier: objRefToString(ref),
+            id: objRefToString(ref),
             uri: "", // uri is not available in entities graph
         }));
     };

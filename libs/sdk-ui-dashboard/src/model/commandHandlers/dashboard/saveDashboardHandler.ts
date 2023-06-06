@@ -12,7 +12,7 @@ import {
 import { selectDashboardDescriptor, selectPersistedDashboard } from "../../store/meta/metaSelectors";
 import { selectDateFilterConfigOverrides } from "../../store/dateFilterConfig/dateFilterConfigSelectors";
 import {
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     IDashboard,
     IDashboardDefinition,
     IAccessControlAware,
@@ -146,10 +146,10 @@ function* createDashboardSaveContext(
      *
      * It's ok to have no identity when creating a new dashboard - it will be assigned during the save.
      */
-    const dashboardIdentity: Partial<IDashboardObjectIdentity> = {
+    const dashboardIdentity: Partial<IMetadataObjectIdentity> = {
         ref: persistedDashboard?.ref,
         uri: persistedDashboard?.uri,
-        identifier: persistedDashboard?.identifier,
+        id: persistedDashboard?.id,
     };
 
     const pluginsProp = persistedDashboard?.plugins ? { plugins: persistedDashboard.plugins } : {};

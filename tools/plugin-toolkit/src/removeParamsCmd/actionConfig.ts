@@ -38,7 +38,7 @@ function createPluginExistsValidator(identifier: string): InputValidator<IDashbo
             return false;
         }
 
-        return plugins.some((plugin) => plugin.identifier === identifier);
+        return plugins.some((plugin) => plugin.id === identifier);
     };
 }
 
@@ -61,7 +61,7 @@ async function getOriginalParameters(config: RemovePluginParamsCmdConfig) {
             .dashboards()
             .getDashboardReferencedObjects(dashboardObject, ["dashboardPlugin"]);
 
-        const referencedPlugin = referencedObjects.plugins.find((plugin) => plugin.identifier === identifier);
+        const referencedPlugin = referencedObjects.plugins.find((plugin) => plugin.id === identifier);
 
         const plugin = dashboardObject.plugins?.find((plugin) =>
             areObjRefsEqual(plugin.plugin, referencedPlugin?.ref),

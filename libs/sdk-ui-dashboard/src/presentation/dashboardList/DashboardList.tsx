@@ -24,7 +24,7 @@ const DROPDOWN_BODY_HEIGHT = 319;
 
 export const DashboardList: React.FC<IDashboardListProps> = ({ selected, dashboards, onSelect }) => {
     const selectedDashboard = useMemo(() => {
-        return selected && dashboards.find((d) => dashboardMatch(d.identifier, d.ref, selected));
+        return selected && dashboards.find((d) => dashboardMatch(d.id, d.ref, selected));
     }, [selected, dashboards]);
     const intl = useIntl();
     const dropdownLabel = selectedDashboard
@@ -41,7 +41,7 @@ export const DashboardList: React.FC<IDashboardListProps> = ({ selected, dashboa
 
         if (selectedDashboard) {
             items = items.map((item) =>
-                item.identifier === selectedDashboard.identifier ? { ...item, selected: true } : item,
+                item.id === selectedDashboard.id ? { ...item, selected: true } : item,
             );
         }
 

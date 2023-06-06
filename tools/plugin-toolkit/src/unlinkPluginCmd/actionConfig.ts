@@ -42,13 +42,13 @@ function createLinkedPluginValidator(
         } = dashboardWithReferences;
 
         if (isEmpty(plugins)) {
-            return `Dashboard ${dashboard.identifier} does not use any plugins.`;
+            return `Dashboard ${dashboard.id} does not use any plugins.`;
         }
 
-        const linkedPlugin = plugins.find((plugin) => plugin.identifier === identifier);
+        const linkedPlugin = plugins.find((plugin) => plugin.id === identifier);
 
         if (!linkedPlugin) {
-            return `Dashboard ${dashboard.identifier} is not linked with plugin ${identifier}.`;
+            return `Dashboard ${dashboard.id} is not linked with plugin ${identifier}.`;
         }
 
         // if the pluginIdentifier is not available, we are running the tool outside of the original plugin

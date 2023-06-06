@@ -290,7 +290,7 @@ export function convertFilterContext(
                 ...(isFilterContext(filterContext)
                     ? {
                           uri: refToUri(filterContext),
-                          identifier: filterContext.identifier,
+                          identifier: filterContext.id,
                       }
                     : {}),
             },
@@ -398,7 +398,7 @@ export const convertWidget = (
     const meta = {
         ...(isWidget(widget)
             ? {
-                  identifier: widget.identifier,
+                  identifier: widget.id,
                   uri: refToUri(widget.ref),
               }
             : {}),
@@ -514,7 +514,7 @@ export const convertDashboard = (
         filterContext,
         layout,
         ref,
-        identifier,
+        id,
         title,
         description,
         dateFilterConfig,
@@ -562,7 +562,7 @@ export const convertDashboard = (
                 ...(dashboardUri
                     ? {
                           uri: dashboardUri,
-                          identifier,
+                          identifier: id,
                       }
                     : {}),
                 title,
@@ -589,7 +589,7 @@ export const convertWidgetAlert = (
         title,
         whenTriggered,
         ref,
-        identifier,
+        id,
         filterContext,
     } = alert;
 
@@ -609,7 +609,7 @@ export const convertWidgetAlert = (
                 ...(alertUri
                     ? {
                           uri: alertUri,
-                          identifier,
+                          identifier: id,
                       }
                     : {}),
                 title,
@@ -660,7 +660,7 @@ export const convertScheduledMail = (
         title,
         description,
         uri,
-        identifier,
+        id,
         body,
         subject,
         to,
@@ -694,7 +694,7 @@ export const convertScheduledMail = (
                 ...(uri
                     ? {
                           uri,
-                          identifier,
+                          identifier: id,
                       }
                     : {}),
                 title,
@@ -707,7 +707,7 @@ export const convertScheduledMail = (
 export const convertDashboardPlugin = (
     plugin: IDashboardPlugin | IDashboardPluginDefinition,
 ): GdcDashboardPlugin.IWrappedDashboardPlugin => {
-    const { uri, identifier, name, tags, description, url } = plugin;
+    const { uri, id, name, tags, description, url } = plugin;
 
     return {
         dashboardPlugin: {
@@ -715,7 +715,7 @@ export const convertDashboardPlugin = (
                 url,
             },
             meta: {
-                ...(uri ? { uri, identifier } : {}),
+                ...(uri ? { uri, identifier: id } : {}),
                 title: name,
                 summary: description,
                 tags: tags?.join(" "),

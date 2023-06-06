@@ -434,8 +434,6 @@ export {
     isRelativeDateFilterPreset,
 } from "./dateFilterConfig";
 
-export { IDashboardObjectIdentity } from "./dashboard/common";
-
 export {
     DateFilterAbsoluteType,
     DateFilterRelativeType,

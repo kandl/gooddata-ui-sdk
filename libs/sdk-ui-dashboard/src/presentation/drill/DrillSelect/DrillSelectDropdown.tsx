@@ -75,7 +75,7 @@ export const DrillSelectDropdown: React.FC<DrillSelectDropdownProps> = (props) =
 
 const getDashboardTitle = (dashboardRef: ObjRef, dashboardList: IListedDashboard[]) => {
     const dashboard = dashboardList.find((dashboard) =>
-        dashboardMatch(dashboard.identifier, dashboard.ref, dashboardRef),
+        dashboardMatch(dashboard.id, dashboard.ref, dashboardRef),
     );
     return dashboard ? dashboard.title : null;
 };

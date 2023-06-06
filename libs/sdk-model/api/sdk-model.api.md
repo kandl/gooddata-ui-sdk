@@ -793,7 +793,7 @@ export interface IComparisonConditionBody {
 }
 
 // @alpha
-export interface IDashboard<TWidget = IDashboardWidget> extends IDashboardBase, IDashboardObjectIdentity, Readonly<Required<IAuditableDates>>, Readonly<IAuditableUsers>, IAccessControlAware {
+export interface IDashboard<TWidget = IDashboardWidget> extends IDashboardBase, IMetadataObjectIdentity, Readonly<Required<IAuditableDates>>, Readonly<IAuditableUsers>, IAccessControlAware {
     readonly dateFilterConfig?: IDashboardDateFilterConfig;
     readonly filterContext?: IFilterContext | ITempFilterContext;
     readonly layout?: IDashboardLayout<TWidget>;
@@ -879,7 +879,7 @@ export interface IDashboardDateFilterReference {
 }
 
 // @alpha
-export interface IDashboardDefinition<TWidget = IDashboardWidget> extends IDashboardBase, IAccessControlAware, Partial<IDashboardObjectIdentity> {
+export interface IDashboardDefinition<TWidget = IDashboardWidget> extends IDashboardBase, IAccessControlAware, Partial<IMetadataObjectIdentity> {
     readonly dateFilterConfig?: IDashboardDateFilterConfig;
     readonly filterContext?: IFilterContext | IFilterContextDefinition;
     readonly layout?: IDashboardLayout<TWidget>;
@@ -941,19 +941,12 @@ export interface IDashboardMetadataObject extends IMetadataObject {
 }
 
 // @alpha
-export interface IDashboardObjectIdentity {
-    readonly identifier: string;
-    readonly ref: ObjRef;
-    readonly uri: string;
-}
-
-// @alpha
 export type IDashboardPermissions = {
     [permission in "canEditDashboard" | "canEditLockedDashboard" | "canShareLockedDashboard" | "canShareDashboard" | "canViewDashboard"]: boolean;
 };
 
 // @alpha (undocumented)
-export interface IDashboardPlugin extends IDashboardPluginBase, IDashboardObjectIdentity, IAuditableDates {
+export interface IDashboardPlugin extends IDashboardPluginBase, IMetadataObjectIdentity, IAuditableDates {
 }
 
 // @alpha (undocumented)
@@ -967,7 +960,7 @@ export interface IDashboardPluginBase {
 }
 
 // @alpha (undocumented)
-export interface IDashboardPluginDefinition extends IDashboardPluginBase, Partial<IDashboardObjectIdentity> {
+export interface IDashboardPluginDefinition extends IDashboardPluginBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @alpha
@@ -1223,7 +1216,7 @@ export interface IExecutionDefinition {
 }
 
 // @alpha
-export interface IExistingDashboard extends IDashboardObjectIdentity {
+export interface IExistingDashboard extends IMetadataObjectIdentity {
     title?: string;
 }
 
@@ -1251,7 +1244,7 @@ export interface IFilterableWidget {
 }
 
 // @alpha
-export interface IFilterContext extends IFilterContextBase, IDashboardObjectIdentity {
+export interface IFilterContext extends IFilterContextBase, IMetadataObjectIdentity {
 }
 
 // @alpha
@@ -1262,7 +1255,7 @@ export interface IFilterContextBase {
 }
 
 // @alpha
-export interface IFilterContextDefinition extends IFilterContextBase, Partial<IDashboardObjectIdentity> {
+export interface IFilterContextDefinition extends IFilterContextBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @public
@@ -1336,7 +1329,7 @@ export type IInsightDefinition = {
 };
 
 // @alpha (undocumented)
-export interface IInsightWidget extends IInsightWidgetBase, IDashboardObjectIdentity {
+export interface IInsightWidget extends IInsightWidgetBase, IMetadataObjectIdentity {
 }
 
 // @alpha (undocumented)
@@ -1358,7 +1351,7 @@ export interface IInsightWidgetConfiguration {
 }
 
 // @alpha (undocumented)
-export interface IInsightWidgetDefinition extends IInsightWidgetBase, Partial<IDashboardObjectIdentity> {
+export interface IInsightWidgetDefinition extends IInsightWidgetBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @alpha
@@ -1388,7 +1381,7 @@ export type IKpiComparisonDirection = "growIsGood" | "growIsBad";
 export type IKpiComparisonTypeComparison = IKpiWithPreviousPeriodComparison["comparisonType"] | IKpiWithPopComparison["comparisonType"] | IKpiWithoutComparison["comparisonType"];
 
 // @alpha (undocumented)
-export interface IKpiWidget extends IKpiWidgetBase, IDashboardObjectIdentity {
+export interface IKpiWidget extends IKpiWidgetBase, IMetadataObjectIdentity {
 }
 
 // @alpha (undocumented)
@@ -1407,7 +1400,7 @@ export interface IKpiWidgetConfiguration {
 }
 
 // @alpha (undocumented)
-export interface IKpiWidgetDefinition extends IKpiWidgetBase, Partial<IDashboardObjectIdentity> {
+export interface IKpiWidgetDefinition extends IKpiWidgetBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @alpha
@@ -1442,14 +1435,11 @@ export interface IKpiWithPreviousPeriodComparison extends IKpiBase {
 }
 
 // @alpha
-export interface IListedDashboard extends Readonly<Required<IAuditableDates>>, Readonly<IAuditableUsers>, IAccessControlAware {
+export interface IListedDashboard extends IMetadataObjectIdentity, Readonly<Required<IAuditableDates>>, Readonly<IAuditableUsers>, IAccessControlAware {
     readonly availability: ListedDashboardAvailability;
     readonly description: string;
-    readonly identifier: string;
-    readonly ref: ObjRef;
     readonly tags?: string[];
     readonly title: string;
-    readonly uri: string;
 }
 
 // @public
@@ -2102,7 +2092,7 @@ export function isCatalogFact(obj: unknown): obj is ICatalogFact;
 export function isCatalogMeasure(obj: unknown): obj is ICatalogMeasure;
 
 // @alpha
-export interface IScheduledMail extends IAuditableUsers, IScheduledMailBase, IDashboardObjectIdentity {
+export interface IScheduledMail extends IAuditableUsers, IScheduledMailBase, IMetadataObjectIdentity {
 }
 
 // @alpha
@@ -2126,7 +2116,7 @@ export interface IScheduledMailBase {
 }
 
 // @alpha
-export interface IScheduledMailDefinition extends IScheduledMailBase, Partial<IDashboardObjectIdentity> {
+export interface IScheduledMailDefinition extends IScheduledMailBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @public
@@ -2864,7 +2854,7 @@ export interface IWhiteLabeling {
 export type IWidget = IKpiWidget | IInsightWidget;
 
 // @alpha
-export interface IWidgetAlert extends IWidgetAlertBase, IDashboardObjectIdentity {
+export interface IWidgetAlert extends IWidgetAlertBase, IMetadataObjectIdentity {
     readonly filterContext?: IFilterContext;
 }
 
@@ -2880,7 +2870,7 @@ export interface IWidgetAlertBase {
 }
 
 // @alpha
-export interface IWidgetAlertDefinition extends IWidgetAlertBase, Partial<IDashboardObjectIdentity> {
+export interface IWidgetAlertDefinition extends IWidgetAlertBase, Partial<IMetadataObjectIdentity> {
     readonly filterContext?: IFilterContext | IFilterContextDefinition;
 }
 

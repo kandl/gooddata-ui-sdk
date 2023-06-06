@@ -241,7 +241,7 @@ export function* getInsightIdentifiersReplacements(
     if (customUrl.includes(DRILL_TO_URL_PLACEHOLDER.WIDGET_ID)) {
         return [
             ...replacements,
-            createIdentifierReplacement(DRILL_TO_URL_PLACEHOLDER.WIDGET_ID, widget.identifier),
+            createIdentifierReplacement(DRILL_TO_URL_PLACEHOLDER.WIDGET_ID, widget.id),
         ];
     }
 

@@ -46,7 +46,7 @@ export function HeightResizerHotspot({
     const { resizeDirection, resizeItemIdentifiers, resizeStart, resizeEnd, getScrollCorrection } =
         useResizeContext();
     const widgets = useMemo(() => items.map((item) => item.widget() as IWidget), [items]);
-    const widgetIdentifiers = useMemo(() => widgets.map((widget) => widget.identifier), [widgets]);
+    const widgetIdentifiers = useMemo(() => widgets.map((widget) => widget.id), [widgets]);
     const customWidgetsRestrictions = useMemo(() => getCustomWidgetRestrictions(items), [items]);
 
     const [{ isDragging }, dragRef] = useDashboardDrag(

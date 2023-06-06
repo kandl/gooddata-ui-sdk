@@ -42,7 +42,7 @@ export const DrillTargets: React.FunctionComponent<IDrillTargetsProps> = (props)
     };
 
     const onDashboardTargetSelect = (targetItem: IDrillableDashboardListItem) => {
-        const dashboard = idRef(targetItem.identifier, "analyticalDashboard");
+        const dashboard = idRef(targetItem.id, "analyticalDashboard");
         const drillConfigItem: IDrillToDashboard = {
             transition: "in-place",
             origin: getOrigin(item),

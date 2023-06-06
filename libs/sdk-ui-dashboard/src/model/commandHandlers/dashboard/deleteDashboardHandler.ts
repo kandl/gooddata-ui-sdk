@@ -66,7 +66,7 @@ export function* deleteDashboardHandler(
     invariant(
         existingDashboardRef &&
             (areObjRefsEqual(existingDashboardRef, uriRef(persistedDashboard.uri)) ||
-                areObjRefsEqual(existingDashboardRef, idRef(persistedDashboard.identifier))),
+                areObjRefsEqual(existingDashboardRef, idRef(persistedDashboard.id))),
     );
 
     // perform the actual delete

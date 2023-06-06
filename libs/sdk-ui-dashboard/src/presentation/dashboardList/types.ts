@@ -12,7 +12,7 @@ export type DashboardAccessibilityLimitation = "forbidden" | "notShared";
  */
 export interface IDrillableDashboardListItem {
     title: string;
-    identifier: string;
+    id: string;
     ref: ObjRef;
     selected?: boolean;
     accessibilityLimitation?: DashboardAccessibilityLimitation;

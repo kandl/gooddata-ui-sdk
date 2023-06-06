@@ -41,7 +41,7 @@ async function removeDashboardPluginLink(config: UnlinkCmdActionConfig): Promise
         dashboard: dashboardObj,
         references: { plugins: pluginObjects },
     } = dashboardWithReferences;
-    const pluginToRemove = pluginObjects.find((plugin) => plugin.identifier === validIdentifier);
+    const pluginToRemove = pluginObjects.find((plugin) => plugin.id === validIdentifier);
 
     if (!pluginToRemove) {
         // the validation done before confirmed that the plugin is there. if the code cannot find the

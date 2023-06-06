@@ -21,7 +21,7 @@ export const WidgetIdParameterDetail: React.FC<IdentifierDetailProps> = ({ title
 
     let values: string[] = [];
     if (isInsightWidget(widget) && !isTemporaryIdentity(widget)) {
-        values = [widget.identifier];
+        values = [widget.id];
     }
 
     return (

@@ -1,7 +1,7 @@
 // (C) 2021-2023 GoodData Corporation
 
 import {
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     IFilterContextDefinition,
     IAttributeDisplayFormMetadataObject,
 } from "@gooddata/sdk-model";
@@ -38,7 +38,7 @@ export interface FilterContextState {
      *
      * @beta
      */
-    filterContextIdentity?: IDashboardObjectIdentity;
+    filterContextIdentity?: IMetadataObjectIdentity;
 
     /**
      * Display form metadata objects for all attribute filters in the `filterContextDefinition`

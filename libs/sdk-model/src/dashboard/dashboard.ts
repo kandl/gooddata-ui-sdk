@@ -6,8 +6,8 @@ import {
     IRelativeDateFilterPreset,
     DateFilterGranularity,
 } from "../dateFilterConfig";
+import { IMetadataObjectIdentity } from "../ldm/metadata";
 import { Identifier, ObjRef } from "../objRef";
-import { IDashboardObjectIdentity } from "./common";
 import { IFilterContext, ITempFilterContext, IFilterContextDefinition } from "./filterContext";
 import { IDashboardWidget, IDashboardLayout } from "./layout";
 
@@ -121,12 +121,12 @@ export interface IDashboardPluginBase {
 /**
  * @alpha
  */
-export interface IDashboardPlugin extends IDashboardPluginBase, IDashboardObjectIdentity, IAuditableDates {}
+export interface IDashboardPlugin extends IDashboardPluginBase, IMetadataObjectIdentity, IAuditableDates {}
 
 /**
  * @alpha
  */
-export interface IDashboardPluginDefinition extends IDashboardPluginBase, Partial<IDashboardObjectIdentity> {}
+export interface IDashboardPluginDefinition extends IDashboardPluginBase, Partial<IMetadataObjectIdentity> {}
 
 /**
  * A link between dashboard and a plugin that it uses. Optionally contains parameters that should
@@ -196,7 +196,7 @@ export interface IAccessControlAware {
  */
 export interface IDashboard<TWidget = IDashboardWidget>
     extends IDashboardBase,
-        IDashboardObjectIdentity,
+        IMetadataObjectIdentity,
         Readonly<Required<IAuditableDates>>,
         Readonly<IAuditableUsers>,
         IAccessControlAware {
@@ -232,7 +232,7 @@ export interface IDashboard<TWidget = IDashboardWidget>
 export interface IDashboardDefinition<TWidget = IDashboardWidget>
     extends IDashboardBase,
         IAccessControlAware,
-        Partial<IDashboardObjectIdentity> {
+        Partial<IMetadataObjectIdentity> {
     readonly type: "IDashboard";
 
     /**
@@ -295,24 +295,10 @@ export type ListedDashboardAvailability = "full" | "viaLink";
  * @alpha
  */
 export interface IListedDashboard
-    extends Readonly<Required<IAuditableDates>>,
+    extends IMetadataObjectIdentity,
+        Readonly<Required<IAuditableDates>>,
         Readonly<IAuditableUsers>,
         IAccessControlAware {
-    /**
-     * Dashboard object ref
-     */
-    readonly ref: ObjRef;
-
-    /**
-     * Dashboard uri
-     */
-    readonly uri: string;
-
-    /**
-     * Dashboard identifier
-     */
-    readonly identifier: string;
-
     /**
      * Dashboard title
      */
@@ -359,7 +345,7 @@ export type IDashboardPermissions = {
  *
  * @alpha
  */
-export interface IExistingDashboard extends IDashboardObjectIdentity {
+export interface IExistingDashboard extends IMetadataObjectIdentity {
     /**
      * Dashboard title
      */

@@ -55,7 +55,7 @@ export class WidgetBaseBuilder<T extends IWidget> extends Builder<T> implements 
         this.setWidgetProp("ref", valueOrUpdateCallback);
 
     public id = (valueOrUpdateCallback: ValueOrUpdateCallback<string>): this =>
-        this.setWidgetProp("identifier", valueOrUpdateCallback);
+        this.setWidgetProp("id", valueOrUpdateCallback);
 
     public uri = (valueOrUpdateCallback: ValueOrUpdateCallback<string>): this =>
         this.setWidgetProp("uri", valueOrUpdateCallback);

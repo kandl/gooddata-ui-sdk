@@ -74,7 +74,7 @@ function recurseLayoutAndUpdateWidgetIds(
 
             widget.ref = newIdentity.ref;
             widget.uri = newIdentity.uri;
-            widget.identifier = newIdentity.identifier;
+            widget.id = newIdentity.id;
         });
     });
 }

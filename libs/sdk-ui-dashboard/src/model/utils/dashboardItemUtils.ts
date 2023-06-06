@@ -8,7 +8,7 @@ import {
 import {
     idRef,
     ObjRef,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
     isKpiWidgetDefinition,
     isInsightWidgetDefinition,
     isInsightWidget,
@@ -29,12 +29,12 @@ export function extractInsightRefsFromItems(items: ReadonlyArray<ExtendedDashboa
 }
 
 const TemporaryIdentityPrefix = "@@GDC.DASH.TEMP";
-function generateTemporaryIdentityForWidget(): IDashboardObjectIdentity {
+function generateTemporaryIdentityForWidget(): IMetadataObjectIdentity {
     const id = `${TemporaryIdentityPrefix}-${uuidv4()}`;
 
     return {
         ref: idRef(id),
-        identifier: id,
+        id: id,
         uri: id,
     };
 }
@@ -46,8 +46,8 @@ function generateTemporaryIdentityForWidget(): IDashboardObjectIdentity {
  * @param obj - object to test
  * @internal
  */
-export function isTemporaryIdentity(obj: IDashboardObjectIdentity): boolean {
-    return obj.identifier.startsWith(TemporaryIdentityPrefix);
+export function isTemporaryIdentity(obj: IMetadataObjectIdentity): boolean {
+    return obj.id.startsWith(TemporaryIdentityPrefix);
 }
 
 /**

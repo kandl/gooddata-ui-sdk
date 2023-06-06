@@ -14,7 +14,7 @@ import {
     idRef,
     IAttributeDisplayFormMetadataObject,
     IFilterContextDefinition,
-    IDashboardObjectIdentity,
+    IMetadataObjectIdentity,
 } from "@gooddata/sdk-model";
 import { ObjRefMap, newDisplayFormMap } from "../../../_staging/metadata/objRefMap";
 import { createMemoizedSelector } from "../_infra/selectors";
@@ -101,11 +101,11 @@ export const selectFilterContextDefinition: DashboardSelector<IFilterContextDefi
  *
  * Invocations before initialization lead to invariant errors.
  *
- * @returns a {@link @gooddata/sdk-backend-spi#IDashboardObjectIdentity} or undefined, if the filter context identity is not set.
+ * @returns a {@link @gooddata/sdk-backend-spi#IMetadataObjectIdentity} or undefined, if the filter context identity is not set.
  *
  * @internal
  */
-export const selectFilterContextIdentity: DashboardSelector<IDashboardObjectIdentity | undefined> =
+export const selectFilterContextIdentity: DashboardSelector<IMetadataObjectIdentity | undefined> =
     createSelector(selectSelf, (filterContextState) => {
         // this is intentional; want to fail fast when trying to access an optional identity of filter context \
         // but there is actually no filter context initialized for the dashboard

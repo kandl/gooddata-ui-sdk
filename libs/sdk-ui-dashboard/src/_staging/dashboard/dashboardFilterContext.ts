@@ -1,11 +1,11 @@
 // (C) 2021-2022 GoodData Corporation
 import {
     IDateFilterConfig,
-    IDashboardObjectIdentity,
     IFilterContextDefinition,
     isDashboardAttributeFilter,
     isTempFilterContext,
     IDashboard,
+    IMetadataObjectIdentity,
 } from "@gooddata/sdk-model";
 import { createDefaultFilterContext } from "./defaultFilterContext";
 
@@ -52,7 +52,7 @@ export function dashboardFilterContextDefinition<TWidget>(
     };
     delete result.ref;
     delete result.uri;
-    delete result.identifier;
+    delete result.id;
 
     return result;
 }
@@ -68,7 +68,7 @@ export function dashboardFilterContextDefinition<TWidget>(
  */
 export function dashboardFilterContextIdentity<TWidget>(
     dashboard: IDashboard<TWidget>,
-): IDashboardObjectIdentity | undefined {
+): IMetadataObjectIdentity | undefined {
     const { filterContext } = dashboard;
 
     if (!filterContext || isTempFilterContext(filterContext) || !filterContext.ref) {
@@ -78,7 +78,7 @@ export function dashboardFilterContextIdentity<TWidget>(
     return {
         ref: filterContext.ref,
         uri: filterContext.uri,
-        identifier: filterContext.identifier,
+        id: filterContext.id,
     };
 }
 

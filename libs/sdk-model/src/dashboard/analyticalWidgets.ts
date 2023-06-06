@@ -1,8 +1,8 @@
 // (C) 2021-2022 GoodData Corporation
 import { VisualizationProperties } from "../insight";
+import { IMetadataObjectIdentity } from "../ldm/metadata";
 import { ObjRef } from "../objRef";
 import { IBaseWidget, IWidgetDescription, IFilterableWidget, IDrillableWidget } from "./baseWidget";
-import { IDashboardObjectIdentity } from "./common";
 import { KpiDrillDefinition, InsightDrillDefinition } from "./drill";
 import { IKpi } from "./kpi";
 
@@ -79,12 +79,12 @@ export type KpiWidgetDescriptionSourceType = "kpi" | "metric";
 /**
  * @alpha
  */
-export interface IKpiWidget extends IKpiWidgetBase, IDashboardObjectIdentity {}
+export interface IKpiWidget extends IKpiWidgetBase, IMetadataObjectIdentity {}
 
 /**
  * @alpha
  */
-export interface IKpiWidgetDefinition extends IKpiWidgetBase, Partial<IDashboardObjectIdentity> {}
+export interface IKpiWidgetDefinition extends IKpiWidgetBase, Partial<IMetadataObjectIdentity> {}
 
 /**
  * @alpha
@@ -153,9 +153,9 @@ export type InsightWidgetDescriptionSourceType = "widget" | "insight";
 /**
  * @alpha
  */
-export interface IInsightWidget extends IInsightWidgetBase, IDashboardObjectIdentity {}
+export interface IInsightWidget extends IInsightWidgetBase, IMetadataObjectIdentity {}
 
 /**
  * @alpha
  */
-export interface IInsightWidgetDefinition extends IInsightWidgetBase, Partial<IDashboardObjectIdentity> {}
+export interface IInsightWidgetDefinition extends IInsightWidgetBase, Partial<IMetadataObjectIdentity> {}

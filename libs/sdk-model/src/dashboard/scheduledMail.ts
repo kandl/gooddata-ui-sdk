@@ -1,8 +1,8 @@
 // (C) 2020-2022 GoodData Corporation
 import isEmpty from "lodash/isEmpty";
 import { IAuditableUsers } from "../base/metadata";
+import { IMetadataObjectIdentity } from "../ldm/metadata";
 import { ObjRef } from "../objRef";
-import { IDashboardObjectIdentity } from "./common";
 
 /**
  * A scheduled email common properties
@@ -91,7 +91,7 @@ export interface IScheduledMailBase {
  * A scheduled email is used to notify a user with an exported dashboard according to a specified time interval
  * @alpha
  */
-export interface IScheduledMailDefinition extends IScheduledMailBase, Partial<IDashboardObjectIdentity> {}
+export interface IScheduledMailDefinition extends IScheduledMailBase, Partial<IMetadataObjectIdentity> {}
 
 /**
  * Supported email attachments
@@ -190,4 +190,4 @@ export interface IExportOptions {
  * A scheduled email is used to notify a user with an exported dashboard according to a specified time interval
  * @alpha
  */
-export interface IScheduledMail extends IAuditableUsers, IScheduledMailBase, IDashboardObjectIdentity {}
+export interface IScheduledMail extends IAuditableUsers, IScheduledMailBase, IMetadataObjectIdentity {}

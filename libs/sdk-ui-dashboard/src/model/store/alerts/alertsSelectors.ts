@@ -24,7 +24,7 @@ const adapterSelectors = alertsAdapter.getSelectors(selectSelf);
 export const selectAlerts = adapterSelectors.selectAll;
 
 interface IWidgetAlertMapItem {
-    identifier: Identifier;
+    id: Identifier;
     uri: string;
     ref: ObjRef;
     alert?: IWidgetAlert;
@@ -49,7 +49,7 @@ const selectAlertsMapByWidgetRefs = createSelector(selectAlerts, selectWidgetsMa
             }
 
             const result: IWidgetAlertMapItem = {
-                identifier: widget.identifier,
+                id: widget.id,
                 uri: widget.uri,
                 ref: widget.ref,
                 alert,

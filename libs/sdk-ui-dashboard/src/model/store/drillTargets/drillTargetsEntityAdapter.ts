@@ -10,5 +10,5 @@ export const drillTargetsAdapter = createEntityAdapter<IDrillTargets>({
 });
 
 const getIdFromDrillTargets = (targets: IDrillTargets): ObjRef => {
-    return objRef(targets.uri, targets.identifier);
+    return objRef(targets.uri, targets.id);
 };

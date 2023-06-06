@@ -240,14 +240,14 @@ export class BearWorkspaceDashboards implements IWorkspaceDashboardsService {
             return this.createBearDashboard(createdDashboardWithSavedDependencies);
         }
 
-        const { created, updated, ref, uri, identifier } = originalDashboard;
+        const { created, updated, ref, uri, id } = originalDashboard;
         const updatedDashboardWithSavedDependencies: IDashboard = {
             ...sanitizedDashboard,
             created, // update returns only the uri, so keep the old date
             updated, // update returns only the uri, so keep the old date
             ref,
             uri,
-            identifier,
+            id,
             filterContext,
             layout,
         };
@@ -993,11 +993,11 @@ export class BearWorkspaceDashboards implements IWorkspaceDashboardsService {
             return sdk.md.createObject(this.workspace, convertedPlugin);
         });
 
-        if (plugin.identifier !== undefined) {
+        if (plugin.id !== undefined) {
             // when server creates a new object, it will automatically assign identifier & ignore identifier
             // in the POST payload. Code must do another update to hammer in the desired identifier.
             const pluginObjectId = getObjectIdFromUri(savedPlugin.dashboardPlugin.meta.uri!);
-            savedPlugin.dashboardPlugin.meta.identifier = plugin.identifier;
+            savedPlugin.dashboardPlugin.meta.identifier = plugin.id;
 
             await this.authCall((sdk) => {
                 return sdk.md.updateObject(this.workspace, pluginObjectId, savedPlugin);
@@ -1097,7 +1097,7 @@ export class BearWorkspaceDashboards implements IWorkspaceDashboardsService {
         const validDashboards = await Promise.all(
             dashboardRefs.map(async (ref) => {
                 try {
-                    const { title, identifier, isUnderStrictControl, uri } = await this.getDashboard(ref);
+                    const { title, id, isUnderStrictControl, uri } = await this.getDashboard(ref);
                     // Dashboard is not shared with current user (but does not have strict mode enabled).
 
                     // For admin, backend returns object without 403 even if it is under strict control, therefore we
@@ -1106,7 +1106,7 @@ export class BearWorkspaceDashboards implements IWorkspaceDashboardsService {
                     return {
                         ref,
                         title: isUnderStrictControl ? undefined : title,
-                        identifier,
+                        id,
                         uri,
                     };
                 } catch (error: any) {
@@ -1114,7 +1114,7 @@ export class BearWorkspaceDashboards implements IWorkspaceDashboardsService {
                         // forbidden
                         return {
                             ref,
-                            identifier: objRefToString(ref), // target ref contains required dashboard ID,
+                            id: objRefToString(ref), // target ref contains required dashboard ID,
                             uri: "", // not needed for forbidden dashboard
                         };
                     } else {

@@ -60,7 +60,6 @@ import { IDashboardLayoutItem } from '@gooddata/sdk-model';
 import { IDashboardLayoutSection } from '@gooddata/sdk-model';
 import { IDashboardLayoutSectionHeader } from '@gooddata/sdk-model';
 import { IDashboardLayoutSizeByScreenSize } from '@gooddata/sdk-model';
-import { IDashboardObjectIdentity } from '@gooddata/sdk-model';
 import { IDashboardPermissions } from '@gooddata/sdk-model';
 import { IDashboardWidget } from '@gooddata/sdk-model';
 import { IDataView } from '@gooddata/sdk-backend-spi';
@@ -102,6 +101,7 @@ import { IListedDashboard } from '@gooddata/sdk-model';
 import { ILoadingProps } from '@gooddata/sdk-ui';
 import { ILocale } from '@gooddata/sdk-ui';
 import { IMeasureMetadataObject } from '@gooddata/sdk-model';
+import { IMetadataObjectIdentity } from '@gooddata/sdk-model';
 import { INegativeAttributeFilter } from '@gooddata/sdk-model';
 import { InsightDisplayFormUsage } from '@gooddata/sdk-model';
 import { InsightDrillDefinition } from '@gooddata/sdk-model';
@@ -2852,7 +2852,7 @@ export interface FilterContextState {
     // @beta
     filterContextDefinition?: IFilterContextDefinition;
     // @beta
-    filterContextIdentity?: IDashboardObjectIdentity;
+    filterContextIdentity?: IMetadataObjectIdentity;
     // @beta
     originalFilterContextDefinition?: IFilterContextDefinition;
 }
@@ -3131,7 +3131,7 @@ export type ICustomDraggingComponentProps = {
 };
 
 // @public
-export interface ICustomWidget extends ICustomWidgetBase, IDashboardObjectIdentity, Partial<IFilterableWidget> {
+export interface ICustomWidget extends ICustomWidgetBase, IMetadataObjectIdentity, Partial<IFilterableWidget> {
 }
 
 // @public
@@ -3143,7 +3143,7 @@ export interface ICustomWidgetBase extends IBaseWidget {
 }
 
 // @public
-export interface ICustomWidgetDefinition extends ICustomWidgetBase, Partial<IDashboardObjectIdentity> {
+export interface ICustomWidgetDefinition extends ICustomWidgetBase, Partial<IMetadataObjectIdentity> {
 }
 
 // @internal (undocumented)
@@ -3659,7 +3659,7 @@ export interface IDrillDownDefinition {
 // @alpha
 export interface IDrillTargets {
     availableDrillTargets?: IAvailableDrillTargets;
-    identifier: Identifier;
+    id: Identifier;
     ref: ObjRef;
     uri: string;
 }
@@ -3741,7 +3741,7 @@ export interface IImplicitDrillWithPredicates {
 }
 
 // @alpha
-export interface IInaccessibleDashboard extends IDashboardObjectIdentity {
+export interface IInaccessibleDashboard extends IMetadataObjectIdentity {
     accessibilityLimitation?: DashboardAccessibilityLimitation;
     title: string;
 }
@@ -4579,7 +4579,7 @@ export function isLoadingPlaceholderWidget(obj: unknown): obj is PlaceholderWidg
 export function isPlaceholderWidget(obj: unknown): obj is PlaceholderWidget;
 
 // @internal
-export function isTemporaryIdentity(obj: IDashboardObjectIdentity): boolean;
+export function isTemporaryIdentity(obj: IMetadataObjectIdentity): boolean;
 
 // @alpha (undocumented)
 export interface ITitleProps {
@@ -4896,7 +4896,7 @@ export interface MoveSectionItemToNewSectionPayload {
 }
 
 // @public
-export function newCustomWidget<TExtra = void>(identifier: string, customType: string, extras?: TExtra & Partial<IFilterableWidget>): TExtra & ICustomWidget;
+export function newCustomWidget<TExtra = void>(id: string, customType: string, extras?: TExtra & Partial<IFilterableWidget>): TExtra & ICustomWidget;
 
 // @public
 export function newDashboardEngine(): IDashboardEngine;
@@ -6074,7 +6074,7 @@ export const selectFilterContextDefinition: DashboardSelector<IFilterContextDefi
 export const selectFilterContextFilters: DashboardSelector<FilterContextItem[]>;
 
 // @internal
-export const selectFilterContextIdentity: DashboardSelector<IDashboardObjectIdentity | undefined>;
+export const selectFilterContextIdentity: DashboardSelector<IMetadataObjectIdentity | undefined>;
 
 // @alpha (undocumented)
 export const selectHasCatalogAttributes: DashboardSelector<boolean>;
