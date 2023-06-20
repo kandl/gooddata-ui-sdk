@@ -115,13 +115,13 @@ class TigerWorkspaceElementsQuery implements IElementsQuery {
 
             return isElementsQueryOptionsElementsByValue(elements)
                 ? {
-                      exactFilter: elements.values,
+                      exactFilter: elements.values as string[],
                       filterBy: {
                           labelType: FilterByLabelTypeEnum.REQUESTED,
                       },
                   }
                 : {
-                      exactFilter: elements.primaryValues,
+                      exactFilter: elements.primaryValues as string[],
                       filterBy: {
                           labelType: FilterByLabelTypeEnum.PRIMARY,
                       },

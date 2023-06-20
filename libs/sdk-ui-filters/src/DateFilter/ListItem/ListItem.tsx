@@ -2,13 +2,14 @@
 import React from "react";
 import cx from "classnames";
 import DefaultMediaQuery from "react-responsive";
+import { defaultImport } from "default-import";
 import { CustomizableCheckmark } from "@gooddata/sdk-ui-kit";
 import { MediaQueries } from "../../constants/index.js";
 
 // There are known compatibility issues between CommonJS (CJS) and ECMAScript modules (ESM).
 // In ESM, default exports of CJS modules are wrapped in default properties instead of being exposed directly.
 // https://github.com/microsoft/TypeScript/issues/52086#issuecomment-1385978414
-const MediaQuery = DefaultMediaQuery as unknown as typeof DefaultMediaQuery.default;
+const MediaQuery = defaultImport(DefaultMediaQuery);
 
 export const ListItem: React.FC<{ isSelected?: boolean } & React.HTMLProps<HTMLButtonElement>> = ({
     isSelected: isActive,

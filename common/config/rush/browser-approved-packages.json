@@ -711,6 +711,10 @@
       "allowedCategories": [ "tools" ]
     },
     {
+      "name": "fix-esm-import-path",
+      "allowedCategories": [ "production" ]
+    },
+    {
       "name": "fixed-data-table-2",
       "allowedCategories": [ "production" ]
     },

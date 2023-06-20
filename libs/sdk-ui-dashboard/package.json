@@ -12,6 +12,7 @@
     "type": "module",
     "browser": "./esm/index.js",
     "exports": "./esm/index.js",
+    "main": "./esm/index.js",
     "types": "./esm/index.d.ts",
     "sideEffects": [
         "*.css",
