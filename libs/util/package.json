@@ -10,6 +10,7 @@
     },
     "license": "MIT",
     "type": "module",
+    "main": "./esm/index.js",
     "exports": "./esm/index.js",
     "types": "./esm/index.d.ts",
     "main": "./esm/index.js",

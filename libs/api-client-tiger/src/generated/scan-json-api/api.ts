@@ -1,5 +1,3 @@
-// (C) 2023 GoodData Corporation
-
 /* eslint-disable */
 /**
  * OpenAPI definition

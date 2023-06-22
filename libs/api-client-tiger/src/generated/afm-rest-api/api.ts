@@ -1,5 +1,3 @@
-// (C) 2023 GoodData Corporation
-
 /* eslint-disable */
 /**
  * OpenAPI definition
@@ -492,7 +490,7 @@ export type AttributeFilter = NegativeAttributeFilter | PositiveAttributeFilter;
 export interface AttributeFilterElements {
     /**
      * Set of label values.
-     * @type {Array<string | null>}
+     * @type {Array<string>}
      * @memberof AttributeFilterElements
      */
     values: Array<string | null>;
@@ -795,13 +793,13 @@ export interface Element {
      * @type {string}
      * @memberof Element
      */
-    title: string;
+    title: string | null;
     /**
      * Title of primary label of attribute owning requested label or null if the primary label is excluded
      * @type {string}
      * @memberof Element
      */
-    primaryTitle: string;
+    primaryTitle: string | null;
 }
 /**
  *
@@ -850,7 +848,7 @@ export interface ElementsRequest {
      * @type {Array<string>}
      * @memberof ElementsRequest
      */
-    exactFilter?: Array<string | null>;
+    exactFilter?: Array<string>;
     /**
      * Specifies percentage of source table data scanned during the computation. This field is deprecated and is no longer used during the elements computation.
      * @type {number}
