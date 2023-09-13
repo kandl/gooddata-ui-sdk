@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import isEqual from "lodash/isEqual.js";
 import { usePrevious } from "@gooddata/sdk-ui";
-import { filterObjRef, IAttributeElement, IAttributeFilter } from "@gooddata/sdk-model";
+import { filterObjRef, IAttributeElement, IAttributeFilter, IAttributeMetadataObject } from "@gooddata/sdk-model";
 
 import {
     IMultiSelectAttributeFilterHandler,
@@ -22,6 +22,7 @@ export interface IUseAttributeFilterHandlerProps {
 
     hiddenElements?: string[];
     staticElements?: IAttributeElement[];
+    attribute?: IAttributeMetadataObject;
 }
 
 /**
@@ -36,9 +37,12 @@ export const useAttributeFilterHandler = (props: IUseAttributeFilterHandlerProps
 
         filter,
 
+        attribute,
         hiddenElements,
         staticElements,
     } = props;
+
+    console.log("useAttributeFilterHandler", { props });
 
     const [, setInvalidate] = useState(0);
 
@@ -54,13 +58,14 @@ export const useAttributeFilterHandler = (props: IUseAttributeFilterHandlerProps
             workspace,
             filter,
             {
+                attribute,
                 selectionMode: "multi",
                 hiddenElements,
                 staticElements,
             },
         );
         handlerRef.current = newHandler;
-    }, [backend, workspace, filter, hiddenElements, staticElements]);
+    }, [backend, workspace, filter, hiddenElements, staticElements, attribute]);
 
     if (!handlerRef.current) {
         createNewHandler();

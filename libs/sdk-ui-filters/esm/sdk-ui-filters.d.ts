@@ -1103,6 +1103,10 @@ export declare interface IAttributeFilterCoreProps {
      * Callback that will be triggered when error is thrown.
      */
     onError?: (error: GoodDataSdkError) => void;
+    /**
+     * Provide pre-loaded attribute so its load can be omitted during the initialization.
+     */
+    attribute?: IAttributeMetadataObject;
 }
 
 /**
@@ -1735,6 +1739,7 @@ export declare interface IAttributeFilterHandlerOptionsBase {
      * the static elements yourself.
      */
     staticElements?: IAttributeElement[];
+    attribute?: IAttributeMetadataObject;
 }
 
 /**
@@ -2553,6 +2558,7 @@ export declare interface IUseAttributeFilterHandlerProps {
     filter: IAttributeFilter;
     hiddenElements?: string[];
     staticElements?: IAttributeElement[];
+    attribute?: IAttributeMetadataObject;
 }
 
 /**

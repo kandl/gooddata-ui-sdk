@@ -3,7 +3,6 @@ const loadAttributeRequest = identity;
 const loadAttributeStart = (state) => {
     state.attribute.status = "loading";
     state.attribute.error = undefined;
-    state.attribute.data = undefined;
 };
 const loadAttributeSuccess = (state, action) => {
     state.attribute.status = "success";

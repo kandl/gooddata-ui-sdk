@@ -24,7 +24,7 @@ import isEmpty from "lodash/isEmpty.js";
  * @public
  */
 export const useAttributeFilterController = (props) => {
-    const { backend: backendInput, workspace: workspaceInput, filter: filterInput, connectToPlaceholder, parentFilters, parentFilterOverAttribute, resetOnParentFilterChange = true, onApply, onError, hiddenElements, staticElements, elementsOptions, selectionMode = "multi", selectFirst = false, } = props;
+    const { backend: backendInput, workspace: workspaceInput, filter: filterInput, connectToPlaceholder, parentFilters, parentFilterOverAttribute, resetOnParentFilterChange = true, onApply, onError, hiddenElements, staticElements, elementsOptions, selectionMode = "multi", selectFirst = false, attribute, } = props;
     const backend = useBackendStrict(backendInput, "AttributeFilter");
     const workspace = useWorkspaceStrict(workspaceInput, "AttributeFilter");
     const { filter, setConnectedPlaceholderValue } = useResolveFilterInput(filterInput, connectToPlaceholder);
@@ -35,6 +35,7 @@ export const useAttributeFilterController = (props) => {
         workspace,
         hiddenElements,
         staticElements,
+        attribute,
     });
     const attributeFilterControllerData = useAttributeFilterControllerData(handler);
     const forcedInitErrorProp = isValidSingleSelectionFilter(selectionMode, filter, limitingAttributeFilters)

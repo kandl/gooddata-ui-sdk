@@ -1,5 +1,5 @@
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
-import { IAttributeElement, IAttributeFilter } from "@gooddata/sdk-model";
+import { IAttributeElement, IAttributeFilter, IAttributeMetadataObject } from "@gooddata/sdk-model";
 import { IMultiSelectAttributeFilterHandler, ISingleSelectAttributeFilterHandler } from "./types/index.js";
 /**
  * Common options for initialization of the {@link IAttributeFilterHandler}.
@@ -38,6 +38,7 @@ export interface IAttributeFilterHandlerOptionsBase {
      * the static elements yourself.
      */
     staticElements?: IAttributeElement[];
+    attribute?: IAttributeMetadataObject;
 }
 /**
  * Options for initialization of the {@link IAttributeFilterHandler} with single selection.

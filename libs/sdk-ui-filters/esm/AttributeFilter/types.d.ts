@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { DashboardAttributeFilterSelectionMode, IAttributeElement, IAttributeFilter, ObjRef } from "@gooddata/sdk-model";
+import { DashboardAttributeFilterSelectionMode, IAttributeElement, IAttributeFilter, IAttributeMetadataObject, ObjRef } from "@gooddata/sdk-model";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 import { AttributeFiltersOrPlaceholders, ILocale, IPlaceholder, GoodDataSdkError } from "@gooddata/sdk-ui";
 import { IAttributeFilterElementsActionsProps } from "./Components/ElementsSelect/AttributeFilterElementsActions.js";
@@ -162,6 +162,10 @@ export interface IAttributeFilterCoreProps {
      * Callback that will be triggered when error is thrown.
      */
     onError?: (error: GoodDataSdkError) => void;
+    /**
+     * Provide pre-loaded attribute so its load can be omitted during the initialization.
+     */
+    attribute?: IAttributeMetadataObject;
 }
 /**
  * These customization properties allow you to specify custom components that the AttributeFilter

@@ -10,7 +10,8 @@ import { newAttributeFilterHandler, } from "../../AttributeFilterHandler/index.j
  * @beta
  */
 export const useAttributeFilterHandler = (props) => {
-    const { backend, workspace, filter, hiddenElements, staticElements, } = props;
+    const { backend, workspace, filter, attribute, hiddenElements, staticElements, } = props;
+    console.log("useAttributeFilterHandler", { props });
     const [, setInvalidate] = useState(0);
     const invalidate = () => {
         setInvalidate((s) => s + 1);
@@ -18,12 +19,13 @@ export const useAttributeFilterHandler = (props) => {
     const handlerRef = useRef();
     const createNewHandler = useCallback(() => {
         const newHandler = newAttributeFilterHandler(backend.withTelemetry("AttributeFilter", { workspace, filter, hiddenElements, staticElements }), workspace, filter, {
+            attribute,
             selectionMode: "multi",
             hiddenElements,
             staticElements,
         });
         handlerRef.current = newHandler;
-    }, [backend, workspace, filter, hiddenElements, staticElements]);
+    }, [backend, workspace, filter, hiddenElements, staticElements, attribute]);
     if (!handlerRef.current) {
         createNewHandler();
     }

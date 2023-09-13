@@ -3,7 +3,7 @@ import { MultiSelectAttributeFilterHandler, SingleSelectAttributeFilterHandler }
  * @public
  */
 export function newAttributeFilterHandler(backend, workspace, attributeFilter, options = { selectionMode: "multi" }) {
-    const { selectionMode, hiddenElements, staticElements } = options;
+    const { selectionMode, hiddenElements, staticElements, attribute } = options;
     if (selectionMode === "multi") {
         return new MultiSelectAttributeFilterHandler({
             backend,
@@ -11,6 +11,7 @@ export function newAttributeFilterHandler(backend, workspace, attributeFilter, o
             attributeFilter,
             hiddenElements,
             staticElements,
+            attribute,
         });
     }
     return new SingleSelectAttributeFilterHandler({
@@ -19,6 +20,7 @@ export function newAttributeFilterHandler(backend, workspace, attributeFilter, o
         attributeFilter,
         hiddenElements,
         staticElements,
+        attribute,
     });
 }
 //# sourceMappingURL=factory.js.map

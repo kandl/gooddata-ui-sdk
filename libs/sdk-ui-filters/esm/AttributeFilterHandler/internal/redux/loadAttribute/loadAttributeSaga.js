@@ -3,6 +3,7 @@ import { actions } from "../store/slice.js";
 import { getAttributeFilterContext } from "../common/sagas.js";
 import { selectAttributeFilterDisplayForm } from "../filter/filterSelectors.js";
 import { loadAttributeByDisplayForm } from "./loadAttributeByDisplayForm.js";
+import { selectAttribute } from "./loadAttributeSelectors.js";
 /**
  * @internal
  */
@@ -22,7 +23,14 @@ export function* loadAttributeSaga(action) {
         const displayFormRef = yield select(selectAttributeFilterDisplayForm);
         const context = yield call(getAttributeFilterContext);
         yield put(actions.loadAttributeStart({ correlation }));
-        const attribute = yield call(loadAttributeByDisplayForm, context, displayFormRef);
+        let attribute;
+        const preloadedAttribute = yield select(selectAttribute);
+        if (preloadedAttribute) {
+            attribute = preloadedAttribute;
+        }
+        else {
+            attribute = yield call(loadAttributeByDisplayForm, context, displayFormRef);
+        }
         yield put(actions.loadAttributeSuccess({ attribute, correlation }));
         return attribute;
     }

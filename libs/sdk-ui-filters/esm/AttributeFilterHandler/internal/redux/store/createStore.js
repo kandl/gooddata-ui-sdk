@@ -41,7 +41,10 @@ export function createAttributeFilterHandlerStore(context) {
     const elementKeys = isAttributeElementsByValue(elements) ? elements.values : elements.uris;
     const isInverted = isNegativeAttributeFilter(context.attributeFilter);
     const store = configureStore({
-        preloadedState: Object.assign(Object.assign({}, initialState), { displayFormRef,
+        preloadedState: Object.assign(Object.assign({}, initialState), { attribute: {
+                data: context.attribute,
+                status: "success",
+            }, displayFormRef,
             elementsForm, selection: {
                 commited: {
                     keys: elementKeys,
