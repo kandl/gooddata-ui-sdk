@@ -1,0 +1,1 @@
+{"version":3,"file":"dashboardPermissionsReducers.js","sourceRoot":"","sources":["../../../../src/model/store/dashboardPermissions/dashboardPermissionsReducers.ts"],"names":[],"mappings":"AAAA,qCAAqC;AAQrC,MAAM,uBAAuB,GAA8D,CACvF,KAAK,EACL,MAAM,EACR,EAAE;IACA,KAAK,CAAC,oBAAoB,GAAG,MAAM,CAAC,OAAO,CAAC;AAChD,CAAC,CAAC;AAEF,MAAM,CAAC,MAAM,4BAA4B,GAAG;IACxC,uBAAuB;CAC1B,CAAC"}

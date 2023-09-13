@@ -1,0 +1,1 @@
+{"version":3,"file":"permissionsReducers.js","sourceRoot":"","sources":["../../../../src/model/store/permissions/permissionsReducers.ts"],"names":[],"mappings":"AAAA,qCAAqC;AAQrC,MAAM,cAAc,GAA8D,CAAC,KAAK,EAAE,MAAM,EAAE,EAAE;IAChG,KAAK,CAAC,WAAW,GAAG,MAAM,CAAC,OAAO,CAAC;AACvC,CAAC,CAAC;AAEF,MAAM,CAAC,MAAM,mBAAmB,GAAG;IAC/B,cAAc;CACjB,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"attributeDataSet.js","sourceRoot":"","sources":["../../../src/model/queries/attributeDataSet.ts"],"names":[],"mappings":"AAiBA;;;;;;;;;GASG;AACH,MAAM,UAAU,qBAAqB,CAAC,WAAmB,EAAE,aAAsB;IAC7E,OAAO;QACH,IAAI,EAAE,mCAAmC;QACzC,aAAa;QACb,OAAO,EAAE;YACL,WAAW;SACd;KACJ,CAAC;AACN,CAAC"}

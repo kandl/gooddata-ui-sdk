@@ -1,0 +1,1 @@
+{"version":3,"file":"gooddata-browser.d.ts","sourceRoot":"","sources":["../src/gooddata-browser.ts"],"names":[],"mappings":"AACA,OAAO,kBAAkB,CAAC;AAC1B,OAAO,EAAW,GAAG,EAAE,MAAM,eAAe,CAAC;AAE7C,QAAA,MAAM,iBAAiB,YAAa,GAAG,QAAwC,CAAC;AAMhF,OAAO,EAAE,iBAAiB,IAAI,UAAU,EAAE,GAAG,EAAE,CAAC;AAChD,cAAc,UAAU,CAAC;;AAEzB,wBAAmC"}

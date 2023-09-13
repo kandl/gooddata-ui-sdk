@@ -1,0 +1,59 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "created.aci81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_created.aci81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "trend"
+            },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.64fbdca96b338e4cd3590b5a27c8e9a2",
+        "properties": {
+            "controls": {
+                "colorMapping": [
+                    {
+                        "color": { "type": "rgb", "value": { "b": 0, "g": 0, "r": 0 } },
+                        "id": "m_aangOxLSeztu"
+                    }
+                ]
+            }
+        },
+        "sorts": [],
+        "title": "LineChart - assign color to measures",
+        "uri": "LineChart.64fbdca96b338e4cd3590b5a27c8e9a2",
+        "visualizationUrl": "local:line"
+    }
+}

@@ -1,0 +1,1 @@
+export declare function useFilterExpansionByDragAndDrop(containsMultipleRows: boolean, isFilterBarExpanded: boolean, setFilterBarExpanded: (isFilterBarExpanded: boolean) => void): import("react-dnd").ConnectDropTarget;

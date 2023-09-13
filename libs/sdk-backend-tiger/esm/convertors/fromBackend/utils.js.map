@@ -1,0 +1,1 @@
+{"version":3,"file":"utils.js","sourceRoot":"","sources":["../../../src/convertors/fromBackend/utils.ts"],"names":[],"mappings":"AAAA,gCAAgC;AAIhC;;;;;;GAMG;AACH,MAAM,UAAU,cAAc,CAAC,eAAwB;IACnD,OAAO,eAAe,CAAC,CAAC,CAAC,SAAS,CAAC,CAAC,CAAC,QAAQ,CAAC;AAClD,CAAC;AAED;;;;GAIG;AACH,MAAM,UAAU,gBAAgB,CAAC,GAAW;IACxC,OAAO,GAAG,CAAC,KAAK,CAAC,GAAG,CAAC,CAAC,CAAC,CAAC,CAAC;AAC7B,CAAC"}

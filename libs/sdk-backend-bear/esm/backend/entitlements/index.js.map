@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/backend/entitlements/index.ts"],"names":[],"mappings":"AAAA,qCAAqC;AAKrC,MAAM,OAAO,gBAAgB;IAClB,KAAK,CAAC,mBAAmB;QAC5B,OAAO,OAAO,CAAC,OAAO,CAAC,CAAC,EAAE,IAAI,EAAE,YAAY,EAAE,CAAC,CAAC,CAAC;IACrD,CAAC;CACJ"}

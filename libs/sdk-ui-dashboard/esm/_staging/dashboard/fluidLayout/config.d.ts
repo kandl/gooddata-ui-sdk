@@ -1,0 +1,1 @@
+export declare const DASHBOARD_LAYOUT_GRID_COLUMNS_COUNT = 12;

@@ -1,0 +1,30 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "trend" },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.a9b12ed216e07806395dd7afe624fc1e",
+        "properties": { "controls": {} },
+        "sorts": [],
+        "title": "LineChart - single measure",
+        "uri": "LineChart.a9b12ed216e07806395dd7afe624fc1e",
+        "visualizationUrl": "local:line"
+    }
+}

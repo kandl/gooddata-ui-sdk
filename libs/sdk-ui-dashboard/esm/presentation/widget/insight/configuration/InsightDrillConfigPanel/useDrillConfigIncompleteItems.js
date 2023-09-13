@@ -1,0 +1,92 @@
+// (C) 2019-2022 GoodData Corporation
+import { useCallback, useEffect, useState } from "react";
+import { isAvailableDrillTargetMeasure } from "../../../../drill/types.js";
+import { usePrevious } from "@gooddata/sdk-ui";
+import isEqual from "lodash/isEqual.js";
+const addOrUpdateDrillConfigItem = (drillConfigItems, newItem) => {
+    const found = drillConfigItems.findIndex((drillConfigItem) => drillConfigItem.localIdentifier === newItem.localIdentifier);
+    if (found !== -1) {
+        const incompleteItemsUpdated = [...drillConfigItems];
+        incompleteItemsUpdated[found] = newItem;
+        return incompleteItemsUpdated;
+    }
+    else {
+        return [...drillConfigItems, newItem];
+    }
+};
+/**
+ * Hook for manipulation with incomplete IDrillConfigItem
+ * @internal
+ */
+export const useIncompleteItems = (props) => {
+    const { widgetDrills } = props;
+    const [incompleteItems, updateIncompleteItems] = useState([]);
+    const prevWidgetDrills = usePrevious(widgetDrills);
+    useEffect(() => {
+        //when widgetDrills changed remove all complete widget items
+        if (!isEqual(widgetDrills, prevWidgetDrills)) {
+            const incompleteItemsUpdated = incompleteItems.filter((incompleteItem) => !incompleteItem.complete);
+            if (incompleteItemsUpdated.length !== incompleteItems.length) {
+                updateIncompleteItems(incompleteItemsUpdated);
+            }
+        }
+    }, [widgetDrills, prevWidgetDrills, incompleteItems]);
+    const addIncompleteItem = useCallback((item) => {
+        updateIncompleteItems(addOrUpdateDrillConfigItem(incompleteItems, item));
+    }, [incompleteItems]);
+    const deleteIncompleteItem = useCallback((item) => {
+        const incompleteItemsUpdated = incompleteItems.filter((incompleteItem) => incompleteItem.localIdentifier !== item.localIdentifier);
+        updateIncompleteItems(incompleteItemsUpdated);
+    }, [incompleteItems]);
+    const completeItem = useCallback((item) => {
+        const incompleteItemsUpdated = incompleteItems.map((incompleteItem) => {
+            if (incompleteItem.localIdentifier === item.localIdentifier) {
+                return Object.assign(Object.assign({}, incompleteItem), { complete: true });
+            }
+            return incompleteItem;
+        });
+        updateIncompleteItems(incompleteItemsUpdated);
+    }, [incompleteItems]);
+    const onChangeItem = useCallback((changedItem) => {
+        const incompleteItem = Object.assign(Object.assign({}, changedItem), { complete: false });
+        addIncompleteItem(incompleteItem);
+    }, [addIncompleteItem]);
+    const onOriginSelect = useCallback((selectedItem) => {
+        if (isAvailableDrillTargetMeasure(selectedItem)) {
+            const incompleteMeasureItem = {
+                type: "measure",
+                localIdentifier: selectedItem.measure.measureHeaderItem.localIdentifier,
+                title: selectedItem.measure.measureHeaderItem.name,
+                attributes: selectedItem.attributes,
+                drillTargetType: undefined,
+                complete: false,
+            };
+            addIncompleteItem(incompleteMeasureItem);
+        }
+        else {
+            const incompleteAttributeItem = {
+                type: "attribute",
+                localIdentifier: selectedItem.attribute.attributeHeader.localIdentifier,
+                title: selectedItem.attribute.attributeHeader.formOf.name,
+                attributes: selectedItem.intersectionAttributes,
+                drillTargetType: undefined,
+                complete: false,
+            };
+            addIncompleteItem(incompleteAttributeItem);
+        }
+    }, [addIncompleteItem]);
+    const isItemNew = useCallback((changedItem) => {
+        // interaction is new if it has an incomplete item associated with it
+        return incompleteItems.some((incompleteItem) => incompleteItem.localIdentifier === changedItem.localIdentifier &&
+            !incompleteItem.complete);
+    }, [incompleteItems]);
+    return {
+        incompleteItems,
+        isItemNew,
+        completeItem,
+        deleteIncompleteItem,
+        onChangeItem,
+        onOriginSelect,
+    };
+};
+//# sourceMappingURL=useDrillConfigIncompleteItems.js.map

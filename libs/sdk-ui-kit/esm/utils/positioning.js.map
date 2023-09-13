@@ -1,0 +1,1 @@
+{"version":3,"file":"positioning.js","sourceRoot":"","sources":["../../src/utils/positioning.ts"],"names":[],"mappings":"AAGA,MAAM,CAAC,MAAM,wBAAwB,GAAG,CAAC,WAA2B,EAAiB,EAAE,CACnF,WAAW,CAAC,GAAG,CAAC,CAAC,EAAE,UAAU,EAAE,MAAM,EAAE,EAAE,EAAE,CAAC,CAAC;IACzC,KAAK,EAAE,GAAG,UAAU,CAAC,MAAM,IAAI,UAAU,CAAC,KAAK,EAAE;IACjD,MAAM;CACT,CAAC,CAAC,CAAC"}

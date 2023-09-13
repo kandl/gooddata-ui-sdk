@@ -1,0 +1,57 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "view"
+            },
+            { "items": [], "localIdentifier": "stack" }
+        ],
+        "filters": [],
+        "identifier": "ColumnChart.a67aa69b9fa6147a0c8fea3c63e08eac",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "left" } },
+                "secondary_yaxis": { "name": { "position": "bottom" } },
+                "xaxis": { "name": { "position": "left" } },
+                "yaxis": { "name": { "position": "bottom" } }
+            }
+        },
+        "sorts": [],
+        "title": "ColumnChart - single axis name customization - low",
+        "uri": "ColumnChart.a67aa69b9fa6147a0c8fea3c63e08eac",
+        "visualizationUrl": "local:column"
+    }
+}

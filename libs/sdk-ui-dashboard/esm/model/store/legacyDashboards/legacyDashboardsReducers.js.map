@@ -1,0 +1,1 @@
+{"version":3,"file":"legacyDashboardsReducers.js","sourceRoot":"","sources":["../../../../src/model/store/legacyDashboards/legacyDashboardsReducers.ts"],"names":[],"mappings":"AAOA,MAAM,mBAAmB,GAAgE,CAAC,KAAK,EAAE,MAAM,EAAE,EAAE;IACvG,KAAK,CAAC,gBAAgB,GAAG,MAAM,CAAC,OAAO,CAAC;AAC5C,CAAC,CAAC;AAEF,MAAM,CAAC,MAAM,wBAAwB,GAAG;IACpC,mBAAmB;CACtB,CAAC"}

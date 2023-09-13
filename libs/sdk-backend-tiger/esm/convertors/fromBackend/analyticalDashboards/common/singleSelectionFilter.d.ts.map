@@ -1,0 +1,1 @@
+{"version":3,"file":"singleSelectionFilter.d.ts","sourceRoot":"","sources":["../../../../../src/convertors/fromBackend/analyticalDashboards/common/singleSelectionFilter.ts"],"names":[],"mappings":"AACA,OAAO,EACH,iBAAiB,EAOpB,MAAM,qBAAqB,CAAC;AAc7B,wBAAgB,qBAAqB,CAAC,OAAO,EAAE,iBAAiB,EAAE,GAAG,iBAAiB,EAAE,CAkCvF"}

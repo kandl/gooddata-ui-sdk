@@ -1,0 +1,1 @@
+{"version":3,"file":"CoreSankeyChart.d.ts","sourceRoot":"","sources":["../../../src/charts/sankeyChart/CoreSankeyChart.tsx"],"names":[],"mappings":"AACA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,EAAE,eAAe,EAAE,MAAM,2BAA2B,CAAC;AAG5D,qBAAa,eAAgB,SAAQ,KAAK,CAAC,aAAa,CAAC,eAAe,EAAE,IAAI,CAAC;IACpE,MAAM;CAGhB"}

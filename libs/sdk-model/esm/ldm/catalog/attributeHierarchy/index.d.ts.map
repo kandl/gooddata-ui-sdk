@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/ldm/catalog/attributeHierarchy/index.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,iCAAiC,EAAE,MAAM,yBAAyB,CAAC;AAE5E;;;;GAIG;AACH,MAAM,WAAW,0BAA0B;IACvC,IAAI,EAAE,oBAAoB,CAAC;IAE3B;;OAEG;IACH,kBAAkB,EAAE,iCAAiC,CAAC;CACzD;AAED;;;;GAIG;AACH,wBAAgB,2BAA2B,CAAC,GAAG,EAAE,OAAO,GAAG,GAAG,IAAI,0BAA0B,CAE3F"}

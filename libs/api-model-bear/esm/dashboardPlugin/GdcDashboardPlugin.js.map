@@ -1,0 +1,1 @@
+{"version":3,"file":"GdcDashboardPlugin.js","sourceRoot":"","sources":["../../src/dashboardPlugin/GdcDashboardPlugin.ts"],"names":[],"mappings":"AAAA,gCAAgC;AAChC,OAAO,OAAO,MAAM,mBAAmB,CAAC;AAyBxC;;GAEG;AACH,MAAM,UAAU,iBAAiB,CAAC,GAAY;IAC1C,OAAO,CAAC,OAAO,CAAC,GAAG,CAAC,IAAK,GAA+B,CAAC,eAAe,KAAK,SAAS,CAAC;AAC3F,CAAC"}

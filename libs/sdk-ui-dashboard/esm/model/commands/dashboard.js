@@ -1,0 +1,230 @@
+// (C) 2021-2023 GoodData Corporation
+/**
+ * The initial load of the dashboard will use this correlation id.
+ *
+ * @beta
+ */
+export const InitialLoadCorrelationId = "initialLoad";
+/**
+ * Creates the InitializeDashboard command.
+ *
+ * @remarks
+ * Dispatching this command will result in the load of all the essential data from the backend and initializing
+ * the state of Dashboard to a point where the dashboard can be rendered.
+ *
+ * Note that the command takes the dashboard to initialize from context - from the properties of the Dashboard
+ * component in which it runs:
+ *
+ * -  If Dashboard component is referencing an existing, persisted dashboard, then the dashboard will be loaded and
+ *    rendered.
+ *
+ * -  If Dashboard component does not reference any dashboard, then the component will initialize for an empty
+ *    dashboard with default filter setup.
+ *
+ * In both cases the essential configuration, permissions and additional metadata gets loaded from the backend.
+ *
+ * @param config - specify configuration to use for for the Dashboard; you MAY provide partial configuration.
+ *  During the LoadDashboard processing the Dashboard component will resolve all the missing parts by reading them
+ *  from the backend.
+ * @param permissions - specify permissions to use when determining whether the user is eligible for some
+ *  actions with the dashboard; if you do not specify permissions Dashboard component will load the permissions
+ *  from the backend.
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @public
+ */
+export function initializeDashboard(config, permissions, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.INITIALIZE",
+        correlationId,
+        payload: {
+            config,
+            permissions,
+        },
+    };
+}
+/**
+ * Creates the InitializeDashboard command with the persisted dashboard overridden.
+ *
+ * @remarks
+ * Dispatching this command will result in the load of all the essential data from the backend and initializing
+ * the state of Dashboard to a point where the dashboard can be rendered.
+ *
+ * Note that the command takes the dashboard to initialize from context - from the properties of the Dashboard
+ * component in which it runs:
+ *
+ * -  If Dashboard component is referencing an existing, persisted dashboard, then the dashboard will be loaded and
+ *    rendered.
+ *
+ * -  If Dashboard component does not reference any dashboard, then the component will initialize for an empty
+ *    dashboard with default filter setup.
+ *
+ * In both cases the essential configuration, permissions and additional metadata gets loaded from the backend.
+ *
+ * @param config - specify configuration to use for for the Dashboard; you MAY provide partial configuration.
+ *  During the LoadDashboard processing the Dashboard component will resolve all the missing parts by reading them
+ *  from the backend.
+ * @param permissions - specify permissions to use when determining whether the user is eligible for some
+ *  actions with the dashboard; if you do not specify permissions Dashboard component will load the permissions
+ *  from the backend.
+ * @param persistedDashboard - dashboard to use for the persisted dashboard state slice in case it needs to be
+ *  different from the dashboard param
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @internal
+ */
+export function initializeDashboardWithPersistedDashboard(config, permissions, persistedDashboard, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.INITIALIZE",
+        correlationId,
+        payload: {
+            config,
+            permissions,
+            persistedDashboard,
+        },
+    };
+}
+/**
+ * Creates the SaveDashboard command. Dispatching this command will result in persisting all the accumulated
+ * dashboard modification to backend.
+ *
+ * The command will not have any effect if dashboard is not initialized or is empty.
+ *
+ * @param title - new title for the dashboard; if not specified, the current title of the dashboard will be used
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @beta
+ */
+export function saveDashboard(title, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.SAVE",
+        correlationId,
+        payload: {
+            title,
+        },
+    };
+}
+/**
+ * Creates the SaveDashboardAs command.
+ *
+ * @remarks
+ * Dispatching this command will result in creation of a copy of the
+ * current dashboard. The copy will reflect the current state of the dashboard including any modifications done
+ * on top of the original dashboard.
+ *
+ * Upon success, a copy of the dashboard will be persisted on the backend. The context of the dashboard component
+ * that processed the command is unchanged - it still works with the original dashboard.
+ *
+ * @param title - new title for the dashboard; if not specified, the title of original dashboard will be used
+ * @param switchToCopy - indicate whether the dashboard component should switch to the dashboard that will
+ *  be created during save-as; the default is false
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *  @param useOriginalFilterContext - indicate whether new dashboard should use original filter context
+ *  or the one with current filter selection.
+ * @public
+ */
+export function saveDashboardAs(title, switchToCopy, useOriginalFilterContext, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.SAVEAS",
+        correlationId,
+        payload: {
+            title,
+            switchToCopy,
+            useOriginalFilterContext,
+        },
+    };
+}
+/**
+ * Creates the RenameDashboard command. Dispatching this command will result in rename of the dashboard. The changes
+ * will be done only in-memory and have to be flushed to backend using the SaveDashboard command.
+ *
+ * @param newTitle - new dashboard title
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ * @beta
+ */
+export function renameDashboard(newTitle, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.RENAME",
+        correlationId,
+        payload: {
+            newTitle,
+        },
+    };
+}
+/**
+ * Creates the ChangeSharing command. Dispatching this command will result in change of sharing status of dashboard. The changes
+ * will be done in-memory and also propagated to the backend.
+ *
+ * @param newSharingProperties - new dashboard sharing properties
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ * @beta
+ */
+export function changeSharing(newSharingProperties, correlationId) {
+    return {
+        type: "GDC.DASH/CMD.SHARING.CHANGE",
+        correlationId,
+        payload: {
+            newSharingProperties,
+        },
+    };
+}
+/**
+ * Creates the ResetDashboard command. Dispatching this command will result in dropping all in-memory modifications
+ * of the dashboard and reverting to a state that is persisted on the backend. In other words reset will get
+ * dashboard to a state after the last save.
+ *
+ * Note: if a dashboard is not saved on a backend, then reset will clear the dashboard to an empty state.
+ *
+ * Limitation: reset command will have no impact on alerts or scheduled emails. These entites are persisted outside
+ * of the dashboard and have their own lifecycle.
+ *
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @beta
+ */
+export function resetDashboard(correlationId) {
+    return {
+        type: "GDC.DASH/CMD.RESET",
+        correlationId,
+    };
+}
+/**
+ * Creates the DeleteDashboard command. Dispatching this command will result in removal of the currently
+ * rendered dashboard from analytical backend and reverting the dashboard component to an 'empty' state where
+ * it is initialized to create a new dashboard.
+ *
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @beta
+ */
+export function deleteDashboard(correlationId) {
+    return {
+        type: "GDC.DASH/CMD.DELETE",
+        correlationId,
+    };
+}
+/**
+ * Creates the {@link ExportDashboardToPdf} command. Dispatching this command will result in a request to export
+ * the dashboard to a PDF file. If successful, an instance of {@link DashboardExportToPdfResolved} will be emitted
+ * with the URL of the resulting file.
+ *
+ * @param correlationId - specify correlation id to use for this command. this will be included in all
+ *  events that will be emitted during the command processing
+ *
+ * @beta
+ */
+export function exportDashboardToPdf(correlationId) {
+    return {
+        type: "GDC.DASH/CMD.EXPORT.PDF",
+        correlationId,
+    };
+}
+//# sourceMappingURL=dashboard.js.map

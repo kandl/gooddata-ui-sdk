@@ -1,0 +1,1 @@
+{"version":3,"file":"dashboardPermissions.d.ts","sourceRoot":"","sources":["../../../../src/backend/workspace/dashboards/dashboardPermissions.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,qBAAqB,EAAE,MAAM,qBAAqB,CAAC;AAE5D,MAAM,MAAM,4BAA4B,GAAG,MAAM,GAAG,OAAO,GAAG,MAAM,CAAC;AAErE,wBAAgB,yBAAyB,CACrC,WAAW,EAAE,KAAK,CAAC,4BAA4B,CAAC,GACjD,qBAAqB,CAYvB"}

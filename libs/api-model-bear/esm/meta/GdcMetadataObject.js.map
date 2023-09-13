@@ -1,0 +1,1 @@
+{"version":3,"file":"GdcMetadataObject.js","sourceRoot":"","sources":["../../src/meta/GdcMetadataObject.ts"],"names":[],"mappings":"AAAA,qCAAqC;AACrC,OAAO,MAAM,MAAM,qBAAqB,CAAC;AACzC,OAAO,KAAK,MAAM,iBAAiB,CAAC;AACpC,OAAO,IAAI,MAAM,gBAAgB,CAAC;AAqGlC;;GAEG;AACH,MAAM,UAAU,oBAAoB,CAAC,MAAqB;IACtD,OAAO,IAAI,CAAC,MAAM,EAAE,KAAK,CAAC,CAAC,MAAM,CAAC,CAAC;AACvC,CAAC"}

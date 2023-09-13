@@ -1,0 +1,1 @@
+{"version":3,"file":"loadDashboardList.js","sourceRoot":"","sources":["../../../../../src/model/commandHandlers/dashboard/initializeDashboardHandler/loadDashboardList.ts"],"names":[],"mappings":"AAIA,MAAM,UAAU,iBAAiB,CAAC,GAAqB;IACnD,MAAM,EAAE,OAAO,EAAE,SAAS,EAAE,GAAG,GAAG,CAAC;IAEnC,OAAO,OAAO,CAAC,SAAS,CAAC,SAAS,CAAC,CAAC,UAAU,EAAE,CAAC,aAAa,EAAE,CAAC;AACrE,CAAC"}

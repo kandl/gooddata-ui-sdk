@@ -1,0 +1,57 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "created.aci81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_created.aci81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "trend"
+            },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.e7e8c59a406f3a142124f1ccfe33e17e",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "left" } },
+                "secondary_yaxis": { "name": { "position": "bottom" } },
+                "xaxis": { "name": { "position": "left" } },
+                "yaxis": { "name": { "position": "bottom" } }
+            }
+        },
+        "sorts": [],
+        "title": "LineChart - single axis name configuration - low",
+        "uri": "LineChart.e7e8c59a406f3a142124f1ccfe33e17e",
+        "visualizationUrl": "local:line"
+    }
+}

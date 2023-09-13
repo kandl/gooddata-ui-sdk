@@ -1,0 +1,54 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abZgFKGPaGYM", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_abZgFKGPaGYM"
+                        }
+                    }
+                ],
+                "localIdentifier": "secondary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "closed.aag81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_closed.aag81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "attribute"
+            }
+        ],
+        "filters": [],
+        "identifier": "ScatterPlot.43f04a05e8ba3ee3ffcf1d4d5bcc25c1",
+        "properties": { "controls": {} },
+        "sorts": [],
+        "title": "ScatterPlot - x and y axis measures and attribute with nulls in data",
+        "uri": "ScatterPlot.43f04a05e8ba3ee3ffcf1d4d5bcc25c1",
+        "visualizationUrl": "local:scatter"
+    }
+}

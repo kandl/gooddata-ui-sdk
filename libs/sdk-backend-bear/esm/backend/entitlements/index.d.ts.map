@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/backend/entitlements/index.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,aAAa,EAAE,MAAM,2BAA2B,CAAC;AAC1D,OAAO,EAAE,sBAAsB,EAAE,MAAM,qBAAqB,CAAC;AAE7D,qBAAa,gBAAiB,YAAW,aAAa;IACrC,mBAAmB,IAAI,OAAO,CAAC,sBAAsB,EAAE,CAAC;CAGxE"}

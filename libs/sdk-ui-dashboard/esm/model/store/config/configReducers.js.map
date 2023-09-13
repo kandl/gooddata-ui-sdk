@@ -1,0 +1,1 @@
+{"version":3,"file":"configReducers.js","sourceRoot":"","sources":["../../../../src/model/store/config/configReducers.ts"],"names":[],"mappings":"AAAA,gCAAgC;AAQhC,MAAM,SAAS,GAA0D,CAAC,KAAK,EAAE,MAAM,EAAE,EAAE;IACvF,KAAK,CAAC,MAAM,GAAG,MAAM,CAAC,OAAO,CAAC;AAClC,CAAC,CAAC;AAEF,MAAM,CAAC,MAAM,cAAc,GAAG;IAC1B,SAAS;CACZ,CAAC"}

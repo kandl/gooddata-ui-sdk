@@ -1,0 +1,1 @@
+{"version":3,"file":"backendCapabilitiesReducers.js","sourceRoot":"","sources":["../../../../src/model/store/backendCapabilities/backendCapabilitiesReducers.ts"],"names":[],"mappings":"AAAA,gCAAgC;AAQhC,MAAM,sBAAsB,GAAoE,CAC5F,KAAK,EACL,MAAM,EACR,EAAE;IACA,KAAK,CAAC,mBAAmB,GAAG,MAAM,CAAC,OAAO,CAAC;AAC/C,CAAC,CAAC;AAEF,MAAM,CAAC,MAAM,2BAA2B,GAAG;IACvC,sBAAsB;CACzB,CAAC"}

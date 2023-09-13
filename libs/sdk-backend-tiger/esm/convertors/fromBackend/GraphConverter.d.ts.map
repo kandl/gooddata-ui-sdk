@@ -1,0 +1,1 @@
+{"version":3,"file":"GraphConverter.d.ts","sourceRoot":"","sources":["../../../src/convertors/fromBackend/GraphConverter.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,wBAAwB,EAAS,MAAM,qBAAqB,CAAC;AAEtE,UAAU,UAAU;IAChB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,CAAC,EAAE,MAAM,CAAC;CAClB;AAED;;;GAGG;AACH,eAAO,MAAM,2CAA2C,SAAU,UAAU,KAAG,wBAY9E,CAAC"}

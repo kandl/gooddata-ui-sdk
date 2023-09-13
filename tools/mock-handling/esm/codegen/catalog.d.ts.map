@@ -1,0 +1,1 @@
+{"version":3,"file":"catalog.d.ts","sourceRoot":"","sources":["../../src/codegen/catalog.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,YAAY,EAA2B,0BAA0B,EAAE,MAAM,UAAU,CAAC;AAE7F,OAAO,EAAE,gBAAgB,EAAE,MAAM,0BAA0B,CAAC;AA8B5D;;;;;;GAMG;AACH,wBAAgB,2BAA2B,CACvC,SAAS,EAAE,gBAAgB,GAAG,IAAI,EAClC,SAAS,EAAE,MAAM,GAClB,KAAK,CAAC,YAAY,CAAC,0BAA0B,CAAC,CAAC,CAEjD"}

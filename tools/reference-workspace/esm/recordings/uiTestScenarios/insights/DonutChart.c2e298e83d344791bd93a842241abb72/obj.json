@@ -1,0 +1,29 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "DonutChart.c2e298e83d344791bd93a842241abb72",
+        "properties": { "controls": {} },
+        "sorts": [],
+        "title": "DonutChart - single measure",
+        "uri": "DonutChart.c2e298e83d344791bd93a842241abb72",
+        "visualizationUrl": "local:donut"
+    }
+}

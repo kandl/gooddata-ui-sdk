@@ -1,0 +1,1 @@
+{"version":3,"file":"loadUser.js","sourceRoot":"","sources":["../../../../../src/model/commandHandlers/dashboard/initializeDashboardHandler/loadUser.ts"],"names":[],"mappings":"AAIA,MAAM,UAAU,QAAQ,CAAC,GAAqB;IAC1C,MAAM,EAAE,OAAO,EAAE,GAAG,GAAG,CAAC;IAExB,OAAO,OAAO,CAAC,WAAW,EAAE,CAAC,OAAO,EAAE,CAAC;AAC3C,CAAC"}

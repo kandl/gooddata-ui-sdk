@@ -1,0 +1,30 @@
+import { IExtendedReferencePoint, IVisualizationProperties, IBucketItem, IVisProps } from "../interfaces/Visualization.js";
+import { AxisType } from "../interfaces/AxisType.js";
+import { ColumnWidthItem, MeasureGroupDimension, ColumnHeadersPosition } from "@gooddata/sdk-ui-pivot";
+import { IInsightDefinition, ISettings } from "@gooddata/sdk-model";
+export declare function getSupportedPropertiesControls(visualizationControlsProperties: IVisualizationProperties["controls"], supportedPropertiesList: string[]): IVisualizationProperties;
+export declare function hasColorMapping(properties: IVisualizationProperties): boolean;
+export declare function setSecondaryMeasures(referencePoint: IExtendedReferencePoint, axisName: AxisType): IExtendedReferencePoint;
+export declare function isEmptyObject(obj: object): boolean;
+export declare function getSupportedProperties(visualizationProperties: IVisualizationProperties, supportedPropertiesList: string[]): IVisualizationProperties;
+export declare function getReferencePointWithSupportedProperties(referencePoint: IExtendedReferencePoint, supportedPropertiesList: string[]): IExtendedReferencePoint;
+export declare function getReferencePointWithTotalLabelsInitialized(referencePoint: IExtendedReferencePoint): IExtendedReferencePoint;
+export declare function isStackingMeasure(properties: IVisualizationProperties): boolean;
+export declare function isStackingToPercent(properties: IVisualizationProperties): boolean;
+export declare function isTotalSectionEnabled(properties: IVisualizationProperties): boolean;
+export declare function isDualAxisOrSomeSecondaryAxisMeasure(extReferencePoint: IExtendedReferencePoint, secondaryMeasures: IBucketItem[]): boolean;
+export declare function removeImmutableOptionalStackingProperties(referencePoint: IExtendedReferencePoint, supportedPropertiesList: string[]): string[];
+export declare function getHighchartsAxisNameConfiguration(controlProperties: IVisualizationProperties, enableAxisNameConfiguration?: boolean): IVisualizationProperties;
+export declare function getDataPointsConfiguration(controlProperties: IVisualizationProperties, enableHidingOfDataPoints?: boolean): IVisualizationProperties;
+export declare function getColumnWidthsFromProperties(visualizationProperties: IVisualizationProperties): ColumnWidthItem[] | undefined;
+export declare function getMeasureGroupDimensionFromProperties(visualizationProperties: IVisualizationProperties): MeasureGroupDimension;
+export declare function getColumnHeadersPositionFromProperties(visualizationProperties: IVisualizationProperties): ColumnHeadersPosition;
+export declare function getLegendConfiguration(controlProperties: IVisualizationProperties, insight: IInsightDefinition): IVisualizationProperties;
+export declare function getLegendConfigurationDashboardsEnv(controlProperties: IVisualizationProperties, options: IVisProps, enableKDWidgetCustomHeight: boolean | undefined): IVisualizationProperties;
+export declare function getChartSupportedControls(controlProperties: IVisualizationProperties | undefined, insight: IInsightDefinition, settings: ISettings | undefined): IVisualizationProperties | undefined;
+export declare function getChartSupportedControlsDashboardsEnv(controlProperties: IVisualizationProperties | undefined, options: IVisProps, settings: ISettings | undefined): IVisualizationProperties | undefined;
+export declare function getPivotTableProperties(settings: ISettings, properties: IVisualizationProperties): {
+    columnHeadersPosition?: ColumnHeadersPosition;
+    measureGroupDimension?: MeasureGroupDimension;
+};
+//# sourceMappingURL=propertiesHelper.d.ts.map

@@ -1,0 +1,69 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "alias": "Sum Velocity",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.stagehistory.velocity", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.stagehistory.velocity_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Sum Values",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.hardwaretest.values", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.hardwaretest.values_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Probability",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acEsTPZKdqzb", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_acEsTPZKdqzb"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Duration",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abTsUy7k6OIl", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_abTsUy7k6OIl"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "WaterfallChart.d09ba4ed8ec8916ed588aa2b01f83066",
+        "properties": { "controls": { "dataLabels": { "totalsVisible": "auto", "visible": false } } },
+        "sorts": [],
+        "title": "WaterfallChart - data labels - labels forced hidden totals auto visibility",
+        "uri": "WaterfallChart.d09ba4ed8ec8916ed588aa2b01f83066",
+        "visualizationUrl": "local:waterfall"
+    }
+}

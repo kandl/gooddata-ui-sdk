@@ -1,0 +1,3 @@
+export declare const DASHBOARD_OVERLAYS_Z_INDEX = 5000;
+export declare const DASHBOARD_HEADER_OVERLAYS_Z_INDEX = 6000;
+export declare const DASHBOARD_OVERLAYS_FILTER_Z_INDEX = 6000;
