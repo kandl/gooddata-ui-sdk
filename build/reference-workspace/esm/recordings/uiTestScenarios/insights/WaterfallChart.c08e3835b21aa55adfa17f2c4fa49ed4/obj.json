@@ -1,0 +1,93 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "alias": "Sum Velocity",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.stagehistory.velocity", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.stagehistory.velocity_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Sum Values",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.hardwaretest.values", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.hardwaretest.values_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Total of velocity and values",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "ab8s8km1dcwm", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_ab8s8km1dcwm"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Probability",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acEsTPZKdqzb", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_acEsTPZKdqzb"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Duration",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abTsUy7k6OIl", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_abTsUy7k6OIl"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Total balance",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aaKtfN0bAQyc", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_aaKtfN0bAQyc"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "WaterfallChart.c08e3835b21aa55adfa17f2c4fa49ed4",
+        "properties": { "controls": { "total": { "measures": ["m_ab8s8km1dcwm", "m_aaKtfN0bAQyc"] } } },
+        "sorts": [],
+        "title": "WaterfallChart - multi measures with a total measure",
+        "uri": "WaterfallChart.c08e3835b21aa55adfa17f2c4fa49ed4",
+        "visualizationUrl": "local:waterfall"
+    }
+}

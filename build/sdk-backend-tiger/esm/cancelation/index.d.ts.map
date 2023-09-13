@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../src/cancelation/index.ts"],"names":[],"mappings":"AACA,OAAc,EAAE,kBAAkB,EAAE,MAAM,OAAO,CAAC;AAElD,qBAAa,0BAA0B;IACvB,OAAO,CAAC,QAAQ,CAAC,MAAM;gBAAN,MAAM,EAAE,WAAW,GAAG,IAAI;IAEhD,QAAQ,IAAI,IAAI,CAAC,kBAAkB,EAAE,aAAa,CAAC;CAe7D"}

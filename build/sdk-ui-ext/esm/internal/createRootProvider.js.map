@@ -1,0 +1,1 @@
+{"version":3,"file":"createRootProvider.js","sourceRoot":"","sources":["../../src/internal/createRootProvider.ts"],"names":[],"mappings":"AAAA,gCAAgC;AAmBhC;;;;GAIG;AACH,MAAM,CAAC,IAAI,WAAW,GAAe,IAAI,CAAC;AAE1C;;;;;GAKG;AACH,MAAM,UAAU,iBAAiB,CAAC,UAAsB;IACpD,WAAW,GAAG,UAAU,CAAC;AAC7B,CAAC"}

@@ -1,0 +1,69 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abZgFKGPaGYM", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_abZgFKGPaGYM"
+                        }
+                    }
+                ],
+                "localIdentifier": "secondary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abEgMnq5hyJQ", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_abEgMnq5hyJQ"
+                        }
+                    }
+                ],
+                "localIdentifier": "tertiary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "view"
+            }
+        ],
+        "filters": [],
+        "identifier": "BubbleChart.fb583ff66ce3ee44ace867a9efc29b3b",
+        "properties": { "controls": { "yaxis": { "max": ".70", "min": ".54" } } },
+        "sorts": [],
+        "title": "BubbleChart - Y axis min/max configuration",
+        "uri": "BubbleChart.fb583ff66ce3ee44ace867a9efc29b3b",
+        "visualizationUrl": "local:bubble"
+    }
+}

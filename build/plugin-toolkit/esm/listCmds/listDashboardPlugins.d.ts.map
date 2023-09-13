@@ -1,0 +1,1 @@
+{"version":3,"file":"listDashboardPlugins.d.ts","sourceRoot":"","sources":["../../src/listCmds/listDashboardPlugins.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,mBAAmB,EAAE,MAAM,mBAAmB,CAAC;AACxD,OAAO,EAAE,aAAa,EAAE,MAAM,mBAAmB,CAAC;AAClD,OAAO,EAAE,SAAS,EAAE,MAAM,YAAY,CAAC;AAEvC,wBAAsB,oBAAoB,CACtC,MAAM,EAAE,mBAAmB,EAC3B,QAAQ,EAAE,aAAa,GACxB,OAAO,CAAC,SAAS,EAAE,CAAC,CAetB"}

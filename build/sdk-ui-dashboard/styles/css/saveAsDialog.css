@@ -1,0 +1,17 @@
+/* allow vendor prefixes and disable max length */
+/* allow vendor prefixes and disable max length */
+/* ==========================================================================
+   Variables, mixins, silent classes etc.
+   ========================================================================== */
+.gd-dialog.save-as-new-dialog {
+  max-width: 450px;
+}
+.gd-dialog .dashboard-note {
+  line-height: 21px;
+  padding-bottom: 25px;
+}
+.gd-dialog .dashboard-title {
+  padding-bottom: 25px;
+}
+
+/*# sourceMappingURL=saveAsDialog.css.map */

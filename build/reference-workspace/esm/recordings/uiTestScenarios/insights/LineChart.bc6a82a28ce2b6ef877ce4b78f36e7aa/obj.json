@@ -1,0 +1,50 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "created.aci81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_created.aci81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "trend"
+            },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.bc6a82a28ce2b6ef877ce4b78f36e7aa",
+        "properties": { "controls": { "legend": { "enabled": false } } },
+        "sorts": [],
+        "title": "LineChart - legend position - disabled",
+        "uri": "LineChart.bc6a82a28ce2b6ef877ce4b78f36e7aa",
+        "visualizationUrl": "local:line"
+    }
+}

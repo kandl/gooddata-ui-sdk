@@ -1,0 +1,1 @@
+{"version":3,"file":"loadInsight.js","sourceRoot":"","sources":["../../../../../src/model/commandHandlers/widgets/common/loadInsight.ts"],"names":[],"mappings":"AAIA,MAAM,UAAU,WAAW,CAAC,GAAqB,EAAE,UAAkB;IACjE,OAAO,GAAG,CAAC,OAAO,CAAC,SAAS,CAAC,GAAG,CAAC,SAAS,CAAC,CAAC,QAAQ,EAAE,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC;AAClF,CAAC"}

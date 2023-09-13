@@ -1,0 +1,182 @@
+[
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:table",
+            "iconSelected": "local:table.selected",
+            "identifier": "gdc.visualization.table",
+            "orderIndex": 0,
+            "title": "Table",
+            "uri": "/gdc/md/referenceworkspace/obj/4",
+            "url": "local:table"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:column",
+            "iconSelected": "local:column.selected",
+            "identifier": "gdc.visualization.column",
+            "orderIndex": 1,
+            "title": "Column chart",
+            "uri": "/gdc/md/referenceworkspace/obj/6",
+            "url": "local:column"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:bar",
+            "iconSelected": "local:bar.selected",
+            "identifier": "gdc.visualization.bar",
+            "orderIndex": 2,
+            "title": "Bar chart",
+            "uri": "/gdc/md/referenceworkspace/obj/14",
+            "url": "local:bar"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:line",
+            "iconSelected": "local:line.selected",
+            "identifier": "gdc.visualization.line",
+            "orderIndex": 3,
+            "title": "Line chart",
+            "uri": "/gdc/md/referenceworkspace/obj/7",
+            "url": "local:line"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:area",
+            "iconSelected": "local:area.selected",
+            "identifier": "gdc.visualization.area",
+            "orderIndex": 4,
+            "title": "Stacked Area chart",
+            "uri": "/gdc/md/referenceworkspace/obj/3",
+            "url": "local:area"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:combo",
+            "iconSelected": "local:combo.selected",
+            "identifier": "gdc.visualization.combo",
+            "orderIndex": 5,
+            "title": "Combo",
+            "uri": "/gdc/md/referenceworkspace/obj/9",
+            "url": "local:combo2"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:headline",
+            "iconSelected": "local:headline.selected",
+            "identifier": "gdc.visualization.headline",
+            "orderIndex": 6,
+            "title": "Headline",
+            "uri": "/gdc/md/referenceworkspace/obj/5",
+            "url": "local:headline"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:scatter",
+            "iconSelected": "local:scatter.selected",
+            "identifier": "gdc.visualization.scatter",
+            "orderIndex": 7,
+            "title": "Scatter plot",
+            "uri": "/gdc/md/referenceworkspace/obj/1",
+            "url": "local:scatter"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:bubble",
+            "iconSelected": "local:bubble.selected",
+            "identifier": "gdc.visualization.bubble",
+            "orderIndex": 8,
+            "title": "Bubble chart",
+            "uri": "/gdc/md/referenceworkspace/obj/11",
+            "url": "local:bubble"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:pie",
+            "iconSelected": "local:pie.selected",
+            "identifier": "gdc.visualization.pie",
+            "orderIndex": 9,
+            "title": "Pie chart",
+            "uri": "/gdc/md/referenceworkspace/obj/13",
+            "url": "local:pie"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:donut",
+            "iconSelected": "local:donut.selected",
+            "identifier": "gdc.visualization.donut",
+            "orderIndex": 10,
+            "title": "Donut chart",
+            "uri": "/gdc/md/referenceworkspace/obj/2",
+            "url": "local:donut"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:treemap",
+            "iconSelected": "local:treemap.selected",
+            "identifier": "gdc.visualization.treemap",
+            "orderIndex": 12,
+            "title": "Treemap",
+            "uri": "/gdc/md/referenceworkspace/obj/8",
+            "url": "local:treemap"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:heatmap",
+            "iconSelected": "local:heatmap.selected",
+            "identifier": "gdc.visualization.heatmap",
+            "orderIndex": 13,
+            "title": "Heatmap",
+            "uri": "/gdc/md/referenceworkspace/obj/10",
+            "url": "local:heatmap"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:bullet",
+            "iconSelected": "local:bullet.selected",
+            "identifier": "gdc.visualization.bullet",
+            "orderIndex": 14,
+            "title": "Bullet chart",
+            "uri": "/gdc/md/referenceworkspace/obj/1294",
+            "url": "local:bullet"
+        }
+    },
+    {
+        "visualizationClass": {
+            "checksum": "local",
+            "icon": "local:pushpin",
+            "iconSelected": "local:pushpin.selected",
+            "identifier": "gdc.visualization.pushpin",
+            "orderIndex": 15,
+            "title": "Geo chart (pushpins)",
+            "uri": "/gdc/md/referenceworkspace/obj/1296",
+            "url": "local:pushpin"
+        }
+    }
+]

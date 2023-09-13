@@ -1,0 +1,1 @@
+{"version":3,"file":"dataSample.d.ts","sourceRoot":"","sources":["../../src/codegen/dataSample.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,YAAY,EAA2B,0BAA0B,EAAE,MAAM,UAAU,CAAC;AAG7F,OAAO,EAAE,oBAAoB,EAAE,MAAM,+BAA+B,CAAC;AAyDrE;;;;;;;GAOG;AACH,wBAAgB,+BAA+B,CAC3C,UAAU,EAAE,oBAAoB,EAAE,EAClC,SAAS,EAAE,MAAM,GAClB,KAAK,CAAC,YAAY,CAAC,0BAA0B,CAAC,CAAC,CAcjD"}

@@ -1,0 +1,19 @@
+.gd-locked-status {
+  display: inline-block;
+}
+
+.gd-share-status {
+  display: inline-block;
+}
+.gd-share-status .gd-share-indicator {
+  display: inline-block;
+  color: var(--gd-palette-complementary-6, #94a1ad);
+  font-size: 12px;
+}
+.gd-share-status .gd-share-indicator .gd-share-icon {
+  font-size: 16px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/*# sourceMappingURL=shareIndicators.css.map */

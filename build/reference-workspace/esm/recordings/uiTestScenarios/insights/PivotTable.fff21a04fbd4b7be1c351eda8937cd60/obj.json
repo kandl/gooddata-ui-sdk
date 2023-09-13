@@ -1,0 +1,61 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "attribute"
+            },
+            { "items": [], "localIdentifier": "columns" }
+        ],
+        "filters": [],
+        "identifier": "PivotTable.fff21a04fbd4b7be1c351eda8937cd60",
+        "properties": {
+            "controls": {
+                "columnWidths": [
+                    {
+                        "attributeColumnWidthItem": {
+                            "attributeIdentifier": "a_label.product.id.name",
+                            "width": { "value": 400 }
+                        }
+                    }
+                ]
+            }
+        },
+        "sorts": [],
+        "title": "PivotTable - simple table with custom attribute column size",
+        "uri": "PivotTable.fff21a04fbd4b7be1c351eda8937cd60",
+        "visualizationUrl": "local:table"
+    }
+}

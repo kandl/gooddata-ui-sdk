@@ -1,0 +1,1 @@
+{"version":3,"file":"getWebComponentsCodeGenerator.d.ts","sourceRoot":"","sources":["../../../../src/internal/utils/embeddingCodeGenerator/getWebComponentsCodeGenerator.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,QAAQ,EAAE,MAAM,qBAAqB,CAAC;AAC/C,OAAO,EAAE,qBAAqB,EAAE,MAAM,sBAAsB,CAAC;AAgB7D,eAAO,MAAM,6BAA6B,gBACzB,MAAM,WACV,QAAQ,cACL,qBAAqB,WAepC,CAAC"}

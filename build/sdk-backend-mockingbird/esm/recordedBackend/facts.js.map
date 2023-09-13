@@ -1,0 +1,1 @@
+{"version":3,"file":"facts.js","sourceRoot":"","sources":["../../src/recordedBackend/facts.ts"],"names":[],"mappings":"AAAA,qCAAqC;AAErC,OAAO,EAA0B,YAAY,EAAE,MAAM,2BAA2B,CAAC;AAGjF;;GAEG;AACH,MAAM,OAAO,aAAa;IACf,kBAAkB,CAAC,CAAS;QAC/B,MAAM,IAAI,YAAY,CAAC,eAAe,CAAC,CAAC;IAC5C,CAAC;CACJ"}

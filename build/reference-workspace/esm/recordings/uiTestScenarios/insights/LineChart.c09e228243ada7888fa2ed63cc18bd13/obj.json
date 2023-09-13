@@ -1,0 +1,57 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "created.aci81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_created.aci81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "trend"
+            },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.c09e228243ada7888fa2ed63cc18bd13",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "center" } },
+                "secondary_yaxis": { "name": { "position": "center" } },
+                "xaxis": { "name": { "position": "center" } },
+                "yaxis": { "name": { "position": "center" } }
+            }
+        },
+        "sorts": [],
+        "title": "LineChart - single axis name configuration - middle",
+        "uri": "LineChart.c09e228243ada7888fa2ed63cc18bd13",
+        "visualizationUrl": "local:line"
+    }
+}

@@ -1,0 +1,216 @@
+/* allow vendor prefixes and disable max length */
+/* allow vendor prefixes and disable max length */
+/* ==========================================================================
+   Mixins, silent classes etc.
+   ========================================================================== */
+.embed-insight-dialog {
+  width: 600px;
+}
+.embed-insight-dialog .gd-tabs.small {
+  margin-bottom: 20px;
+}
+
+.embed-insight-dialog-header .gd-dialog-header-title {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.embed-insight-dialog-header-icon {
+  vertical-align: super;
+  margin-left: 10px;
+  color: #94a1ad;
+}
+
+.embed-insight-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.embed-component-type-help {
+  color: #bbb;
+  margin: 0 5px;
+}
+.embed-component-type-help::before {
+  vertical-align: middle;
+}
+
+.embed-insight-dialog-code {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.embed-insight-dialog-code-wrapper {
+  height: 263px;
+  width: 340px;
+}
+
+.embed-insight-dialog-code-settings {
+  min-width: 220px;
+}
+
+.embed-insight-dialog-code-content {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(204, 216, 226, 0.1490196078);
+  border: 1px solid var(--gd-palette-complementary-3, #dde4eb);
+}
+
+.embed-insight-dialog-code-area {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  word-wrap: break-word;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: 0;
+  line-height: 18px;
+  font-size: 12px;
+  letter-spacing: 0;
+  font-family: menlo, monaco, consolas, "Courier New", monospace;
+  color: var(--gd-palette-complementary-8, #464e56);
+}
+
+.embed-insight-dialog-code-empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: url("~@gooddata/sdk-ui-kit/styles/images/embed-insight/code-area-placeholder.svg") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+.embed-insight-dialog-code-empty.definition .embed-insight-dialog-code-empty-msg {
+  max-width: 264px;
+}
+.embed-insight-dialog-code-empty .embed-insight-dialog-code-empty-msg {
+  background-color: var(--gd-palette-complementary-0, #fff);
+  border-radius: 3px;
+  padding: 7px 10px;
+  text-align: center;
+  max-width: 254px;
+  color: var(--gd-palette-complementary-8, #687581);
+}
+.embed-insight-dialog-code-empty .embed-insight-dialog-code-empty-msg a {
+  cursor: pointer;
+  color: var(--gd-palette-primary-base, #14b2e2);
+  text-decoration: none;
+}
+.embed-insight-dialog-code-empty .embed-insight-dialog-code-empty-msg a:hover, .embed-insight-dialog-code-empty .embed-insight-dialog-code-empty-msg a:focus, .embed-insight-dialog-code-empty .embed-insight-dialog-code-empty-msg a:active {
+  color: var(--gd-palette-complementary-8, #464e56);
+  text-decoration: underline;
+}
+
+.embed-insight-dialog-message-changes {
+  margin-bottom: 20px;
+}
+
+.embed-insight-dialog-prep-env-message {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.embed-insight-dialog-prep-env-message .gd-message-text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.embed-insight-dialog-list-props-message {
+  display: flex;
+  align-items: center;
+}
+.embed-insight-dialog-list-props-message a,
+.embed-insight-dialog-list-props-message a:hover {
+  text-decoration: underline;
+}
+.embed-insight-dialog-list-props-message .question-mark-icon::before {
+  vertical-align: middle;
+  color: #94a1ad;
+}
+
+.embed-insight-dialog-lang-selector {
+  display: flex;
+  flex-direction: column;
+}
+.embed-insight-dialog-lang-selector strong {
+  font-size: 12px;
+  line-height: 16px;
+}
+.embed-insight-dialog-lang-selector span,
+.embed-insight-dialog-lang-selector label {
+  height: 16px;
+  line-height: 16px;
+}
+.embed-insight-dialog-lang-selector .bottom-space-label {
+  margin-bottom: 15px;
+}
+.embed-insight-dialog-lang-selector .bottom-space {
+  margin-bottom: 10px;
+}
+.embed-insight-dialog-lang-selector .top-space {
+  margin-top: 10px;
+}
+
+.toggle-wrapper-revers-label {
+  height: 16px;
+  line-height: 16px;
+}
+.toggle-wrapper-revers-label .toggle-switch {
+  padding-right: 30px;
+}
+.toggle-wrapper-revers-label .toggle-switch-title {
+  margin-left: 10px;
+}
+.toggle-wrapper-revers-label .toggle-switch-icon {
+  margin: 0 5px;
+}
+.toggle-wrapper-revers-label .toggle-switch-icon::before {
+  vertical-align: middle;
+  color: #94a1ad;
+}
+.toggle-wrapper-revers-label.bottom-space {
+  margin-bottom: 10px;
+}
+
+.height-setting-component,
+.locale-setting-component {
+  display: flex;
+  border-left: 2px dotted var(--gd-palette-complementary-3, #dde4eb);
+  padding-left: 10px;
+  margin-top: 10px;
+}
+.height-setting-component .gd-input-field,
+.locale-setting-component .gd-input-field {
+  margin-right: 10px;
+  text-align: end;
+  height: 27.1px;
+  padding: 5px 7px;
+  font-size: 13px;
+}
+.height-setting-component .dropdown-button,
+.height-setting-component .gd-input-field,
+.locale-setting-component .dropdown-button,
+.locale-setting-component .gd-input-field {
+  width: 88px;
+}
+
+.bottom-space + .locale-setting-component {
+  margin-top: 0;
+}
+
+.gd-embed-input-numeric-invalid {
+  border-color: #e54d42 !important;
+}
+
+.embed-insight-dialog-left-footer-renderer {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 5px;
+  vertical-align: middle;
+}
+
+/*# sourceMappingURL=embedInsightDialog.css.map */

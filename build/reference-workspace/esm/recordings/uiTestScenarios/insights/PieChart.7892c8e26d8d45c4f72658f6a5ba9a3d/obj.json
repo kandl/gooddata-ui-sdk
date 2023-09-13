@@ -1,0 +1,49 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "PieChart.7892c8e26d8d45c4f72658f6a5ba9a3d",
+        "properties": {
+            "controls": {
+                "colorMapping": [
+                    {
+                        "color": { "type": "rgb", "value": { "b": 0, "g": 0, "r": 0 } },
+                        "id": "m_aangOxLSeztu"
+                    },
+                    { "color": { "type": "guid", "value": "05" }, "id": "m_acugFHNJgsBy" }
+                ]
+            }
+        },
+        "sorts": [],
+        "title": "PieChart - assign color to measures",
+        "uri": "PieChart.7892c8e26d8d45c4f72658f6a5ba9a3d",
+        "visualizationUrl": "local:pie"
+    }
+}

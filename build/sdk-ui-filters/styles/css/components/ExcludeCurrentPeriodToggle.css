@@ -1,0 +1,9 @@
+.s-exclude-current-perod-disabled {
+  color: var(--gd-palette-complementary-5, #b0beca);
+}
+
+.s-exclude-current-perod-enabled {
+  color: var(--gd-palette-complementary-8, #464e56);
+}
+
+/*# sourceMappingURL=ExcludeCurrentPeriodToggle.css.map */

@@ -1,0 +1,119 @@
+.gd-description-panel-bubble.bubble-light {
+  max-width: 220px;
+}
+.gd-description-panel-bubble.bubble-light .bubble-content {
+  padding: 0;
+}
+
+.gd-icon-circle-question-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  cursor: help;
+  font-size: 14px;
+  line-height: 14px;
+}
+.gd-icon-circle-question-wrapper .gd-icon-circle-question {
+  margin-top: 1px;
+  color: var(--gd-palette-complementary-7, #687581);
+}
+.gd-icon-circle-question-wrapper:hover .gd-icon-circle-question {
+  color: var(--gd-palette-complementary-8, #464e56);
+}
+
+.gd-description-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--gd-palette-complementary-0, #fff);
+  font-family: gdcustomfont, avenir, "Helvetica Neue", arial, sans-serif;
+  max-height: 510px;
+  overflow: hidden;
+  padding: 15px 0;
+}
+.gd-description-panel-title {
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--gd-palette-complementary-8, #464e56);
+  margin: 0 15px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+.gd-description-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: auto;
+  padding: 0 15px;
+}
+
+.gd-ellipsis-text {
+  display: flex;
+  flex-direction: column;
+}
+.gd-ellipsis-text-content {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--gd-palette-complementary-7, #687581);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+.gd-ellipsis-text-fixed {
+  width: 188px;
+}
+.gd-ellipsis-text-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 12px;
+  line-height: 27px;
+  color: var(--gd-palette-complementary-7, #687581);
+  text-decoration: underline;
+  width: fit-content;
+}
+.gd-ellipsis-text-button:hover {
+  color: var(--gd-palette-complementary-8, #464e56);
+}
+
+.gd-metadata-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.gd-metadata-list-title {
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--gd-palette-complementary-6, #94a1ad);
+  text-transform: uppercase;
+}
+.gd-metadata-list-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  line-height: 19px;
+  color: var(--gd-palette-complementary-8, #464e56);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.gd-metadata-list-element span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gd-metadata-list-icon {
+  color: var(--gd-palette-complementary-6, #94a1ad);
+  cursor: help;
+  flex-shrink: 0;
+  margin-left: 5px;
+}
+
+/*# sourceMappingURL=descriptionPanel.css.map */

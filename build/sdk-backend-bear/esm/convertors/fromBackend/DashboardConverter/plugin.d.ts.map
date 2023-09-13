@@ -1,0 +1,1 @@
+{"version":3,"file":"plugin.d.ts","sourceRoot":"","sources":["../../../../src/convertors/fromBackend/DashboardConverter/plugin.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,uBAAuB,EAAE,MAAM,0BAA0B,CAAC;AACnE,OAAO,EAAU,gBAAgB,EAAE,KAAK,EAAE,MAAM,qBAAqB,CAAC;AAEtE,wBAAgB,sBAAsB,CAClC,MAAM,EAAE,uBAAuB,EAC/B,OAAO,CAAC,EAAE,GAAG,CAAC,MAAM,EAAE,KAAK,CAAC,GAC7B,gBAAgB,CAsBlB"}

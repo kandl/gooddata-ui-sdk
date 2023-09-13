@@ -1,0 +1,39 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "DonutChart.ec22a82cf1d285839cd56258968ad25c",
+        "properties": { "controls": { "legend": { "position": "bottom" } } },
+        "sorts": [],
+        "title": "DonutChart - legend position - two measures - legend at bottom",
+        "uri": "DonutChart.ec22a82cf1d285839cd56258968ad25c",
+        "visualizationUrl": "local:donut"
+    }
+}

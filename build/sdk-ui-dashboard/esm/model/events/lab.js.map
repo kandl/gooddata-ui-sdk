@@ -1,0 +1,1 @@
+{"version":3,"file":"lab.js","sourceRoot":"","sources":["../../../src/model/events/lab.ts"],"names":[],"mappings":"AAAA,qCAAqC;AAGrC,OAAO,EAAE,UAAU,EAAE,MAAM,WAAW,CAAC;AAavC;;;;GAIG;AACH,MAAM,UAAU,sBAAsB,CAAC,aAAsB;IACzD,OAAO;QACH,IAAI,EAAE,uCAAuC;QAC7C,aAAa;KAChB,CAAC;AACN,CAAC;AAED;;;;;GAKG;AACH,MAAM,CAAC,MAAM,wBAAwB,GAAG,UAAU,CAC9C,uCAAuC,CAC1C,CAAC"}

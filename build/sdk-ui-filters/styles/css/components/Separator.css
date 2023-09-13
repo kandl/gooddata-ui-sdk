@@ -1,0 +1,8 @@
+.gd-separator-generic {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--gd-palette-complementary-3, #dde4eb);
+}
+
+/*# sourceMappingURL=Separator.css.map */

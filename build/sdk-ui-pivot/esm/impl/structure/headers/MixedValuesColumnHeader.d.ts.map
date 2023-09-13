@@ -1,0 +1,1 @@
+{"version":3,"file":"MixedValuesColumnHeader.d.ts","sourceRoot":"","sources":["../../../../src/impl/structure/headers/MixedValuesColumnHeader.tsx"],"names":[],"mappings":"AACA,OAAO,EAAE,kBAAkB,EAAE,MAAM,gCAAgC,CAAC;AACpE,OAAO,KAAK,MAAM,OAAO,CAAC;AAK1B,MAAM,CAAC,OAAO,OAAO,uBAAwB,SAAQ,KAAK,CAAC,SAAS,CAAC,kBAAkB,CAAC;IAC7E,MAAM;CAWhB"}

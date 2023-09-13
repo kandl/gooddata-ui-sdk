@@ -1,0 +1,57 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "created.aci81lMifn6q", "type": "displayForm" },
+                            "localIdentifier": "a_created.aci81lMifn6q"
+                        }
+                    }
+                ],
+                "localIdentifier": "trend"
+            },
+            { "items": [], "localIdentifier": "segment" }
+        ],
+        "filters": [],
+        "identifier": "LineChart.a9ff4679c84738f2d9ddaae67b88aac6",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "left" } },
+                "secondary_yaxis": { "measures": ["m_acugFHNJgsBy"], "name": { "position": "bottom" } },
+                "xaxis": { "name": { "position": "left" } },
+                "yaxis": { "name": { "position": "bottom" } }
+            }
+        },
+        "sorts": [],
+        "title": "LineChart - dual axis name configuration - low",
+        "uri": "LineChart.a9ff4679c84738f2d9ddaae67b88aac6",
+        "visualizationUrl": "local:line"
+    }
+}

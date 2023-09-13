@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["../../node_modules/@gooddata/sdk-ui-kit/styles/scss/mixins.scss","../../node_modules/@gooddata/sdk-ui-kit/styles/scss/Bubble/_variables.scss","../scss/saveAsDialog.scss","../scss/_variables.scss"],"names":[],"mappings":"AA0HA;AA4DA;ACjLA;AAAA;AAAA;ACDI;EACI;;AAEJ;EACI,aCyCmB;EDxCnB;;AAEJ;EACI","file":"saveAsDialog.css"}

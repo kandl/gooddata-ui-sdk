@@ -1,0 +1,1 @@
+{"version":3,"file":"LegacyProvider.d.ts","sourceRoot":"","sources":["../../../../../src/charts/headline/internal/providers/LegacyProvider.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,EAAE,4BAA4B,EAAE,MAAM,2BAA2B,CAAC;AACzE,OAAO,gBAAgB,MAAM,uBAAuB,CAAC;AAGrD,cAAM,cAAe,SAAQ,gBAAgB;IAClC,kCAAkC,IAAI,KAAK,CAAC,aAAa,CAAC,4BAA4B,CAAC;CAGjG;AAED,eAAe,cAAc,CAAC"}

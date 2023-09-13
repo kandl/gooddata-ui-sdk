@@ -1,0 +1,59 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abZgFKGPaGYM", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_abZgFKGPaGYM"
+                        }
+                    }
+                ],
+                "localIdentifier": "secondary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "attribute"
+            }
+        ],
+        "filters": [],
+        "identifier": "ScatterPlot.e360f5568979b43016a0a0060de90082",
+        "properties": {
+            "controls": {
+                "xaxis": { "max": "15000000", "min": "5000000" },
+                "yaxis": { "max": "0.55", "min": "0.5" }
+            }
+        },
+        "sorts": [],
+        "title": "ScatterPlot - Y axis min/max configuration",
+        "uri": "ScatterPlot.e360f5568979b43016a0a0060de90082",
+        "visualizationUrl": "local:scatter"
+    }
+}

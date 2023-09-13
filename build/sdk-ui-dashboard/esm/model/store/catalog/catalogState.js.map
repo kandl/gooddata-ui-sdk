@@ -1,0 +1,1 @@
+{"version":3,"file":"catalogState.js","sourceRoot":"","sources":["../../../../src/model/store/catalog/catalogState.ts"],"names":[],"mappings":"AAyBA,MAAM,CAAC,MAAM,mBAAmB,GAAiB;IAC7C,UAAU,EAAE,SAAS;IACrB,QAAQ,EAAE,SAAS;IACnB,YAAY,EAAE,SAAS;IACvB,KAAK,EAAE,SAAS;IAChB,oBAAoB,EAAE,SAAS;CAClC,CAAC"}

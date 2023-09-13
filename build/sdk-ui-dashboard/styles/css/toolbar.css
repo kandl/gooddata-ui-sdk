@@ -1,0 +1,45 @@
+.gd-dashboard-toolbar {
+  z-index: 102;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  background-color: #fcfcfd;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ebeff4;
+  border-radius: 3px;
+}
+.gd-dashboard-toolbar .gd-toolbar-button-wrapper {
+  margin: 0;
+}
+.gd-dashboard-toolbar .gd-toolbar-button-wrapper ~ .gd-toolbar-button-wrapper {
+  margin-left: 10px;
+}
+.gd-dashboard-toolbar button {
+  width: 31px;
+  height: 28px;
+  padding: 5px 5px 5px 33px !important;
+}
+.gd-dashboard-toolbar button::before {
+  margin: 0;
+}
+.gd-dashboard-toolbar .gd-toolbar-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.gd-dashboard-toolbar .gd-toolbar-group + .gd-toolbar-group {
+  margin-left: 10px;
+}
+.gd-dashboard-toolbar .gd-toolbar-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gd-palette-complementary-6, #94a1ad);
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=toolbar.css.map */

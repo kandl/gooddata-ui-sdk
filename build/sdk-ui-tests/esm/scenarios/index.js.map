@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../scenarios/index.tsx"],"names":[],"mappings":"AAAA,qCAAqC;AAErC,OAAO,cAAc,MAAM,mBAAmB,CAAC;AAC/C,OAAO,YAAY,EAAE,EAAE,0BAA0B,EAAE,MAAM,gBAAgB,CAAC;AAC1E,OAAO,cAAc,MAAM,uBAAuB,CAAC;AACnD,OAAO,gBAAgB,MAAM,mBAAmB,CAAC;AAEjD,eAAe;IACX,GAAG,cAAc;IACjB,GAAG,YAAY;IACf,GAAG,0BAA0B;IAC7B,GAAG,cAAc;IACjB,gBAAgB;CACnB,CAAC"}

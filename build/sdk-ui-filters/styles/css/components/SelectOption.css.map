@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["../../scss/components/SelectOption.scss","../../../node_modules/@gooddata/sdk-ui-kit/styles/scss/variables.scss"],"names":[],"mappings":"AAGA;EACI;;AAEA;EACI;EACA,OCiCkB;EDhClB,YCuGiB;EDtGjB;;AAGJ;EACI;EACA,OCqBQ;EDpBR,YC4FgB;;ADzFpB;EACI,OCqBkB;EDpBlB,YCuBoB","file":"SelectOption.css"}

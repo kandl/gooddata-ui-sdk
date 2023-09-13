@@ -1,0 +1,1 @@
+(self.webpackChunk_gooddata_sdk_ui_web_components=self.webpackChunk_gooddata_sdk_ui_web_components||[]).push([[867],{10867:(_,e,o)=>{o.r(e)}}]);

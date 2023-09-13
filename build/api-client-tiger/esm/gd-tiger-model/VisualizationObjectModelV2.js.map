@@ -1,0 +1,1 @@
+{"version":3,"file":"VisualizationObjectModelV2.js","sourceRoot":"","sources":["../../src/gd-tiger-model/VisualizationObjectModelV2.ts"],"names":[],"mappings":"AAAA,qCAAqC;AACrC,OAAO,OAAO,MAAM,mBAAmB,CAAC;AAgBxC;;GAEG;AACH,MAAM,UAAU,qBAAqB,CACjC,mBAA4B;IAE5B,OAAO,CAAC,OAAO,CAAC,mBAAmB,CAAC,IAAK,mBAA4C,CAAC,OAAO,KAAK,GAAG,CAAC;AAC1G,CAAC"}

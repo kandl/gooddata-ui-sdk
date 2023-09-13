@@ -1,0 +1,61 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abZgFKGPaGYM", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_abZgFKGPaGYM"
+                        }
+                    }
+                ],
+                "localIdentifier": "secondary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "attribute"
+            }
+        ],
+        "filters": [],
+        "identifier": "ScatterPlot.ec8ae1e345e59e6252a158353406724a",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "center" } },
+                "secondary_yaxis": { "name": { "position": "center" } },
+                "xaxis": { "name": { "position": "center" } },
+                "yaxis": { "name": { "position": "center" } }
+            }
+        },
+        "sorts": [],
+        "title": "ScatterPlot - axis name configuration - middle",
+        "uri": "ScatterPlot.ec8ae1e345e59e6252a158353406724a",
+        "visualizationUrl": "local:scatter"
+    }
+}

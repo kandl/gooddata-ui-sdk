@@ -1,0 +1,69 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "alias": "Sum Velocity",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.stagehistory.velocity", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.stagehistory.velocity_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Sum Values",
+                            "definition": {
+                                "measureDefinition": {
+                                    "aggregation": "sum",
+                                    "item": { "identifier": "fact.hardwaretest.values", "type": "fact" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_fact.hardwaretest.values_sum"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Probability",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acEsTPZKdqzb", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_acEsTPZKdqzb"
+                        }
+                    },
+                    {
+                        "measure": {
+                            "alias": "Negative Sum Duration",
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "abTsUy7k6OIl", "type": "measure" }
+                                }
+                            },
+                            "format": "$#,##0",
+                            "localIdentifier": "m_abTsUy7k6OIl"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            { "items": [], "localIdentifier": "view" }
+        ],
+        "filters": [],
+        "identifier": "WaterfallChart.79a47c01f5d673bf46cb9a559ac34a0a",
+        "properties": { "controls": { "legend": { "enabled": false } } },
+        "sorts": [],
+        "title": "WaterfallChart - legend position - disabled",
+        "uri": "WaterfallChart.79a47c01f5d673bf46cb9a559ac34a0a",
+        "visualizationUrl": "local:waterfall"
+    }
+}

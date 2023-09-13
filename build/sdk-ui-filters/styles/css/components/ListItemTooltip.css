@@ -1,0 +1,12 @@
+.gd-list-item-tooltip {
+  position: relative;
+  top: 1px;
+  margin-left: 6px;
+  color: initial;
+}
+
+.gd-list-item-tooltip-icon {
+  opacity: 0.5;
+}
+
+/*# sourceMappingURL=ListItemTooltip.css.map */

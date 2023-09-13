@@ -1,0 +1,14 @@
+.gd-extended-date-filter-header {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-top: 1px solid var(--gd-palette-complementary-3, #dde4eb);
+  border-bottom: 1px solid var(--gd-palette-complementary-3, #dde4eb);
+  font-size: 14px;
+  text-align: left;
+  font-weight: bold;
+  background: var(--gd-palette-complementary-0, #fff);
+}
+
+/*# sourceMappingURL=DateFilterHeader.css.map */

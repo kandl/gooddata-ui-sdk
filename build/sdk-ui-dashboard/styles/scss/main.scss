@@ -1,0 +1,28 @@
+// (C) 2021-2022 GoodData Corporation
+@use "@gooddata/sdk-ui-kit/styles/css/list";
+@use "@gooddata/sdk-ui-kit/styles/css/messages";
+@use "@gooddata/sdk-ui-filters/styles/css/attributeFilter";
+@use "@gooddata/sdk-ui-filters/styles/css/dateFilter";
+@use "@gooddata/sdk-ui-filters/styles/css/attributeFilterNext";
+@use "dashboard";
+@use "dragAndDrop";
+@use "filterBar";
+@use "grouped-navigation";
+@use "topBar";
+@use "drillDialog";
+@use "drillSelect";
+@use "poweredByGDLogo";
+@use "export";
+@use "saveAsDialog";
+@use "loadingEqualizer";
+@use "configurationPanel"; // order is important here, configurationPanel must come before insightConfiguration ...
+@use "insightConfiguration";
+@use "visualization";
+@use "shareIndicators";
+@use "sidebar";
+@use "dateFilterConfigWarnings";
+@use "attributeFilterConfig";
+@use "icons";
+@use "resizing";
+@use "drillConfigPanel";
+@use "toolbar";

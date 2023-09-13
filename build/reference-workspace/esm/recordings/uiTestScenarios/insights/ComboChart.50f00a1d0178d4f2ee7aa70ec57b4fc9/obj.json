@@ -1,0 +1,61 @@
+{
+    "insight": {
+        "buckets": [
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "aangOxLSeztu", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_aangOxLSeztu"
+                        }
+                    }
+                ],
+                "localIdentifier": "measures"
+            },
+            {
+                "items": [
+                    {
+                        "measure": {
+                            "definition": {
+                                "measureDefinition": {
+                                    "item": { "identifier": "acugFHNJgsBy", "type": "measure" }
+                                }
+                            },
+                            "localIdentifier": "m_acugFHNJgsBy"
+                        }
+                    }
+                ],
+                "localIdentifier": "secondary_measures"
+            },
+            {
+                "items": [
+                    {
+                        "attribute": {
+                            "displayForm": { "identifier": "label.product.id.name", "type": "displayForm" },
+                            "localIdentifier": "a_label.product.id.name"
+                        }
+                    }
+                ],
+                "localIdentifier": "view"
+            }
+        ],
+        "filters": [],
+        "identifier": "ComboChart.50f00a1d0178d4f2ee7aa70ec57b4fc9",
+        "properties": {
+            "controls": {
+                "secondary_xaxis": { "name": { "position": "right" } },
+                "secondary_yaxis": { "name": { "position": "top" } },
+                "xaxis": { "name": { "position": "right" } },
+                "yaxis": { "name": { "position": "top" } }
+            }
+        },
+        "sorts": [],
+        "title": "ComboChart - axis name configuration - high",
+        "uri": "ComboChart.50f00a1d0178d4f2ee7aa70ec57b4fc9",
+        "visualizationUrl": "local:combo2"
+    }
+}

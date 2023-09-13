@@ -1,0 +1,49 @@
+.insight-view-loader {
+  flex: 0 1 auto;
+  height: 100%;
+}
+
+.insight-view-visualization {
+  flex: 1 1 auto;
+  height: 100%;
+}
+
+.insight-view-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  font-family: gdcustomfont, avenir, "Helvetica Neue", arial, sans-serif;
+  background-color: var(--gd-palette-complementary-0, #fff);
+}
+
+.insight-title-outer {
+  position: relative;
+  z-index: 1;
+  height: 48px;
+  margin: 10px 0;
+  line-height: 46px;
+}
+@media only screen and (max-width: 320px), only screen and (max-width: 640px) {
+  .insight-title-outer {
+    margin-top: 0;
+    padding: 0;
+  }
+}
+.visualization .insight-title-outer {
+  margin-bottom: 10px;
+}
+
+.insight-title {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-height: 46px;
+  font-size: 17px;
+  line-height: 21px;
+  vertical-align: middle;
+  text-align: var(--gd-dashboards-content-widget-title-textAlign, center);
+  color: var(--gd-dashboards-content-widget-title-color, var(--gd-palette-complementary-8, #464e56));
+}
+
+/*# sourceMappingURL=dashboard_embedding.css.map */

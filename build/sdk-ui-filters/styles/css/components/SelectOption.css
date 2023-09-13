@@ -1,0 +1,20 @@
+.gd-list-item.gd-select-option {
+  padding: 5px 10px;
+}
+.gd-list-item.gd-select-option-is-selected {
+  text-decoration: none;
+  color: var(--gd-palette-primary-base, #14b2e2);
+  background: none;
+  font-weight: bold;
+}
+.gd-list-item.gd-select-option-is-focused {
+  text-decoration: none;
+  color: var(--gd-palette-complementary-9, #000);
+  background: var(--gd-palette-complementary-2, #ebeff4);
+}
+.gd-list-item.gd-select-option-is-selected.gd-select-option-is-focused {
+  color: var(--gd-palette-primary-base, #14b2e2);
+  background: var(--gd-palette-primary-dimmed, #e8f7fc);
+}
+
+/*# sourceMappingURL=SelectOption.css.map */
