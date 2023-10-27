@@ -38,7 +38,7 @@ class TigerWorkspaceQuery implements IWorkspacesQuery {
         private readonly authCall: TigerAuthenticatedCallGuard,
         private readonly dateFormatter: DateFormatter,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-ignore Keeping this for now for future use
         private readonly userId?: string,
     ) {}
 
