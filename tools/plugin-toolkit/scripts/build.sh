@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -e
 
 PACKAGE_DIR="$(echo $(cd $(dirname $0)/.. && pwd -P))"

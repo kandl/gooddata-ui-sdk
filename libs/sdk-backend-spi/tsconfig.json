@@ -3,7 +3,7 @@
         "target": "es2017",
         "module": "NodeNext",
         "lib": ["es2017", "webworker"],
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "sourceMap": true,
@@ -14,10 +14,7 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "removeComments": false,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-model": ["sdk-model/src"]
-        }
+        "baseUrl": ".."
     },
     "exclude": ["**/node_modules", "esm"]
 }

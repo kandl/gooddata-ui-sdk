@@ -1,8 +1,8 @@
 // (C) 2021-2023 GoodData Corporation
 import { ISettings } from "@gooddata/sdk-model";
-import { getHost, getBackend, getUserName, getPassword } from "../support/constants";
+import { getHost, getBackend, getUserName, getPassword } from "../support/constants.js";
 import VisitOptions = Cypress.VisitOptions;
-import { DashboardMenu } from "./dashboardMenu";
+import { DashboardMenu } from "./dashboardMenu.js";
 
 declare global {
     interface Window {

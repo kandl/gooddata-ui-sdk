@@ -12,7 +12,7 @@ import {
     BAD_REQUEST_MESSAGE,
     ERROR_RESTRICTED_MESSAGE,
 } from "../../constants/errors.js";
-import { GdcExport } from "@gooddata/api-model-bear";
+import { IExportConfig, IExportResponse } from "@gooddata/api-model-bear";
 
 const mockedReportModule = () => new ReportModule(new XhrModule(fetch, {}));
 
@@ -47,7 +47,7 @@ describe("report", () => {
                 const runningTask = mockTask(ACCEPTED_REQUEST_STATUS);
                 mockPollingRequest(createdReport, runningTask, finishedTask);
 
-                const exportConfig: GdcExport.IExportConfig = {
+                const exportConfig: IExportConfig = {
                     title: "title",
                     format: "xlsx",
                     mergeHeaders: false,
@@ -55,7 +55,7 @@ describe("report", () => {
 
                 return mockedReportModule()
                     .exportResult(projectId, executionResult, exportConfig, { pollStep: 1 })
-                    .then((result: GdcExport.IExportResponse) => {
+                    .then((result: IExportResponse) => {
                         expect(result.uri).toEqual(createdReport);
 
                         const [, settings] = fetchMock.lastCall(
@@ -82,7 +82,7 @@ describe("report", () => {
 
                 mockPollingRequestWithStatus(createdReport, runningTask, finishedTask);
 
-                const exportConfig: GdcExport.IExportConfig = {
+                const exportConfig: IExportConfig = {
                     title: "title",
                     format: "xlsx",
                     mergeHeaders: false,
@@ -104,7 +104,7 @@ describe("report", () => {
 
                 mockPollingRequest(createdReport, runningTask, finishedTask);
 
-                const exportConfig: GdcExport.IExportConfig = {
+                const exportConfig: IExportConfig = {
                     title: "title",
                     format: "xlsx",
                     mergeHeaders: false,

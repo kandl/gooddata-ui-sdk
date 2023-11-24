@@ -8,7 +8,7 @@ import {
     IMeasureDefinition,
     modifySimpleMeasure,
     newNegativeAttributeFilter,
-} from "../src";
+} from "../src/index.js";
 
 /*
  * Contents of this file were taken from the tools/reference-workspace project; sdk-model cannot depend on that

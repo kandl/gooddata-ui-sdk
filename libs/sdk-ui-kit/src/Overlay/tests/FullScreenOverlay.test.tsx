@@ -1,6 +1,6 @@
 // (C) 2007-2020 GoodData Corporation
 import React from "react";
-import { renderIntoDocumentWithUnmount } from "../../test/utils.js";
+import { renderIntoDocumentWithUnmount } from "../../tests/utils.js";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 import { FullScreenOverlay } from "../FullScreenOverlay.js";

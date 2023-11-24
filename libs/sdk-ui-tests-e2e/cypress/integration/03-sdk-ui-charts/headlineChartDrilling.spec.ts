@@ -1,6 +1,6 @@
 // (C) 2021 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Headline } from "../../tools/headline";
+import * as Navigation from "../../tools/navigation.js";
+import { Headline } from "../../tools/headline.js";
 
 const pressButton = (buttonName: string) => {
     cy.get(`.s-${buttonName}-button`).click();

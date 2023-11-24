@@ -5,7 +5,7 @@
         "jsx": "react",
         "lib": ["es7", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "strict": true,

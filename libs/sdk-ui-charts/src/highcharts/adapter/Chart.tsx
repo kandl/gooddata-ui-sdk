@@ -16,18 +16,20 @@ import defaultPatternFill from "highcharts/modules/pattern-fill.js";
 import defaultSankeyModule from "highcharts/modules/sankey.js";
 import defaultDependencyWheelModule from "highcharts/modules/dependency-wheel.js";
 
+type HighchartsFactory = (highcharts: typeof Highcharts) => void
+
 // There are known compatibility issues between CommonJS (CJS) and ECMAScript modules (ESM).
 // In ESM, default exports of CJS modules are wrapped in default properties instead of being exposed directly.
 // https://github.com/microsoft/TypeScript/issues/52086#issuecomment-1385978414
-export const drillmodule = defaultImport(defaultDrillmodule);
-export const treemapModule = defaultImport(defaultTreemapModule);
-export const bulletModule = defaultImport(defaultBulletModule);
-export const funnelModule = defaultImport(defaultFunnelModule);
-export const sankeyModule = defaultImport(defaultSankeyModule);
-export const dependencyWheelModule = defaultImport(defaultDependencyWheelModule);
-export const heatmap = defaultImport(defaultHeatmap);
-export const HighchartsMore = defaultImport(defaultHighchartsMore);
-export const patternFill = defaultImport(defaultPatternFill);
+export const drillmodule: HighchartsFactory = defaultImport(defaultDrillmodule);
+export const treemapModule: HighchartsFactory = defaultImport(defaultTreemapModule);
+export const bulletModule: HighchartsFactory = defaultImport(defaultBulletModule);
+export const funnelModule: HighchartsFactory = defaultImport(defaultFunnelModule);
+export const sankeyModule: HighchartsFactory = defaultImport(defaultSankeyModule);
+export const dependencyWheelModule: HighchartsFactory = defaultImport(defaultDependencyWheelModule);
+export const heatmap: HighchartsFactory = defaultImport(defaultHeatmap);
+export const HighchartsMore: HighchartsFactory = defaultImport(defaultHighchartsMore);
+export const patternFill: HighchartsFactory = defaultImport(defaultPatternFill);
 
 drillmodule(Highcharts);
 treemapModule(Highcharts);

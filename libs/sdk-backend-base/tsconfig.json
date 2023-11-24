@@ -3,7 +3,7 @@
         "target": "es2017",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "sourceMap": true,
@@ -14,10 +14,6 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-model": ["sdk-model/src"],
-            "@gooddata/sdk-backend-spi": ["sdk-backend-spi/src"]
-        }
     },
     "exclude": ["**/node_modules", "esm"]
 }

@@ -1,7 +1,7 @@
 // (C) 2020 GoodData Corporation
-import { GdcDashboard } from "@gooddata/api-model-bear";
+import { IAnalyticalDashboard, IAnalyticalDashboardContent } from "@gooddata/api-model-bear";
 
-export const analyticalDashboard1: GdcDashboard.IAnalyticalDashboard = {
+export const analyticalDashboard1: IAnalyticalDashboard = {
     content: {
         filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12712",
         layout: {
@@ -62,7 +62,7 @@ export const analyticalDashboard1: GdcDashboard.IAnalyticalDashboard = {
         uri: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12714",
     },
 };
-export const analyticalDashboard2: GdcDashboard.IAnalyticalDashboard = {
+export const analyticalDashboard2: IAnalyticalDashboard = {
     content: {
         filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12712",
         layout: {
@@ -107,7 +107,7 @@ export const analyticalDashboard2: GdcDashboard.IAnalyticalDashboard = {
     },
 };
 
-export const analyticalDashboard3: GdcDashboard.IAnalyticalDashboard = {
+export const analyticalDashboard3: IAnalyticalDashboard = {
     content: {
         filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12955",
         layout: {
@@ -202,7 +202,7 @@ export const analyticalDashboard3: GdcDashboard.IAnalyticalDashboard = {
         uri: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12957",
     },
 };
-export const body1: GdcDashboard.IAnalyticalDashboardContent = {
+export const body1: IAnalyticalDashboardContent = {
     filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/1999",
     layout: {
         fluidLayout: {
@@ -248,7 +248,7 @@ export const body1: GdcDashboard.IAnalyticalDashboardContent = {
     ],
 };
 
-export const body2: GdcDashboard.IAnalyticalDashboardContent = {
+export const body2: IAnalyticalDashboardContent = {
     filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/1999",
     layout: {
         fluidLayout: {
@@ -293,7 +293,7 @@ export const body2: GdcDashboard.IAnalyticalDashboardContent = {
         "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/12570",
     ],
 };
-export const body3: GdcDashboard.IAnalyticalDashboardContent = {
+export const body3: IAnalyticalDashboardContent = {
     filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/1999",
     layout: {
         fluidLayout: {
@@ -322,7 +322,7 @@ export const body3: GdcDashboard.IAnalyticalDashboardContent = {
     widgets: ["/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/1997"],
 };
 
-export const body4: GdcDashboard.IAnalyticalDashboardContent = {
+export const body4: IAnalyticalDashboardContent = {
     filterContext: "/gdc/md/mbuumy476p78ybcceiru61hcyr8i8lo8/obj/1999",
     layout: {
         fluidLayout: {

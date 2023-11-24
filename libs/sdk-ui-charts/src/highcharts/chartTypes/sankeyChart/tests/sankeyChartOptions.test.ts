@@ -1,9 +1,9 @@
 // (C) 2023 GoodData Corporation
 import { recordedDataFacade } from "../../../../../__mocks__/recordings.js";
-import { getMVSForViewByTwoAttributes } from "../../_util/test/helper.js";
+import { getMVSForViewByTwoAttributes } from "../../_util/tests/helper.js";
 import { IColorStrategy } from "@gooddata/sdk-ui-vis-commons";
 import { ColorFactory } from "../../_chartOptions/colorFactory.js";
-import { CUSTOM_COLOR_PALETTE } from "../../_util/test/colorPalette.fixture.js";
+import { CUSTOM_COLOR_PALETTE } from "../../_util/tests/colorPalette.fixture.js";
 import { buildSankeyChartSeries } from "../sankeyChartOptions.js";
 import { CHART_TYPE, COLOR_MAPPINGS, EMPTY_HEADER_TITLE_VALUE, RECORDS } from "./sankeyChart.fixture.js";
 import { describe, it, expect } from "vitest";

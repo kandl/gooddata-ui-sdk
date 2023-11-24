@@ -8,6 +8,7 @@ const { URL } = require("url");
 const deps = require("./package.json").dependencies;
 const peerDeps = require("./package.json").peerDependencies;
 const Dotenv = require("dotenv-webpack");
+const { EsbuildPlugin } = require("esbuild-loader");
 require("dotenv").config();
 
 const { MODULE_FEDERATION_NAME } = require("./src/metadata.json");
@@ -92,7 +93,7 @@ module.exports = (_env, argv) => {
                     test: /\.tsx?$/,
                     use: [
                         {
-                            loader: "babel-loader",
+                            loader: "esbuild-loader",
                         },
                         {
                             loader: "ts-loader",
@@ -108,10 +109,7 @@ module.exports = (_env, argv) => {
                     exclude: /node_modules/,
                     use: [
                         {
-                            loader: "babel-loader",
-                            options: {
-                                presets: ["@babel/preset-react"],
-                            },
+                            loader: "esbuild-loader",
                         },
                     ],
                 },
@@ -142,6 +140,21 @@ module.exports = (_env, argv) => {
                 NODE_DEBUG: "",
             }),
         ],
+        optimization: {
+            minimizer: [
+                new EsbuildPlugin(),
+            ],
+            moduleIds: "deterministic",
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendors",
+                        chunks: "all",
+                    },
+                },
+            },
+        },
     };
 
     return [

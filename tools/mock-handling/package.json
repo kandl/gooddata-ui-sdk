@@ -59,7 +59,7 @@
         "@gooddata/eslint-config": "^4.1.0",
         "@types/inquirer": "^8.2.6",
         "@types/json-stable-stringify": "^1.0.32",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@types/prettier": "~1.18.2",
         "@types/rimraf": "^2.0.2",

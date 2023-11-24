@@ -6,7 +6,7 @@
         "importHelpers": true,
         "esModuleInterop": true,
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "strict": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,

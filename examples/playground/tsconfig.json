@@ -3,7 +3,7 @@
         "target": "es2017",
         "lib": ["es7", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "allowJs": true,
         "jsx": "react",
         "sourceMap": true,

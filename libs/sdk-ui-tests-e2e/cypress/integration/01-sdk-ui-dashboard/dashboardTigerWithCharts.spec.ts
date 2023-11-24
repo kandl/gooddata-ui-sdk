@@ -1,8 +1,8 @@
 // (C) 2021 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { Dashboard } from "../../tools/dashboards";
-import { Widget } from "../../tools/widget";
+import * as Navigation from "../../tools/navigation.js";
+import { Dashboard } from "../../tools/dashboards.js";
+import { Widget } from "../../tools/widget.js";
 
 describe("Dashboard with charts", { tags: ["pre-merge_isolated_tiger"] }, () => {
     describe("rendering", () => {

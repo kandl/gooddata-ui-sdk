@@ -308,7 +308,7 @@ describe("project", () => {
 
             describe("/gdc/projects call successful", () => {
                 function mockInitialPost(customCheck: ICustomCheck = noop) {
-                    fetchMock.post("/gdc/projects", (_, options) => {
+                    fetchMock.post("/gdc/projects", (_: any, options: any) => {
                         customCheck(options);
                         return {
                             status: 200,

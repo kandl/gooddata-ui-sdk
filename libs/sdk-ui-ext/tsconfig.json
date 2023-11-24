@@ -6,7 +6,7 @@
         "lib": ["es2017", "dom"],
         "resolveJsonModule": true,
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "noImplicitAny": true,
@@ -15,18 +15,7 @@
         "noUnusedParameters": true,
         "outDir": "./esm",
         "sourceMap": true,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-embedding": ["sdk-embedding/src"],
-            "@gooddata/sdk-ui": ["sdk-ui/src"],
-            "@gooddata/sdk-ui-charts": ["sdk-ui-charts/src"],
-            "@gooddata/sdk-ui-geo": ["sdk-ui-geo/src"],
-            "@gooddata/sdk-ui-pivot": ["sdk-ui-pivot/src"],
-            "@gooddata/sdk-model": ["sdk-model/src"],
-            "@gooddata/sdk-backend-spi": ["sdk-backend-spi/src"],
-            "@gooddata/sdk-backend-mockingbird": ["sdk-backend-mockingbird/src"],
-            "@gooddata/util": ["util/src"]
-        }
+        "baseUrl": ".."
     },
     "compileOnSave": false,
     "exclude": ["**/node_modules", "esm", "**/__mocks__/**/*"]

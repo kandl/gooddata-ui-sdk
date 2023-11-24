@@ -4,6 +4,8 @@
     "compilerOptions": {
         "baseUrl": null,
         "paths": null,
+
+        "incremental": true,
         "declaration": true,
         "declarationMap": true
     }

@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
+
+        "incremental": true,
         "declaration": true,
         "declarationMap": true,
         "target": "es2017",
         "jsx": "react",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "strict": true,

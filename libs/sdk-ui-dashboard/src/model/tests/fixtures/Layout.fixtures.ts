@@ -12,7 +12,7 @@ import {
     IDashboardLayoutSectionHeader,
     IDashboardLayoutItem,
 } from "@gooddata/sdk-model";
-import { PivotTableWithRowAndColumnAttributes } from "./Insights.fixtures";
+import { PivotTableWithRowAndColumnAttributes } from "./Insights.fixtures.js";
 import {
     InsightPlaceholderWidget,
     KpiPlaceholderWidget,

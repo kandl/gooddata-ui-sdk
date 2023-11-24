@@ -6,7 +6,7 @@ import {
     getProjectId,
     getWorkingDir,
     isRecording,
-} from "./constants";
+} from "./constants.js";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const record = require("../../scripts/lib/recordings");

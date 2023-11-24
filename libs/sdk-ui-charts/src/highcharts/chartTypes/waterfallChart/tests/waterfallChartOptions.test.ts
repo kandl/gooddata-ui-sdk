@@ -8,7 +8,7 @@ import { describe, it, expect } from "vitest";
 import { recordedDataFacade } from "../../../../../__mocks__/recordings.js";
 import { WaterfallChartColorStrategy } from "../waterfallChartColoring.js";
 import { getWaterfallChartSeries } from "../waterfallChartsSeries.js";
-import { getMVS } from "../../_util/test/helper.js";
+import { getMVS } from "../../_util/tests/helper.js";
 import {
     buildWaterfallChartSeries,
     getColorAssignment,

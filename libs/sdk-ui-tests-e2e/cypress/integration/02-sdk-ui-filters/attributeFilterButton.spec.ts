@@ -1,7 +1,7 @@
 // (C) 2022 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilterButton } from "../../tools/attributeFilterButton";
-import camelCase from "lodash/camelCase";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilterButton } from "../../tools/attributeFilterButton.js";
+import camelCase from "lodash/camelCase.js";
 
 const SEARCH_QUERY = "101 Financial";
 const INVALID_SEARCH_QUERY = "does not exist";

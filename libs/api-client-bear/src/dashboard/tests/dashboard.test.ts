@@ -2,7 +2,7 @@
 import "isomorphic-fetch";
 import { vi, describe, afterEach, beforeEach, expect, it, Mock } from "vitest";
 import fetchMock from "fetch-mock/esm/client.js";
-import { GdcFilterContext, GdcExport } from "@gooddata/api-model-bear";
+import { FilterContextItem, IExportResponse } from "@gooddata/api-model-bear";
 import { DashboardModule } from "../dashboard.js";
 import { XhrModule } from "../../xhr.js";
 import {
@@ -20,7 +20,7 @@ describe("exportDashboard", () => {
     const endpoint = `/gdc/internal/projects/${projectId}/exportDashboard`;
     const createdPdf = `/gdc/exporter/result/${projectId}/pdfFileUri`;
 
-    const relativeDateFilter: GdcFilterContext.FilterContextItem = {
+    const relativeDateFilter: FilterContextItem = {
         dateFilter: {
             type: "relative",
             from: "-11",
@@ -29,7 +29,7 @@ describe("exportDashboard", () => {
         },
     };
 
-    const absoluteDateFilter: GdcFilterContext.FilterContextItem = {
+    const absoluteDateFilter: FilterContextItem = {
         dateFilter: {
             type: "absolute",
             from: "2019-08-06",
@@ -38,7 +38,7 @@ describe("exportDashboard", () => {
         },
     };
 
-    const attributeFilter: GdcFilterContext.FilterContextItem = {
+    const attributeFilter: FilterContextItem = {
         attributeFilter: {
             displayForm: "/gdc/md/testProjectId/obj/700",
             negativeSelection: false,
@@ -113,7 +113,7 @@ describe("exportDashboard", () => {
         });
 
         it("should return pdf uri", async () => {
-            const response: GdcExport.IExportResponse = await dashboardExportModuleMock().exportToPdf(
+            const response: IExportResponse = await dashboardExportModuleMock().exportToPdf(
                 projectId,
                 dashboardUri,
                 [],

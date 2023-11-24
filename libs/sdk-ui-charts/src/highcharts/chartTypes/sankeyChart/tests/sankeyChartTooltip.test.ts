@@ -2,7 +2,7 @@
 import { ReferenceRecordings } from "@gooddata/reference-workspace";
 import { generateTooltipSankeyChartFn } from "../../_chartOptions/chartTooltips.js";
 import { recordedDataFacade } from "../../../../../__mocks__/recordings.js";
-import { getMVSForViewByTwoAttributes } from "../../_util/test/helper.js";
+import { getMVSForViewByTwoAttributes } from "../../_util/tests/helper.js";
 import { DEFAULT_TOOLTIP_CONTENT_WIDTH } from "./sankeyChart.fixture.js";
 import cloneDeep from "lodash/cloneDeep.js";
 import { describe, it, expect } from "vitest";

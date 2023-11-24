@@ -2,8 +2,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import "@babel/polyfill";
-import App from "./App";
-import { AppProviders } from "./contexts";
+import App from "./App.js";
+import { AppProviders } from "./contexts/index.js";
 import { provideCreateRoot } from "@gooddata/sdk-ui-ext";
 
 import "@gooddata/sdk-ui-filters/styles/css/main.css";

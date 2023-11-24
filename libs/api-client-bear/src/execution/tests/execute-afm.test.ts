@@ -3,7 +3,16 @@ import "isomorphic-fetch";
 import { describe, expect, it, beforeEach } from "vitest";
 import fetchMock from "fetch-mock/esm/client.js";
 import range from "lodash/range.js";
-import { GdcExecuteAFM, GdcExecution } from "@gooddata/api-model-bear";
+import {
+    IExecution,
+    IExecutionResultWrapper,
+    IResultAttributeHeaderItem,
+    IResultMeasureHeaderItem,
+    IExecutionResult,
+    IExecutionResponse,
+    IExecutionResponseWrapper,
+    IExecutionResponses
+} from "@gooddata/api-model-bear";
 import {
     ExecuteAfmModule,
     getNextLimit,
@@ -16,12 +25,12 @@ import { XhrModule } from "../../xhr.js";
 const DEFAULT_TEST_LIMIT = 1000;
 
 interface IPagesByOffset {
-    [offset: string]: GdcExecution.IExecutionResultWrapper;
+    [offset: string]: IExecutionResultWrapper;
 }
 
 const createExecuteAfm = () => new ExecuteAfmModule(new XhrModule(fetch, {}));
 
-function createAttributeHeaderItem(name: string): GdcExecution.IResultAttributeHeaderItem {
+function createAttributeHeaderItem(name: string): IResultAttributeHeaderItem {
     return {
         attributeHeaderItem: {
             name,
@@ -30,7 +39,7 @@ function createAttributeHeaderItem(name: string): GdcExecution.IResultAttributeH
     };
 }
 
-function createMeasureHeaderItem(name: string, order: number): GdcExecution.IResultMeasureHeaderItem {
+function createMeasureHeaderItem(name: string, order: number): IResultMeasureHeaderItem {
     return {
         measureHeaderItem: {
             name,
@@ -39,7 +48,7 @@ function createMeasureHeaderItem(name: string, order: number): GdcExecution.IRes
     };
 }
 
-function getExecutionResult(): GdcExecution.IExecutionResult {
+function getExecutionResult(): IExecutionResult {
     return {
         data: [
             [11, 12],
@@ -88,14 +97,14 @@ function getExecutionResult(): GdcExecution.IExecutionResult {
 }
 
 function getExecutionResultResponseBody(): string {
-    const result: GdcExecution.IExecutionResultWrapper = {
+    const result: IExecutionResultWrapper = {
         executionResult: getExecutionResult(),
     };
 
     return JSON.stringify(result);
 }
 
-function getExecution(numOfDimensions: number = 2): GdcExecuteAFM.IExecution {
+function getExecution(numOfDimensions: number = 2): IExecution {
     const dimension = { itemIdentifiers: [] };
 
     return {
@@ -108,7 +117,7 @@ function getExecution(numOfDimensions: number = 2): GdcExecuteAFM.IExecution {
     };
 }
 
-function getExecutionResponse(numOfDimensions: number = 2): GdcExecution.IExecutionResponse {
+function getExecutionResponse(numOfDimensions: number = 2): IExecutionResponse {
     const dimension = { headers: [] };
 
     return {
@@ -120,7 +129,7 @@ function getExecutionResponse(numOfDimensions: number = 2): GdcExecution.IExecut
 }
 
 function getPollingResponseBody(numOfDimensions: number = 2): string {
-    const response: GdcExecution.IExecutionResponseWrapper = {
+    const response: IExecutionResponseWrapper = {
         executionResponse: getExecutionResponse(numOfDimensions),
     };
 
@@ -387,7 +396,7 @@ describe("getNextOffset and getNextLimit", () => {
 
 describe("mergePage", () => {
     describe("1 dimension", () => {
-        function getExecutionResult(offset: number, total: number): GdcExecution.IExecutionResult {
+        function getExecutionResult(offset: number, total: number): IExecutionResult {
             return {
                 headerItems: [[[createMeasureHeaderItem(`m${offset + 1}`, offset + 1)]]],
                 data: [offset + 1],
@@ -428,7 +437,7 @@ describe("mergePage", () => {
 
     describe("2 dimensions", () => {
         it("should return correct result for 1 attribute (with 3 values) and 3 measures with limit=[2,2]", () => {
-            const pageWithOffset0x0: GdcExecution.IExecutionResult = {
+            const pageWithOffset0x0: IExecutionResult = {
                 headerItems: [[[A1, A2]], [[M1, M2]]],
                 data: [
                     [11, 12],
@@ -441,7 +450,7 @@ describe("mergePage", () => {
                 },
             };
 
-            const pageWithOffset0x2: GdcExecution.IExecutionResult = {
+            const pageWithOffset0x2: IExecutionResult = {
                 headerItems: [[[A1, A2]], [[M3]]],
                 data: [[13], [23]],
                 paging: {
@@ -471,10 +480,7 @@ describe("mergePage", () => {
                 },
             };
 
-            const mergedFirstTwoPages: GdcExecution.IExecutionResult = mergePage(
-                pageWithOffset0x0,
-                pageWithOffset0x2,
-            );
+            const mergedFirstTwoPages: IExecutionResult = mergePage(pageWithOffset0x0, pageWithOffset0x2);
 
             expect(mergedFirstTwoPages).toEqual({
                 headerItems: [[[A1, A2]], [[M1, M2, M3]]],
@@ -561,7 +567,7 @@ describe("executeAfm", () => {
 
         return createExecuteAfm()
             .executeAfm("myFakeProjectId", getExecution())
-            .then((responses: GdcExecution.IExecutionResponses) => {
+            .then((responses: IExecutionResponses) => {
                 expect(responses).toEqual({
                     executionResponse: getExecutionResponse(),
                     executionResult: null,
@@ -589,7 +595,7 @@ describe("executeAfm", () => {
 
         return createExecuteAfm()
             .executeAfm("myFakeProjectId", getExecution())
-            .then((responses: GdcExecution.IExecutionResponses) => {
+            .then((responses: IExecutionResponses) => {
                 expect(responses).toEqual({
                     executionResponse: getExecutionResponse(),
                     executionResult: getExecutionResult(),
@@ -632,7 +638,7 @@ describe("executeAfm", () => {
 
         return createExecuteAfm()
             .executeAfm("myFakeProjectId", getExecution())
-            .then((responses: GdcExecution.IExecutionResponses) => {
+            .then((responses: IExecutionResponses) => {
                 expect(responses).toEqual({
                     executionResponse: getExecutionResponse(),
                     executionResult: getExecutionResult(),
@@ -738,7 +744,7 @@ describe("executeAfm", () => {
 
         return createExecuteAfm()
             .executeAfm("myFakeProjectId", getExecution())
-            .then((responses: GdcExecution.IExecutionResponses) => {
+            .then((responses: IExecutionResponses) => {
                 expect(responses).toEqual({
                     executionResponse: getExecutionResponse(),
                     executionResult: {
@@ -826,7 +832,7 @@ describe("executeAfm", () => {
                     },
                 },
             })
-            .then((responses: GdcExecution.IExecutionResponses) => {
+            .then((responses: IExecutionResponses) => {
                 expect(responses).toEqual({
                     executionResponse: getExecutionResponse(1),
                     executionResult: {
@@ -862,7 +868,7 @@ describe("getExecutionResponse", () => {
 
         return createExecuteAfm()
             .getExecutionResponse("myFakeProjectId", getExecution())
-            .then((responses: GdcExecution.IExecutionResponse) => {
+            .then((responses: IExecutionResponse) => {
                 expect(responses).toEqual(getExecutionResponse());
             });
     });
@@ -882,7 +888,7 @@ describe("getPartialExecutionResult", () => {
 
         return createExecuteAfm()
             .getPartialExecutionResult(fakeExecutionResultsUri, [2, 2], [2, 2])
-            .then((responses: GdcExecution.IExecutionResult | null) => {
+            .then((responses: IExecutionResult | null) => {
                 expect(responses).toEqual(getExecutionResult());
             });
     });
@@ -899,7 +905,7 @@ describe("getExecutionResult", () => {
 
         return createExecuteAfm()
             .getExecutionResult(fakeExecutionResultsUri)
-            .then((responses: GdcExecution.IExecutionResult | null) => {
+            .then((responses: IExecutionResult | null) => {
                 expect(responses).toEqual(getExecutionResult());
             });
     });

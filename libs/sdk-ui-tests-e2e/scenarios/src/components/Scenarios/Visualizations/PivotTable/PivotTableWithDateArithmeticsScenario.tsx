@@ -1,8 +1,8 @@
 // (C) 2023 GoodData Corporation
 import React from "react";
-import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 import { IPivotTableConfig, PivotTable } from "@gooddata/sdk-ui-pivot";
-import { IAttribute, IMeasure, IMeasureDefinition, newAbsoluteDateFilter } from "@gooddata/sdk-model";
+import { IAttribute, IFilter, IMeasure, IMeasureDefinition, newAbsoluteDateFilter } from "@gooddata/sdk-model";
 import { useBackendStrict, useWorkspaceStrict } from "@gooddata/sdk-ui";
 
 const measuresOfDatetimeAddWithAllGranularities = [
@@ -87,10 +87,11 @@ const measuresOfDatetimeDiffWithYear = [
 ];
 
 export interface PivotTableDateArithmeticsCoreProps {
-    measure?: IMeasure<IMeasureDefinition>[] | undefined;
-    row?: IAttribute[] | undefined;
-    column?: IAttribute[] | undefined;
-    config: IPivotTableConfig;
+    measures?: IMeasure<IMeasureDefinition>[];
+    rows?: IAttribute[];
+    filters?: IFilter[];
+    column?: IAttribute[];
+    config?: IPivotTableConfig;
 }
 
 const PivotTableDateArithmetics: React.FC<PivotTableDateArithmeticsCoreProps> = (props) => {

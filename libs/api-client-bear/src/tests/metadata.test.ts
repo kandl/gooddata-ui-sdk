@@ -1,7 +1,7 @@
 // (C) 2007-2020 GoodData Corporation
 import "isomorphic-fetch";
 import { vi, describe, afterEach, expect, it } from "vitest";
-import { GdcMetadata } from "@gooddata/api-model-bear";
+import { IWrappedMetric } from "@gooddata/api-model-bear";
 import fetchMock from "fetch-mock/esm/client.js";
 import range from "lodash/range.js";
 import find from "lodash/find.js";
@@ -170,7 +170,7 @@ describe("metadata", () => {
 
         describe("createObject", () => {
             it("should return created object", () => {
-                const newObj: GdcMetadata.IWrappedMetric = {
+                const newObj: IWrappedMetric = {
                     metric: {
                         content: {
                             expression: "SELECT 1",
@@ -814,7 +814,7 @@ describe("metadata", () => {
             it("should load elements chunked", () => {
                 const { uris, respondEntries } = generateUrisAndResponse(projectId, 80);
 
-                fetchMock.mock(`/gdc/md/${projectId}/objects/get`, (_, opts: any) => {
+                fetchMock.mock(`/gdc/md/${projectId}/objects/get`, (_: any, opts: any) => {
                     const requestBody = JSON.parse(opts.body);
 
                     // respond with only those items which were requested

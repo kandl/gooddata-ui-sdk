@@ -267,6 +267,14 @@
       "allowedCategories": [ "production" ]
     },
     {
+      "name": "@swc/cli",
+      "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "@swc/core",
+      "allowedCategories": [ "examples", "production" ]
+    },
+    {
       "name": "@testing-library/dom",
       "allowedCategories": [ "production" ]
     },
@@ -617,6 +625,10 @@
     {
       "name": "downshift",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "esbuild-loader",
+      "allowedCategories": [ "examples", "production", "tools" ]
     },
     {
       "name": "eslint",
@@ -1053,6 +1065,10 @@
     {
       "name": "svgo",
       "allowedCategories": [ "production" ]
+    },
+    {
+      "name": "swc-loader",
+      "allowedCategories": [ "examples" ]
     },
     {
       "name": "tar",

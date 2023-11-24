@@ -284,7 +284,7 @@ describe("fetch", () => {
         });
 
         it("should retry request after delay", () => {
-            fetchMock.get("/some/url", (url) => {
+            fetchMock.get("/some/url", (url: any) => {
                 if (fetchMock.calls(url).length <= 2) {
                     return 202;
                 }
@@ -325,7 +325,7 @@ describe("fetch", () => {
         });
 
         it("should not poll if client forbids it", () => {
-            fetchMock.get("/some/url", (url) => {
+            fetchMock.get("/some/url", (url: any) => {
                 if (fetchMock.calls(url).length <= 2) {
                     return 202;
                 }
@@ -341,7 +341,7 @@ describe("fetch", () => {
         });
 
         it("should correctly reject after retry is 404", () => {
-            fetchMock.get("/some/url", (url) => {
+            fetchMock.get("/some/url", (url: any) => {
                 if (fetchMock.calls(url).length <= 2) {
                     return 202;
                 }
@@ -360,7 +360,7 @@ describe("fetch", () => {
         it("should retry request after delay", () => {
             fetchMock.get("/some/url", { status: 202, headers: { Location: "/other/url" } });
 
-            fetchMock.get("/other/url", (url) => {
+            fetchMock.get("/other/url", (url: any) => {
                 if (fetchMock.calls(url).length <= 2) {
                     return 202;
                 }
@@ -395,7 +395,7 @@ describe("fetch", () => {
 
         it("should correctly reject after retry 404", () => {
             fetchMock.get("/some/url", { status: 202, headers: { Location: "/other/url" } });
-            fetchMock.get("/other/url", (url) => {
+            fetchMock.get("/other/url", (url: any) => {
                 if (fetchMock.calls(url).length <= 2) {
                     return 202;
                 }

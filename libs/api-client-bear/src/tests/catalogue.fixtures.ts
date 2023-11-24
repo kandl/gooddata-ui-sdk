@@ -1,5 +1,5 @@
 // (C) 2019-2023 GoodData Corporation
-import { GdcVisualizationObject } from "@gooddata/api-model-bear";
+import { IVisualizationObjectContent } from "@gooddata/api-model-bear";
 
 // (C) 2007-2018 GoodData Corporation
 export const optionsForEmptySelection = {
@@ -1046,7 +1046,7 @@ export const optionsForOnlyDateBuckets = {
 };
 
 export const optionsForPureMAQL: {
-    bucketItems: GdcVisualizationObject.IVisualizationObjectContent;
+    bucketItems: IVisualizationObjectContent;
     attributesMap: Record<string, any>;
 } = {
     bucketItems: {

@@ -4,7 +4,7 @@
         "target": "es2017",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "importHelpers": true,
         "outDir": "./esm",
         "strict": true,

@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 
-import { AttributeFilterButton } from "./attributeFilterButton";
+import { AttributeFilterButton } from "./attributeFilterButton.js";
 
 export class AttributeFilterButtonParentChild {
     private parentAttributeFilter;

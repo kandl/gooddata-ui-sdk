@@ -1,15 +1,15 @@
 // (C) 2022 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild";
-import { Headline } from "../../tools/headline";
-import { EditMode } from "../../tools/editMode";
-import { AttributeFilter, FilterBar } from "../../tools/filterBar";
-import { DashboardHeader } from "../../tools/dashboardHeader";
-import { DashboardMenu } from "../../tools/dashboardMenu";
-import { DropZone } from "../../tools/enum/DropZone";
-import { Widget } from "../../tools/widget";
-import { WidgetConfiguration } from "../../tools/widgetConfiguration";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild.js";
+import { Headline } from "../../tools/headline.js";
+import { EditMode } from "../../tools/editMode.js";
+import { AttributeFilter, FilterBar } from "../../tools/filterBar.js";
+import { DashboardHeader } from "../../tools/dashboardHeader.js";
+import { DashboardMenu } from "../../tools/dashboardMenu.js";
+import { DropZone } from "../../tools/enum/DropZone.js";
+import { Widget } from "../../tools/widget.js";
+import { WidgetConfiguration } from "../../tools/widgetConfiguration.js";
 
 const PARENT_FILTER_SELECTOR = ".s-attribute-filter.s-product";
 const CHILD_FILTER_SELECTOR = ".s-attribute-filter.s-department";

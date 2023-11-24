@@ -3,7 +3,7 @@
         "target": "es2017",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "sourceMap": true,
         "outDir": "./esm",
@@ -13,10 +13,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/api-model-bear": ["api-model-bear/src"]
-        }
+        "baseUrl": ".."
     },
     "exclude": ["**/node_modules", "esm"]
 }

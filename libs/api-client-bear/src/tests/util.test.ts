@@ -6,7 +6,7 @@ import fetchMock from "fetch-mock/esm/client.js";
 import { mockPollingRequestWithStatus } from "./utils/polling.js";
 import { handleHeadPolling, IPollingOptions, queryString, parseSettingItemValue } from "../util.js";
 import { ApiResponse, XhrModule } from "../xhr.js";
-import { GdcExport } from "@gooddata/api-model-bear";
+import { IExportResponse } from "@gooddata/api-model-bear";
 
 describe("util", () => {
     describe("queryString", () => {
@@ -71,7 +71,7 @@ describe("util", () => {
             mockPollingRequestWithStatus(URI, runningTask, finishedTask);
 
             await handleHeadPolling(mockedXHR(), URI, isPollingDone, options).then(
-                (result: GdcExport.IExportResponse) => {
+                (result: IExportResponse) => {
                     expect(result.uri).toEqual(URI);
                 },
             );

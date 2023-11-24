@@ -1,8 +1,14 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["src/index.ts"],
+    "exclude": ["node_modules", "**/tests"],
+    "include": ["src/**/*", "src/**/*.json"],
     "compilerOptions": {
+        "baseUrl": ".",
+        "resolveJsonModule": true,
+        "rootDir": "./src",
+        "composite": true,
+        "incremental": true,
         "declaration": true,
-        "declarationMap": true
+        "declarationMap": true,
     }
 }

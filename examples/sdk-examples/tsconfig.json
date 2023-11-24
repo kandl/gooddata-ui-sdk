@@ -13,8 +13,32 @@
         "noUnusedLocals": true,
         "strictNullChecks": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true
+        "noImplicitReturns": true,
+        // //
+        // "baseUrl": ".",
+        // "resolveJsonModule": true,
+        // "rootDir": "./src",
+        // "composite": true,
+        // "incremental": true,
+        // "declaration": true,
+        // "declarationMap": true
     },
-    "include": ["src", "typings"],
+    "include": ["src/**/*", "typings"],
     "exclude": ["**/node_modules", "dist"]
 }
+
+
+// {
+//     "extends": "./tsconfig.json",
+//     "exclude": ["node_modules", "**/tests",],
+//     "include": ["src/**/*", "src/**/*.json"],
+//     "compilerOptions": {
+//         "baseUrl": ".",
+//         "resolveJsonModule": true,
+//         "rootDir": "./src",
+//         "composite": true,
+//         "incremental": true,
+//         "declaration": true,
+//         "declarationMap": true
+//     }
+// }

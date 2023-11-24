@@ -1,11 +1,22 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["cypress/**/*.ts"],
+    "exclude": ["node_modules"],
+    "include": [
+        "src/**/*",
+        "src/**/*.json",
+        "scenarios/**/*",
+        "scenarios/**/*.json",
+        "cypress/**/*",
+        "cypress/**/*.json",
+        "reference_workspace/**/*",
+        "reference_workspace/**/*.json"
+    ],
     "compilerOptions": {
-        "noImplicitAny": true,
+        "baseUrl": ".",
+        "resolveJsonModule": true,
+        "rootDirs": ["./src", "./cypress", "./scenarios"],
+        "composite": true,
         "incremental": true,
-        "baseUrl": null,
-        "paths": null,
         "declaration": true,
         "declarationMap": true
     }

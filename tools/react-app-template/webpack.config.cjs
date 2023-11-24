@@ -5,6 +5,7 @@ const { DefinePlugin } = require("webpack");
 const path = require("path");
 const { URL } = require("url");
 const pack = require("./package.json");
+const { EsbuildPlugin } = require("esbuild-loader");
 
 require("dotenv").config();
 
@@ -134,6 +135,21 @@ module.exports = (_env, argv) => {
                 proxy,
                 server: protocol === "https:" ? "https" : "http",
                 open: true,
+            },
+            optimization: {
+                minimizer: [
+                    new EsbuildPlugin(),
+                ],
+                moduleIds: "deterministic",
+                splitChunks: {
+                    cacheGroups: {
+                        vendor: {
+                            test: /[\\/]node_modules[\\/]/,
+                            name: "vendors",
+                            chunks: "all",
+                        },
+                    },
+                },
             },
         },
     ];

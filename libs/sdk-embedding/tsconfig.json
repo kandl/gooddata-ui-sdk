@@ -5,7 +5,7 @@
         "jsx": "react",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "removeComments": false,
         "esModuleInterop": true,
         "importHelpers": true,
@@ -15,10 +15,7 @@
         "outDir": "./esm",
         "sourceMap": true,
         "strict": true,
-        //"baseUrl": "..",
-    /*    "paths": {
-            "@gooddata/api-model-bear": ["api-model-bear/src"]
-        }*/
+        "baseUrl": ".."
     },
     "compileOnSave": false,
     "exclude": ["**/node_modules", "esm", "**/__mocks__/**/*"]

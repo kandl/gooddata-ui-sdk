@@ -1,16 +1,15 @@
 // (C) 2019-2020 GoodData Corporation
+import { ObjQualifier, ILocalIdentifierQualifier } from "../../base/GdcTypes.js";
 import {
     CompatibilityFilter,
     IArithmeticMeasureDefinition,
     IAttributeLocatorItem,
     IAttributeSortItem,
-    ILocalIdentifierQualifier,
     IMeasureLocatorItem,
     IMeasureSortItem,
     IPopMeasureDefinition,
     IPreviousPeriodMeasureDefinition,
     ISimpleMeasureDefinition,
-    ObjQualifier,
 } from "../GdcExecuteAFM.js";
 
 export const expressionFilter: CompatibilityFilter = {

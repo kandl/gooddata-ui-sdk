@@ -1,9 +1,9 @@
 // (C) 2021 GoodData Corporation
-import { LayoutRow } from "./layoutRow";
-import { Widget } from "./widget";
+import { LayoutRow } from "./layoutRow.js";
+import { Widget } from "./widget.js";
 
-import { WidgetDropZone } from "./enum/DropZone";
-import { getMaximumTimeout } from "../support/constants";
+import { WidgetDropZone } from "./enum/DropZone.js";
+import { getMaximumTimeout } from "../support/constants.js";
 
 export class Dashboard {
     getElement(element: string): Cypress.Chainable {

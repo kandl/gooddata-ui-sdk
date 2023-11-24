@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
-import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild";
-import * as Navigation from "../../tools/navigation";
+import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild.js";
+import * as Navigation from "../../tools/navigation.js";
 
 const PARENT_FILTER_SELECTOR = ".s-attribute-filter.s-product";
 const CHILD_FILTER_SELECTOR = ".s-attribute-filter.s-department";

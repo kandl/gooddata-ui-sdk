@@ -5,7 +5,7 @@
         "jsx": "react",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "importHelpers": true,
         "strict": true,
@@ -13,16 +13,7 @@
         "noUnusedParameters": true,
         "outDir": "./esm",
         "sourceMap": true,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-ui": ["sdk-ui/src"],
-            "@gooddata/sdk-model": ["sdk-model/src"],
-            "@gooddata/sdk-backend-spi": ["sdk-backend-spi/src"],
-            "@gooddata/sdk-backend-mockingbird": ["sdk-backend-mockingbird/src"],
-            "@gooddata/sdk-ui-kit": ["@gooddata/sdk-ui-kit/src"],
-            "@gooddata/sdk-ui-theme-provider": ["@gooddata/sdk-ui-theme-provider/src"],
-            "@gooddata/sdk-ui-vis-commons": ["@gooddata/sdk-ui-vis-commons/src"]
-        }
+        "baseUrl": ".."
     },
     "compileOnSave": false,
     "exclude": ["**/node_modules", "esm", "**/__mocks__/**/*"]

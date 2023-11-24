@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Table } from "../../tools/table";
+import * as Navigation from "../../tools/navigation.js";
+import { Table } from "../../tools/table.js";
 
 const CELL_AUTO_RESIZE_WIDTH = 105;
 

@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 
-import { AttributeFilter } from "./attributeFilter";
+import { AttributeFilter } from "./attributeFilter.js";
 
 export class AttributeFilterParentChild {
     private parentAttributeFilter;

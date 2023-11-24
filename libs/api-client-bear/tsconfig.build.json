@@ -1,9 +1,13 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["src/gooddata-node.ts", "src/gooddata-browser.ts", "src/typings.d.ts"],
+    "exclude": ["node_modules", "**/tests",],
+    "include": ["src/**/*", "src/**/*.json"],
     "compilerOptions": {
-        "baseUrl": null,
-        "paths": null,
+        "baseUrl": ".",
+        "resolveJsonModule": true,
+        "rootDir": "./src",
+        "composite": true,
+        "incremental": true,
         "declaration": true,
         "declarationMap": true
     }

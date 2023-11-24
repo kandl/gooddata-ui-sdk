@@ -1,11 +1,11 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { Chart } from "./chart";
-import { Table } from "./table";
-import { Kpi } from "./kpi";
-import { InsightsCatalog, InsightTitle } from "./insightsCatalog";
-import { Headline } from "./headline";
-import { getMaximumTimeout } from "../support/constants";
+import { Chart } from "./chart.js";
+import { Table } from "./table.js";
+import { Kpi } from "./kpi.js";
+import { InsightsCatalog, InsightTitle } from "./insightsCatalog.js";
+import { Headline } from "./headline.js";
+import { getMaximumTimeout } from "../support/constants.js";
 
 export class Widget {
     constructor(private index: number) {}
