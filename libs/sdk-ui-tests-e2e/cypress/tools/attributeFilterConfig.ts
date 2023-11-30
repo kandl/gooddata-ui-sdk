@@ -1,6 +1,6 @@
 // (C) 2022 GoodData Corporation
 
-import { Button } from "./Button";
+import { Button } from "./Button.js";
 
 const ATTR_DISPLAY_FORM_BUTTON = ".s-attribute-display-form-button";
 

@@ -1,17 +1,26 @@
 {
+    "exclude": ["**/tests", "**/test"],
+    "include": ["src/**/*", "src/**/*.json"],
     "compilerOptions": {
-        "esModuleInterop": true,
+        "baseUrl": ".",
+        "rootDir": "./src",
+        "outDir": "./esm",
         "target": "es2017",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "importHelpers": true,
-        "outDir": "./esm",
+        "moduleResolution": "NodeNext",
         "strict": true,
+        "sourceMap": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true
-    },
-    "exclude": ["**/node_modules", "esm", "**/*.test.ts", "**/*.test.tsx"]
+        "noImplicitReturns": true,
+        "resolveJsonModule": true,
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true
+    }
 }

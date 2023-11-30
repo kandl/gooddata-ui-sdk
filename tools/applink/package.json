@@ -9,21 +9,27 @@
         "directory": "tools/applink"
     },
     "license": "MIT",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "type": "module",
+    "exports": "./esm/index.js",
+    "typings": "./esm/index.d.ts",
     "bin": {
-        "gdc-applink": "dist/index.js"
+        "gdc-applink": "esm/index.js"
     },
+    "sideEffects": false,
     "files": [
-        "dist"
+        "esm/**/*.js",
+        "esm/**/*.json",
+        "esm/**/*.d.ts",
+        "esm/**/*.map"
     ],
     "config": {
         "eslint": "-c .eslintrc.js --ext ts src/"
     },
     "scripts": {
         "clean": "rm -rf ci dist esm coverage *.log",
-        "dev": "tsc -p tsconfig.dev.json --watch",
-        "build": "rm -rf dist && tsc -p tsconfig.build.json",
+        "dev": "bash scripts/build.sh --dev-watch",
+        "build": "bash scripts/build.sh",
+        "build-dev": "bash scripts/build.sh --dev",
         "test": "vitest watch",
         "test-once": "vitest run",
         "test-ci": "vitest run --reporter=junit --outputFile=./ci/results/test-results.xml",
@@ -35,7 +41,7 @@
         "dep-cruiser-ci": "depcruise --validate .dependency-cruiser.js --output-type err-long src/",
         "validate": "npm run dep-cruiser && npm run eslint && npm run prettier-check",
         "validate-ci": "npm run dep-cruiser-ci && npm run eslint-ci && npm run prettier-check",
-        "applink": "node dist/index.js $*"
+        "applink": "node esm/index.js $*"
     },
     "dependencies": {
         "blessed": "^0.1.81",
@@ -52,7 +58,7 @@
         "@types/blessed": "^0.1.17",
         "@types/cross-spawn": "^6.0.2",
         "@types/json5": "^0.0.30",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@typescript-eslint/eslint-plugin": "^5.57.1",
         "@typescript-eslint/parser": "^5.57.1",
@@ -69,6 +75,6 @@
         "prettier": "~2.5.0",
         "ts-node": "^10.4.0",
         "typescript": "5.0.2",
-        "vitest": "0.31.4"
+        "vitest": "0.34.6"
     }
 }

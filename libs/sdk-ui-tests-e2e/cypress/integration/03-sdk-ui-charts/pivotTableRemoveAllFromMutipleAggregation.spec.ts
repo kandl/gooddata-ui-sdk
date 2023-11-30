@@ -1,9 +1,9 @@
 // (C) 2022 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { Table } from "../../tools/table";
+import * as Navigation from "../../tools/navigation.js";
+import { Table } from "../../tools/table.js";
 
-import { TotalTypes } from "../../tools/enum/TotalTypes";
+import { TotalTypes } from "../../tools/enum/TotalTypes.js";
 
 describe("Pivot Table Aggregations remove all row totals", () => {
     beforeEach(() => {

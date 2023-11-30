@@ -76,6 +76,8 @@ function findDrillIntersectionAttributeHeaderItem(
     if (intersectionForAttribute && isDrillIntersectionAttributeItem(intersectionForAttribute.header)) {
         return intersectionForAttribute.header.attributeHeaderItem;
     }
+
+    return undefined;
 }
 
 export function* splitDFToLoadingAndMapping(

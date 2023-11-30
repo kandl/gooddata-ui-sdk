@@ -1,7 +1,7 @@
 // (C) 2022 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { nonEmptyValue, Table } from "../../tools/table";
-import { TotalTypes } from "../../tools/enum/TotalTypes";
+import * as Navigation from "../../tools/navigation.js";
+import { nonEmptyValue, Table } from "../../tools/table.js";
+import { TotalTypes } from "../../tools/enum/TotalTypes.js";
 
 describe("Pivot Table Aggregations menu and add row totals", { tags: ["pre-merge_isolated_bear"] }, () => {
     beforeEach(() => {

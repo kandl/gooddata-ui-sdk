@@ -148,6 +148,8 @@ export const DefaultDashboardAttributeFilter = (
                         );
                     };
                 }
+
+                return undefined;
             }, [displayAttributeTooltip, defaultAttributeFilterTitle, attributeDataSet, isOpen, title]);
 
             return (

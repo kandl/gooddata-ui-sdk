@@ -1,25 +1,35 @@
 {
-    "_note": "This file is only for IDE. For build use tsconfig.[dev/build].json (dev mode is less strict)",
+    "exclude": ["**/tests", "**/test"],
+    "include": [
+        "src/**/*",
+        "src/**/*.json",
+        "scenarios/**/*",
+        "scenarios/**/*.json",
+        "stories/**/*",
+        "stories/**/*.json"
+    ],
     "compilerOptions": {
+        "baseUrl": ".",
+        "rootDirs": ["./scenarios", "./cypress"],
+        "outDir": "./esm",
         "target": "es2017",
-        "jsx": "react",
         "lib": ["es2017", "dom"],
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "importHelpers": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "strict": true,
+        "sourceMap": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "outDir": "dist",
-        "sourceMap": false,
-        "baseUrl": "..",
-        "types": ["cypress-real-events", "node", "@cypress/grep"],
-        "paths": {
-            "gooddata/util": ["util/src"]
-        }
-    },
-    "compileOnSave": false,
-    "exclude": ["**/node_modules", "dist", "esm"]
+        "noImplicitReturns": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true,
+        // "types": ["cypress-real-events", "node", "@cypress/grep"]
+    }
 }

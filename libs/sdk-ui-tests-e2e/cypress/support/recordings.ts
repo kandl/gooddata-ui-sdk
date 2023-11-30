@@ -1,5 +1,5 @@
 // (C) 2022 GoodData Corporation
-import { getMockServer } from "./constants";
+import { getMockServer } from "./constants.js";
 
 let testInfo: any;
 

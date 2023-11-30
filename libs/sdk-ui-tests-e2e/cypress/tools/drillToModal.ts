@@ -1,6 +1,6 @@
 // (C) 2021 GoodData Corporation
-import { Chart } from "./chart";
-import { Table } from "./table";
+import { Chart } from "./chart.js";
+import { Table } from "./table.js";
 
 type ExportTypes = "csv" | "xlsx";
 

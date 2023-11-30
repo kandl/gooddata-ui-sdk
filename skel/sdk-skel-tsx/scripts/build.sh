@@ -5,7 +5,6 @@ _build_styles() {
 }
 
 _clean() {
-    rm -rf dist
     rm -rf esm
 }
 
@@ -14,20 +13,19 @@ _common-build() {
 }
 
 build() {
+    _clean
     _common-build
-    concurrently "npm run build-cjs" "npm run build-esm"
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
     _common-build
-    tsc -p tsconfig.dev.json
+    tsc -p tsconfig.json
 }
 
 build-dev-watch() {
     _common-build
-    tsc --watch -p tsconfig.dev.json
-    _build_styles
+    tsc --watch -p tsconfig.json
 }
 
 FLAG=$1

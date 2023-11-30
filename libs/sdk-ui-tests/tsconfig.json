@@ -1,37 +1,34 @@
 {
-    "_note": "This file is only for IDE. For build use tsconfig.[dev/build].json (dev mode is less strict)",
+    "exclude": ["**/tests", "**/test"],
+    "include": [
+        "src/**/*",
+        "src/**/*.json",
+        "scenarios/**/*",
+        "scenarios/**/*.json",
+        "stories/**/*",
+        "stories/**/*.json"
+    ],
     "compilerOptions": {
-        "declaration": false,
-        "downlevelIteration": true,
-        "jsx": "react",
-        "lib": ["es7", "dom"],
+        "baseUrl": ".",
+        "rootDirs": ["./src", "./scenarios", "./stories"],
+        "outDir": "./esm",
+        "target": "es2017",
+        "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "esModuleInterop": true,
+        "moduleResolution": "NodeNext",
+        "strict": true,
+        "sourceMap": true,
         "importHelpers": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "strict": true,
-        "outDir": "./esm",
-        "sourceMap": true,
+        "noImplicitReturns": true,
         "resolveJsonModule": true,
-        "baseUrl": "../..",
-        "paths": {
-            "@gooddata/sdk-ui": ["libs/sdk-ui/src"],
-            "@gooddata/sdk-ui-ext/internal": ["libs/sdk-ui-ext/src/internal"],
-            "@gooddata/sdk-ui-ext": ["libs/sdk-ui-ext/src"],
-            "@gooddata/sdk-ui-geo": ["libs/sdk-ui-geo/src"],
-            "@gooddata/sdk-ui-kit": ["libs/sdk-ui-kit/src"],
-            "@gooddata/sdk-ui-pivot": ["libs/sdk-ui-pivot/src"],
-            "@gooddata/sdk-model": ["libs/sdk-model/src"],
-            "@gooddata/sdk-backend-base": ["libs/sdk-backend-base/src"],
-            "@gooddata/sdk-backend-spi": ["libs/sdk-backend-spi/src"],
-            "@gooddata/sdk-backend-mockingbird": ["libs/sdk-backend-mockingbird/src"],
-            "@gooddata/reference-workspace": ["tools/reference-workspace/src"],
-            "@gooddata/experimental-workspace": ["tools/experimental-workspace/src"],
-            "@gooddata/mock-handling": ["tools/mock-handling/src/interface"]
-        }
-    },
-    "exclude": ["**/node_modules", "esm", "**/__mocks__/*"]
+        "jsx": "react",
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true
+    }
 }

@@ -37,8 +37,7 @@
     "scripts": {
         "clean": "rm -rf ci dist esm scenarios/build coverage *.log styles/css",
         "api-extractor": "mkdir -p api && [ -z \"${CI}\" ] && (api-extractor run -l) || (api-extractor run)",
-        "build": "tsc -p tsconfig.build.json",
-        "dev": "bash scripts/build.sh --dev-watch",
+        "build": "npm run clean && tsc -p tsconfig.json --incremental false --composite false",
         "eslint": "eslint -c .eslintrc.cjs --ext js,jsx,ts,tsx ./",
         "eslint-ci": "mkdir -p ./ci/results && eslint -f checkstyle -o ci/results/eslint-results.xml .eslintrc.cjs --ext js,jsx,ts,tsx ./",
         "prettier-check": "prettier --check './**/*.{ts,js,cjs,tsx,jsx,json,scss,md,yaml,html}'",
@@ -117,7 +116,7 @@
         "@cypress/grep": "^3.1.5",
         "@microsoft/api-documenter": "^7.17.0",
         "@microsoft/api-extractor": "^7.36.0",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@types/pdf-parse": "^1.1.1",
         "@types/raf": "^3.4.0",

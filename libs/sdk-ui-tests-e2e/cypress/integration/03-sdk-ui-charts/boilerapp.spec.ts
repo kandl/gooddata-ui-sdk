@@ -1,7 +1,7 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Headline } from "../../tools/headline";
-import { getBackend } from "../../support/constants";
+import * as Navigation from "../../tools/navigation.js";
+import { Headline } from "../../tools/headline.js";
+import { getBackend } from "../../support/constants.js";
 
 describe("Boiler app Chart", () => {
     beforeEach(() => {

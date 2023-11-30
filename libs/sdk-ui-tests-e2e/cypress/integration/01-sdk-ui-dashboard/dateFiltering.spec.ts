@@ -1,10 +1,10 @@
 // (C) 2023 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { DateFilter } from "../../tools/dateFilter";
-import { EditMode } from "../../tools/editMode";
-import { Kpi } from "../../tools/kpi";
-import { DateFilterValue } from "../../tools/enum/DateFilterValue";
+import * as Navigation from "../../tools/navigation.js";
+import { DateFilter } from "../../tools/dateFilter.js";
+import { EditMode } from "../../tools/editMode.js";
+import { Kpi } from "../../tools/kpi.js";
+import { DateFilterValue } from "../../tools/enum/DateFilterValue.js";
 
 const dateFilter = new DateFilter();
 const editMode = new EditMode();

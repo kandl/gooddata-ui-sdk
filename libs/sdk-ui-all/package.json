@@ -24,9 +24,9 @@
     ],
     "scripts": {
         "clean": "rm -rf ci dist esm coverage *.log",
-        "dev": "tsc -p tsconfig.dev.json --watch",
-        "build": "npm run build-esm && npm run api-extractor",
-        "build-esm": "tsc -p tsconfig.build.json",
+        "dev": "tsc --watch -p tsconfig.json",
+        "build": "npm run clean && tsc -p tsconfig.json --incremental false --composite false && npm run api-extractor",
+        "build-dev": "tsc -p tsconfig.json",
         "prepack": "cp -f ../../NOTICE ./NOTICE",
         "api-extractor": "mkdir -p api && [ -z \"${CI}\" ] && (api-extractor run -l) || (api-extractor run)",
         "eslint": "eslint -c .eslintrc.cjs src/",

@@ -9,8 +9,8 @@ import {
     transposeConfigWithRow,
     transposeConfigWithLeft,
     IPivotTableTransposeCoreProps,
-} from "../Visualizations/PivotTable/PivotTableTransposeScenario";
-import { Insights } from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+} from "../Visualizations/PivotTable/PivotTableTransposeScenario.js";
+import { Insights } from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 const style = { height: 300 };
 
 const InsightViewTransposeCore: React.FC<IPivotTableTransposeCoreProps> = (props) => {

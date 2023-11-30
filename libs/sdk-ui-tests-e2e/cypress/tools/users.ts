@@ -1,5 +1,5 @@
 // (C) 2023 GoodData Corporation
-import { Api, getTigerAuthToken } from "./api";
+import { Api, getTigerAuthToken } from "./api.js";
 
 export class Users {
     constructor() {}

@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 const npmPackage = require("./package.json");
+const { EsbuildPlugin } = require("esbuild-loader");
 
 module.exports = (env, argv) => ({
     mode: argv.mode,
@@ -21,6 +22,21 @@ module.exports = (env, argv) => ({
         chunkFilename: "assets/[chunkhash].js",
         library: {
             type: "module",
+        },
+    },
+    optimization: {
+        minimizer: [
+            new EsbuildPlugin(),
+        ],
+        moduleIds: "deterministic",
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
         },
     },
     entry: {
@@ -48,20 +64,20 @@ module.exports = (env, argv) => ({
             {
                 test: /\.tsx?$/,
                 use: [
-                    {
-                        loader: "babel-loader",
-                    },
+                    // {
+                    //     loader: "esbuild-loader",
+                    // },
                     {
                         loader: "ts-loader",
                         options:
                             argv.mode === "production"
                                 ? {
                                       transpileOnly: false,
-                                      configFile: path.resolve("./tsconfig.build.json"),
+                                      configFile: path.resolve("./tsconfig.json"),
                                   }
                                 : {
                                       transpileOnly: true,
-                                      configFile: path.resolve("./tsconfig.dev.json"),
+                                      configFile: path.resolve("./tsconfig.json"),
                                   },
                     },
                 ],

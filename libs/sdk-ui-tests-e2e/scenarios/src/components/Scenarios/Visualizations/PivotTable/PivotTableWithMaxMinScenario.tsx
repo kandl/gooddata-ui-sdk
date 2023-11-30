@@ -1,9 +1,10 @@
 // (C) 2023 GoodData Corporation
 import React from "react";
-import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 import { IPivotTableConfig, PivotTable } from "@gooddata/sdk-ui-pivot";
 import {
     IAttribute,
+    IFilter,
     IMeasure,
     IMeasureDefinition,
     newAbsoluteDateFilter,
@@ -51,10 +52,11 @@ const filtersOfCountyAndCreatedDate = [
 ];
 
 export interface PivotTableMaxMinCoreProps {
-    measure?: IMeasure<IMeasureDefinition>[] | undefined;
-    row?: IAttribute[] | undefined;
-    column?: IAttribute[] | undefined;
-    config: IPivotTableConfig;
+    measures?: IMeasure<IMeasureDefinition>[];
+    rows?: IAttribute[];
+    filters?: IFilter[];
+    column?: IAttribute[];
+    config?: IPivotTableConfig;
 }
 
 const PivotTableMaxMin: React.FC<PivotTableMaxMinCoreProps> = (props) => {

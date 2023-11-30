@@ -17,26 +17,25 @@ _common-build() {
     cp -rf src/internal/assets esm/internal/
     # then use svgo to optimize all the SVGs there
     svgo -rqf src/internal/assets esm/internal/assets
-    cp -rf src/internal/translations esm/internal/
 
     _build_styles
 }
 
 build() {
+    _clean
     _common-build
-    npm run build-esm && npm run api-extractor
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
     _common-build
-    tsc -p tsconfig.dev.json
+    tsc -p tsconfig.json
 }
 
 build-dev-watch() {
     _common-build
     _build_styles
-    tsc --watch -p tsconfig.dev.json
+    tsc --watch -p tsconfig.json
 }
 
 build-styles() {

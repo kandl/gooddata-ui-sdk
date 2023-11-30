@@ -1,8 +1,8 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilter } from "../../tools/filterBar";
-import { TopBar } from "../../tools/dashboards";
-import { Table } from "../../tools/table";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilter } from "../../tools/filterBar.js";
+import { TopBar } from "../../tools/dashboards.js";
+import { Table } from "../../tools/table.js";
 
 const regionFilter = new AttributeFilter("Region");
 const stateFilter = new AttributeFilter("State");

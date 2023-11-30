@@ -1,12 +1,12 @@
 // (C) 2022 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { EditMode } from "../../tools/editMode";
-import { AttributeFilter, FilterBar } from "../../tools/filterBar";
-import { DashboardMenu } from "../../tools/dashboardMenu";
-import { Dashboard } from "../../tools/dashboards";
-import { Widget } from "../../tools/widget";
-import { getProjectId } from "../../support/constants";
+import * as Navigation from "../../tools/navigation.js";
+import { EditMode } from "../../tools/editMode.js";
+import { AttributeFilter, FilterBar } from "../../tools/filterBar.js";
+import { DashboardMenu } from "../../tools/dashboardMenu.js";
+import { Dashboard } from "../../tools/dashboards.js";
+import { Widget } from "../../tools/widget.js";
+import { getProjectId } from "../../support/constants.js";
 
 const dashboard = new Dashboard();
 const editMode = new EditMode();

@@ -26,10 +26,10 @@
     ],
     "scripts": {
         "clean": "rm -rf ci dist esm build coverage *.log",
-        "dev": "tsc -p tsconfig.dev.json --watch",
         "prepublishOnly": "npm run build",
+        "dev": "tsc -p tsconfig.dev.json --watch",
         "build": "bash scripts/build.sh",
-        "build-esm": "tsc -p tsconfig.build.json",
+        "build-dev": "tsc -p tsconfig.build.json",
         "prepack": "cp -f ../../NOTICE ./NOTICE",
         "test": "vitest watch --passWithNoTests",
         "test-once": "vitest run --passWithNoTests",
@@ -74,7 +74,7 @@
         "@types/cross-spawn": "^6.0.2",
         "@types/fs-extra": "^9.0.13",
         "@types/inquirer": "^8.2.6",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@types/tar": "^6.1.0",
         "@typescript-eslint/eslint-plugin": "^5.57.1",
@@ -94,6 +94,6 @@
         "prettier": "~2.5.0",
         "ts-node": "^10.4.0",
         "typescript": "5.0.2",
-        "vitest": "0.31.4"
+        "vitest": "0.34.6"
     }
 }

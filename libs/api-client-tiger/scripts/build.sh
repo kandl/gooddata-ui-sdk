@@ -18,18 +18,17 @@ _common-build() {
 build() {
     _clean
     _common-build
-    npm run build-esm
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
     _common-build
-    tsc -p tsconfig.dev.json
+    tsc -p tsconfig.json
 }
 
 build-dev-watch() {
     _common-build
-    tsc --watch -p tsconfig.dev.json
+    tsc --watch -p tsconfig.json
 }
 
 FLAG=$1

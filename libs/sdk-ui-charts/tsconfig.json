@@ -1,29 +1,27 @@
 {
-    "_note": "This file is only for IDE. For build use tsconfig.[dev/build].json (dev mode is less strict)",
+    "exclude": ["**/tests", "**/test"],
+    "include": ["src/**/*", "src/**/*.json"],
     "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": "./src",
+        "outDir": "./esm",
         "target": "es2017",
-        "jsx": "react",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "esModuleInterop": true,
+        "moduleResolution": "NodeNext",
+        // "strict": true,
+        "sourceMap": true,
         "importHelpers": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "outDir": "./esm",
-        "sourceMap": true,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-ui": ["sdk-ui/src"],
-            "@gooddata/sdk-ui-vis-commons": ["sdk-ui-vis-commons/src"],
-            "@gooddata/sdk-reference-workspace": ["sdk-reference-workspace/src"],
-            "@gooddata/sdk-model": ["sdk-model/src"],
-            "@gooddata/sdk-backend-spi": ["sdk-backend-spi/src"],
-            "@gooddata/sdk-backend-mockingbird": ["sdk-backend-mockingbird/src"],
-            "@gooddata/util": ["util/src"]
-        }
-    },
-    "compileOnSave": false,
-    "exclude": ["**/node_modules", "esm", "**/__mocks__/**/*"]
+        "noImplicitReturns": true,
+        "resolveJsonModule": true,
+        "jsx": "react",
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true
+    }
 }

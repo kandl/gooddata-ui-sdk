@@ -23,8 +23,9 @@
     ],
     "scripts": {
         "clean": "rm -rf ci dist esm coverage *.log",
-        "dev": "tsc -p tsconfig.dev.json --watch",
-        "build": "tsc -p tsconfig.build.json",
+        "dev": "bash scripts/build.sh --dev-watch",
+        "build": "bash scripts/build.sh",
+        "build-dev": "bash scripts/build.sh --dev",
         "test": "vitest watch",
         "test-once": "vitest run",
         "test-ci": "vitest run --reporter=junit --outputFile=./ci/results/test-results.xml",
@@ -59,7 +60,7 @@
         "@gooddata/eslint-config": "^4.1.0",
         "@types/inquirer": "^8.2.6",
         "@types/json-stable-stringify": "^1.0.32",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@types/prettier": "~1.18.2",
         "@types/rimraf": "^2.0.2",
@@ -78,6 +79,6 @@
         "eslint-plugin-tsdoc": "^0.2.14",
         "ts-node": "^10.4.0",
         "typescript": "5.0.2",
-        "vitest": "0.31.4"
+        "vitest": "0.34.6"
     }
 }

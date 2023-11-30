@@ -5,25 +5,17 @@ _clean() {
     rm -rf styles/css
 }
 
-_common-build() {
-    mkdir -p esm/base/localization/bundles
-    cp -rf src/base/localization/bundles esm/base/localization
-}
-
 build() {
-    _common-build
-    npm run build-esm
+    _clean
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
-    _common-build
-    tsc -p tsconfig.dev.json
+    tsc -p tsconfig.json
 }
 
 build-dev-watch() {
-    _common-build
-    tsc --watch -p tsconfig.dev.json
+    tsc --watch -p tsconfig.json
 }
 
 FLAG=$1

@@ -1,23 +1,26 @@
 {
+    "exclude": ["**/tests", "**/test"],
+    "include": ["src/**/*", "src/**/*.json"],
     "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": "./src",
+        "outDir": "./esm",
         "target": "es2017",
         "lib": ["es2017", "dom"],
         "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "esModuleInterop": true,
-        "importHelpers": true,
-        "sourceMap": true,
-        "outDir": "./esm",
+        "moduleResolution": "NodeNext",
         "strict": true,
+        "sourceMap": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
-        "baseUrl": "..",
-        "paths": {
-            "@gooddata/sdk-model": ["sdk-model/src"],
-            "@gooddata/sdk-backend-spi": ["sdk-backend-spi/src"]
-        }
-    },
-    "exclude": ["**/node_modules", "esm"]
+        "resolveJsonModule": true,
+        "composite": true,
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true
+    }
 }

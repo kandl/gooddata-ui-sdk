@@ -9,25 +9,26 @@
         "directory": "tools/i18n-toolkit"
     },
     "license": "MIT",
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "type": "module",
+    "exports": "./esm/index.js",
+    "typings": "./esm/index.d.ts",
     "sideEffects": false,
     "files": [
         "index.js",
-        "dist/**/*.js",
-        "dist/**/*.json",
-        "dist/**/*.d.ts",
-        "dist/**/*.map"
+        "esm/**/*.js",
+        "esm/**/*.json",
+        "esm/**/*.d.ts",
+        "esm/**/*.map"
     ],
     "config": {
         "eslint": "-c .eslintrc.js --ext ts src/"
     },
     "scripts": {
-        "run": "node ./dist/index.js",
-        "clean": "rm -rf ci dist coverage *.log",
-        "dev": "tsc -p tsconfig.dev.json --watch",
-        "build": "concurrently \"npm run build-cjs\"",
-        "build-cjs": "tsc -p tsconfig.build.json",
+        "run": "node ./esm/index.js",
+        "clean": "rm -rf ci esm coverage *.log",
+        "dev": "tsc --watch -p tsconfig.json",
+        "build": "npm run clean && tsc -p tsconfig.json --incremental false --composite false",
+        "build-dev": "tsc -p tsconfig.json",
         "test": "vitest watch",
         "test-once": "vitest run",
         "test-ci": "vitest run --reporter=junit --outputFile=./ci/results/test-results.xml",
@@ -46,7 +47,7 @@
         "chalk": "^4.1.1",
         "commander": "^8.1.0",
         "fast-glob": "^3.2.7",
-        "html-validate": "^7.15.1",
+        "html-validate": "^8.7.3",
         "jsonschema": "^1.2.6",
         "lodash": "^4.17.19",
         "tslib": "^2.5.0",
@@ -54,7 +55,7 @@
     },
     "devDependencies": {
         "@gooddata/eslint-config": "^4.1.0",
-        "@types/lodash": "^4.14.158",
+        "@types/lodash": "^4.14.202",
         "@types/node": "^18.17.6",
         "@typescript-eslint/eslint-plugin": "^5.57.1",
         "@typescript-eslint/parser": "^5.57.1",
@@ -73,7 +74,7 @@
         "mkdirp": "^1.0.4",
         "prettier": "~2.5.0",
         "typescript": "5.0.2",
-        "vitest": "0.31.4"
+        "vitest": "0.34.6"
     },
     "bin": {
         "i18n-toolkit": "index.js"

@@ -3,7 +3,7 @@ import React from "react";
 import "@gooddata/sdk-ui-ext/styles/css/main.css";
 import { InsightView } from "@gooddata/sdk-ui-ext";
 import { idRef } from "@gooddata/sdk-model";
-import { Insights } from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import { Insights } from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 const insightsRef = idRef(Insights.TableUsingLongNameMetric);
 const style = { height: 300 };
 

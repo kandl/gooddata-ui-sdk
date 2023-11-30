@@ -3,10 +3,10 @@ import { extract } from "@formatjs/cli-lib";
 import { sync } from "fast-glob";
 import * as path from "path";
 
-import { skipped, done, message, resultsInfo, fail } from "../utils/console";
-import { ToolkitConfigFile, DefaultLocale, UsageResult } from "../data";
-import { checkTranslations } from "./usage/checkTranslations";
-import { LocalesStructure } from "../schema/localization";
+import { skipped, done, message, resultsInfo, fail } from "../utils/console.js";
+import { ToolkitConfigFile, DefaultLocale, UsageResult } from "../data.js";
+import { checkTranslations } from "./usage/checkTranslations.js";
+import { LocalesStructure } from "../schema/localization.js";
 
 export async function getUsageMessagesCheck(
     cwd: string,

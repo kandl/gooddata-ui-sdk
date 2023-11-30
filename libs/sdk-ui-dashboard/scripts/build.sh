@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 _build_styles() {
+    rm -rf styles/css
     sass --load-path=node_modules styles/scss:styles/css
 }
 
@@ -18,9 +19,6 @@ _common-build() {
 
     _build_styles
 
-    mkdir -p esm/presentation/localization/bundles
-    cp -rf src/presentation/localization/bundles esm/presentation/localization
-
     # prepare the auxiliary __version.ts file so that the code can read the package version as a constant
     echo '// (C) 2021 GoodData Corporation' >src/__version.ts
     echo '// DO NOT CHANGE THIS FILE, IT IS RE-GENERATED ON EVERY BUILD' >>src/__version.ts
@@ -28,25 +26,19 @@ _common-build() {
 }
 
 build() {
+    _clean
     _common-build
-    npm run build-esm
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
     _common-build
-    tsc -p tsconfig.dev.json
+    tsc -p tsconfig.json
 }
 
 build-dev-watch() {
     _common-build
-    tsc --watch -p tsconfig.dev.json
-    _build_styles
-}
-
-build-styles() {
-    rm -rf styles/css
-    _build_styles
+    tsc --watch -p tsconfig.json
 }
 
 FLAG=$1

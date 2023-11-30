@@ -35,6 +35,7 @@ export const DrillSelectList: React.FunctionComponent<DrillSelectListProps> = (p
                 </>
             );
         }
+        return null;
     };
 
     const renderDrillItems = (items: DrillSelectItem[]) => {
@@ -48,6 +49,7 @@ export const DrillSelectList: React.FunctionComponent<DrillSelectListProps> = (p
                 </>
             );
         }
+        return null;
     };
 
     return (

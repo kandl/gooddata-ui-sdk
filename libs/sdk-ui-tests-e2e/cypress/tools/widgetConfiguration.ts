@@ -1,15 +1,15 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { getTestClassByTitle } from "../support/commands/tools/classes";
+import { getTestClassByTitle } from "../support/commands/tools/classes.js";
 
-import { Widget } from "./widget";
+import { Widget } from "./widget.js";
 import {
     DashboardName,
     InsightTitle,
     splitCamelCaseToWords,
     isDashboardName,
     getInsightSelectorFromInsightTitle,
-} from "./insightsCatalog";
+} from "./insightsCatalog.js";
 
 export type InteractionType = "measure" | "attribute";
 export class WidgetConfiguration {

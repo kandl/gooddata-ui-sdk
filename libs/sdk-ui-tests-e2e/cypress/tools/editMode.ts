@@ -1,7 +1,7 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { DashboardsList } from "./dashboardsList";
-import { InsightsCatalog } from "./insightsCatalog";
+import { DashboardsList } from "./dashboardsList.js";
+import { InsightsCatalog } from "./insightsCatalog.js";
 
 const EDIT_BUTTON_SELECTOR = ".s-edit_button";
 const SAVE_EDIT_BUTTON_SELECTOR = ".s-save_button";

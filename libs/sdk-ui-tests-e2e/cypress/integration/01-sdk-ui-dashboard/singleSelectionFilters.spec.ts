@@ -1,8 +1,8 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilter } from "../../tools/filterBar";
-import { Widget } from "../../tools/widget";
-import { EditMode } from "../../tools/editMode";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilter } from "../../tools/filterBar.js";
+import { Widget } from "../../tools/widget.js";
+import { EditMode } from "../../tools/editMode.js";
 
 const editMode = new EditMode();
 const regionFilter = new AttributeFilter("Region");

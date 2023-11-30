@@ -1,9 +1,9 @@
 // (C) 2022 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilterConfiguration } from "../../tools/attributeFilterConfig";
-import { AttributeFilterButton } from "../../tools/attributeFilterButton";
-import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild";
-import { EditMode } from "../../tools/editMode";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilterConfiguration } from "../../tools/attributeFilterConfig.js";
+import { AttributeFilterButton } from "../../tools/attributeFilterButton.js";
+import { AttributeFilterButtonParentChild } from "../../tools/attributeFilterButtonParentChild.js";
+import { EditMode } from "../../tools/editMode.js";
 
 const ACCOUNT_FILTER_SELECTOR = ".s-attribute-filter.s-account";
 const SALES_REP_FILTER_SELECTOR = ".s-attribute-filter.s-sales_rep";

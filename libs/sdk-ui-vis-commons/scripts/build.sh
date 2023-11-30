@@ -14,12 +14,12 @@ _common-build() {
 }
 
 build() {
+    _clean
     _common-build
-    npm run build-esm && npm run api-extractor
+    tsc -p tsconfig.json --incremental false --composite false
 }
 
 build-dev() {
-    _clean
     _common-build
     tsc -p tsconfig.dev.json
 }
@@ -27,7 +27,6 @@ build-dev() {
 build-dev-watch() {
     _common-build
     tsc --watch -p tsconfig.dev.json &
-    _build_styles
 }
 
 build-styles() {
