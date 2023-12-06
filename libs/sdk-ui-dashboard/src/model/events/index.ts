@@ -365,6 +365,8 @@ export {
     DashboardDrillToLegacyDashboardResolvedPayload,
     DashboardDrillableItemsChanged,
     DashboardDrillableItemsChangedPayload,
+    DashboardCrossFilteringResolved,
+    DashboardCrossFilteringResolvedPayload,
     isDashboardDrillDownRequested,
     isDashboardDrillDownResolved,
     isDashboardDrillRequested,

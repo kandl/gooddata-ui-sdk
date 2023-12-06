@@ -465,6 +465,69 @@ export function changeDrillableItems(
 //
 
 /**
+ * Payload of the {@link CrossFiltering} command.
+ * @alpha
+ */
+export interface CrossFilteringPayload {
+    /**
+     * Insight to which the drill down should be applied.
+     */
+    readonly insight: IInsight;
+    /**
+     * Drill down definition to apply.
+     */
+    readonly drillDefinition: any;
+    /**
+     * Original drill event, that triggered this particular drill interaction.
+     */
+    readonly drillEvent: IDashboardDrillEvent;
+}
+
+/**
+ * @alpha
+ */
+export interface CrossFiltering extends IDashboardCommand {
+    readonly type: "GDC.DASH/CMD.DRILL.CROSS_FILTERING";
+    readonly payload: CrossFilteringPayload;
+}
+
+/**
+ * Creates the {@link CrossFiltering} command.
+ * Dispatching this command will result into applying drill down definition to the provided insight (result of the drill down application
+ * depends on the particular visualization type) and dispatching {@link DashboardDrillDownResolved} event that will contain it.
+ *
+ * In the default dashboard implementation dispatching this command will also result into opening drill dialog with the insight
+ * that has this particular drill down definition applied.
+ *
+ * @alpha
+ * @param insight - insight to which the drill down should be applied.
+ * @param drillDefinition - drill definition to apply.
+ * @param drillEvent - original drill event, that triggered this particular drill interaction.
+ * @param correlationId - specify correlation id. It will be included in all events that will be emitted during the command processing.
+ * @returns drill down command
+ */
+export function crossFiltering(
+    insight: IInsight,
+    drillDefinition: any,
+    drillEvent: IDashboardDrillEvent,
+    correlationId?: string,
+): CrossFiltering {
+    return {
+        type: "GDC.DASH/CMD.DRILL.CROSS_FILTERING",
+        correlationId,
+        payload: {
+            insight,
+            drillDefinition,
+            drillEvent,
+        },
+    };
+}
+
+//
+//
+//
+
+/**
  * @alpha
  */
 export type DashboardDrillCommand =
@@ -474,4 +537,5 @@ export type DashboardDrillCommand =
     | DrillToCustomUrl
     | DrillToDashboard
     | DrillToInsight
-    | DrillToLegacyDashboard;
+    | DrillToLegacyDashboard
+    | CrossFiltering;

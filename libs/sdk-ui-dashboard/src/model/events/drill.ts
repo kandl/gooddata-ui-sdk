@@ -955,3 +955,37 @@ export function drillableItemsChanged(
 export const isDashboardDrillableItemsChanged = eventGuard<DashboardDrillableItemsChanged>(
     "GDC.DASH/EVT.DRILL.DRILLABLE_ITEMS.CHANGED",
 );
+
+/**
+ * Payload of the {@link DashboardCrossFilteringResolved} event.
+ * @alpha
+ */
+export interface DashboardCrossFilteringResolvedPayload {
+    /**
+     * Original drill event, that triggered this particular drill interaction.
+     */
+    readonly drillEvent: IDashboardDrillEvent;
+    /**
+     * Drill definition with the custom url that was resolved.
+     */
+    readonly drillDefinition: IDrillToCustomUrl;
+    /**
+     * Resolved custom url.
+     */
+    readonly url: string;
+    /**
+     * Information about filters used on the dashboard.
+     */
+    readonly filtersInfo: FiltersInfo;
+}
+
+/**
+ * This event is emitted as a result of the {@link DrillToCustomUrl} command.
+ * It contains resolved custom url from the drill definition.
+ *
+ * @alpha
+ */
+export interface DashboardCrossFilteringResolved extends IDashboardEvent {
+    readonly type: "GDC.DASH/EVT.DRILL.CROSS_FILTERING.RESOLVED";
+    readonly payload: DashboardCrossFilteringResolvedPayload;
+}

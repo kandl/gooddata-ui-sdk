@@ -13,8 +13,10 @@ import {
 } from "../types.js";
 import { DrillSelectContext } from "./types.js";
 import {
+    DrillOrigin,
     IInsight,
     ObjRef,
+    isCrossFiltering,
     isDrillToAttributeUrl,
     isDrillToCustomUrl,
     isDrillToDashboard,
@@ -28,6 +30,7 @@ import {
     selectDisableDefaultDrills,
     DashboardDrillCommand,
     selectWidgetDrills,
+    selectEnableKDCrossFiltering,
 } from "../../../model/index.js";
 import {
     DashboardDrillContext,
@@ -37,6 +40,12 @@ import {
 } from "../../../types.js";
 import { filterDrillFromAttributeByPriority } from "../utils/drillDownUtils.js";
 import { useDrills } from "../hooks/useDrills.js";
+
+const CROSS_FILTERING: DashboardDrillDefinition = {
+    type: "crossFiltering",
+    transition: "in-place",
+    origin: {} as DrillOrigin,
+};
 
 /**
  * @internal
@@ -73,13 +82,16 @@ export function WithDrillSelect({
     const locale = useDashboardSelector(selectLocale);
     const disableDefaultDrills = useDashboardSelector(selectDisableDefaultDrills); // TODO: maybe remove?
     const configuredDrills = useDashboardSelector(selectWidgetDrills(widgetRef));
+    const enableKDCrossFiltering = useDashboardSelector(selectEnableKDCrossFiltering);
 
     const drills = useDrills({
         onDrillSuccess: (s) => {
             if (disableDefaultDrills || s.payload.drillEvent.drillDefinitions.length === 0) {
                 return;
             }
-            const drillDefinitions = s.payload.drillEvent.drillDefinitions;
+            const drillDefinitions = enableKDCrossFiltering
+                ? [...s.payload.drillEvent.drillDefinitions, CROSS_FILTERING]
+                : s.payload.drillEvent.drillDefinitions;
             const drillEvent = s.payload.drillEvent;
             const context = s.payload.drillContext;
 
@@ -136,6 +148,13 @@ export function WithDrillSelect({
                     );
                 } else if (isDrillToCustomUrl(drillDefinition)) {
                     drills.drillToCustomUrl.run(drillDefinition, effectiveDrillEvent, effectiveCorrelationId);
+                } else if (isCrossFiltering(drillDefinition)) {
+                    drills.crossFiltering.run(
+                        insight,
+                        drillDefinition,
+                        effectiveDrillEvent,
+                        effectiveCorrelationId,
+                    );
                 }
                 setDropdownProps(null);
                 setIsOpen(false);

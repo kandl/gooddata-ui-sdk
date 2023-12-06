@@ -16,6 +16,7 @@ import {
     isDrillToInsight,
     isDrillToLegacyDashboard,
     IListedDashboard,
+    isCrossFiltering,
 } from "@gooddata/sdk-model";
 import { isDrillToUrl } from "../types.js";
 import { DrillSelectListBody } from "./DrillSelectListBody.js";
@@ -146,6 +147,15 @@ export const createDrillSelectItems = (
                 drillDefinition,
                 attributeValue,
                 id: stringify(drillDefinition),
+            };
+        }
+
+        if (isCrossFiltering(drillDefinition)) {
+            return {
+                name: intl.formatMessage({ id: "drill_modal_picker.cross-filter.item-title" }),
+                type: DrillType.CROSS_FILTERING,
+                drillDefinition,
+                id: "crossFiltering",
             };
         }
 

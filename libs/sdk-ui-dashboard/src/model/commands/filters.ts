@@ -270,6 +270,8 @@ export interface AddAttributeFilter extends IDashboardCommand {
  *  events that will be emitted during the command processing.
  * @param selectionMode - single or multi value selection mode of the filter.
  * @param mode - specify the visibility mode of attribute filter
+ * @param initialSelection - specify the initial selection of attribute elements
+ * @param initialIsNegativeSelection - specify if the initial selection of attribute elements is a negative one
  * @beta
  */
 export function addAttributeFilter(
@@ -278,6 +280,8 @@ export function addAttributeFilter(
     correlationId?: string,
     selectionMode?: DashboardAttributeFilterSelectionMode,
     mode?: DashboardAttributeFilterConfigMode,
+    initialSelection?: IAttributeElements,
+    initialIsNegativeSelection?: boolean,
 ): AddAttributeFilter {
     return {
         type: "GDC.DASH/CMD.FILTER_CONTEXT.ATTRIBUTE_FILTER.ADD",
@@ -287,6 +291,8 @@ export function addAttributeFilter(
             index,
             selectionMode,
             mode,
+            initialSelection,
+            initialIsNegativeSelection,
         },
     };
 }
