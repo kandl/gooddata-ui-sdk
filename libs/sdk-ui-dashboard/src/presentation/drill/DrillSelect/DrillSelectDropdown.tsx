@@ -16,6 +16,8 @@ import {
     isDrillToInsight,
     isDrillToLegacyDashboard,
     IListedDashboard,
+    DrillOrigin,
+    isCrossFiltering,
 } from "@gooddata/sdk-model";
 import { isDrillToUrl } from "../types.js";
 import { DrillSelectListBody } from "./DrillSelectListBody.js";
@@ -90,7 +92,19 @@ export const createDrillSelectItems = (
 ): DrillSelectItem[] => {
     const totalDrillToUrls = getTotalDrillToUrlCount(drillDefinitions);
 
-    return drillDefinitions.map((drillDefinition): DrillSelectItem => {
+    // TODO: where to put this?
+    const crossFiltering: DrillSelectItem = {
+        type: DrillType.CROSS_FILTERING,
+        name: "Cross filter",
+        drillDefinition: {
+            type: "crossFiltering",
+            transition: "in-place",
+            origin: {} as DrillOrigin,
+        },
+        id: "crossFiltering",
+    };
+
+    const drills = drillDefinitions.map((drillDefinition): DrillSelectItem => {
         invariant(
             !isDrillToLegacyDashboard(drillDefinition),
             "Drill to pixel perfect dashboards from insight is not supported.",
@@ -149,7 +163,13 @@ export const createDrillSelectItems = (
             };
         }
 
+        if (isCrossFiltering(drillDefinition)) {
+            return crossFiltering;
+        }
+
         const unhandledDefinition: never = drillDefinition;
         throw new UnexpectedSdkError(`Unhandled drill definition: ${JSON.stringify(unhandledDefinition)}`);
     });
+
+    return [crossFiltering, ...drills];
 };

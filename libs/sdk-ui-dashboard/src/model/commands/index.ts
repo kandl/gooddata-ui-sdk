@@ -77,6 +77,7 @@ import {
     DrillToInsight,
     DrillToLegacyDashboard,
     ChangeDrillableItems,
+    CrossFiltering,
 } from "./drill.js";
 import { AddDrillTargets } from "./drillTargets.js";
 import { RequestAsyncRender, ResolveAsyncRender } from "./render.js";
@@ -244,6 +245,8 @@ export {
     ChangeDrillableItems,
     ChangeDrillableItemsPayload,
     DashboardDrillCommand,
+    CrossFiltering,
+    CrossFilteringPayload,
     drill,
     drillDown,
     drillToAttributeUrl,
@@ -252,6 +255,7 @@ export {
     drillToInsight,
     drillToLegacyDashboard,
     changeDrillableItems,
+    crossFiltering,
 } from "./drill.js";
 
 export {
@@ -448,4 +452,5 @@ export type DashboardCommands =
     | SetDashboardDateFilterConfigMode
     | SetDashboardAttributeFilterConfigMode
     | RemoveDrillDownForInsightWidget
-    | AddDrillDownForInsightWidget;
+    | AddDrillDownForInsightWidget
+    | CrossFiltering;

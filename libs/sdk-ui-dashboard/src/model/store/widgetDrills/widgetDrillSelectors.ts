@@ -379,6 +379,9 @@ export const selectConfiguredDrillsByWidgetRef: (
                     case "drillToLegacyDashboard": {
                         return !(isEmbedded && hideKpiDrillInEmbedded);
                     }
+                    case "crossFiltering": {
+                        return true;
+                    }
                     default: {
                         const unhandledType: never = drillType;
                         throw new UnexpectedError(`Unhandled widget drill type: ${unhandledType}`);
@@ -425,6 +428,9 @@ export const selectValidConfiguredDrillsByWidgetRef: (
                         return true;
                     }
                     case "drillDown": {
+                        return true;
+                    }
+                    case "crossFiltering": {
                         return true;
                     }
                     default: {
