@@ -393,3 +393,19 @@ export const selectIsSectionInsertedByPlugin: (refs: (ObjRef | undefined)[]) => 
                 modifications.length > 0 && modifications.every((m) => m === "insertedByPlugin"),
         ),
     );
+
+/**
+ * @beta
+ */
+export const selectCrossFilteringActiveWidget: DashboardSelector<ObjRef | undefined> = createSelector(
+    selectSelf,
+    (state) => state.crossFiltering.activeWidget,
+);
+
+/**
+ * @beta
+ */
+export const selectIsCrossFilteringActiveWidget: (ref: ObjRef | undefined) => DashboardSelector<boolean> =
+    createMemoizedSelector((ref: ObjRef | undefined) =>
+        createSelector(selectSelf, (state) => areObjRefsEqual(ref, state.crossFiltering.activeWidget)),
+    );

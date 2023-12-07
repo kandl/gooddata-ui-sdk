@@ -3,19 +3,17 @@ import { all, call, put, SagaReturnType, select } from "redux-saga/effects";
 import {
     IAttributeFilter,
     IDashboardAttributeFilter,
-    ObjRef,
     areObjRefsEqual,
     filterAttributeElements,
     filterObjRef,
     isNegativeAttributeFilter,
 } from "@gooddata/sdk-model";
-import compact from "lodash/compact.js";
 import { DashboardContext } from "../../types/commonTypes.js";
 import { selectFilterContextAttributeFilters } from "../../store/filterContext/filterContextSelectors.js";
 import { convertIntersectionToAttributeFilters } from "./common/intersectionUtils.js";
 import { addAttributeFilter, changeAttributeFilterSelection } from "../../commands/filters.js";
-import { replaceInsightWidgetFilterSettings } from "../../commands/insight.js";
 import { CrossFiltering } from "../../commands/drill.js";
+import { uiActions } from "../../store/ui/index.js";
 
 export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFiltering) {
     const backendSupportsElementUris = !!ctx.backend.capabilities.supportsElementUris;
@@ -49,9 +47,8 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
         }
     }
 
+    yield put(uiActions.setCrossFilteringActiveWidget(widgetRef));
     yield all(drillIntersectionFilters.map((newFilter) => call(applyCrossFilter, currentFilters, newFilter)));
-
-    yield call(disconnectCrossFilterFromWidget, drillIntersectionFilters, widgetRef);
 }
 
 function* applyCrossFilter(currentFilters: IDashboardAttributeFilter[], newFilter: IAttributeFilter) {
@@ -82,14 +79,4 @@ function* applyCrossFilter(currentFilters: IDashboardAttributeFilter[], newFilte
             ),
         );
     }
-}
-
-function* disconnectCrossFilterFromWidget(filters: IAttributeFilter[], widgetRef: ObjRef) {
-    const filterRefsToDisconnect = compact(filters.map(filterObjRef));
-
-    yield put(
-        replaceInsightWidgetFilterSettings(widgetRef, {
-            ignoreAttributeFilters: filterRefsToDisconnect,
-        }),
-    );
 }

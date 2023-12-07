@@ -285,6 +285,13 @@ const hideAllWidgetsOverlay: UiReducer = (state) => {
     }, {} as Record<string, IDashboardWidgetOverlay>);
 };
 
+const setCrossFilteringActiveWidget: UiReducer<PayloadAction<ObjRef | undefined>> = (
+    state,
+    action,
+) => {
+    state.crossFiltering.activeWidget = action.payload;
+};
+
 export const uiReducers = {
     openScheduleEmailDialog,
     closeScheduleEmailDialog,
@@ -333,4 +340,5 @@ export const uiReducers = {
     toggleWidgetsOverlay,
     setWidgetsOverlay,
     hideAllWidgetsOverlay,
+    setCrossFilteringActiveWidget,
 };
