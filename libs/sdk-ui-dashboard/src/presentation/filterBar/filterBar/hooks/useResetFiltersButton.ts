@@ -2,15 +2,18 @@
 import React from "react";
 import isEqual from "lodash/isEqual.js";
 import partition from "lodash/partition.js";
+import difference from "lodash/difference.js";
 import {
     IDashboardAttributeFilter,
     IDashboardDateFilter,
+    isDashboardAttributeFilter,
     isDashboardDateFilter,
     newAllTimeDashboardDateFilter,
 } from "@gooddata/sdk-model";
 
 import {
     changeFilterContextSelection,
+    removeAttributeFilters,
     selectFilterContextFilters,
     selectIsInEditMode,
     selectOriginalFilterContextFilters,
@@ -37,6 +40,16 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
         return !isEditMode && !isEqual(currentFilters, originalFilters);
     }, [originalFilters, currentFilters, isEditMode]);
 
+    const newlyAddedFiltersLocalIds = React.useMemo(() => {
+        const originalAttributeFiltersLocalIds = originalFilters
+            .filter(isDashboardAttributeFilter)
+            .map((filter) => filter.attributeFilter.localIdentifier!);
+        const currentFiltersLocalIds = currentFilters
+            .filter(isDashboardAttributeFilter)
+            .map((filter) => filter.attributeFilter.localIdentifier!);
+        return difference(currentFiltersLocalIds, originalAttributeFiltersLocalIds);
+    }, [currentFilters, originalFilters]);
+
     const resetFilters = React.useCallback(() => {
         if (!canReset) {
             return;
@@ -55,9 +68,10 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
                 ...attributeFilters,
             ]),
         );
+        dispatch(removeAttributeFilters(newlyAddedFiltersLocalIds));
         // Report the reset as user interaction
         filterContextStateReset();
-    }, [dispatch, filterContextStateReset, originalFilters, canReset]);
+    }, [dispatch, filterContextStateReset, originalFilters, canReset, newlyAddedFiltersLocalIds]);
 
     return [canReset, resetFilters];
 };
