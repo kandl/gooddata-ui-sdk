@@ -6344,6 +6344,9 @@ export const selectEnableFilterValuesResolutionInDrillEvents: DashboardSelector<
 export const selectEnableInsightExportScheduling: DashboardSelector<boolean>;
 
 // @internal
+export const selectEnableKDCrossFiltering: DashboardSelector<boolean>;
+
+// @internal
 export const selectEnableKDDependentFilters: DashboardSelector<boolean>;
 
 // @public
