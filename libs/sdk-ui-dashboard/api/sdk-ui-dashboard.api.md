@@ -6208,6 +6208,9 @@ export const selectConfiguredAndImplicitDrillsByWidgetRef: (ref: ObjRef) => Dash
 // @internal (undocumented)
 export const selectConfiguredDrillsByWidgetRef: (ref: ObjRef) => DashboardSelector<IImplicitDrillWithPredicates[]>;
 
+// @beta (undocumented)
+export const selectCrossFilteringActiveWidget: DashboardSelector<ObjRef | undefined>;
+
 // @public
 export const selectCurrentUser: DashboardSelector<IUser>;
 
@@ -6507,6 +6510,9 @@ export const selectIsCancelEditModeDialogOpen: DashboardSelector<boolean>;
 
 // @internal
 export const selectIsCircularDependency: (currentFilterLocalId: string, neighborFilterLocalId: string) => DashboardSelector<boolean>;
+
+// @beta (undocumented)
+export const selectIsCrossFilteringActiveWidget: (ref: ObjRef | undefined) => DashboardSelector<boolean>;
 
 // @internal
 export const selectIsDashboardDirty: DashboardSelector<boolean>;
@@ -7108,6 +7114,10 @@ payload: Record<string, IDashboardWidgetOverlay_2>;
 type: string;
 }) => void | UiState_2 | WritableDraft<UiState_2>;
 hideAllWidgetsOverlay: (state: WritableDraft<UiState_2>, action: AnyAction) => void | UiState_2 | WritableDraft<UiState_2>;
+setCrossFilteringActiveWidget: (state: WritableDraft<UiState_2>, action: {
+payload: ObjRef | undefined;
+type: string;
+}) => void | UiState_2 | WritableDraft<UiState_2>;
 }, "uiSlice">;
 
 // @beta (undocumented)
@@ -7120,6 +7130,10 @@ export interface UiState {
     };
     // (undocumented)
     configurationPanelOpened: boolean;
+    // (undocumented)
+    crossFiltering: {
+        activeWidget: ObjRef | undefined;
+    };
     // (undocumented)
     deleteDialog: {
         open: boolean;

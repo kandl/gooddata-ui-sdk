@@ -17,6 +17,7 @@ import {
     selectFilterContextFilters,
     selectIsInEditMode,
     selectOriginalFilterContextFilters,
+    uiActions,
     useDashboardDispatch,
     useDashboardSelector,
     useDashboardUserInteraction,
@@ -69,6 +70,7 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
             ]),
         );
         dispatch(removeAttributeFilters(newlyAddedFiltersLocalIds));
+        dispatch(uiActions.setCrossFilteringActiveWidget());
         // Report the reset as user interaction
         filterContextStateReset();
     }, [dispatch, filterContextStateReset, originalFilters, canReset, newlyAddedFiltersLocalIds]);

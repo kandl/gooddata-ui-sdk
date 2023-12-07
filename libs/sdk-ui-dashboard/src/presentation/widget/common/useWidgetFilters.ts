@@ -20,7 +20,9 @@ import {
     QueryWidgetFilters,
     queryWidgetFilters,
     selectFilterContextFilters,
+    selectIsCrossFilteringActiveWidget,
     selectIsInEditMode,
+    selectOriginalFilterContextFilters,
     useDashboardQueryProcessing,
     useDashboardSelector,
 } from "../../../model/index.js";
@@ -122,7 +124,10 @@ export function useWidgetFilters(
  * @param widget - widget to get the non-ignored filters for
  */
 function useNonIgnoredFilters(widget: ExtendedDashboardWidget | undefined) {
-    const dashboardFilters = useDashboardSelector(selectFilterContextFilters);
+    const isWidgetCrossFiltering = useDashboardSelector(selectIsCrossFilteringActiveWidget(widget?.ref));
+    const dashboardFilters = useDashboardSelector(
+        isWidgetCrossFiltering ? selectOriginalFilterContextFilters : selectFilterContextFilters,
+    );
     const isInEditMode = useDashboardSelector(selectIsInEditMode);
     const widgetIgnoresDateFilter = !widget?.dateDataSet;
 

@@ -72,6 +72,9 @@ export interface UiState {
     draggingWidgetSource: DraggableLayoutItem | undefined;
     draggingWidgetTarget: ILayoutCoordinates | undefined;
     widgetsOverlay: Record<string, IDashboardWidgetOverlay>;
+    crossFiltering: {
+        activeWidget: ObjRef | undefined;
+    };
 }
 
 export const uiInitialState: UiState = {
@@ -122,4 +125,7 @@ export const uiInitialState: UiState = {
     draggingWidgetSource: undefined,
     draggingWidgetTarget: undefined,
     widgetsOverlay: {},
+    crossFiltering: {
+        activeWidget: undefined,
+    },
 };
