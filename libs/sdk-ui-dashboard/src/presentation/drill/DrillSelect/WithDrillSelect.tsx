@@ -31,6 +31,7 @@ import {
     DashboardDrillCommand,
     selectWidgetDrills,
     selectEnableKDCrossFiltering,
+    selectSupportsCrossFiltering,
 } from "../../../model/index.js";
 import {
     DashboardDrillContext,
@@ -83,15 +84,17 @@ export function WithDrillSelect({
     const disableDefaultDrills = useDashboardSelector(selectDisableDefaultDrills); // TODO: maybe remove?
     const configuredDrills = useDashboardSelector(selectWidgetDrills(widgetRef));
     const enableKDCrossFiltering = useDashboardSelector(selectEnableKDCrossFiltering);
+    const supportsCrossFiltering = useDashboardSelector(selectSupportsCrossFiltering);
 
     const drills = useDrills({
         onDrillSuccess: (s) => {
             if (disableDefaultDrills || s.payload.drillEvent.drillDefinitions.length === 0) {
                 return;
             }
-            const drillDefinitions = enableKDCrossFiltering
-                ? [...s.payload.drillEvent.drillDefinitions, CROSS_FILTERING]
-                : s.payload.drillEvent.drillDefinitions;
+            const drillDefinitions =
+                enableKDCrossFiltering && supportsCrossFiltering
+                    ? [...s.payload.drillEvent.drillDefinitions, CROSS_FILTERING]
+                    : s.payload.drillEvent.drillDefinitions;
             const drillEvent = s.payload.drillEvent;
             const context = s.payload.drillContext;
 

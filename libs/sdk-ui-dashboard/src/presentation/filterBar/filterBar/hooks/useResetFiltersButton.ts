@@ -14,9 +14,11 @@ import {
 import {
     changeFilterContextSelection,
     removeAttributeFilters,
+    selectEnableKDCrossFiltering,
     selectFilterContextFilters,
     selectIsInEditMode,
     selectOriginalFilterContextFilters,
+    selectSupportsCrossFiltering,
     uiActions,
     useDashboardDispatch,
     useDashboardSelector,
@@ -34,6 +36,8 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
     const isEditMode = useDashboardSelector(selectIsInEditMode);
     const originalFilters = useDashboardSelector(selectOriginalFilterContextFilters);
     const currentFilters = useDashboardSelector(selectFilterContextFilters);
+    const enableKDCrossFiltering = useDashboardSelector(selectEnableKDCrossFiltering);
+    const supportsCrossFiltering = useDashboardSelector(selectSupportsCrossFiltering);
     const dispatch = useDashboardDispatch();
     const { filterContextStateReset } = useDashboardUserInteraction();
 
@@ -69,11 +73,21 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
                 ...attributeFilters,
             ]),
         );
-        dispatch(removeAttributeFilters(newlyAddedFiltersLocalIds));
-        dispatch(uiActions.setCrossFilteringActiveWidget());
+        if (enableKDCrossFiltering && supportsCrossFiltering) {
+            dispatch(removeAttributeFilters(newlyAddedFiltersLocalIds));
+            dispatch(uiActions.setCrossFilteringActiveWidget());
+        }
         // Report the reset as user interaction
         filterContextStateReset();
-    }, [dispatch, filterContextStateReset, originalFilters, canReset, newlyAddedFiltersLocalIds]);
+    }, [
+        canReset,
+        originalFilters,
+        dispatch,
+        enableKDCrossFiltering,
+        supportsCrossFiltering,
+        filterContextStateReset,
+        newlyAddedFiltersLocalIds,
+    ]);
 
     return [canReset, resetFilters];
 };

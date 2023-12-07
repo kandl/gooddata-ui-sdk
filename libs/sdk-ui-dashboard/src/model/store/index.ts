@@ -19,6 +19,7 @@ export {
     selectAllowMultipleInteractionsPerAttributeAndMeasure,
     selectSupportsAttributeHierarchies,
     selectSupportsSingleSelectDependentFilters,
+    selectSupportsCrossFiltering,
 } from "./backendCapabilities/backendCapabilitiesSelectors.js";
 export { ConfigState } from "./config/configState.js";
 export {

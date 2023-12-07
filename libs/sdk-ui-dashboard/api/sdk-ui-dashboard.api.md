@@ -6703,6 +6703,9 @@ export const selectSupportsAccessControlCapability: DashboardSelector<boolean>;
 // @internal
 export const selectSupportsAttributeHierarchies: DashboardSelector<boolean>;
 
+// @internal
+export const selectSupportsCrossFiltering: DashboardSelector<boolean>;
+
 // @public
 export const selectSupportsElementsQueryParentFiltering: DashboardSelector<boolean>;
 
