@@ -356,6 +356,11 @@
         "comment": "",
         "limit": 0
     },
+    "visualization.tooltip.generic.interaction": {
+        "value": "Click chart for more",
+        "comment": "",
+        "limit": 0
+    },
     "gs.filterLabel.all": {
         "value": "All",
         "comment": "",
