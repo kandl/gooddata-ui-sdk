@@ -366,7 +366,7 @@ export function isAttributeHierarchyReference(obj: unknown): obj is IAttributeHi
 export type IDrillDownReference = IAttributeHierarchyReference | IDateHierarchyReference;
 
 /**
- *
+ * Cross-filtering
  * @public
  */
 export interface ICrossFiltering extends IDrill {

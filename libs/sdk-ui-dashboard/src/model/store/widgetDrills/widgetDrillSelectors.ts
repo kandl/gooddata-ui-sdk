@@ -55,13 +55,17 @@ import {
     selectHideKpiDrillInEmbedded,
     selectIsEmbedded,
     selectEnableAttributeHierarchies,
+    selectEnableKDCrossFiltering,
 } from "../config/configSelectors.js";
 import flatMap from "lodash/flatMap.js";
 import { selectAccessibleDashboardsMap } from "../accessibleDashboards/accessibleDashboardsSelectors.js";
 import { selectInsightByWidgetRef, selectInsightsMap } from "../insights/insightsSelectors.js";
 import { DashboardSelector } from "../types.js";
 import { ObjRefMap } from "../../../_staging/metadata/objRefMap.js";
-import { selectSupportsAttributeHierarchies } from "../backendCapabilities/backendCapabilitiesSelectors.js";
+import {
+    selectSupportsAttributeHierarchies,
+    selectSupportsCrossFiltering,
+} from "../backendCapabilities/backendCapabilitiesSelectors.js";
 import { existBlacklistHierarchyPredicate } from "../../utils/attributeHierarchyUtils.js";
 
 /**
@@ -271,6 +275,42 @@ export const selectImplicitDrillsDownByWidgetRef: (
     ),
 );
 
+const selectCrossFilteringByWidgetRef: (ref: ObjRef) => DashboardSelector<IImplicitDrillWithPredicates[]> =
+    createMemoizedSelector((ref: ObjRef) =>
+        createSelector(
+            selectEnableKDCrossFiltering,
+            selectSupportsCrossFiltering,
+            selectDrillTargetsByWidgetRef(ref),
+            (isCrossFilteringEnabled, isCrossFilteringSupported, availableDrillTargets) => {
+                if (!isCrossFilteringEnabled || !isCrossFilteringSupported) {
+                    return [];
+                }
+
+                const availableDrillAttributes =
+                    availableDrillTargets?.availableDrillTargets?.attributes ?? [];
+                return availableDrillAttributes
+                    .filter((drill) => !drill.attribute.attributeHeader.granularity) // exclude date attributes
+                    .map((drill) => {
+                        return {
+                            drillDefinition: {
+                                type: "crossFiltering",
+                                transition: "in-place",
+                                origin: {
+                                    type: "drillFromAttribute",
+                                    attribute: localIdRef(drill.attribute.attributeHeader.localIdentifier),
+                                },
+                            },
+                            predicates: [
+                                HeaderPredicates.localIdentifierMatch(
+                                    drill.attribute.attributeHeader.localIdentifier,
+                                ),
+                            ],
+                        };
+                    });
+            },
+        ),
+    );
+
 /**
  * @internal
  */
@@ -461,6 +501,12 @@ const selectConfiguredDrillPredicates = createMemoizedSelector((ref: ObjRef) =>
     }),
 );
 
+const selectCrossFilteringPredicates = createMemoizedSelector((ref: ObjRef) =>
+    createSelector(selectCrossFilteringByWidgetRef(ref), (configuredDrills = []) => {
+        return flatMap(configuredDrills, (drill) => drill.predicates);
+    }),
+);
+
 /**
  * @internal
  */
@@ -471,8 +517,14 @@ export const selectConfiguredAndImplicitDrillsByWidgetRef: (
         selectValidConfiguredDrillsByWidgetRef(ref),
         selectImplicitDrillsDownByWidgetRef(ref),
         selectImplicitDrillsToUrlByWidgetRef(ref),
-        (configuredDrills, implicitDrillDownDrills, implicitDrillToUrlDrills) => {
-            return [...configuredDrills, ...implicitDrillDownDrills, ...implicitDrillToUrlDrills];
+        selectCrossFilteringByWidgetRef(ref),
+        (configuredDrills, implicitDrillDownDrills, implicitDrillToUrlDrills, crossFiltering) => {
+            return [
+                ...configuredDrills,
+                ...implicitDrillDownDrills,
+                ...implicitDrillToUrlDrills,
+                ...crossFiltering,
+            ];
         },
     ),
 );
@@ -488,12 +540,14 @@ export const selectDrillableItemsByWidgetRef: (ref: ObjRef) => DashboardSelector
             selectConfiguredDrillPredicates(ref),
             selectImplicitDrillDownPredicates(ref),
             selectImplicitDrillToUrlPredicates(ref),
+            selectCrossFilteringPredicates(ref),
             (
                 disableDefaultDrills,
                 drillableItems,
                 configuredDrills,
                 implicitDrillDownDrills,
                 implicitDrillToUrlDrills,
+                crossFilteringDrills,
             ) => {
                 const resolvedDrillableItems = [...drillableItems];
 
@@ -502,6 +556,7 @@ export const selectDrillableItemsByWidgetRef: (ref: ObjRef) => DashboardSelector
                         ...configuredDrills,
                         ...implicitDrillDownDrills,
                         ...implicitDrillToUrlDrills,
+                        ...crossFilteringDrills,
                     );
                 }
 

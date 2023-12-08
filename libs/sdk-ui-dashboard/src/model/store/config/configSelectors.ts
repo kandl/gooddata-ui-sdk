@@ -606,7 +606,7 @@ export const selectIsKDDependentFiltersEnabled: DashboardSelector<boolean> = cre
 );
 
 /**
- * Returns whether new KD cross filtering is enabled.
+ * Returns whether KD cross filtering is enabled.
  *
  * @internal
  */

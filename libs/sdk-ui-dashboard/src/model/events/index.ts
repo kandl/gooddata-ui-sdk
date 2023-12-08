@@ -365,6 +365,8 @@ export {
     DashboardDrillToLegacyDashboardResolvedPayload,
     DashboardDrillableItemsChanged,
     DashboardDrillableItemsChangedPayload,
+    DashboardCrossFilteringRequested,
+    DashboardCrossFilteringRequestedPayload,
     DashboardCrossFilteringResolved,
     DashboardCrossFilteringResolvedPayload,
     isDashboardDrillDownRequested,
@@ -382,6 +384,8 @@ export {
     isDashboardDrillToLegacyDashboardRequested,
     isDashboardDrillToLegacyDashboardResolved,
     isDashboardDrillableItemsChanged,
+    isDashboardCrossFilteringRequested,
+    isDashboardCrossFilteringResolved,
 } from "./drill.js";
 
 export {

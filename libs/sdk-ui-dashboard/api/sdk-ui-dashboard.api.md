@@ -142,6 +142,7 @@ import { ICatalogDateDataset } from '@gooddata/sdk-model';
 import { ICatalogFact } from '@gooddata/sdk-model';
 import { ICatalogMeasure } from '@gooddata/sdk-model';
 import { IColorPalette } from '@gooddata/sdk-model';
+import { ICrossFiltering } from '@gooddata/sdk-model';
 import { IDashboard } from '@gooddata/sdk-model';
 import { IDashboardAttributeFilter } from '@gooddata/sdk-model';
 import { IDashboardAttributeFilterConfig } from '@gooddata/sdk-model';
@@ -1391,6 +1392,20 @@ export interface DashboardCopySavedPayload {
 }
 
 // @alpha
+export interface DashboardCrossFilteringRequested extends IDashboardEvent {
+    // (undocumented)
+    readonly payload: DashboardCrossFilteringRequestedPayload;
+    // (undocumented)
+    readonly type: "GDC.DASH/EVT.DRILL.CROSS_FILTERING.REQUESTED";
+}
+
+// @alpha
+export interface DashboardCrossFilteringRequestedPayload {
+    readonly drillDefinition: ICrossFiltering;
+    readonly drillEvent: IDashboardDrillEvent;
+}
+
+// @alpha
 export interface DashboardCrossFilteringResolved extends IDashboardEvent {
     // (undocumented)
     readonly payload: DashboardCrossFilteringResolvedPayload;
@@ -1400,10 +1415,9 @@ export interface DashboardCrossFilteringResolved extends IDashboardEvent {
 
 // @alpha
 export interface DashboardCrossFilteringResolvedPayload {
-    readonly drillDefinition: IDrillToCustomUrl;
+    readonly drillDefinition: ICrossFiltering;
     readonly drillEvent: IDashboardDrillEvent;
-    readonly filtersInfo: FiltersInfo;
-    readonly url: string;
+    readonly drillIntersectionFilters: IAttributeFilter[];
 }
 
 // @public
@@ -4523,6 +4537,12 @@ export const isDashboardCommandStarted: (obj: unknown) => obj is DashboardComman
 
 // @public
 export const isDashboardCopySaved: (obj: unknown) => obj is DashboardCopySaved;
+
+// @alpha
+export const isDashboardCrossFilteringRequested: (obj: unknown) => obj is DashboardCrossFilteringRequested;
+
+// @alpha
+export const isDashboardCrossFilteringResolved: (obj: unknown) => obj is DashboardCrossFilteringResolved;
 
 // @public
 export const isDashboardDateFilterSelectionChanged: (obj: unknown) => obj is DashboardDateFilterSelectionChanged;

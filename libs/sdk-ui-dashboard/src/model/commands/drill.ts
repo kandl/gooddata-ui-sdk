@@ -7,6 +7,7 @@ import {
     IDrillToDashboard,
     IDrillToInsight,
     IDrillToLegacyDashboard,
+    ICrossFiltering,
 } from "@gooddata/sdk-model";
 import { ExplicitDrill } from "@gooddata/sdk-ui";
 import { DashboardDrillContext, IDashboardDrillEvent, IDrillDownDefinition } from "../../types.js";
@@ -470,13 +471,13 @@ export function changeDrillableItems(
  */
 export interface CrossFilteringPayload {
     /**
-     * Insight to which the drill down should be applied.
+     * Insight from which the cross-filtering is coming.
      */
     readonly insight: IInsight;
     /**
-     * Drill down definition to apply.
+     * Cross-filtering definition to apply.
      */
-    readonly drillDefinition: any;
+    readonly drillDefinition: ICrossFiltering;
     /**
      * Original drill event, that triggered this particular drill interaction.
      */
@@ -493,22 +494,19 @@ export interface CrossFiltering extends IDashboardCommand {
 
 /**
  * Creates the {@link CrossFiltering} command.
- * Dispatching this command will result into applying drill down definition to the provided insight (result of the drill down application
- * depends on the particular visualization type) and dispatching {@link DashboardDrillDownResolved} event that will contain it.
- *
- * In the default dashboard implementation dispatching this command will also result into opening drill dialog with the insight
- * that has this particular drill down definition applied.
+ * Dispatching this command will result into applying intersection attribute filters to the dashboard and insight will ignore these filters further
+ * Eventually a {@link DashboardCrossFilteringResolved} event will be dispatched at the end.
  *
  * @alpha
- * @param insight - insight to which the drill down should be applied.
+ * @param insight - insight from which the cross filtering is coming.
  * @param drillDefinition - drill definition to apply.
  * @param drillEvent - original drill event, that triggered this particular drill interaction.
  * @param correlationId - specify correlation id. It will be included in all events that will be emitted during the command processing.
- * @returns drill down command
+ * @returns cross filtering command
  */
 export function crossFiltering(
     insight: IInsight,
-    drillDefinition: any,
+    drillDefinition: ICrossFiltering,
     drillEvent: IDashboardDrillEvent,
     correlationId?: string,
 ): CrossFiltering {

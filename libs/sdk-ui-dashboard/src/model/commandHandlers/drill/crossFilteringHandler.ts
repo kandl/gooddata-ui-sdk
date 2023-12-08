@@ -14,19 +14,29 @@ import { convertIntersectionToAttributeFilters } from "./common/intersectionUtil
 import { addAttributeFilter, changeAttributeFilterSelection } from "../../commands/filters.js";
 import { CrossFiltering } from "../../commands/drill.js";
 import { uiActions } from "../../store/ui/index.js";
+import { crossFilteringRequested, crossFilteringResolved } from "../../events/drill.js";
+import { selectCatalogDateAttributes } from "../../store/catalog/catalogSelectors.js";
 
 export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFiltering) {
+    yield put(
+        crossFilteringRequested(ctx, cmd.payload.drillDefinition, cmd.payload.drillEvent, cmd.correlationId),
+    );
+
     const backendSupportsElementUris = !!ctx.backend.capabilities.supportsElementUris;
     const widgetRef = cmd.payload.drillEvent.widgetRef!;
     const currentFilters: SagaReturnType<typeof selectFilterContextAttributeFilters> = yield select(
         selectFilterContextAttributeFilters,
     );
+    const dateAttributes: ReturnType<typeof selectCatalogDateAttributes> = yield select(
+        selectCatalogDateAttributes,
+    );
+    const dateDataSetsAttributesRefs = dateAttributes.map((dateAttribute) => dateAttribute.attribute.ref);
 
     let drillIntersectionFilters: IAttributeFilter[] = [];
     if (cmd.payload.drillEvent.drillContext.intersection) {
         drillIntersectionFilters = convertIntersectionToAttributeFilters(
             cmd.payload.drillEvent.drillContext.intersection,
-            [],
+            dateDataSetsAttributesRefs,
             backendSupportsElementUris,
         );
     } else if (cmd.payload.drillEvent?.drillContext?.points) {
@@ -34,13 +44,13 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
         if (cmd.payload.drillEvent?.drillContext?.points?.length === 1) {
             drillIntersectionFilters = convertIntersectionToAttributeFilters(
                 cmd.payload.drillEvent?.drillContext?.points[0]?.intersection,
-                [],
+                dateDataSetsAttributesRefs,
                 backendSupportsElementUris,
             );
         } else if (cmd.payload.drillEvent?.drillContext?.points?.length > 1) {
             drillIntersectionFilters = convertIntersectionToAttributeFilters(
                 cmd.payload.drillEvent?.drillContext?.points[0]?.intersection.slice(-1),
-                [],
+                dateDataSetsAttributesRefs,
                 backendSupportsElementUris,
             );
         }
@@ -48,6 +58,14 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
 
     yield put(uiActions.setCrossFilteringActiveWidget(widgetRef));
     yield all(drillIntersectionFilters.map((newFilter) => call(applyCrossFilter, currentFilters, newFilter)));
+
+    return crossFilteringResolved(
+        ctx,
+        drillIntersectionFilters,
+        cmd.payload.drillDefinition,
+        cmd.payload.drillEvent,
+        cmd.correlationId,
+    );
 }
 
 function* applyCrossFilter(currentFilters: IDashboardAttributeFilter[], newFilter: IAttributeFilter) {
