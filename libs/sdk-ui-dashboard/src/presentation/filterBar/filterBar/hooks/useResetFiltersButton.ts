@@ -19,7 +19,7 @@ import {
     selectIsInEditMode,
     selectOriginalFilterContextFilters,
     selectSupportsCrossFiltering,
-    uiActions,
+    drillActions,
     useDashboardDispatch,
     useDashboardSelector,
     useDashboardUserInteraction,
@@ -75,7 +75,7 @@ export const useResetFiltersButton = (): [boolean, () => void] => {
         );
         if (enableKDCrossFiltering && supportsCrossFiltering) {
             dispatch(removeAttributeFilters(newlyAddedFiltersLocalIds));
-            dispatch(uiActions.setCrossFilteringActiveWidget());
+            dispatch(drillActions.resetCrossFiltering());
         }
         // Report the reset as user interaction
         filterContextStateReset();

@@ -215,8 +215,15 @@ export {
     selectAllCatalogAttributeHierarchies,
 } from "./catalog/catalogSelectors.js";
 export { catalogActions } from "./catalog/index.js";
-export { selectDrillableItems } from "./drill/drillSelectors.js";
+export { drillActions } from "./drill/index.js";
+export {
+    selectDrillableItems,
+    selectCrossFilteringItems,
+    selectCrossFilteringFiltersLocalIdentifiers,
+    selectCrossFilteringFiltersLocalIdentifiersByWidgetRef
+} from "./drill/drillSelectors.js";
 export { DrillState } from "./drill/drillState.js";
+export { ICrossFilteringItem } from "./drill/types.js";
 export { AlertsState } from "./alerts/alertsState.js";
 export {
     selectAlerts,
@@ -302,8 +309,6 @@ export {
     selectInvalidUrlDrillParameterDrillLocalIdsByWidgetRef,
     selectInvalidUrlDrillParameterWidgetRefs,
     selectInvalidUrlDrillParameterWidgetWarnings,
-    selectCrossFilteringActiveWidget,
-    selectIsCrossFilteringActiveWidget,
 } from "./ui/uiSelectors.js";
 export { uiActions } from "./ui/index.js";
 export { RenderModeState } from "./renderMode/renderModeState.js";

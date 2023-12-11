@@ -245,6 +245,11 @@ export interface AddAttributeFilterPayload {
      * Specify the visibility mode of attribute filter
      */
     readonly mode?: DashboardAttributeFilterConfigMode;
+
+    /**
+     * Specify the local identifier of attribute filter
+     */
+    readonly localIdentifier?: string;
 }
 
 /**
@@ -282,6 +287,7 @@ export function addAttributeFilter(
     mode?: DashboardAttributeFilterConfigMode,
     initialSelection?: IAttributeElements,
     initialIsNegativeSelection?: boolean,
+    localIdentifier?: string
 ): AddAttributeFilter {
     return {
         type: "GDC.DASH/CMD.FILTER_CONTEXT.ATTRIBUTE_FILTER.ADD",
@@ -293,6 +299,7 @@ export function addAttributeFilter(
             mode,
             initialSelection,
             initialIsNegativeSelection,
+            localIdentifier,
         },
     };
 }

@@ -116,6 +116,7 @@ import { DateString } from '@gooddata/sdk-model';
 import { Dispatch } from '@reduxjs/toolkit';
 import { DraggableLayoutItem as DraggableLayoutItem_2 } from '../../../index.js';
 import { DrillDefinition } from '@gooddata/sdk-model';
+import { DrillState as DrillState_2 } from './drillState.js';
 import { EntityId } from '@reduxjs/toolkit';
 import { EntityState } from '@reduxjs/toolkit';
 import { ExplicitDrill } from '@gooddata/sdk-ui';
@@ -143,6 +144,7 @@ import { ICatalogFact } from '@gooddata/sdk-model';
 import { ICatalogMeasure } from '@gooddata/sdk-model';
 import { IColorPalette } from '@gooddata/sdk-model';
 import { ICrossFiltering } from '@gooddata/sdk-model';
+import { ICrossFilteringItem as ICrossFilteringItem_2 } from './types.js';
 import { IDashboard } from '@gooddata/sdk-model';
 import { IDashboardAttributeFilter } from '@gooddata/sdk-model';
 import { IDashboardAttributeFilterConfig } from '@gooddata/sdk-model';
@@ -286,7 +288,7 @@ export interface AddAttributeFilter extends IDashboardCommand {
 }
 
 // @beta
-export function addAttributeFilter(displayForm: ObjRef, index: number, correlationId?: string, selectionMode?: DashboardAttributeFilterSelectionMode, mode?: DashboardAttributeFilterConfigMode, initialSelection?: IAttributeElements, initialIsNegativeSelection?: boolean): AddAttributeFilter;
+export function addAttributeFilter(displayForm: ObjRef, index: number, correlationId?: string, selectionMode?: DashboardAttributeFilterSelectionMode, mode?: DashboardAttributeFilterConfigMode, initialSelection?: IAttributeElements, initialIsNegativeSelection?: boolean, localIdentifier?: string): AddAttributeFilter;
 
 // @internal (undocumented)
 export function AddAttributeFilterButton({ className, isOpen, title }: IAddAttributeFilterButtonProps): JSX.Element;
@@ -299,6 +301,7 @@ export interface AddAttributeFilterPayload {
     readonly index: number;
     readonly initialIsNegativeSelection?: boolean;
     readonly initialSelection?: IAttributeElements;
+    readonly localIdentifier?: string;
     readonly mode?: DashboardAttributeFilterConfigMode;
     readonly parentFilters?: ReadonlyArray<IDashboardAttributeFilterParent>;
     readonly selectionMode?: DashboardAttributeFilterSelectionMode;
@@ -958,11 +961,11 @@ export interface CrossFiltering extends IDashboardCommand {
 }
 
 // @alpha
-export function crossFiltering(insight: IInsight, drillDefinition: any, drillEvent: IDashboardDrillEvent, correlationId?: string): CrossFiltering;
+export function crossFiltering(insight: IInsight, drillDefinition: ICrossFiltering, drillEvent: IDashboardDrillEvent, correlationId?: string): CrossFiltering;
 
 // @alpha
 export interface CrossFilteringPayload {
-    readonly drillDefinition: any;
+    readonly drillDefinition: ICrossFiltering;
     readonly drillEvent: IDashboardDrillEvent;
     readonly insight: IInsight;
 }
@@ -2851,6 +2854,19 @@ export enum DRILL_TO_URL_PLACEHOLDER {
     DRILL_TO_URL_PLACEHOLDER_WORKSPACE_ID = "{workspace_id}"
 }
 
+// @internal (undocumented)
+export const drillActions: CaseReducerActions<    {
+setDrillableItems: (state: WritableDraft<DrillState_2>, action: {
+payload: ExplicitDrill[];
+type: string;
+}) => void | DrillState_2 | WritableDraft<DrillState_2>;
+crossFilterByWidget: (state: WritableDraft<DrillState_2>, action: {
+payload: ICrossFilteringItem_2;
+type: string;
+}) => void | DrillState_2 | WritableDraft<DrillState_2>;
+resetCrossFiltering: (state: WritableDraft<DrillState_2>, action: Action<any>) => void | DrillState_2 | WritableDraft<DrillState_2>;
+}, "drill">;
+
 // @alpha (undocumented)
 export interface DrillDown extends IDashboardCommand {
     // (undocumented)
@@ -2877,6 +2893,8 @@ export interface DrillPayload {
 
 // @beta (undocumented)
 export interface DrillState {
+    // (undocumented)
+    crossFiltering: ICrossFilteringItem[];
     // (undocumented)
     drillableItems: ExplicitDrill[];
 }
@@ -3352,6 +3370,12 @@ export interface ICreatePanelItemComponentProps {
     disabled?: boolean;
     // (undocumented)
     WrapCreatePanelItemWithDragComponent?: IWrapCreatePanelItemWithDragComponent;
+}
+
+// @beta (undocumented)
+export interface ICrossFilteringItem {
+    filterLocalIdentifiers: string[];
+    widgetRef: ObjRef | undefined;
 }
 
 // @beta (undocumented)
@@ -6229,7 +6253,13 @@ export const selectConfiguredAndImplicitDrillsByWidgetRef: (ref: ObjRef) => Dash
 export const selectConfiguredDrillsByWidgetRef: (ref: ObjRef) => DashboardSelector<IImplicitDrillWithPredicates[]>;
 
 // @beta (undocumented)
-export const selectCrossFilteringActiveWidget: DashboardSelector<ObjRef | undefined>;
+export const selectCrossFilteringFiltersLocalIdentifiers: DashboardSelector<string[]>;
+
+// @beta (undocumented)
+export const selectCrossFilteringFiltersLocalIdentifiersByWidgetRef: (ref: ObjRef | undefined) => DashboardSelector<string[] | undefined>;
+
+// @beta (undocumented)
+export const selectCrossFilteringItems: DashboardSelector<ICrossFilteringItem[]>;
 
 // @public
 export const selectCurrentUser: DashboardSelector<IUser>;
@@ -6530,9 +6560,6 @@ export const selectIsCancelEditModeDialogOpen: DashboardSelector<boolean>;
 
 // @internal
 export const selectIsCircularDependency: (currentFilterLocalId: string, neighborFilterLocalId: string) => DashboardSelector<boolean>;
-
-// @beta (undocumented)
-export const selectIsCrossFilteringActiveWidget: (ref: ObjRef | undefined) => DashboardSelector<boolean>;
 
 // @internal
 export const selectIsDashboardDirty: DashboardSelector<boolean>;
@@ -7137,10 +7164,6 @@ payload: Record<string, IDashboardWidgetOverlay_2>;
 type: string;
 }) => void | UiState_2 | WritableDraft<UiState_2>;
 hideAllWidgetsOverlay: (state: WritableDraft<UiState_2>, action: AnyAction) => void | UiState_2 | WritableDraft<UiState_2>;
-setCrossFilteringActiveWidget: (state: WritableDraft<UiState_2>, action: {
-payload: ObjRef | undefined;
-type: string;
-}) => void | UiState_2 | WritableDraft<UiState_2>;
 }, "uiSlice">;
 
 // @beta (undocumented)
@@ -7153,10 +7176,6 @@ export interface UiState {
     };
     // (undocumented)
     configurationPanelOpened: boolean;
-    // (undocumented)
-    crossFiltering: {
-        activeWidget: ObjRef | undefined;
-    };
     // (undocumented)
     deleteDialog: {
         open: boolean;

@@ -20,11 +20,10 @@ import {
     QueryWidgetFilters,
     queryWidgetFilters,
     selectFilterContextFilters,
-    selectIsCrossFilteringActiveWidget,
     selectIsInEditMode,
-    selectOriginalFilterContextFilters,
     useDashboardQueryProcessing,
     useDashboardSelector,
+    selectCrossFilteringFiltersLocalIdentifiersByWidgetRef,
 } from "../../../model/index.js";
 import { safeSerializeObjRef } from "../../../_staging/metadata/safeSerializeObjRef.js";
 
@@ -124,12 +123,22 @@ export function useWidgetFilters(
  * @param widget - widget to get the non-ignored filters for
  */
 function useNonIgnoredFilters(widget: ExtendedDashboardWidget | undefined) {
-    const isWidgetCrossFiltering = useDashboardSelector(selectIsCrossFilteringActiveWidget(widget?.ref));
-    const dashboardFilters = useDashboardSelector(
-        isWidgetCrossFiltering ? selectOriginalFilterContextFilters : selectFilterContextFilters,
+    const dashboardFilters = useDashboardSelector(selectFilterContextFilters);
+    const crossFilteringLocalIdentifiersForThisWidget = useDashboardSelector(
+        selectCrossFilteringFiltersLocalIdentifiersByWidgetRef(widget?.ref),
     );
-    const isInEditMode = useDashboardSelector(selectIsInEditMode);
+
+    const usedFilters = dashboardFilters.filter((f) => {
+        if (isDashboardAttributeFilter(f)) {
+            // If the widget is cross filtering, virtual filters added by this particular widget should be ignored
+            return !crossFilteringLocalIdentifiersForThisWidget?.includes(f.attributeFilter.localIdentifier!);
+        }
+
+        return true;
+    });
+
     const widgetIgnoresDateFilter = !widget?.dateDataSet;
+    const isInEditMode = useDashboardSelector(selectIsInEditMode);
 
     // usage of state object for filters and status makes changes more atomic and in sync
     const [nonIgnoredFilterState, setNonIgnoredFilterState] = useState<{
@@ -194,12 +203,12 @@ function useNonIgnoredFilters(widget: ExtendedDashboardWidget | undefined) {
     }, [
         safeSerializeObjRef(widget?.ref),
         stringify(widget?.ignoreDashboardFilters),
-        filtersDigest(dashboardFilters, widgetIgnoresDateFilter, isInEditMode),
+        filtersDigest(usedFilters, widgetIgnoresDateFilter, isInEditMode),
     ]);
 
     const nonIgnoredFilters = useMemo(
         () =>
-            dashboardFilters.filter((filter) => {
+            usedFilters.filter((filter) => {
                 if (isDashboardAttributeFilter(filter)) {
                     return nonIgnoredFilterState.nonIgnoredFilterRefs.some((validRef) =>
                         areObjRefsEqual(validRef, filter.attributeFilter.displayForm),
@@ -208,7 +217,7 @@ function useNonIgnoredFilters(widget: ExtendedDashboardWidget | undefined) {
                     return !widgetIgnoresDateFilter;
                 }
             }),
-        [dashboardFilters, nonIgnoredFilterState.nonIgnoredFilterRefs, widgetIgnoresDateFilter],
+        [usedFilters, nonIgnoredFilterState.nonIgnoredFilterRefs, widgetIgnoresDateFilter],
     );
 
     return {
@@ -276,7 +285,9 @@ function filtersDigest(
         })
         .map((filter) => {
             return isDashboardAttributeFilter(filter)
-                ? `df_${safeSerializeObjRef(filter.attributeFilter.displayForm)}`
+                ? `df_${safeSerializeObjRef(filter.attributeFilter.displayForm)}_${
+                      filter.attributeFilter.localIdentifier
+                  }`
                 : `ds_${safeSerializeObjRef(filter.dateFilter.dataSet)}`;
         })
         .sort()

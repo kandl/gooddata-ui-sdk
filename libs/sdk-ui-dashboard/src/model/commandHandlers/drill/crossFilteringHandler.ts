@@ -1,5 +1,5 @@
 // (C) 2023 GoodData Corporation
-import { all, call, put, SagaReturnType, select } from "redux-saga/effects";
+import { all, put, call, select } from "redux-saga/effects";
 import {
     IAttributeFilter,
     IDashboardAttributeFilter,
@@ -13,9 +13,13 @@ import { selectFilterContextAttributeFilters } from "../../store/filterContext/f
 import { convertIntersectionToAttributeFilters } from "./common/intersectionUtils.js";
 import { addAttributeFilter, changeAttributeFilterSelection } from "../../commands/filters.js";
 import { CrossFiltering } from "../../commands/drill.js";
-import { uiActions } from "../../store/ui/index.js";
 import { crossFilteringRequested, crossFilteringResolved } from "../../events/drill.js";
 import { selectCatalogDateAttributes } from "../../store/catalog/catalogSelectors.js";
+import { drillActions } from "../../store/drill/index.js";
+import { v4 as uuid } from "uuid";
+import { addAttributeFilterHandler } from "../filterContext/attributeFilter/addAttributeFilterHandler.js";
+import { selectCrossFilteringFiltersLocalIdentifiers } from "../../store/drill/drillSelectors.js";
+import { changeAttributeFilterSelectionHandler } from "../filterContext/attributeFilter/changeAttributeFilterSelectionHandler.js";
 
 export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFiltering) {
     yield put(
@@ -24,13 +28,21 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
 
     const backendSupportsElementUris = !!ctx.backend.capabilities.supportsElementUris;
     const widgetRef = cmd.payload.drillEvent.widgetRef!;
-    const currentFilters: SagaReturnType<typeof selectFilterContextAttributeFilters> = yield select(
+    const currentFilters: ReturnType<typeof selectFilterContextAttributeFilters> = yield select(
         selectFilterContextAttributeFilters,
     );
     const dateAttributes: ReturnType<typeof selectCatalogDateAttributes> = yield select(
         selectCatalogDateAttributes,
     );
     const dateDataSetsAttributesRefs = dateAttributes.map((dateAttribute) => dateAttribute.attribute.ref);
+
+    const currentVirtualFiltersLocalIdentifiers: ReturnType<
+        typeof selectCrossFilteringFiltersLocalIdentifiers
+    > = yield select(selectCrossFilteringFiltersLocalIdentifiers);
+
+    const currentVirtualFilters = currentVirtualFiltersLocalIdentifiers.map((localIdentifier) => {
+        return currentFilters.find((filter) => filter.attributeFilter.localIdentifier === localIdentifier)!;
+    });
 
     let drillIntersectionFilters: IAttributeFilter[] = [];
     if (cmd.payload.drillEvent.drillContext.intersection) {
@@ -56,8 +68,69 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
         }
     }
 
-    yield put(uiActions.setCrossFilteringActiveWidget(widgetRef));
-    yield all(drillIntersectionFilters.map((newFilter) => call(applyCrossFilter, currentFilters, newFilter)));
+    const virtualFilters = drillIntersectionFilters.map((filter) => {
+        const displayForm = filterObjRef(filter);
+        const attributeElements = filterAttributeElements(filter);
+        const negativeSelection = isNegativeAttributeFilter(filter);
+        const existingVirtualFilter = currentVirtualFilters.find((vf) => {
+            return areObjRefsEqual(vf.attributeFilter.displayForm, displayForm);
+        });
+
+        const dashboardFilter: IDashboardAttributeFilter = {
+            attributeFilter: {
+                displayForm,
+                attributeElements,
+                negativeSelection,
+                localIdentifier: existingVirtualFilter?.attributeFilter.localIdentifier ?? uuid(),
+                selectionMode: "multi",
+            },
+        };
+
+        return dashboardFilter;
+    });
+
+    const correlation = `crossFiltering_${uuid()}`;
+
+    yield all(
+        virtualFilters.map((vf) => {
+            const isExistingVirtualFilter = currentVirtualFiltersLocalIdentifiers.includes(
+                vf.attributeFilter.localIdentifier!,
+            );
+
+            return !isExistingVirtualFilter
+                ? call(
+                      addAttributeFilterHandler,
+                      ctx,
+                      addAttributeFilter(
+                          vf.attributeFilter.displayForm,
+                          currentFilters.length + 1,
+                          correlation,
+                          "multi",
+                          "readonly",
+                          vf.attributeFilter.attributeElements,
+                          vf.attributeFilter.negativeSelection,
+                          vf.attributeFilter.localIdentifier,
+                      ),
+                  )
+                : call(
+                      changeAttributeFilterSelectionHandler,
+                      ctx,
+                      changeAttributeFilterSelection(
+                          vf.attributeFilter.localIdentifier!,
+                          vf.attributeFilter.attributeElements,
+                          vf.attributeFilter.negativeSelection ? "NOT_IN" : "IN",
+                          correlation,
+                      ),
+                  );
+        }),
+    );
+
+    yield put(
+        drillActions.crossFilterByWidget({
+            widgetRef,
+            filterLocalIdentifiers: virtualFilters.map((vf) => vf.attributeFilter.localIdentifier!),
+        }),
+    );
 
     return crossFilteringResolved(
         ctx,
@@ -66,34 +139,4 @@ export function* crossFilteringHandler(ctx: DashboardContext, cmd: CrossFilterin
         cmd.payload.drillEvent,
         cmd.correlationId,
     );
-}
-
-function* applyCrossFilter(currentFilters: IDashboardAttributeFilter[], newFilter: IAttributeFilter) {
-    const newFilterRef = filterObjRef(newFilter);
-    const newFilterElements = filterAttributeElements(newFilter);
-    const existingFilter = currentFilters.find((item) =>
-        areObjRefsEqual(item.attributeFilter.displayForm, newFilterRef),
-    );
-
-    if (existingFilter) {
-        yield put(
-            changeAttributeFilterSelection(
-                existingFilter.attributeFilter.localIdentifier!,
-                newFilterElements,
-                isNegativeAttributeFilter(newFilter) ? "NOT_IN" : "IN",
-            ),
-        );
-    } else {
-        yield put(
-            addAttributeFilter(
-                newFilterRef,
-                currentFilters.length,
-                "",
-                "multi",
-                "active",
-                newFilterElements,
-                isNegativeAttributeFilter(newFilter),
-            ),
-        );
-    }
 }

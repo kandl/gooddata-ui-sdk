@@ -12,13 +12,17 @@ import {
     selectAttributeFilterDisplayFormsMap,
     selectCanAddMoreAttributeFilters,
     selectFilterContextAttributeFilterByDisplayForm,
+    selectFilterContextAttributeFilterByLocalId,
     selectFilterContextAttributeFilters,
 } from "../../../store/filterContext/filterContextSelectors.js";
 import { selectBackendCapabilities } from "../../../store/backendCapabilities/backendCapabilitiesSelectors.js";
 
 import { DashboardContext } from "../../../types/commonTypes.js";
 import { dispatchFilterContextChanged } from "../common.js";
-import { PromiseFnReturnType, PromiseReturnType } from "../../../types/sagas.js";
+import {
+    PromiseFnReturnType,
+    PromiseReturnType,
+} from "../../../types/sagas.js";
 import { canFilterBeAdded } from "./validation/uniqueFiltersValidation.js";
 import { dispatchDashboardEvent } from "../../../store/_infra/eventDispatcher.js";
 import { attributeFilterConfigsActions } from "../../../store/attributeFilterConfigs/index.js";
@@ -26,6 +30,7 @@ import { resolveDisplayFormMetadata } from "../../../utils/displayFormResolver.j
 import isEmpty from "lodash/isEmpty.js";
 import { batchActions } from "redux-batched-actions";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
+import { selectEnableKDCrossFiltering } from '../../../store/config/configSelectors.js';
 
 export function* addAttributeFilterHandler(
     ctx: DashboardContext,
@@ -39,6 +44,7 @@ export function* addAttributeFilterHandler(
         parentFilters,
         selectionMode,
         mode,
+        localIdentifier,
     } = cmd.payload;
 
     const isUnderFilterCountLimit: ReturnType<typeof selectCanAddMoreAttributeFilters> = yield select(
@@ -77,6 +83,7 @@ export function* addAttributeFilterHandler(
 
     const attributeRef = displayFormMetadata.attribute;
 
+    const isCrossFilteringEnabled: ReturnType<typeof selectEnableKDCrossFiltering> = yield select(selectEnableKDCrossFiltering);
     const canBeAdded: PromiseFnReturnType<typeof canFilterBeAdded> = yield call(
         canFilterBeAdded,
         ctx,
@@ -84,7 +91,7 @@ export function* addAttributeFilterHandler(
         allFilters,
     );
 
-    if (!canBeAdded) {
+    if (!isCrossFilteringEnabled && !canBeAdded) {
         throw invalidArgumentsProvided(
             ctx,
             cmd,
@@ -105,13 +112,20 @@ export function* addAttributeFilterHandler(
                 initialSelection,
                 parentFilters,
                 selectionMode,
+                localIdentifier,
             }),
             filterContextActions.addAttributeFilterDisplayForm(displayFormMetadata),
         ]),
     );
 
-    const addedFilter: ReturnType<ReturnType<typeof selectFilterContextAttributeFilterByDisplayForm>> =
-        yield select(selectFilterContextAttributeFilterByDisplayForm(displayFormMetadata.ref));
+    const addedFilterByLocalId: ReturnType<ReturnType<typeof selectFilterContextAttributeFilterByLocalId>> =
+        yield select(selectFilterContextAttributeFilterByLocalId(localIdentifier!));
+
+    const addedFilterByDisplayForm: ReturnType<
+        ReturnType<typeof selectFilterContextAttributeFilterByDisplayForm>
+    > = yield select(selectFilterContextAttributeFilterByDisplayForm(displayFormMetadata.ref));
+
+    const addedFilter = addedFilterByLocalId ?? addedFilterByDisplayForm;
 
     invariant(addedFilter, "Inconsistent state in attributeFilterAddCommandHandler");
 
