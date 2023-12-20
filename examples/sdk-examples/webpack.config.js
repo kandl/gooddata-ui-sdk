@@ -6,9 +6,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const { EsbuildPlugin } = require("esbuild-loader");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -83,11 +83,6 @@ module.exports = async (env, argv) => {
         new Dotenv({
             silent: true,
             systemvars: true,
-        }),
-        new ForkTsCheckerWebpackPlugin({
-            issue: {
-                include: [{ file: "src/**/*.{ts,tsx}" }],
-            },
         }),
     ];
 
@@ -219,5 +214,20 @@ module.exports = async (env, argv) => {
             proxy,
         },
         stats: "errors-only",
+        optimization: {
+            minimizer: [
+                new EsbuildPlugin(),
+            ],
+            moduleIds: "deterministic",
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendors",
+                        chunks: "all",
+                    },
+                },
+            },
+        },
     });
 };

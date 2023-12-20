@@ -1,10 +1,10 @@
 // (C) 2023 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { Widget } from "../../tools/widget";
-import { EditMode } from "../../tools/editMode";
-import { TopBar } from "../../tools/dashboards";
-import { LayoutRow } from "../../tools/layoutRow";
+import * as Navigation from "../../tools/navigation.js";
+import { Widget } from "../../tools/widget.js";
+import { EditMode } from "../../tools/editMode.js";
+import { TopBar } from "../../tools/dashboards.js";
+import { LayoutRow } from "../../tools/layoutRow.js";
 
 const editMode = new EditMode();
 const widget = new Widget(0);

@@ -4,7 +4,7 @@ import { PyramidChart } from "@gooddata/sdk-ui-charts";
 import {
     Amount,
     StageName,
-} from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+} from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 
 const style = { height: 300 };
 

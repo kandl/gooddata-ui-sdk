@@ -1,6 +1,6 @@
 // (C) 2021 GoodData Corporation
 
-import { IWorkspaceDescriptor } from "@gooddata/sdk-backend-spi/esm/workspace";
+import { IWorkspaceDescriptor } from "@gooddata/sdk-backend-spi";
 
 export interface IWorkspaceSourceState {
     isLoading: boolean;

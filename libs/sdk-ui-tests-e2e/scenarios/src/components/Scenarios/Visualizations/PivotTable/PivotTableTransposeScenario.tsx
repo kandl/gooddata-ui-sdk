@@ -2,7 +2,7 @@
 import React from "react";
 import { IPivotTableConfig, PivotTable } from "@gooddata/sdk-ui-pivot";
 import { useBackendStrict, useWorkspaceStrict } from "@gooddata/sdk-ui";
-import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 import { IAttribute, IMeasure, IMeasureDefinition } from "@gooddata/sdk-model";
 
 const measures = [ReferenceMd.Amount];
@@ -38,9 +38,9 @@ export const transposeConfigWithLeft: IPivotTableConfig = {
 };
 
 export interface IPivotTableTransposeCoreProps {
-    measure?: IMeasure<IMeasureDefinition>[] | undefined;
-    row?: IAttribute[] | undefined;
-    column?: IAttribute[] | undefined;
+    measure?: IMeasure<IMeasureDefinition>[];
+    row?: IAttribute[];
+    column?: IAttribute[];
     config: IPivotTableConfig;
 }
 

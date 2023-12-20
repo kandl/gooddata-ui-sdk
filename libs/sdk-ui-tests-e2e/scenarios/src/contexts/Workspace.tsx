@@ -2,11 +2,11 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { WorkspaceProvider as DefaultWorkspaceProvider } from "@gooddata/sdk-ui";
-import identity from "lodash/identity";
+import identity from "lodash/identity.js";
 
-import { workspace as defaultWorkspace } from "../constants";
+import { workspace as defaultWorkspace } from "../constants.js";
 
-import { useWorkspaceList } from "./WorkspaceList";
+import { useWorkspaceList } from "./WorkspaceList.js";
 
 interface IWorkspaceContext {
     workspace: string;

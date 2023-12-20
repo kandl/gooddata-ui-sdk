@@ -1,9 +1,9 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { FilterBar } from "../../tools/filterBar";
-import { AttributeFilterTooltip } from "../../tools/attributeFilterTooltip";
-import { InsightsCatalog } from "../../tools/insightsCatalog";
-import { EditMode } from "../../tools/editMode";
+import * as Navigation from "../../tools/navigation.js";
+import { FilterBar } from "../../tools/filterBar.js";
+import { AttributeFilterTooltip } from "../../tools/attributeFilterTooltip.js";
+import { InsightsCatalog } from "../../tools/insightsCatalog.js";
+import { EditMode } from "../../tools/editMode.js";
 
 describe("Attribute selection tooltip", { tags: ["pre-merge_isolated_bear"] }, () => {
     it("should show attribute values, title and dataset on tooltip when item is hover", () => {

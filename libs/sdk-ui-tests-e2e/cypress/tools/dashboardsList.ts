@@ -1,6 +1,6 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { DashboardName, splitCamelCaseToWords } from "./insightsCatalog";
+import { DashboardName, splitCamelCaseToWords } from "./insightsCatalog.js";
 
 export class DashboardsList {
     getElement() {

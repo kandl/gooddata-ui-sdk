@@ -1,7 +1,7 @@
 // (C) 2021 GoodData Corporation
 
-import { InsightsCatalog, InsightTitle } from "./insightsCatalog";
-import { SectionHeader } from "./sectionHeader";
+import { InsightsCatalog, InsightTitle } from "./insightsCatalog.js";
+import { SectionHeader } from "./sectionHeader.js";
 
 const catalog = new InsightsCatalog();
 

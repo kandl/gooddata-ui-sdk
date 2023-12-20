@@ -1,15 +1,15 @@
 // (C) 2021 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { TopBar, Dashboard } from "../../tools/dashboards";
-import { Api } from "../../tools/api";
-import { ShareDialog } from "../../tools/shareDialog";
-import { getProjectId } from "../../support/constants";
-import { Users } from "../../tools/users";
-import { DashboardAccess, WorkspaceAccess } from "../../tools/permissions";
-import { Dashboards } from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
-import { generateUUID } from "../../tools/utils";
-import { Messages } from "../../tools/messages";
+import * as Navigation from "../../tools/navigation.js";
+import { TopBar, Dashboard } from "../../tools/dashboards.js";
+import { Api } from "../../tools/api.js";
+import { ShareDialog } from "../../tools/shareDialog.js";
+import { getProjectId } from "../../support/constants.js";
+import { Users } from "../../tools/users.js";
+import { DashboardAccess, WorkspaceAccess } from "../../tools/permissions.js";
+import { Dashboards } from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
+import { generateUUID } from "../../tools/utils.js";
+import { Messages } from "../../tools/messages.js";
 
 describe("Dashboard", { tags: ["post-merge_integrated_tiger"] }, () => {
     const permissionsFeatureFlagEarlyAccess = "enableAnalyticalDashboardPermissions";

@@ -1,7 +1,7 @@
 // (C) 2022 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { AttributeFilterButton } from "../../tools/attributeFilterButton";
-import camelCase from "lodash/camelCase";
+import * as Navigation from "../../tools/navigation.js";
+import { AttributeFilterButton } from "../../tools/attributeFilterButton.js";
+import camelCase from "lodash/camelCase.js";
 
 describe("AttributeFilterButton with initial selection", { tags: ["pre-merge_isolated_bear"] }, () => {
     beforeEach(() => {

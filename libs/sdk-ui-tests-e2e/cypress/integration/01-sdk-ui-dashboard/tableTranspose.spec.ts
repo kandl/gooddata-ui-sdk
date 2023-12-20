@@ -1,6 +1,6 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Widget } from "../../tools/widget";
+import * as Navigation from "../../tools/navigation.js";
+import { Widget } from "../../tools/widget.js";
 
 describe("Dashboard with Table Transpose", { tags: ["checklist_integrated_tiger"] }, () => {
     it("rendering", () => {

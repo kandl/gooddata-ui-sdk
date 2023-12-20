@@ -1,14 +1,14 @@
 // (C) 2023 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { TopBar } from "../../tools/dashboards";
-import { Api } from "../../tools/api";
-import { ShareDialog } from "../../tools/shareDialog";
-import { getProjectId } from "../../support/constants";
-import { Users } from "../../tools/users";
-import { Messages } from "../../tools/messages";
-import { DashboardAccess, WorkspaceAccess } from "../../tools/permissions";
-import { Dashboards } from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import * as Navigation from "../../tools/navigation.js";
+import { TopBar } from "../../tools/dashboards.js";
+import { Api } from "../../tools/api.js";
+import { ShareDialog } from "../../tools/shareDialog.js";
+import { getProjectId } from "../../support/constants.js";
+import { Users } from "../../tools/users.js";
+import { Messages } from "../../tools/messages.js";
+import { DashboardAccess, WorkspaceAccess } from "../../tools/permissions.js";
+import { Dashboards } from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 
 describe("Share Dashboard To Everyone", { tags: ["post-merge_integrated_tiger"] }, () => {
     const permissionsFeatureFlagEarlyAccess = "enableAnalyticalDashboardPermissions";

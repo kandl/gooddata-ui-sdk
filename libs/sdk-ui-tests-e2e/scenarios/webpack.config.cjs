@@ -6,7 +6,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require("webpack");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const { EsbuildPlugin } = require("esbuild-loader");
+
 const Dotenv = require("dotenv-webpack");
 require("dotenv").config({ path: "./.env" });
 
@@ -114,11 +115,6 @@ module.exports = async (env, argv) => {
             BASEPATH: JSON.stringify(basePath),
             BUILTIN_MAPBOX_TOKEN: JSON.stringify(process.env.EXAMPLE_MAPBOX_ACCESS_TOKEN || ""),
         }),
-        new ForkTsCheckerWebpackPlugin({
-            issue: {
-                include: [{ file: "src/**/*.{ts,tsx}" }],
-            },
-        }),
     ];
 
     if (isProduction) {
@@ -162,16 +158,13 @@ module.exports = async (env, argv) => {
                     test: /\.[jt]sx?$/,
                     include: path.resolve(__dirname, "../reference_workspace/workspace_objects"),
                     use: {
-                        loader: "babel-loader",
-                        options: {
-                            configFile: path.resolve(__dirname, ".babelrc"),
-                        },
+                        loader: "esbuild-loader",
                     },
                 },
                 {
                     test: /\.[jt]sx?$/,
                     include: path.resolve(__dirname, "src"),
-                    use: ["babel-loader"],
+                    use: ["esbuild-loader"],
                 },
                 {
                     test: /\.(jpe?g|gif|png|svg|ico|eot|woff2?|ttf|wav|mp3)$/,
@@ -186,6 +179,21 @@ module.exports = async (env, argv) => {
         },
         ignoreWarnings: [/Failed to parse source map/], // some of the dependencies have invalid source maps, we do not care that much
         stats: "errors-only",
+        optimization: isProduction
+            ? {
+                  minimizer: [new EsbuildPlugin()],
+                  moduleIds: "deterministic",
+                  splitChunks: {
+                      cacheGroups: {
+                          vendor: {
+                              test: /[\\/]node_modules[\\/]/,
+                              name: "vendors",
+                              chunks: "all",
+                          },
+                      },
+                  },
+              }
+            : {},
     };
 
     return [

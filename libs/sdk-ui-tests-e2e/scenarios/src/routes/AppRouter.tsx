@@ -2,9 +2,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { WorkspaceProvider } from "../contexts/Workspace";
+import { WorkspaceProvider } from "../contexts/Workspace.js";
 
-import ComponentResolver from "./ComponentResolver";
+import ComponentResolver from "./ComponentResolver.js";
 
 const AppRouter: React.FC = () => {
     return (

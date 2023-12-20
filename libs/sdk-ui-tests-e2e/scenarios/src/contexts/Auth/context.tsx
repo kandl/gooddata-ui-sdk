@@ -3,8 +3,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 
-import { createBackend } from "./backend";
-import { useAuthState, initialState, IAuthInitialState } from "./state";
+import { createBackend } from "./backend.js";
+import { useAuthState, initialState, IAuthInitialState } from "./state.js";
 
 const noop = (): Promise<void> => Promise.resolve();
 

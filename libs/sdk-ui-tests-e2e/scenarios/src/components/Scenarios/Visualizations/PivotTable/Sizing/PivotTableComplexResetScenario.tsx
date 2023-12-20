@@ -11,7 +11,7 @@ import {
     IMixedValuesColumnWidthItem,
 } from "@gooddata/sdk-ui-pivot";
 import { useBackendStrict, useWorkspaceStrict } from "@gooddata/sdk-ui";
-import * as ReferenceMd from "../../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear";
+import * as ReferenceMd from "../../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear.js";
 import {
     IAttributeLocatorItem,
     ILocatorItem,
@@ -22,7 +22,7 @@ import {
     measureLocalId,
     newAttributeLocator,
 } from "@gooddata/sdk-model";
-import { workspace } from "../../../../../constants";
+import { workspace } from "../../../../../constants.js";
 
 const measures = [ReferenceMd.Amount];
 const attributes = [ReferenceMd.Product.Name];

@@ -1,7 +1,7 @@
 // (C) 2021-2022 GoodData Corporation
 import { DashboardAttributeFilterConfigMode, DashboardDateFilterConfigMode } from "@gooddata/sdk-model";
-import { getTestClassByTitle } from "../support/commands/tools/classes";
-import { DropZone } from "./enum/DropZone";
+import { getTestClassByTitle } from "../support/commands/tools/classes.js";
+import { DropZone } from "./enum/DropZone.js";
 
 export const NEW_ATTRIBUTE_FILTER_SELECTOR = ".s-add-attribute-filter";
 export const ATTRIBUTE_DROPZONE_SELECTOR = ".s-attr-filter-dropzone-box";

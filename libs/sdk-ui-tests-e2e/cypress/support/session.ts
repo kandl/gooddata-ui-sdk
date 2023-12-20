@@ -1,6 +1,6 @@
 // (C) 2023 GoodData Corporation
-import { getUserName } from "./constants";
-import { Api, getTigerAuthToken } from "../tools/api";
+import { getUserName } from "./constants.js";
+import { Api, getTigerAuthToken } from "../tools/api.js";
 
 export const establishSession = () => {
     const tigerAuthToken = getTigerAuthToken();

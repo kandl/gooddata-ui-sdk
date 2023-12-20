@@ -1,8 +1,8 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Export } from "../../tools/export";
-import { TopBar } from "../../tools/dashboards";
-import { Widget } from "../../tools/widget";
+import * as Navigation from "../../tools/navigation.js";
+import { Export } from "../../tools/export.js";
+import { TopBar } from "../../tools/dashboards.js";
+import { Widget } from "../../tools/widget.js";
 
 const widget = new Widget(0);
 const topBar = new TopBar();

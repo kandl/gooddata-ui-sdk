@@ -1,7 +1,7 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { MDObjects } from "../support/getMDObjects";
-import { getTestClassByTitle } from "../support/commands/tools/classes";
+import { MDObjects } from "../support/getMDObjects.js";
+import { getTestClassByTitle } from "../support/commands/tools/classes.js";
 
 export type InsightTitle = keyof typeof MDObjects.Insights;
 export type DashboardName = keyof typeof MDObjects.Dashboards;

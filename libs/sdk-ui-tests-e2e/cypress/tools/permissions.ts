@@ -1,5 +1,5 @@
 // (C) 2023 GoodData Corporation
-import { Api } from "./api";
+import { Api } from "./api.js";
 
 export class DashboardAccess {
     static assignUserPermissionToDashboard(

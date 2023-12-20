@@ -1,9 +1,9 @@
 // (C) 2023 GoodData Corporation
 
 import { measureLocalId } from "@gooddata/sdk-model";
-import * as Md from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear";
-import * as Navigation from "../../tools/navigation";
-import { Table } from "../../tools/table";
+import * as Md from "../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear.js";
+import * as Navigation from "../../tools/navigation.js";
+import { Table } from "../../tools/table.js";
 
 const TABLE_SELECTOR_STR_COMPLEX = ".s-pivot-table-sizing-complex";
 const CHANGE_WIDTH_BUTTON_SLICE_MEASURE_STR = ".s-change-width-button-slice-measure";
