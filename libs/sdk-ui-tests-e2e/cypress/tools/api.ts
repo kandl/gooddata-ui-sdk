@@ -1,5 +1,5 @@
 // (C) 2023 GoodData Corporation
-import { getHost, getProjectId, getBackend } from "../support/constants";
+import { getHost, getProjectId, getBackend } from "../support/constants.js";
 
 export const getTigerAuthToken = (): string => Cypress.env("TIGER_API_TOKEN");
 

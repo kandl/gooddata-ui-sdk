@@ -1,8 +1,8 @@
 // (C) 2022-2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { nonEmptyValue, Table } from "../../tools/table";
+import * as Navigation from "../../tools/navigation.js";
+import { nonEmptyValue, Table } from "../../tools/table.js";
 
-import { TotalTypes } from "../../tools/enum/TotalTypes";
+import { TotalTypes } from "../../tools/enum/TotalTypes.js";
 
 describe("Pivot Table Aggregations remove all row totals", { tags: ["pre-merge_isolated_bear"] }, () => {
     beforeEach(() => {

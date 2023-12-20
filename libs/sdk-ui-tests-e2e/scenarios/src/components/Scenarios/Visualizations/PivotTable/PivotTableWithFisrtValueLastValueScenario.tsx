@@ -1,9 +1,10 @@
 // (C) 2023 GoodData Corporation
 import React from "react";
-import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
+import * as ReferenceMd from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
 import { IPivotTableConfig, PivotTable } from "@gooddata/sdk-ui-pivot";
 import {
     IAttribute,
+    IFilter,
     IMeasure,
     IMeasureDefinition,
     newAbsoluteDateFilter,
@@ -93,10 +94,11 @@ const filtersOfCreatedYearAndSaleRep2Values = [
 ];
 
 export interface PivotTableFirstValueLastValueCoreProps {
-    measure?: IMeasure<IMeasureDefinition>[] | undefined;
-    row?: IAttribute[] | undefined;
-    column?: IAttribute[] | undefined;
-    config: IPivotTableConfig;
+    measures?: IMeasure<IMeasureDefinition>[];
+    rows?: IAttribute[];
+    column?: IAttribute[];
+    filters?: IFilter[];
+    config?: IPivotTableConfig;
 }
 
 const PivotTableFirstValueLastValue: React.FC<PivotTableFirstValueLastValueCoreProps> = (props) => {

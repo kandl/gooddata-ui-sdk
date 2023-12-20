@@ -1,6 +1,6 @@
 // (C) 2021-2022 GoodData Corporation
 
-import { Widget } from "./widget";
+import { Widget } from "./widget.js";
 
 export class WidgetOptionsMenu {
     constructor(private widget: Widget) {}

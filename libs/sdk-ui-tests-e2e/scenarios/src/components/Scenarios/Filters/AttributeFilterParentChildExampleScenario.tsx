@@ -13,7 +13,7 @@ import {
     isAttributeElementsByValue,
 } from "@gooddata/sdk-model";
 
-import * as Md from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear";
+import * as Md from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear.js";
 
 const parentAttrFilter = newNegativeAttributeFilter(attributeDisplayFormRef(Md.Product.Name), {
     uris: [],

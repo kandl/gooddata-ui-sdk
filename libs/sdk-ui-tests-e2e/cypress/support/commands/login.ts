@@ -1,5 +1,5 @@
 // (C) 2021 GoodData Corporation
-import { getHost, getUserName, getPassword } from "../constants";
+import { getHost, getUserName, getPassword } from "../constants.js";
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace

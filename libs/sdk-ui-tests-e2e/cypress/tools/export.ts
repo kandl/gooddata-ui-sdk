@@ -1,10 +1,10 @@
 // (C) 2022-2023 GoodData Corporation
 import { join } from "path";
-import { Messages } from "./messages";
-import { Widget } from "./widget";
-import { ExportDialog } from "./exportDialog";
-import { ExportOption } from "./exportOption";
-import { WidgetOptionsMenu } from "./widgetOptionsMenu";
+import { Messages } from "./messages.js";
+import { Widget } from "./widget.js";
+import { ExportDialog } from "./exportDialog.js";
+import { ExportOption } from "./exportOption.js";
+import { WidgetOptionsMenu } from "./widgetOptionsMenu.js";
 
 const messages = new Messages();
 const EXPORT_CSV_SELECTOR = ".s-options-menu-export-csv";

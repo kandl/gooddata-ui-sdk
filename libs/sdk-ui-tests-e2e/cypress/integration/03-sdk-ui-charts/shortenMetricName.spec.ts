@@ -1,7 +1,7 @@
 // (C) 2023 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Chart } from "../../tools/chart";
-import { Table } from "../../tools/table";
+import * as Navigation from "../../tools/navigation.js";
+import { Chart } from "../../tools/chart.js";
+import { Table } from "../../tools/table.js";
 
 const LEGEND_NAME_CSS = ".series-name";
 const TOOLTIP_TITLE_CSS = ".gd-viz-tooltip-title";

@@ -1,6 +1,6 @@
 // (C) 2021 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Chart } from "../../tools/chart";
+import * as Navigation from "../../tools/navigation.js";
+import { Chart } from "../../tools/chart.js";
 
 describe("Funnel Chart", { tags: ["checklist_integrated_tiger"] }, () => {
     beforeEach(() => {

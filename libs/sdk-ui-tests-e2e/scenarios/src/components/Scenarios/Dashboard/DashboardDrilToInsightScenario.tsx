@@ -1,9 +1,9 @@
 // (C) 2021-2023 GoodData Corporation
 import React from "react";
 import { Dashboard } from "@gooddata/sdk-ui-dashboard";
-import { idRef } from "../../../../../../sdk-model";
-import * as TigerMDObjects from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger";
-import * as BearMDObjects from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear";
+import { idRef } from "@gooddata/sdk-model";
+import * as TigerMDObjects from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_tiger.js";
+import * as BearMDObjects from "../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear.js";
 
 type MDObjectsType = typeof TigerMDObjects & typeof BearMDObjects;
 

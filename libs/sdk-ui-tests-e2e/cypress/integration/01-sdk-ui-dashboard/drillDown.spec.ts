@@ -1,12 +1,12 @@
 // (C) 2021 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { Table } from "../../tools/table";
-import { Widget } from "../../tools/widget";
-import { DrillToModal } from "../../tools/drillToModal";
-import { DateFilter } from "../../tools/dateFilter";
-import { DateFilterValue } from "../../tools/enum/DateFilterValue";
-import { Api } from "../../tools/api";
-import { DateFilterAbsoluteForm } from "../../tools/dateFilterAbsoluteForm";
+import * as Navigation from "../../tools/navigation.js";
+import { Table } from "../../tools/table.js";
+import { Widget } from "../../tools/widget.js";
+import { DrillToModal } from "../../tools/drillToModal.js";
+import { DateFilter } from "../../tools/dateFilter.js";
+import { DateFilterValue } from "../../tools/enum/DateFilterValue.js";
+import { Api } from "../../tools/api.js";
+import { DateFilterAbsoluteForm } from "../../tools/dateFilterAbsoluteForm.js";
 
 const drillModal = new DrillToModal();
 const api = new Api();

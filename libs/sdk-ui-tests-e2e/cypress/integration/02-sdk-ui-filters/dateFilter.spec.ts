@@ -1,9 +1,9 @@
 // (C) 2021 GoodData Corporation
-import * as Navigation from "../../tools/navigation";
-import { DateFilter } from "../../tools/dateFilter";
-import { clickOutside } from "../../tools/utils";
-import { DateFilterAbsoluteForm } from "../../tools/dateFilterAbsoluteForm";
-import { DateFilterRelativeForm } from "../../tools/dateFilterRelativeForm";
+import * as Navigation from "../../tools/navigation.js";
+import { DateFilter } from "../../tools/dateFilter.js";
+import { clickOutside } from "../../tools/utils.js";
+import { DateFilterAbsoluteForm } from "../../tools/dateFilterAbsoluteForm.js";
+import { DateFilterRelativeForm } from "../../tools/dateFilterRelativeForm.js";
 
 describe("DateFilter", { tags: ["pre-merge_isolated_bear"] }, () => {
     beforeEach(() => {

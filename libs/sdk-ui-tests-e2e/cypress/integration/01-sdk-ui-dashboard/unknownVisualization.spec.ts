@@ -1,7 +1,7 @@
 // (C) 2021 GoodData Corporation
 
-import * as Navigation from "../../tools/navigation";
-import { Widget } from "../../tools/widget";
+import * as Navigation from "../../tools/navigation.js";
+import { Widget } from "../../tools/widget.js";
 
 describe("Dashboard with unknown visualization class", { tags: ["pre-merge_isolated_tiger"] }, () => {
     describe("Basic case", () => {

@@ -1,21 +1,21 @@
 // (C) 2021-2023 GoodData Corporation
 import React from "react";
-import { AttributeFilterButtonPreselectedScenario } from "../components/Scenarios/Filters/AttributeFilterButtonPreselectedScenario";
-import { AttributeFilterButtonScenario } from "../components/Scenarios/Filters/AttributeFilterButtonScenario";
+import { AttributeFilterButtonPreselectedScenario } from "../components/Scenarios/Filters/AttributeFilterButtonPreselectedScenario.js";
+import { AttributeFilterButtonScenario } from "../components/Scenarios/Filters/AttributeFilterButtonScenario.js";
 
-import { DashboardScenario } from "../components/Scenarios/Dashboard/DashboardScenario";
-import { DateFilterScenario } from "../components/Scenarios/Filters/DateFilterScenario";
-import { ImplicitDrillToAttributeUrlScenario } from "../components/Scenarios/Dashboard/ImplicitDrillToAttributeUrlScenario";
-import { BarChartDrillingScenario } from "../components/Scenarios/Visualizations/BarChart/BarChartDrillingScenario";
-import { AttributeFilterButtonParentChildScenario } from "../components/Scenarios/Filters/AttributeFilterButtonParentChildScenario";
-import { ParentChildFiltersWithPlaceholders } from "../components/Scenarios/Filters/ParentChildFiltersWithPlaceholders";
-import { DashboardFilteringScenario } from "../components/Scenarios/Dashboard/DashboardFilteringScenario";
-import { HeadDrillingScenario } from "../components/Scenarios/Visualizations/Headline/HeadlineDrillingScenario";
+import { DashboardScenario } from "../components/Scenarios/Dashboard/DashboardScenario.js";
+import { DateFilterScenario } from "../components/Scenarios/Filters/DateFilterScenario.js";
+import { ImplicitDrillToAttributeUrlScenario } from "../components/Scenarios/Dashboard/ImplicitDrillToAttributeUrlScenario.js";
+import { BarChartDrillingScenario } from "../components/Scenarios/Visualizations/BarChart/BarChartDrillingScenario.js";
+import { AttributeFilterButtonParentChildScenario } from "../components/Scenarios/Filters/AttributeFilterButtonParentChildScenario.js";
+import { ParentChildFiltersWithPlaceholders } from "../components/Scenarios/Filters/ParentChildFiltersWithPlaceholders.js";
+import { DashboardFilteringScenario } from "../components/Scenarios/Dashboard/DashboardFilteringScenario.js";
+import { HeadDrillingScenario } from "../components/Scenarios/Visualizations/Headline/HeadlineDrillingScenario.js";
 import {
     PivotTableComplexResetScenario,
     PivotTableTransposedComplexResetScenario,
-} from "../components/Scenarios/Visualizations/PivotTable/Sizing/PivotTableComplexResetScenario";
-import { PivotTableSizingScenario } from "../components/Scenarios/Visualizations/PivotTable/Sizing/PivotTableSizingScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/Sizing/PivotTableComplexResetScenario.js";
+import { PivotTableSizingScenario } from "../components/Scenarios/Visualizations/PivotTable/Sizing/PivotTableSizingScenario.js";
 import {
     PivotTableAggregationsMenuScenario,
     PivotTableAggregationsMenuAllTotalScenario,
@@ -24,7 +24,7 @@ import {
     PivotTableColumnsAggregationsMenuAllTotalScenario,
     PivotTableAggregationsMenuOneColumnTotalScenario,
     PivotTableColumnsAggregationsMenuOneSubtotalScenario,
-} from "../components/Scenarios/Visualizations/PivotTable/PivotTableAggregationsMenuScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/PivotTableAggregationsMenuScenario.js";
 import {
     PivotTableTransposeHasMR_RowLeft,
     PivotTableTransposeHasMR_RowTop,
@@ -32,67 +32,67 @@ import {
     PivotTableTransposeHasR_RowLeft,
     PivotTableTransposeHasM_RowLeft,
     PivotTableTransposeHasC_Left,
-} from "../components/Scenarios/Visualizations/PivotTable/PivotTableTransposeScenario";
-import { NewDashboardScenario } from "../components/Scenarios/Dashboard/NewDashboardScenario";
-import { DashboardFilterConfigurationScenario } from "../components/Scenarios/Dashboard/DashboardFilterConfigurationScenario";
-import { DashboardScenarioTiger } from "../components/Scenarios/Dashboard/DashboardScenarioTiger";
-import { DashboardScenarioTigerPermissions } from "../components/Scenarios/Dashboard/DashboardScenarioTigerPermissions";
-import { DashboardScenarioTigerCharts } from "../components/Scenarios/Dashboard/DashboardScenarioTigerCharts";
-import { DashboardAttributeFilteringScenario } from "../components/Scenarios/Dashboard/DashboardAttributeFilteringScenario";
-import { DashboardStageNameScenario } from "../components/Scenarios/Dashboard/DashboardStageNameScenario";
-import { DashboardDateFilteringScenario } from "../components/Scenarios/Dashboard/DashboardDateFilteringScenario";
-import { DashboardKPIsScenario } from "../components/Scenarios/Dashboard/DashboardKPIsScenario";
-import { DashboardMultipleInsightsScenario } from "../components/Scenarios/Dashboard/DashboardMultipleInsightsScenario";
-import { DashboardDependentFilter } from "../components/Scenarios/Dashboard/DashboardDependentFilterScenario";
-import { DashboardDependentFilterSet } from "../components/Scenarios/Dashboard/DashboardDependentFilterSetScenario";
-import { DashboardCommands } from "../components/Scenarios/Dashboard/DashboardCommands";
-import { DashboardMultipleFiltersScenario } from "../components/Scenarios/Dashboard/DashboardMultipleFiltersScenario";
-import { DashboardDrillToInsightScenario } from "../components/Scenarios/Dashboard/DashboardDrilToInsightScenario";
-import { DashboardTargetDashboardScenario } from "../components/Scenarios/Dashboard/DashboardTargetDashboardScenario";
-import { DashboardDrillToInsightWithMetricsInRowsScenario } from "../components/Scenarios/Dashboard/DashboardDrillToInsightWithMetricsInRowsScenario";
-import { InsightOnDashboardScenario } from "../components/Scenarios/Dashboard/InsightOnDashboardScenario";
-import { HeaderSectionScenario } from "../components/Scenarios/Dashboard/HeaderSectionScenario";
-import { HeaderLocalizationScenario } from "../components/Scenarios/Dashboard/HeaderSectionLocalizationScenario";
-import { DragDropWidgetScenario } from "../components/Scenarios/Dashboard/DragAndDropWidgetScenario";
-import { AttributeFilterParentChildExampleScenario } from "../components/Scenarios/Filters/AttributeFilterParentChildExampleScenario";
-import { DashboardAttributeFilterRenaming } from "../components/Scenarios/Dashboard/DashboardAttributeFilterRenaming";
-import { SingleSelectionAttributeFilterButtonScenario } from "../components/Scenarios/Filters/SingleSelectionAttributeFilterButtonScenario";
-import { DashboardWithCompareScenario } from "../components/Scenarios/Dashboard/DashboardWithCompareScenario";
-import { DashboardHasNullValueScenario } from "../components/Scenarios/Dashboard/DashboardHasNullValueScenario";
-import { DashboardParentScenario } from "../components/Scenarios/Dashboard/DashboardParentScenario";
-import { DashboardWithManyDataScenario } from "../components/Scenarios/Dashboard/DashboardWithManyDataScenario";
-import { DashboardWithInvalidInsightScenario } from "../components/Scenarios/Dashboard/DashboardWithInvalidInsightScenario";
-import { DashboardWithNoDataScenario } from "../components/Scenarios/Dashboard/DashboardWithNoDataScenario";
-import { DashboardWithMergeAndUnmergeScenario } from "../components/Scenarios/Dashboard/DashboardWithMergeAndUnmergeScenario";
-import { SingleSelectFilterIntegration } from "../components/Scenarios/Dashboard/SingleSelectFilterIntegration";
-import { DashboardAttributeSelection } from "../components/Scenarios/Dashboard/DashboardAttributeSelection";
-import { DashboardScenarioTigerUnknownVisualization } from "../components/Scenarios/Dashboard/DashboardScenarioTigerUnknownVisualization";
-import { FunnelChartScenario } from "../components/Scenarios/Visualizations/FunnelChart/FunnelChartScenario";
-import { PyramidChartScenario } from "../components/Scenarios/Visualizations/PyramidChart/PyramidChartScenario";
-import { DashboardWithTableManyRowsColumnsScenario } from "../components/Scenarios/Dashboard/DashboardWithTableManyRowColumnScenario";
-import { DashboardPivotTableScenario } from "../components/Scenarios/Dashboard/DashboardPivotTableScenario";
-import { ShortenMetricNameChartScenario } from "../components/Scenarios/Visualizations/ShortenMetricName/ShortenMetricNameChartScenario";
-import { ShortenMetricNameTableScenario } from "../components/Scenarios/Visualizations/ShortenMetricName/ShortenMetricNameTableScenario";
-import { DashboardShortenMetricNameScenario } from "../components/Scenarios/Dashboard/DashboardShortenMetricNameScenario";
-import { DashboardForDateFilterScenario } from "../components/Scenarios/Dashboard/DashboardForDateFilterScenario";
-import { DashboardDateFilteringOnInsightScenario } from "../components/Scenarios/Dashboard/DashboardDateFilteringOnInsightScenario";
-import { DashboardTableDrillDown } from "../components/Scenarios/Dashboard/DashboardTableDrillDownScenario";
-import { DashboardTableTranspose } from "../components/Scenarios/Dashboard/DashboardTableTransposeScenario";
-import { ImplictDrill } from "../components/Scenarios/Dashboard/ImplicitDrillScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/PivotTableTransposeScenario.js";
+import { NewDashboardScenario } from "../components/Scenarios/Dashboard/NewDashboardScenario.js";
+import { DashboardFilterConfigurationScenario } from "../components/Scenarios/Dashboard/DashboardFilterConfigurationScenario.js";
+import { DashboardScenarioTiger } from "../components/Scenarios/Dashboard/DashboardScenarioTiger.js";
+import { DashboardScenarioTigerPermissions } from "../components/Scenarios/Dashboard/DashboardScenarioTigerPermissions.js";
+import { DashboardScenarioTigerCharts } from "../components/Scenarios/Dashboard/DashboardScenarioTigerCharts.js";
+import { DashboardAttributeFilteringScenario } from "../components/Scenarios/Dashboard/DashboardAttributeFilteringScenario.js";
+import { DashboardStageNameScenario } from "../components/Scenarios/Dashboard/DashboardStageNameScenario.js";
+import { DashboardDateFilteringScenario } from "../components/Scenarios/Dashboard/DashboardDateFilteringScenario.js";
+import { DashboardKPIsScenario } from "../components/Scenarios/Dashboard/DashboardKPIsScenario.js";
+import { DashboardMultipleInsightsScenario } from "../components/Scenarios/Dashboard/DashboardMultipleInsightsScenario.js";
+import { DashboardDependentFilter } from "../components/Scenarios/Dashboard/DashboardDependentFilterScenario.js";
+import { DashboardDependentFilterSet } from "../components/Scenarios/Dashboard/DashboardDependentFilterSetScenario.js";
+import { DashboardCommands } from "../components/Scenarios/Dashboard/DashboardCommands.js";
+import { DashboardMultipleFiltersScenario } from "../components/Scenarios/Dashboard/DashboardMultipleFiltersScenario.js";
+import { DashboardDrillToInsightScenario } from "../components/Scenarios/Dashboard/DashboardDrilToInsightScenario.js";
+import { DashboardTargetDashboardScenario } from "../components/Scenarios/Dashboard/DashboardTargetDashboardScenario.js";
+import { DashboardDrillToInsightWithMetricsInRowsScenario } from "../components/Scenarios/Dashboard/DashboardDrillToInsightWithMetricsInRowsScenario.js";
+import { InsightOnDashboardScenario } from "../components/Scenarios/Dashboard/InsightOnDashboardScenario.js";
+import { HeaderSectionScenario } from "../components/Scenarios/Dashboard/HeaderSectionScenario.js";
+import { HeaderLocalizationScenario } from "../components/Scenarios/Dashboard/HeaderSectionLocalizationScenario.js";
+import { DragDropWidgetScenario } from "../components/Scenarios/Dashboard/DragAndDropWidgetScenario.js";
+import { AttributeFilterParentChildExampleScenario } from "../components/Scenarios/Filters/AttributeFilterParentChildExampleScenario.js";
+import { DashboardAttributeFilterRenaming } from "../components/Scenarios/Dashboard/DashboardAttributeFilterRenaming.js";
+import { SingleSelectionAttributeFilterButtonScenario } from "../components/Scenarios/Filters/SingleSelectionAttributeFilterButtonScenario.js";
+import { DashboardWithCompareScenario } from "../components/Scenarios/Dashboard/DashboardWithCompareScenario.js";
+import { DashboardHasNullValueScenario } from "../components/Scenarios/Dashboard/DashboardHasNullValueScenario.js";
+import { DashboardParentScenario } from "../components/Scenarios/Dashboard/DashboardParentScenario.js";
+import { DashboardWithManyDataScenario } from "../components/Scenarios/Dashboard/DashboardWithManyDataScenario.js";
+import { DashboardWithInvalidInsightScenario } from "../components/Scenarios/Dashboard/DashboardWithInvalidInsightScenario.js";
+import { DashboardWithNoDataScenario } from "../components/Scenarios/Dashboard/DashboardWithNoDataScenario.js";
+import { DashboardWithMergeAndUnmergeScenario } from "../components/Scenarios/Dashboard/DashboardWithMergeAndUnmergeScenario.js";
+import { SingleSelectFilterIntegration } from "../components/Scenarios/Dashboard/SingleSelectFilterIntegration.js";
+import { DashboardAttributeSelection } from "../components/Scenarios/Dashboard/DashboardAttributeSelection.js";
+import { DashboardScenarioTigerUnknownVisualization } from "../components/Scenarios/Dashboard/DashboardScenarioTigerUnknownVisualization.js";
+import { FunnelChartScenario } from "../components/Scenarios/Visualizations/FunnelChart/FunnelChartScenario.js";
+import { PyramidChartScenario } from "../components/Scenarios/Visualizations/PyramidChart/PyramidChartScenario.js";
+import { DashboardWithTableManyRowsColumnsScenario } from "../components/Scenarios/Dashboard/DashboardWithTableManyRowColumnScenario.js";
+import { DashboardPivotTableScenario } from "../components/Scenarios/Dashboard/DashboardPivotTableScenario.js";
+import { ShortenMetricNameChartScenario } from "../components/Scenarios/Visualizations/ShortenMetricName/ShortenMetricNameChartScenario.js";
+import { ShortenMetricNameTableScenario } from "../components/Scenarios/Visualizations/ShortenMetricName/ShortenMetricNameTableScenario.js";
+import { DashboardShortenMetricNameScenario } from "../components/Scenarios/Dashboard/DashboardShortenMetricNameScenario.js";
+import { DashboardForDateFilterScenario } from "../components/Scenarios/Dashboard/DashboardForDateFilterScenario.js";
+import { DashboardDateFilteringOnInsightScenario } from "../components/Scenarios/Dashboard/DashboardDateFilteringOnInsightScenario.js";
+import { DashboardTableDrillDown } from "../components/Scenarios/Dashboard/DashboardTableDrillDownScenario.js";
+import { DashboardTableTranspose } from "../components/Scenarios/Dashboard/DashboardTableTransposeScenario.js";
+import { ImplictDrill } from "../components/Scenarios/Dashboard/ImplicitDrillScenario.js";
 import {
     InsightTranspose_MetricRow_ColHeaderLeft,
     InsightTranspose_MetricColumn_ColHeaderLeft,
     InsightTranspose_MetricColumn_ColHeaderTop,
     InsightTranspose_MetricRow,
     InsightTranspose_ColHeaderLeft,
-} from "../components/Scenarios/Insight/InsightTransposeScenario";
-import { HeatMapChartDrillDownWithStackData } from "../components/Scenarios/Dashboard/HeatmapChartScenario";
+} from "../components/Scenarios/Insight/InsightTransposeScenario.js";
+import { HeatMapChartDrillDownWithStackData } from "../components/Scenarios/Dashboard/HeatmapChartScenario.js";
 import {
     PivotTableOfMaxWithCaseWhen,
     PivotTableOfMaxWithMacroYear,
     PivotTableOfMinWithByAllOther,
     PivotTableOfMinWithIfThen,
-} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithMaxMinScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithMaxMinScenario.js";
 import {
     PivotTableOfDatetimeAddWithBetween,
     PivotTableOfDatetimeAddWithAllGranularities,
@@ -103,7 +103,7 @@ import {
     PivotTableOfDatetimeDiffWithWeekCheckParams,
     PivotTableOfDatetimeDiffWithWeekCheckOthers,
     PivotTableOfDatetimeDiffWithCompare,
-} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithDateArithmeticsScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithDateArithmeticsScenario.js";
 import {
     PivotTableOfFirstLastValueWithinAttribute,
     PivotTableOfFirstLastValueWithOrder,
@@ -113,11 +113,11 @@ import {
     PivotTableOfFirstLastValueWithRank,
     PivotTableOfFirstLastValueWithRunSum,
     PivotTableOfFirstLastValueWithRunVar,
-} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithFisrtValueLastValueScenario";
-import { DashboardTigerHideFilters } from "../components/Scenarios/Dashboard/DashboardTigerHideFilters";
-import { DashboardTigerReadonlyDateFilter } from "../components/Scenarios/Dashboard/DashboardTigerReadonlyDateFilter";
-import { DashboardDrilldownOnChart } from "../components/Scenarios/Dashboard/DashboardDrilldownonChartScenario";
-import { DependentFiltersScenario } from "../components/Scenarios/Dashboard/DependentFiltersScenario";
+} from "../components/Scenarios/Visualizations/PivotTable/PivotTableWithFisrtValueLastValueScenario.js";
+import { DashboardTigerHideFilters } from "../components/Scenarios/Dashboard/DashboardTigerHideFilters.js";
+import { DashboardTigerReadonlyDateFilter } from "../components/Scenarios/Dashboard/DashboardTigerReadonlyDateFilter.js";
+import { DashboardDrilldownOnChart } from "../components/Scenarios/Dashboard/DashboardDrilldownonChartScenario.js";
+import { DependentFiltersScenario } from "../components/Scenarios/Dashboard/DependentFiltersScenario.js";
 
 /**
  * Add key here for your new E2E test. Use the key in the map below with the scenario as well as in

@@ -14,7 +14,7 @@ import {
     Won,
     Product,
     Region,
-} from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear";
+} from "../../../../../../reference_workspace/workspace_objects/goodsales/current_reference_workspace_objects_bear.js";
 import {
     measureLocalId,
     measureIdentifier,
