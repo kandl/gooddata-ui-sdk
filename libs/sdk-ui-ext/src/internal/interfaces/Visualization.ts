@@ -255,6 +255,7 @@ export interface IBucketUiConfig {
     icon?: string;
     allowsDuplicateItems?: boolean;
     allowsDifferentAttributes?: boolean;
+    transformAttributeToMeasure?: boolean;
 
     // allow more than one date item in the bucket, regardless of date dimension
     allowsDuplicateDates?: boolean;
