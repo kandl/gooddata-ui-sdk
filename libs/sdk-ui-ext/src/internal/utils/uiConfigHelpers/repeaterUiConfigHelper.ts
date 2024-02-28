@@ -3,7 +3,6 @@ import cloneDeep from "lodash/cloneDeep.js";
 import set from "lodash/set.js";
 import forEach from "lodash/forEach.js";
 import uniqueId from "lodash/uniqueId.js";
-import partition from "lodash/partition.js";
 
 import { IntlShape } from "react-intl";
 
@@ -20,7 +19,7 @@ import { BUCKETS } from "../../constants/bucket.js";
 
 import { hasNoAttribute, hasNoColumns } from "../bucketRules.js";
 
-import { getBucketItems, setBucketTitles } from "../bucketHelper.js";
+import { getBucketItems, getMainRowAttribute, setBucketTitles } from "../bucketHelper.js";
 import { areObjRefsEqual } from "@gooddata/sdk-model";
 
 export const getDefaultRepeaterUiConfig = (): IUiConfig => cloneDeep(DEFAULT_REPEATER_UI_CONFIG);
@@ -101,7 +100,8 @@ export const configRepeaterBuckets = (
     previousReferencePoint?: IReferencePoint,
 ): IExtendedReferencePoint => {
     const config = cloneDeep(extendedReferencePoint);
-    const { attribute, columns } = getRepeaterBucketItems(config, previousReferencePoint);
+    const previousConfig = cloneDeep(previousReferencePoint);
+    const { attribute, columns } = getRepeaterBucketItems(config, previousConfig);
 
     set(config, BUCKETS, [
         {
@@ -119,32 +119,40 @@ export const configRepeaterBuckets = (
 
 const getRepeaterBucketItems = (
     extendedReferencePoint: IReferencePoint,
-    _previousReferencePoint: IReferencePoint,
+    previousReferencePoint: IReferencePoint,
 ) => {
     const config = cloneDeep(extendedReferencePoint);
+    const previousConfig = cloneDeep(previousReferencePoint);
 
     const buckets = config?.buckets ?? [];
-    const attributes = getBucketItems(buckets, BucketNames.ATTRIBUTE);
+    const rowAttribute = getMainRowAttribute(buckets);
     const columns = getBucketItems(buckets, BucketNames.COLUMNS);
-    const [columnAttributes, _columnMeasures] = partition(columns, (column) => column.type === "attribute");
-    const rowAttribute = attributes[0] ?? undefined;
+    const columnAttributes = columns.filter((column) => column.type === "attribute");
 
     // Columns can contain any measure and only clones of the main row attribute (with the same or different display forms)
     const validColumns: IBucketItem[] = [];
 
-    // TODO: how to handle when user removed the attribute from the columns? we should not add another clone..
-
-    // 1. check if row attribute exists in columns and add it there if not
-    const hasCloneOfRowAttribute = columnAttributes.some((columnAttribute) =>
-        columnAttribute.displayForms.some((columnAttributeDf) =>
-            areObjRefsEqual(columnAttributeDf.ref, rowAttribute?.dfRef),
-        ),
-    );
-
-    if (rowAttribute && !hasCloneOfRowAttribute) {
+    // TODO: everytime we clone attribute, the reference point does not change properly and the cloned attribute is missing there..
+    // 1. clone row attribute into columns if needed
+    if (rowAttribute) {
         const clonedAttribute = cloneDeep(rowAttribute);
         clonedAttribute.localIdentifier = uniqueId(); // TODO: fix this to properly change the localIdentifier
-        validColumns.push(clonedAttribute);
+        const previousBuckets = previousConfig?.buckets ?? [];
+        const previousRowAttribute = getMainRowAttribute(previousBuckets);
+        const isCurrentRowAttributeChanged =
+            previousRowAttribute && !areObjRefsEqual(previousRowAttribute.dfRef, rowAttribute.dfRef);
+        const alreadyHasCloneOfCurrentRowAttribute = columnAttributes.some((columnAttribute) =>
+            columnAttribute.displayForms.some((columnAttributeDf) =>
+                areObjRefsEqual(columnAttributeDf.ref, rowAttribute?.dfRef),
+            ),
+        );
+
+        if (
+            (!previousRowAttribute && !alreadyHasCloneOfCurrentRowAttribute) ||
+            isCurrentRowAttributeChanged
+        ) {
+            validColumns.push(clonedAttribute);
+        }
     }
 
     columns.forEach((column) => {

@@ -39,7 +39,7 @@ class RepeaterTransformation extends React.Component<IRepeaterTransformationProp
         const { headerItems, data, count, definition } = dataView;
         const totalNumberOfTableRows = count[0];
         const rowAttributeItemHeaders = headerItems[0];
-        const numberOfMeasures = definition.buckets[1].items.filter(isMeasure).length;
+        const numberOfMeasures = definition.buckets[1]?.items?.filter(isMeasure)?.length ?? 0;
         const numberOfAttributesHeadersToUse = rowAttributeItemHeaders.length - numberOfMeasures;
 
         const transformedData: DataValue[][] = [];
