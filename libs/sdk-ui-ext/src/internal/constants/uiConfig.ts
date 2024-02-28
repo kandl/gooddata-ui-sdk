@@ -765,7 +765,7 @@ export const DEFAULT_REPEATER_UI_CONFIG: IUiConfig = {
             canAddItems: true,
             allowsReordering: true,
             allowsDuplicateItems: true,
-            allowsNonDuplicateAttributes: false, // TODO
+            allowsDifferentAttributes: false,
         },
         ...defaultFilters,
     },
