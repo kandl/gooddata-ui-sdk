@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import React from "react";
 import isEmpty from "lodash/isEmpty.js";
 import { IAnalyticalBackend, IExecutionFactory, IPreparedExecution } from "@gooddata/sdk-backend-spi";
@@ -254,6 +254,7 @@ export interface IBucketUiConfig {
     subtitle?: string;
     icon?: string;
     allowsDuplicateItems?: boolean;
+    allowsNonDuplicateAttributes?: boolean;
 
     // allow more than one date item in the bucket, regardless of date dimension
     allowsDuplicateDates?: boolean;
