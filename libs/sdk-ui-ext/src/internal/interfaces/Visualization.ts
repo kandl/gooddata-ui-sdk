@@ -478,6 +478,12 @@ export const PluggableVisualizationErrorCodes = {
     INVALID_BUCKETS: "INVALID_BUCKETS",
 
     /**
+     * If pluggable visualization is asked to render itself but its columns bucket do not contain the right 'stuff',
+     * then this is the error code to communicate the fact.
+     */
+    INVALID_COLUMNS: "INVALID_COLUMNS",
+
+    /**
      * This error means that empty AFM was went to the GoodData.UI and as such can't be executed.
      */
     EMPTY_AFM: "EMPTY_AFM",
@@ -498,6 +504,23 @@ export class InvalidBucketsSdkError extends GoodDataSdkError {
         super(ErrorCodes.UNKNOWN_ERROR as SdkErrorType, undefined, cause);
 
         this.pveType = "INVALID_BUCKETS";
+    }
+
+    public getErrorCode(): string {
+        return this.pveType;
+    }
+}
+
+/**
+ * @alpha
+ */
+export class InvalidColumnsSdkError extends GoodDataSdkError {
+    public readonly pveType: PluggableVisualizationErrorType;
+
+    constructor(cause?: Error) {
+        super(ErrorCodes.UNKNOWN_ERROR as SdkErrorType, undefined, cause);
+
+        this.pveType = "INVALID_COLUMNS";
     }
 
     public getErrorCode(): string {
@@ -539,6 +562,13 @@ export function isPluggableVisualizationError(obj: unknown): obj is PluggableVis
  */
 export function isInvalidBuckets(obj: unknown): obj is InvalidBucketsSdkError {
     return !isEmpty(obj) && (obj as InvalidBucketsSdkError).pveType === "INVALID_BUCKETS";
+}
+
+/**
+ * @alpha
+ */
+export function isInvalidColumns(obj: unknown): obj is InvalidColumnsSdkError {
+    return !isEmpty(obj) && (obj as InvalidColumnsSdkError).pveType === "INVALID_COLUMNS";
 }
 
 /**

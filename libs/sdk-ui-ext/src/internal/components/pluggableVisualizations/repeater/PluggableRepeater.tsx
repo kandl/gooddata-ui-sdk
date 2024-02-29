@@ -9,7 +9,6 @@ import {
     bucketAttributes,
     bucketMeasures,
     insightBucket,
-    insightHasAttributes,
     newDimension,
 } from "@gooddata/sdk-model";
 import { CoreRepeater, updateConfigWithSettings } from "@gooddata/sdk-ui-charts";
@@ -20,7 +19,7 @@ import {
     IReferencePoint,
     IVisConstruct,
     IVisProps,
-    InvalidBucketsSdkError,
+    InvalidColumnsSdkError,
     RenderFunction,
     UnmountFunction,
 } from "../../../interfaces/Visualization.js";
@@ -95,13 +94,16 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
         return newDimension([rowAttribute, ...otherAttributes]);
     }
 
+    private insightHasColumns(insight: IInsightDefinition): boolean {
+        const bucket = insightBucket(insight, BucketNames.COLUMNS);
+        return bucket?.items?.length > 0;
+    }
+
     protected checkBeforeRender(insight: IInsightDefinition): boolean {
         super.checkBeforeRender(insight);
 
-        // TODO: check for "attribute" bucket
-        // TODO: create a new error type for this - propagate to AD
-        if (!insightHasAttributes(insight)) {
-            throw new InvalidBucketsSdkError();
+        if (!this.insightHasColumns(insight)) {
+            throw new InvalidColumnsSdkError();
         }
 
         return true;
