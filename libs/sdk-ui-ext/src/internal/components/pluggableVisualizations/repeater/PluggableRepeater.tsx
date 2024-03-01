@@ -15,6 +15,8 @@ import { CoreRepeater, updateConfigWithSettings } from "@gooddata/sdk-ui-charts"
 import { IExecutionFactory } from "@gooddata/sdk-backend-spi";
 import { BucketNames } from "@gooddata/sdk-ui";
 import {
+    IBucketItem,
+    IBucketOfFun,
     IExtendedReferencePoint,
     IReferencePoint,
     IVisConstruct,
@@ -31,6 +33,7 @@ import {
     setRepeaterUiConfig,
 } from "../../../utils/uiConfigHelpers/repeaterUiConfigHelper.js";
 import cloneDeep from "lodash/cloneDeep.js";
+import { cloneBucketItem, getMainRowAttribute } from "../../../utils/bucketHelper.js";
 
 export class PluggableRepeater extends AbstractPluggableVisualization {
     private featureFlags?: ISettings;
@@ -51,7 +54,6 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
 
     public getExtendedReferencePoint = async (
         referencePoint: IReferencePoint,
-        previousReferencePoint?: IReferencePoint,
     ): Promise<IExtendedReferencePoint> => {
         const referencePointCloned = cloneDeep(referencePoint);
         let newReferencePoint: IExtendedReferencePoint = {
@@ -59,7 +61,7 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
             uiConfig: getDefaultRepeaterUiConfig(),
         };
 
-        newReferencePoint = configRepeaterBuckets(newReferencePoint, previousReferencePoint);
+        newReferencePoint = configRepeaterBuckets(newReferencePoint);
         newReferencePoint = setRepeaterUiConfig(newReferencePoint, this.intl);
 
         return newReferencePoint;
@@ -76,6 +78,28 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
             .forInsight(insight)
             .withDimensions(this.getRepeaterDimensions(insight))
             .withDateFormat(dateFormat);
+    }
+
+    public getBucketsToUpdate(currentReferencePoint: IReferencePoint, nextReferencePoint: IReferencePoint) {
+        const config = cloneDeep(currentReferencePoint);
+        const nextConfig = cloneDeep(nextReferencePoint);
+
+        const buckets = config?.buckets ?? [];
+        const rowAttribute = getMainRowAttribute(buckets);
+        const nextBuckets = nextConfig?.buckets ?? [];
+        const nextRowAttribute = getMainRowAttribute(nextBuckets);
+
+        const rowAttributeWasEmpty = !rowAttribute && nextRowAttribute;
+        const rowAttributeWasSwapped =
+            rowAttribute &&
+            nextRowAttribute &&
+            rowAttribute.localIdentifier !== nextRowAttribute.localIdentifier;
+
+        if (rowAttributeWasEmpty || rowAttributeWasSwapped) {
+            return [cloneBucketItem(nextRowAttribute)];
+        }
+
+        return [];
     }
 
     private getRepeaterDimensions(insight: IInsightDefinition): IDimension {
@@ -97,6 +121,21 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
     private insightHasColumns(insight: IInsightDefinition): boolean {
         const bucket = insightBucket(insight, BucketNames.COLUMNS);
         return bucket?.items?.length > 0;
+    }
+
+    protected mergeDerivedBucketItems(
+        _referencePoint: IReferencePoint,
+        bucket: IBucketOfFun,
+        newDerivedBucketItems: IBucketItem[],
+    ): IBucketItem[] {
+        if (bucket.localIdentifier === BucketNames.ATTRIBUTE) {
+            return bucket.items;
+        }
+
+        // remove all existing attributes as they should disappear when cloning the row attribute
+        const itemsWithouAttributes = bucket.items.filter((item) => item.type !== "attribute");
+
+        return [...newDerivedBucketItems, ...itemsWithouAttributes];
     }
 
     protected checkBeforeRender(insight: IInsightDefinition): boolean {

@@ -446,6 +446,18 @@ export interface IVisualization {
         currentReferencePoint: IReferencePoint,
         nextReferencePoint: IReferencePoint,
     ): boolean;
+
+    /**
+     * Detects whether the reference point needs to update buckets from withing the pluggable visualization.
+     *
+     * @param currentReferencePoint - the current reference point
+     * @param nextReferencePoint - the new reference point
+     * @returns array of buckets to update
+     */
+    getBucketsToUpdate(
+        currentReferencePoint: IReferencePoint,
+        nextReferencePoint: IReferencePoint,
+    ): IBucketItem[];
 }
 
 export interface IGdcConfig {

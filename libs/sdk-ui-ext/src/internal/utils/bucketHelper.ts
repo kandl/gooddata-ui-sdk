@@ -1044,3 +1044,9 @@ export const getMainRowAttribute = (buckets: IBucketOfFun[]): IBucketItem | unde
     const attributes = getBucketItems(buckets, BucketNames.ATTRIBUTE);
     return attributes[0] ?? undefined;
 };
+
+export const cloneBucketItem = (item: IBucketItem): IBucketItem => {
+    const clonedItem = cloneDeep(item);
+    clonedItem.localIdentifier = clonedItem.localIdentifier + "_cloned";
+    return clonedItem;
+};

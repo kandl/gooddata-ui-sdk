@@ -1,4 +1,4 @@
-// (C) 2019-2022 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import { IAnalyticalBackend, IExecutionFactory } from "@gooddata/sdk-backend-spi";
 import {
     ISettings,
@@ -139,9 +139,13 @@ export class BaseVisualization extends React.PureComponent<IBaseVisualizationPro
         const newDerivedBucketItemsChanged =
             !isEmpty(nextProps.newDerivedBucketItems) &&
             !isEqual(nextProps.newDerivedBucketItems, this.props.newDerivedBucketItems);
+        const bucketsToUpdate = this.visualization.getBucketsToUpdate(
+            this.props.referencePoint,
+            nextProps.referencePoint,
+        );
 
-        if (newDerivedBucketItemsChanged) {
-            this.triggerPlaceNewDerivedBucketItems(nextProps);
+        if (newDerivedBucketItemsChanged || bucketsToUpdate.length > 0) {
+            this.triggerPlaceNewDerivedBucketItems(nextProps, bucketsToUpdate);
             return;
         }
 
@@ -309,12 +313,21 @@ export class BaseVisualization extends React.PureComponent<IBaseVisualizationPro
         );
     }
 
-    private triggerPlaceNewDerivedBucketItems(props: IBaseVisualizationProps) {
+    private triggerPlaceNewDerivedBucketItems(
+        props: IBaseVisualizationProps,
+        newBucketItemsFromVisualization?: IBucketItem[],
+    ) {
         const { newDerivedBucketItems, referencePoint, onNewDerivedBucketItemsPlaced } = props;
+        const newDerivedBucketItemsToPlace = newBucketItemsFromVisualization ?? newDerivedBucketItems;
 
-        if (this.visualization && referencePoint && newDerivedBucketItems && onNewDerivedBucketItemsPlaced) {
+        if (
+            this.visualization &&
+            referencePoint &&
+            newDerivedBucketItemsToPlace &&
+            onNewDerivedBucketItemsPlaced
+        ) {
             this.visualization
-                .addNewDerivedBucketItems(referencePoint, newDerivedBucketItems)
+                .addNewDerivedBucketItems(referencePoint, newDerivedBucketItemsToPlace)
                 .then(onNewDerivedBucketItemsPlaced);
         }
     }

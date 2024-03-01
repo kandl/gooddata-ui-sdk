@@ -1,26 +1,15 @@
 // (C) 2024 GoodData Corporation
+
 import cloneDeep from "lodash/cloneDeep.js";
 import set from "lodash/set.js";
 import forEach from "lodash/forEach.js";
-import uniqueId from "lodash/uniqueId.js";
-
 import { IntlShape } from "react-intl";
-
 import { BucketNames, VisualizationTypes } from "@gooddata/sdk-ui";
-import {
-    IBucketItem,
-    IExtendedReferencePoint,
-    IReferencePoint,
-    IUiConfig,
-} from "../../interfaces/Visualization.js";
-
+import { IExtendedReferencePoint, IReferencePoint, IUiConfig } from "../../interfaces/Visualization.js";
 import { DEFAULT_REPEATER_UI_CONFIG, UICONFIG } from "../../constants/uiConfig.js";
 import { BUCKETS } from "../../constants/bucket.js";
-
 import { hasNoAttribute, hasNoColumns } from "../bucketRules.js";
-
 import { getBucketItems, getMainRowAttribute, setBucketTitles } from "../bucketHelper.js";
-import { areObjRefsEqual } from "@gooddata/sdk-model";
 
 export const getDefaultRepeaterUiConfig = (): IUiConfig => cloneDeep(DEFAULT_REPEATER_UI_CONFIG);
 
@@ -97,11 +86,9 @@ export function setRepeaterUiConfig(
 
 export const configRepeaterBuckets = (
     extendedReferencePoint: IExtendedReferencePoint,
-    previousReferencePoint?: IReferencePoint,
 ): IExtendedReferencePoint => {
     const config = cloneDeep(extendedReferencePoint);
-    const previousConfig = cloneDeep(previousReferencePoint);
-    const { attribute, columns } = getRepeaterBucketItems(config, previousConfig);
+    const { attribute, columns } = getRepeaterBucketItems(config);
 
     set(config, BUCKETS, [
         {
@@ -117,62 +104,14 @@ export const configRepeaterBuckets = (
     return config;
 };
 
-const getRepeaterBucketItems = (
-    extendedReferencePoint: IReferencePoint,
-    previousReferencePoint: IReferencePoint,
-) => {
+const getRepeaterBucketItems = (extendedReferencePoint: IReferencePoint) => {
     const config = cloneDeep(extendedReferencePoint);
-    const previousConfig = cloneDeep(previousReferencePoint);
-
     const buckets = config?.buckets ?? [];
     const rowAttribute = getMainRowAttribute(buckets);
     const columns = getBucketItems(buckets, BucketNames.COLUMNS);
-    const columnAttributes = columns.filter((column) => column.type === "attribute");
-
-    // Columns can contain any measure and only clones of the main row attribute (with the same or different display forms)
-    const validColumns: IBucketItem[] = [];
-
-    // TODO: everytime we clone attribute, the reference point does not change properly and the cloned attribute is missing there..
-    // 1. clone row attribute into columns if needed
-    if (rowAttribute) {
-        const clonedAttribute = cloneDeep(rowAttribute);
-        clonedAttribute.localIdentifier = uniqueId(); // TODO: fix this to properly change the localIdentifier
-        const previousBuckets = previousConfig?.buckets ?? [];
-        const previousRowAttribute = getMainRowAttribute(previousBuckets);
-        const isCurrentRowAttributeChanged =
-            previousRowAttribute && !areObjRefsEqual(previousRowAttribute.dfRef, rowAttribute.dfRef);
-        const alreadyHasCloneOfCurrentRowAttribute = columnAttributes.some((columnAttribute) =>
-            columnAttribute.displayForms.some((columnAttributeDf) =>
-                areObjRefsEqual(columnAttributeDf.ref, rowAttribute?.dfRef),
-            ),
-        );
-
-        if (
-            (!previousRowAttribute && !alreadyHasCloneOfCurrentRowAttribute) ||
-            isCurrentRowAttributeChanged
-        ) {
-            validColumns.push(clonedAttribute);
-        }
-    }
-
-    columns.forEach((column) => {
-        // 2. keep all measures
-        if (column.type === "metric") {
-            validColumns.push(column);
-        } else {
-            // 3. check if there are any other attributes in columns and skip them
-            const isNotClonedAttribute = !column.displayForms.some((columnAttributeDf) =>
-                areObjRefsEqual(columnAttributeDf.ref, rowAttribute?.dfRef),
-            );
-            if (isNotClonedAttribute) {
-                return;
-            }
-            validColumns.push(column);
-        }
-    });
 
     return {
         attribute: rowAttribute ? [rowAttribute] : [],
-        columns: validColumns.length ? validColumns : [],
+        columns: columns.length ? columns : [],
     };
 };
