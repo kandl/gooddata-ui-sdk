@@ -6,6 +6,7 @@ import {
     IInsightDefinition,
     ISettings,
     MeasureGroupIdentifier,
+    areObjRefsEqual,
     bucketAttributes,
     bucketMeasures,
     insightBucket,
@@ -81,19 +82,21 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
     }
 
     public getBucketsToUpdate(currentReferencePoint: IReferencePoint, nextReferencePoint: IReferencePoint) {
-        const config = cloneDeep(currentReferencePoint);
-        const nextConfig = cloneDeep(nextReferencePoint);
+        const currentRefencePointClone = cloneDeep(currentReferencePoint);
+        const nextReferencePointClone = cloneDeep(nextReferencePoint);
 
-        const buckets = config?.buckets ?? [];
-        const rowAttribute = getMainRowAttribute(buckets);
-        const nextBuckets = nextConfig?.buckets ?? [];
+        const currentBuckets = currentRefencePointClone?.buckets ?? [];
+        const currentRowAttribute = getMainRowAttribute(currentBuckets);
+        const nextBuckets = nextReferencePointClone?.buckets ?? [];
         const nextRowAttribute = getMainRowAttribute(nextBuckets);
 
-        const rowAttributeWasEmpty = !rowAttribute && nextRowAttribute;
+        const rowAttributeWasEmpty = !currentRowAttribute && nextRowAttribute;
         const rowAttributeWasSwapped =
-            rowAttribute &&
+            currentRowAttribute &&
             nextRowAttribute &&
-            rowAttribute.localIdentifier !== nextRowAttribute.localIdentifier;
+            !currentRowAttribute.displayForms.some((currentDf) =>
+                areObjRefsEqual(currentDf.ref, nextRowAttribute.dfRef),
+            );
 
         if (rowAttributeWasEmpty || rowAttributeWasSwapped) {
             return [cloneBucketItem(nextRowAttribute)];
@@ -133,9 +136,9 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
         }
 
         // remove all existing attributes as they should disappear when cloning the row attribute
-        const itemsWithouAttributes = bucket.items.filter((item) => item.type !== "attribute");
+        const itemsWithoutAttributes = bucket.items.filter((item) => item.type !== "attribute");
 
-        return [...newDerivedBucketItems, ...itemsWithouAttributes];
+        return [...newDerivedBucketItems, ...itemsWithoutAttributes];
     }
 
     protected checkBeforeRender(insight: IInsightDefinition): boolean {

@@ -87,10 +87,10 @@ export function setRepeaterUiConfig(
 export const configRepeaterBuckets = (
     extendedReferencePoint: IExtendedReferencePoint,
 ): IExtendedReferencePoint => {
-    const config = cloneDeep(extendedReferencePoint);
-    const { attribute, columns } = getRepeaterBucketItems(config);
+    const newExtendedReferencePoint = cloneDeep(extendedReferencePoint);
+    const { attribute, columns } = getRepeaterBucketItems(newExtendedReferencePoint);
 
-    set(config, BUCKETS, [
+    set(newExtendedReferencePoint, BUCKETS, [
         {
             localIdentifier: BucketNames.ATTRIBUTE,
             items: attribute,
@@ -101,14 +101,21 @@ export const configRepeaterBuckets = (
         },
     ]);
 
-    return config;
+    return newExtendedReferencePoint;
 };
 
 const getRepeaterBucketItems = (extendedReferencePoint: IReferencePoint) => {
-    const config = cloneDeep(extendedReferencePoint);
-    const buckets = config?.buckets ?? [];
+    const newExtendedReferencePoint = cloneDeep(extendedReferencePoint);
+    const buckets = newExtendedReferencePoint?.buckets ?? [];
     const rowAttribute = getMainRowAttribute(buckets);
     const columns = getBucketItems(buckets, BucketNames.COLUMNS);
+
+    if (!rowAttribute) {
+        return {
+            attribute: [],
+            columns: [],
+        };
+    }
 
     return {
         attribute: rowAttribute ? [rowAttribute] : [],
