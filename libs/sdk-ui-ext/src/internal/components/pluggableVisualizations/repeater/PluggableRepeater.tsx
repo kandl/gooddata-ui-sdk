@@ -99,10 +99,17 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
             );
 
         if (rowAttributeWasEmpty || rowAttributeWasSwapped) {
+            // clone the row attribute
             return [cloneBucketItem(nextRowAttribute)];
         }
 
-        return [];
+        if (currentRowAttribute && !nextRowAttribute) {
+            // empty all column attributes
+            return [];
+        }
+
+        // do nothing
+        return undefined;
     }
 
     private getRepeaterDimensions(insight: IInsightDefinition): IDimension {
@@ -111,10 +118,10 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
         const rowAttribute = attributes[0];
 
         const columnsBucket = insightBucket(insight, BucketNames.COLUMNS);
-        const columns = columnsBucket ? bucketMeasures(columnsBucket) : [];
+        const measures = columnsBucket ? bucketMeasures(columnsBucket) : [];
         const otherAttributes = columnsBucket ? bucketAttributes(columnsBucket) : [];
 
-        if (columns.length) {
+        if (measures.length) {
             return newDimension([rowAttribute, ...otherAttributes, MeasureGroupIdentifier]);
         }
 

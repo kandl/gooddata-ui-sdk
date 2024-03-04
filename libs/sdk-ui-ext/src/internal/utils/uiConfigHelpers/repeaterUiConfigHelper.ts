@@ -110,13 +110,6 @@ const getRepeaterBucketItems = (extendedReferencePoint: IReferencePoint) => {
     const rowAttribute = getMainRowAttribute(buckets);
     const columns = getBucketItems(buckets, BucketNames.COLUMNS);
 
-    if (!rowAttribute) {
-        return {
-            attribute: [],
-            columns: [],
-        };
-    }
-
     return {
         attribute: rowAttribute ? [rowAttribute] : [],
         columns: columns.length ? columns : [],

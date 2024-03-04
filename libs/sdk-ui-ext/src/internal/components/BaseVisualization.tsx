@@ -144,7 +144,7 @@ export class BaseVisualization extends React.PureComponent<IBaseVisualizationPro
             nextProps.referencePoint,
         );
 
-        if (newDerivedBucketItemsChanged || bucketsToUpdate.length > 0) {
+        if (newDerivedBucketItemsChanged || bucketsToUpdate) {
             this.triggerPlaceNewDerivedBucketItems(nextProps, bucketsToUpdate);
             return;
         }

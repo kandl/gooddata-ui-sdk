@@ -376,6 +376,6 @@ export abstract class AbstractPluggableVisualization implements IVisualization {
     }
 
     public getBucketsToUpdate(_currentReferencePoint: IReferencePoint, _nextReferencePoint: IReferencePoint) {
-        return [];
+        return undefined;
     }
 }

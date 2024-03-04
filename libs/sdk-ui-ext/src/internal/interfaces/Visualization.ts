@@ -457,7 +457,7 @@ export interface IVisualization {
     getBucketsToUpdate(
         currentReferencePoint: IReferencePoint,
         nextReferencePoint: IReferencePoint,
-    ): IBucketItem[];
+    ): IBucketItem[] | undefined;
 }
 
 export interface IGdcConfig {
