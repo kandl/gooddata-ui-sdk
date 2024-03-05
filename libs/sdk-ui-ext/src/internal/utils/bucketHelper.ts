@@ -1042,7 +1042,8 @@ export const isComparisonAvailable = (buckets: IBucketOfFun[], filters: IFilters
 
 export const getMainRowAttribute = (buckets: IBucketOfFun[]): IBucketItem | undefined => {
     const attributes = getBucketItems(buckets, BucketNames.ATTRIBUTE);
-    return attributes[0] ?? undefined;
+    const attributeItems = attributes.filter((item) => item.type === ATTRIBUTE);
+    return attributeItems[0] ?? undefined;
 };
 
 export const cloneBucketItem = (item: IBucketItem): IBucketItem => {

@@ -7,9 +7,10 @@ import { IntlShape } from "react-intl";
 import { BucketNames, VisualizationTypes } from "@gooddata/sdk-ui";
 import { IExtendedReferencePoint, IReferencePoint, IUiConfig } from "../../interfaces/Visualization.js";
 import { DEFAULT_REPEATER_UI_CONFIG, UICONFIG } from "../../constants/uiConfig.js";
-import { BUCKETS } from "../../constants/bucket.js";
+import { ATTRIBUTE, BUCKETS, DATE } from "../../constants/bucket.js";
 import { hasNoAttribute, hasNoColumns } from "../bucketRules.js";
 import { getBucketItems, getMainRowAttribute, setBucketTitles } from "../bucketHelper.js";
+import { areObjRefsEqual } from "@gooddata/sdk-model";
 
 export const getDefaultRepeaterUiConfig = (): IUiConfig => cloneDeep(DEFAULT_REPEATER_UI_CONFIG);
 
@@ -110,8 +111,22 @@ const getRepeaterBucketItems = (extendedReferencePoint: IReferencePoint) => {
     const rowAttribute = getMainRowAttribute(buckets);
     const columns = getBucketItems(buckets, BucketNames.COLUMNS);
 
+    const validColumns = columns
+        .filter((column) => column.type !== DATE)
+        .filter((column) => {
+            if (rowAttribute && column.type === ATTRIBUTE) {
+                const isSameLabel = areObjRefsEqual(column.dfRef, rowAttribute.dfRef);
+                const isSameAttributeButDifferentLabel = column.displayForms?.some((df) =>
+                    areObjRefsEqual(df.ref, rowAttribute.dfRef),
+                );
+                return isSameLabel || isSameAttributeButDifferentLabel;
+            }
+
+            return true;
+        });
+
     return {
         attribute: rowAttribute ? [rowAttribute] : [],
-        columns: columns.length ? columns : [],
+        columns: validColumns.length ? validColumns : [],
     };
 };

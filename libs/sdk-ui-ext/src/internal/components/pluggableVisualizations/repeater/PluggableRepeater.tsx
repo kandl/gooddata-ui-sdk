@@ -142,6 +142,10 @@ export class PluggableRepeater extends AbstractPluggableVisualization {
             return bucket.items;
         }
 
+        if (newDerivedBucketItems.length === 0) {
+            return [];
+        }
+
         // remove all existing attributes as they should disappear when cloning the row attribute
         const itemsWithoutAttributes = bucket.items.filter((item) => item.type !== "attribute");
 
