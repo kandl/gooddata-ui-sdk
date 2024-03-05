@@ -139,13 +139,21 @@ export class BaseVisualization extends React.PureComponent<IBaseVisualizationPro
         const newDerivedBucketItemsChanged =
             !isEmpty(nextProps.newDerivedBucketItems) &&
             !isEqual(nextProps.newDerivedBucketItems, this.props.newDerivedBucketItems);
+
+        if (newDerivedBucketItemsChanged) {
+            this.triggerPlaceNewDerivedBucketItems(nextProps);
+            return;
+        }
+
+        // buckets changed from within inner visualization logic
         const bucketsToUpdate = this.visualization.getBucketsToUpdate(
             this.props.referencePoint,
             nextProps.referencePoint,
         );
 
-        if (newDerivedBucketItemsChanged || bucketsToUpdate) {
+        if (bucketsToUpdate) {
             this.triggerPlaceNewDerivedBucketItems(nextProps, bucketsToUpdate);
+            this.triggerExtendedReferencePointChanged(nextProps, this.props);
             return;
         }
 
