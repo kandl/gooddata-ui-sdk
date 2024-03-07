@@ -1950,6 +1950,9 @@ importers:
 
   ../../libs/sdk-ui-charts:
     specifiers:
+      '@ag-grid-community/all-modules': 27.3.0
+      '@ag-grid-community/core': 27.3.0
+      '@ag-grid-community/react': 27.3.0
       '@gooddata/eslint-config': ^4.1.0
       '@gooddata/number-formatter': ^1.0.5
       '@gooddata/reference-workspace': workspace:*
@@ -2015,6 +2018,9 @@ importers:
       vitest: 1.0.4
       vitest-dom: 0.1.1
     dependencies:
+      '@ag-grid-community/all-modules': 27.3.0
+      '@ag-grid-community/core': 27.3.0
+      '@ag-grid-community/react': 27.3.0_ynmsds3wz3224xgdrl3ds7i2jm
       '@gooddata/number-formatter': 1.0.5
       '@gooddata/sdk-backend-spi': link:../sdk-backend-spi
       '@gooddata/sdk-model': link:../sdk-model
