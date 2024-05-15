@@ -27,7 +27,7 @@ const attributeChartSupportedTypes = [
     VisualizationTypes.DONUT,
     VisualizationTypes.FUNNEL,
     VisualizationTypes.PYRAMID,
-    VisualizationTypes.SCATTER,
+    // VisualizationTypes.SCATTER,
     VisualizationTypes.BUBBLE,
     VisualizationTypes.SANKEY,
     VisualizationTypes.DEPENDENCY_WHEEL,
@@ -77,7 +77,17 @@ export class ColorFactory {
             );
         }
 
+        //
         if (isScatterPlot(type)) {
+            console.log("init scatter plot color strategy", {
+                colorPalette,
+                colorMapping,
+                viewByAttribute,
+                viewByParentAttribute,
+                stackByAttribute,
+                dv,
+                type,
+            });
             return new ScatterPlotColorStrategy(
                 colorPalette,
                 colorMapping,

@@ -62,6 +62,7 @@ export function shouldLegendBeEnabled(chartOptions: IChartOptions): boolean {
     const isSliceChartWithViewByAttributeOrMultipleMeasures =
         isOneOfTypes(type, sliceTypes) && (hasViewByAttribute || chartOptions.data.series[0].data.length > 1);
     const isBubbleWithViewByAttribute = isBubbleChart(type) && hasViewByAttribute;
+    //
     const isScatterPlotWithAttribute = isScatterPlot(type) && chartOptions.data.series[0].name;
     const isTreemapWithViewByAttribute = isTreemap(type) && hasViewByAttribute;
     const isTreemapWithManyCategories = isTreemap(type) && chartOptions.data.categories.length > 1;
@@ -91,6 +92,7 @@ export function getLegendItems(chartOptions: IChartOptions, intl?: IntlShape): L
         VisualizationTypes.TREEMAP,
         VisualizationTypes.FUNNEL,
         VisualizationTypes.PYRAMID,
+        //
         VisualizationTypes.SCATTER,
     ];
 
@@ -182,6 +184,7 @@ export default function buildLegendOptions(
 ): ILegendOptions {
     const defaultLegendConfigByType = {};
     const rightLegendCharts = [
+        //
         VisualizationTypes.SCATTER,
         VisualizationTypes.TREEMAP,
         VisualizationTypes.BUBBLE,

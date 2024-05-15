@@ -182,6 +182,7 @@ export class PluggableBaseChart extends AbstractPluggableVisualization {
         insight: IInsightDefinition,
         executionFactory: IExecutionFactory,
     ) {
+        console.log("get execution", { options, insight });
         const { dateFormat, executionConfig } = options;
         const supportedControls: IVisualizationProperties = this.getSupportedControls(insight, options);
 

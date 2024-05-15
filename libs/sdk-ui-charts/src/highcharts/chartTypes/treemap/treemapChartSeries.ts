@@ -1,4 +1,4 @@
-// (C) 2020-2022 GoodData Corporation
+// (C) 2020-2024 GoodData Corporation
 import { DataViewFacade, getAttributeHeaderItemName, getMappingHeaderFormattedName } from "@gooddata/sdk-ui";
 import { IMeasureGroupDescriptor, IResultAttributeHeader } from "@gooddata/sdk-model";
 import { IUnwrappedAttributeHeadersWithItems } from "../../typings/mess.js";
@@ -30,7 +30,7 @@ function getRootPoint(
     return {
         id: `${index}`,
         name: valueWithEmptyHandling(rootName, emptyHeaderTitle),
-        color: colorStrategy.getColorByIndex(index),
+        color: colorStrategy.getColorByIndex(index), //
         showInLegend: true,
         legendIndex: index,
         format,
@@ -56,7 +56,7 @@ function getLeafPoint(
         x: seriesIndex,
         y: seriesIndex,
         showInLegend: false,
-        color: colorStrategy.getColorByIndex(parentIndex),
+        color: colorStrategy.getColorByIndex(parentIndex), //
         format,
     };
 }
@@ -131,7 +131,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
             id: `${index}`,
             name: valueWithEmptyHandling(measureGroupItem.measureHeaderItem.name, emptyHeaderTitle),
             format: measureGroupItem.measureHeaderItem.format,
-            color: colorStrategy.getColorByIndex(index),
+            color: colorStrategy.getColorByIndex(index), //
             showInLegend: true,
             legendIndex: index,
         };
@@ -164,7 +164,7 @@ export function getTreemapStackedSeriesDataWithMeasures(
                 ...sortedLeafs.map((leaf: IPointData, seriesItemIndex: number) => ({
                     ...leaf,
                     color: getLighterColor(
-                        colorStrategy.getColorByIndex(seriesIndex),
+                        colorStrategy.getColorByIndex(seriesIndex), //
                         colorChange * seriesItemIndex,
                     ),
                 })),

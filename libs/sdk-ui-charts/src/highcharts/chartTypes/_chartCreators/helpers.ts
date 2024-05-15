@@ -1,4 +1,4 @@
-// (C) 2007-2023 GoodData Corporation
+// (C) 2007-2024 GoodData Corporation
 import flatten from "lodash/flatten.js";
 import pick from "lodash/pick.js";
 import map from "lodash/map.js";
@@ -351,12 +351,14 @@ export function shouldEndOnTick(
     return !isNaN(min) && min >= maxDataValue;
 }
 
+//
 export function shouldXAxisStartOnTickOnBubbleScatter(chartOptions: IChartOptions): boolean {
     const min = parseFloat(chartOptions?.xAxisProps?.min ?? "");
 
     return isNaN(min) ? true : false;
 }
 
+//
 export function shouldYAxisStartOnTickOnBubbleScatter(chartOptions: IChartOptions): boolean {
     const min = parseFloat(chartOptions?.yAxisProps?.min ?? "");
 

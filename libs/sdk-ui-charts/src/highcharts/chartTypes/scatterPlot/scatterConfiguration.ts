@@ -1,10 +1,11 @@
-// (C) 2007-2022 GoodData Corporation
+// (C) 2007-2024 GoodData Corporation
 import { IExecutionDefinition, ITheme } from "@gooddata/sdk-model";
 import { IChartOptions } from "../../typings/unsafe.js";
 import { styleVariables } from "../_chartCreators/styles/variables.js";
 
 export const LINE_WIDTH = 3;
 
+//
 export function getScatterConfiguration(
     _config: IChartOptions,
     _definition: IExecutionDefinition,

@@ -465,6 +465,7 @@ function labelFormatterBubble(config?: IChartConfig) {
     }
 }
 
+//
 function labelFormatterScatter() {
     const name = this.point?.name;
     if (name) {
@@ -675,6 +676,7 @@ function getLabelsConfiguration(chartOptions: IChartOptions, _config: any, chart
             scatter: {
                 dataLabels: {
                     ...DEFAULT_LABELS_CONFIG,
+                    //
                     formatter: partial(labelFormatterScatter, chartConfig),
                 },
             },
@@ -871,6 +873,7 @@ function getDataConfiguration(chartOptions: IChartOptions): HighchartsOptions {
     const { type } = chartOptions;
 
     switch (type) {
+        //
         case VisualizationTypes.SCATTER:
         case VisualizationTypes.BUBBLE:
         case VisualizationTypes.WATERFALL:
@@ -959,7 +962,7 @@ function getHoverStyles({ type }: any, config: any) {
 
     switch (type) {
         case VisualizationTypes.LINE:
-        case VisualizationTypes.SCATTER:
+        case VisualizationTypes.SCATTER: //
         case VisualizationTypes.AREA:
         case VisualizationTypes.BUBBLE:
             seriesMapFn = lineSeriesMapFn;
@@ -1063,6 +1066,7 @@ function getGridConfiguration(
 
     const yAxis = yAxes.map(() => config);
 
+    //
     const bothAxesGridlineCharts = [VisualizationTypes.BUBBLE, VisualizationTypes.SCATTER];
     let xAxis = {};
     if (isOneOfTypes(chartOptions.type, bothAxesGridlineCharts)) {
@@ -1107,6 +1111,7 @@ function getAxisLineConfiguration(chartType: ChartType, isAxisVisible: boolean) 
     if (isAxisVisible === false) {
         lineWidth = 0;
     } else {
+        //
         lineWidth = isScatterPlot(chartType) || isBubbleChart(chartType) ? 1 : undefined;
     }
 
@@ -1115,6 +1120,7 @@ function getAxisLineConfiguration(chartType: ChartType, isAxisVisible: boolean) 
 
 function getXAxisTickConfiguration(chartOptions: IChartOptions) {
     const { type } = chartOptions;
+    //
     if (isBubbleChart(type) || isScatterPlot(type)) {
         return {
             startOnTick: shouldXAxisStartOnTickOnBubbleScatter(chartOptions),
@@ -1130,6 +1136,7 @@ function getYAxisTickConfiguration(
     axisPropsKey: "yAxisProps" | "secondary_yAxisProps",
 ) {
     const { type, yAxes } = chartOptions;
+    //
     if (isBubbleChart(type) || isScatterPlot(type)) {
         return {
             startOnTick: shouldYAxisStartOnTickOnBubbleScatter(chartOptions),
@@ -1270,6 +1277,7 @@ const getXAxisConfiguration = (
         const rotation = chartOptions[axisPropsKey]?.rotation ?? "auto";
         const rotationProp = rotation !== "auto" ? { rotation: -Number(rotation) } : {};
 
+        //
         const shouldCheckForEmptyCategories = isScatterPlot(type) || isBubbleChart(type) ? false : true;
         const labelsEnabled = areAxisLabelsEnabled(chartOptions, axisPropsKey, shouldCheckForEmptyCategories);
 

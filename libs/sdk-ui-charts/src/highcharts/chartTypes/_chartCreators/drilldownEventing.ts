@@ -24,7 +24,7 @@ export function getClickableElementNameByChartType(type: VisType): ChartElementT
     switch (type) {
         case VisualizationTypes.LINE:
         case VisualizationTypes.AREA:
-        case VisualizationTypes.SCATTER:
+        case VisualizationTypes.SCATTER: //
         case VisualizationTypes.BUBBLE:
             return "point";
         case VisualizationTypes.COLUMN:

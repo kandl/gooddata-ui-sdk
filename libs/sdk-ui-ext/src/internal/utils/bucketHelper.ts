@@ -296,7 +296,10 @@ function bucketSupportsSubtitle(visualizationType: string, bucketLocalIdentifier
             return true;
 
         case VisualizationTypes.SCATTER:
-            return bucketLocalIdentifier !== BucketNames.ATTRIBUTE;
+            return !(
+                bucketLocalIdentifier === BucketNames.ATTRIBUTE ||
+                bucketLocalIdentifier === BucketNames.SEGMENT
+            );
 
         case VisualizationTypes.BUBBLE:
             return bucketLocalIdentifier !== BucketNames.VIEW;
@@ -338,6 +341,11 @@ export function setBucketTitles(
         }
 
         if (bucketSupportsSubtitle(visualizationType, localIdentifier)) {
+            console.log("generate bucket subtitle?", {
+                supports: bucketSupportsSubtitle(visualizationType, localIdentifier),
+                localIdentifier,
+                visualizationType,
+            });
             const subtitleId = generateBucketSubtitleId(localIdentifier, visualizationType);
             const subtitle = getTranslation(subtitleId, intl);
             set(updatedUiConfig, [BUCKETS, localIdentifier, "subtitle"], subtitle);

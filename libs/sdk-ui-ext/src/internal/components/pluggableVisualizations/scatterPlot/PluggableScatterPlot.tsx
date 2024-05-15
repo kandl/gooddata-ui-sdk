@@ -1,4 +1,4 @@
-// (C) 2019-2022 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import { VisualizationTypes } from "@gooddata/sdk-ui";
 import React from "react";
 import { BUCKETS } from "../../../constants/bucket.js";
@@ -86,7 +86,9 @@ export class PluggableScatterPlot extends PluggableBaseChart {
         );
         newReferencePoint = removeSort(newReferencePoint);
 
-        return Promise.resolve(sanitizeFilters(newReferencePoint));
+        newReferencePoint = sanitizeFilters(newReferencePoint);
+        console.log("reference point", { referencePoint, newReferencePoint });
+        return Promise.resolve(newReferencePoint);
     }
 
     protected renderConfigurationPanel(insight: IInsightDefinition, options: IVisProps): void {

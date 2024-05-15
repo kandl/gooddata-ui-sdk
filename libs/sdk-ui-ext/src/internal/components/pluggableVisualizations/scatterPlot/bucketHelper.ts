@@ -1,8 +1,8 @@
-// (C) 2019-2020 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 
 import { BucketNames } from "@gooddata/sdk-ui";
 import {
-    getAllAttributeItems,
+    getBucketItems,
     IMeasureBucketItemsLimit,
     limitNumberOfMeasuresInBuckets,
     transformMeasureBuckets,
@@ -25,10 +25,19 @@ export const transformBuckets = (buckets: IBucketOfFun[]): IBucketOfFun[] => {
 
     const measureBuckets = transformMeasureBuckets(measureBucketItemsLimit, bucketsWithLimitedMeasures);
 
+    const viewByAttributes = getBucketItems(buckets, BucketNames.ATTRIBUTE);
+    const segmentByAttributes = getBucketItems(buckets, BucketNames.SEGMENT);
+
     const attributeBucket = {
         localIdentifier: BucketNames.ATTRIBUTE,
-        items: getAllAttributeItems(buckets).slice(0, 1),
+        items: viewByAttributes,
     };
 
-    return [...measureBuckets, attributeBucket];
+    // Should this be conditional?
+    const segmentBucket = {
+        localIdentifier: BucketNames.SEGMENT,
+        items: segmentByAttributes,
+    };
+
+    return [...measureBuckets, attributeBucket, segmentBucket];
 };

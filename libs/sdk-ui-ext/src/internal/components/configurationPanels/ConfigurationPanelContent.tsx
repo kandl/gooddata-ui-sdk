@@ -82,6 +82,17 @@ export default abstract class ConfigurationPanelContent<
         const controlsDisabled = this.isControlDisabled();
         const hasMeasures = getMeasuresFromMdObject(insight).length > 0;
 
+        console.log("renderColorSection", {
+            properties,
+            propertiesMeta,
+            references,
+            colors,
+            featureFlags,
+            insight,
+            isLoading,
+            props: this.props,
+        });
+
         return (
             <ColorsSection
                 properties={properties}

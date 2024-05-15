@@ -66,6 +66,7 @@ import {
     buildTooltipFactory,
     generateTooltipHeatmapFn,
     generateTooltipSankeyChartFn,
+    generateTooltipScatterPlotFn,
     generateTooltipXYFn,
     getTooltipFactory,
     getTooltipWaterfallChart,
@@ -280,6 +281,77 @@ export function getTreemapAttributes(dv: DataViewFacade): ChartedAttributes {
     };
 }
 
+export function getScatterPlotAttributes(dv: DataViewFacade): ChartedAttributes {
+    const dimensions = dv.meta().dimensions();
+    const attributeHeaderItems = dv.meta().attributeHeaders();
+
+    console.log("get scatter plot attributes", { dimensions, attributeHeaderItems });
+
+    const viewByAttribute = findAttributeInDimension(
+        dimensions[STACK_BY_DIMENSION_INDEX],
+        attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+    );
+
+    const stackByAttribute = findAttributeInDimension(
+        dimensions[STACK_BY_DIMENSION_INDEX],
+        attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+        1,
+    );
+
+    console.log("scatter plot attributes:", { viewByAttribute, stackByAttribute });
+
+    return {
+        viewByAttribute,
+        stackByAttribute,
+    };
+}
+
+// export function getScatterPlotAttributes(dv: DataViewFacade): ChartedAttributes {
+//     if (!dv.def().hasBuckets()) {
+//         // without mdObject cant distinguish 1M 1Vb 0Sb and 1M 0Vb 1Sb
+//         return getDefaultTreemapAttributes(dv);
+//     }
+
+//     const dimensions = dv.meta().dimensions();
+//     const attributeHeaderItems = dv.meta().attributeHeaders();
+
+//     if (dv.def().isBucketEmpty(BucketNames.SEGMENT)) {
+//         if (dv.def().isBucketEmpty(BucketNames.VIEW)) {
+//             return {
+//                 viewByAttribute: null,
+//                 stackByAttribute: null,
+//             };
+//         }
+//         return {
+//             viewByAttribute: findAttributeInDimension(
+//                 dimensions[VIEW_BY_DIMENSION_INDEX],
+//                 attributeHeaderItems[VIEW_BY_DIMENSION_INDEX],
+//             ),
+//             stackByAttribute: null,
+//         };
+//     }
+//     if (dv.def().isBucketEmpty(BucketNames.VIEW)) {
+//         return {
+//             viewByAttribute: null,
+//             stackByAttribute: findAttributeInDimension(
+//                 dimensions[VIEW_BY_DIMENSION_INDEX],
+//                 attributeHeaderItems[VIEW_BY_DIMENSION_INDEX],
+//             ),
+//         };
+//     }
+//     return {
+//         viewByAttribute: findAttributeInDimension(
+//             dimensions[STACK_BY_DIMENSION_INDEX],
+//             attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+//         ),
+//         stackByAttribute: findAttributeInDimension(
+//             dimensions[STACK_BY_DIMENSION_INDEX],
+//             attributeHeaderItems[STACK_BY_DIMENSION_INDEX],
+//             1,
+//         ),
+//     };
+// }
+
 type ChartedAttributes = {
     viewByAttribute?: IUnwrappedAttributeHeadersWithItems;
     viewByParentAttribute?: IUnwrappedAttributeHeadersWithItems;
@@ -316,6 +388,16 @@ function defaultChartedAttributeDiscovery(dv: DataViewFacade): ChartedAttributes
         );
     }
 
+    console.log("defaultChartedAttributeDiscovery", {
+        dv,
+        attributeHeaderItems,
+        dimensions,
+        viewByAttribute,
+        viewByParentAttribute,
+        stackByAttribute,
+        isViewByTwoAttributes,
+    });
+
     return {
         viewByAttribute,
         viewByParentAttribute,
@@ -327,6 +409,11 @@ function defaultChartedAttributeDiscovery(dv: DataViewFacade): ChartedAttributes
 function chartedAttributeDiscovery(dv: DataViewFacade, chartType: string): ChartedAttributes {
     if (isTreemap(chartType)) {
         return getTreemapAttributes(dv);
+    }
+
+    // TODO:
+    if (isScatterPlot(chartType)) {
+        return getScatterPlotAttributes(dv);
     }
 
     return defaultChartedAttributeDiscovery(dv);
@@ -384,6 +471,7 @@ export function getChartOptions(
         isViewByTwoAttributes = false,
     } = chartedAttributeDiscovery(dv, type);
 
+    //
     const colorStrategy = ColorFactory.getColorStrategy(
         config.colorPalette,
         config.colorMapping,
@@ -401,6 +489,7 @@ export function getChartOptions(
     const xAxes = getXAxes(dv, config, measureGroup, viewByAttribute, viewByParentAttribute);
     const yAxes = getYAxes(dv, config, measureGroup, stackByAttribute);
 
+    //
     const seriesWithoutDrillability = getSeries(
         dv,
         measureGroup,
@@ -500,6 +589,7 @@ export function getChartOptions(
     }
 
     if (isScatterPlot(type)) {
+        ///
         const { xAxisProps, yAxisProps } = getChartProperties(config, type);
 
         let measures = [
@@ -521,7 +611,8 @@ export function getChartOptions(
                 categories,
             },
             actions: {
-                tooltip: generateTooltipXYFn(measures, stackByAttribute, config),
+                //
+                tooltip: generateTooltipScatterPlotFn(measures, stackByAttribute, viewByAttribute, config),
             },
             grid: {
                 enabled: gridEnabled,

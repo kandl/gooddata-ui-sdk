@@ -7,6 +7,7 @@ import {
     getColorByGuid,
     getColorFromMapping,
     getLighterColorFromRGB,
+    getRgbStringFromRGB,
 } from "@gooddata/sdk-ui-vis-commons";
 import {
     IColor,
@@ -15,6 +16,7 @@ import {
     isColorFromPalette,
     RgbType,
     IMeasureDescriptor,
+    IRgbColorValue,
 } from "@gooddata/sdk-model";
 import { isDarkTheme } from "@gooddata/sdk-ui-theme-provider";
 import { IColorMapping } from "../../../interfaces/index.js";
@@ -158,5 +160,39 @@ export class MeasureColorStrategy extends ColorStrategy {
                 value: getLighterColorFromRGB(rgbColor, isDarkTheme(this.theme) ? -0.6 : 0.6),
             },
         };
+    }
+
+    // Copy pasted from points color strategy
+    protected singleMeasureColorMapping(
+        colorPalette: IColorPalette,
+        colorMapping: IColorMapping[],
+        dv: DataViewFacade,
+    ): IColorAssignment[] {
+        const measureGroup = findMeasureGroupInDimensions(dv.meta().dimensions());
+        const measureHeaderItem = measureGroup.items[0];
+        const measureColorMapping = getColorFromMapping(measureHeaderItem, colorMapping, dv);
+        const color: IColor = isValidMappedColor(measureColorMapping, colorPalette)
+            ? measureColorMapping
+            : { type: "guid", value: colorPalette[0].guid };
+        return [
+            {
+                headerItem: measureHeaderItem,
+                color,
+            },
+        ];
+    }
+
+    protected createSingleColorPalette(
+        colorPalette: IColorPalette,
+        colorAssignment: IColorAssignment[],
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        viewByAttribute: any,
+    ): string[] {
+        const length = viewByAttribute ? viewByAttribute.items.length : 1;
+        const color = isColorFromPalette(colorAssignment[0].color)
+            ? getColorByGuid(colorPalette, colorAssignment[0].color.value as string, 0)
+            : (colorAssignment[0].color.value as IRgbColorValue);
+        const colorString = getRgbStringFromRGB(color);
+        return Array(length).fill(colorString);
     }
 }

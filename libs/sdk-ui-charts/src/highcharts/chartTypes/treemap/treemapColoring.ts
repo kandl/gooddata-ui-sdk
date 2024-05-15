@@ -1,4 +1,4 @@
-// (C) 2020-2022 GoodData Corporation
+// (C) 2020-2024 GoodData Corporation
 import { MeasureColorStrategy } from "../_chartColoring/measure.js";
 import { IColorPalette } from "@gooddata/sdk-model";
 import { IColorMapping } from "../../../interfaces/index.js";
@@ -15,6 +15,14 @@ export class TreemapColorStrategy extends MeasureColorStrategy {
         stackByAttribute: any,
         dv: DataViewFacade,
     ): ICreateColorAssignmentReturnValue {
+        console.log("treemap plot palette", {
+            colorPalette,
+            colorMapping,
+            viewByAttribute,
+            stackByAttribute,
+            dv,
+        });
+
         let colorAssignment: IColorAssignment[];
         if (viewByAttribute) {
             colorAssignment = getAttributeColorAssignment(viewByAttribute, colorPalette, colorMapping, dv);
