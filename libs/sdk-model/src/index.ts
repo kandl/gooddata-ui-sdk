@@ -636,6 +636,8 @@ export {
     IAttributeHierarchyMetadataObject,
     isAttributeHierarchyMetadataObject,
     IDateHierarchyTemplate,
+    IMdObject,
+    ToMdObjectDefinition,
 } from "./ldm/metadata/index.js";
 
 export {
@@ -891,3 +893,10 @@ export {
 } from "./exportDefinitions/index.js";
 
 export { IWorkspaceDataFilter, IWorkspaceDataFilterSetting } from "./dataFilter/index.js";
+export {
+    IAutomationMdObject,
+    IAutomationMdObjectDefinition,
+    IAutomationSchedule,
+    isAutomationMdObject,
+    isAutomationMdObjectDefinition,
+} from "./automations/index.js";

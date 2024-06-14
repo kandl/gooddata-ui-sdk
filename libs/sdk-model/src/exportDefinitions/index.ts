@@ -46,7 +46,6 @@ export interface IExportDefinitionBase {
  *
  * @alpha
  */
-
 export interface IExportDefinition extends IExportDefinitionBase, IMetadataObject, IAuditable {
     type: "exportDefinition";
 }

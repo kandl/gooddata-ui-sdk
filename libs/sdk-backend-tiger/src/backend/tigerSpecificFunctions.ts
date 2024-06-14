@@ -2,7 +2,7 @@
 
 import {
     ActionsApiProcessInvitationRequest,
-    ActionsApiReadCsvFileManifestsRequest,
+    ActionsApiReadFileManifestsRequest,
     AnalyzeCsvRequest,
     AnalyzeCsvResponse,
     ApiEntitlement,
@@ -1637,7 +1637,7 @@ export const buildTigerSpecificFunctions = (
     readFileManifests: async (dataSourceId, fileNames) => {
         try {
             return await authApiCall(async (sdk) => {
-                const request: ActionsApiReadCsvFileManifestsRequest = {
+                const request: ActionsApiReadFileManifestsRequest = {
                     dataSourceId: dataSourceId,
                     readCsvFileManifestsRequest: {
                         manifestRequests: fileNames.map((fileName) => ({
@@ -1645,7 +1645,7 @@ export const buildTigerSpecificFunctions = (
                         })),
                     },
                 };
-                return await sdk.result.readCsvFileManifests(request).then((res) => {
+                return await sdk.result.readFileManifests(request).then((res) => {
                     return res?.data;
                 });
             });

@@ -47,6 +47,7 @@ import {
     isAllTimeDashboardDateFilter,
     objRefToString,
     IDateFilter,
+    IScheduledMail,
 } from "@gooddata/sdk-model";
 import isEqual from "lodash/isEqual.js";
 import {
@@ -428,8 +429,9 @@ export class TigerWorkspaceDashboards implements IWorkspaceDashboardsService {
         throw new NotSupported("Tiger backend does not support scheduled emails.");
     };
 
-    public getScheduledMailsForDashboard = async () => {
-        throw new NotSupported("Tiger backend does not support scheduled emails.");
+    // TODO: we want to use likely a new different method for this.
+    public getScheduledMailsForDashboard = async (): Promise<IScheduledMail[]> => {
+        return [];
     };
 
     public getScheduledMailsCountForDashboard = async () => {

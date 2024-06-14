@@ -104,7 +104,7 @@
                 "tags": ["Data source files manifest read", "actions"],
                 "summary": "Read CSV file manifests",
                 "description": "Read the manifests of the CSV files in the given data source.",
-                "operationId": "readCsvFileManifests",
+                "operationId": "readFileManifests",
                 "parameters": [
                     {
                         "name": "dataSourceId",
@@ -259,6 +259,272 @@
                 "responses": {
                     "204": {
                         "description": "Successful deletion."
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/staging/uploadFile": {
+            "post": {
+                "tags": ["Data source staging location", "actions"],
+                "summary": "Upload a file to the staging area",
+                "description": "Provides a location for uploading staging files.",
+                "operationId": "stagingUpload_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": ["file"],
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "description": "The file to upload.",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Upload was successful.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UploadFileResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/readFileManifests": {
+            "post": {
+                "tags": ["Data source files manifest read", "actions"],
+                "summary": "Read datasource file manifests",
+                "description": "Read the manifests of the files in the given data source.",
+                "operationId": "readFileManifests_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReadCsvFileManifestsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful listing.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ReadCsvFileManifestsResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/listFiles": {
+            "post": {
+                "tags": ["Data source files listing", "actions"],
+                "summary": "List datasource files",
+                "description": "List all the files in the given data source.",
+                "operationId": "listFiles_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful listing.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GdStorageFile"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/import": {
+            "post": {
+                "tags": ["Data source files import", "actions"],
+                "summary": "Import CSV",
+                "description": "Import the CSV files at the given locations in the staging area to the final location.",
+                "operationId": "importCsv_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ImportCsvRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful import.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ImportCsvResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/deleteFiles": {
+            "post": {
+                "tags": ["Data source files deletion", "actions"],
+                "summary": "Delete datasource files",
+                "description": "Delete the files in the given data source.",
+                "operationId": "deleteFiles_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeleteFilesRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "Successful deletion."
+                    }
+                },
+                "x-gdc-security-info": {
+                    "permissions": ["MANAGE"],
+                    "description": "Minimal permission required to use this endpoint."
+                }
+            }
+        },
+        "/api/v1/actions/dataSources/{dataSourceId}/analyze": {
+            "post": {
+                "tags": ["Data source files analysis", "actions"],
+                "summary": "Analyze CSV",
+                "description": "Analyzes CSV files at the given locations",
+                "operationId": "analyzeCsv_1",
+                "parameters": [
+                    {
+                        "name": "dataSourceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AnalyzeCsvRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful analysis.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AnalyzeCsvResponse"
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "x-gdc-security-info": {

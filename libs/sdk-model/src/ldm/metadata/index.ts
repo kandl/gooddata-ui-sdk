@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import { IAttributeMetadataObject, isAttributeMetadataObject } from "./attribute/index.js";
 import {
     IAttributeDisplayFormMetadataObject,
@@ -24,7 +24,14 @@ import {
     isMeasureMetadataObject,
     isMeasureMetadataObjectDefinition,
 } from "./measure/index.js";
-import { IMetadataObject, IMetadataObjectBase, IMetadataObjectIdentity, isMetadataObject } from "./types.js";
+import {
+    IMetadataObject,
+    IMetadataObjectBase,
+    IMetadataObjectIdentity,
+    isMetadataObject,
+    IMdObject,
+    ToMdObjectDefinition,
+} from "./types.js";
 import { isVariableMetadataObject, IVariableMetadataObject } from "./variable/index.js";
 
 export {
@@ -57,6 +64,8 @@ export {
     IAttributeHierarchyMetadataObject,
     isAttributeHierarchyMetadataObject,
     IDateHierarchyTemplate,
+    IMdObject,
+    ToMdObjectDefinition,
 };
 
 /**

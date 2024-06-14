@@ -1,4 +1,4 @@
-// (C) 2022 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import { IScheduledMail, IWorkspaceUser } from "@gooddata/sdk-model";
 import {
@@ -53,9 +53,33 @@ export const useScheduledEmailManagement = (props: IUseScheduledEmailManagementP
                       createdByCurrentUser: !canManageScheduledMail,
                   });
 
-              const users = canManageScheduledMail
-                  ? await effectiveBackend.workspace(effectiveWorkspace).users().queryAll()
-                  : [];
+              //   const currentOrg = await effectiveBackend.organizations().getCurrentOrganization();
+              //   const orgUsers = canManageScheduledMail
+              //       ? (
+              //             await currentOrg
+              //                 .users()
+              //                 .getUsersQuery()
+              //                 .withFilter({ workspace: effectiveWorkspace })
+              //                 .query()
+              //         )?.items
+              //       : [];
+
+              //   const wsUsers = orgUsers.map((orgUser): IWorkspaceUser => {
+              //       return {
+              //           uri: orgUser.id,
+              //           email: orgUser.email!,
+              //           // id: orgUser.id,
+              //           // name: orgUser.fullName,
+              //           // email: orgUser.email,
+              //       };
+              //   });
+
+              // TODO: replace with panther call
+              // const users = canManageScheduledMail
+              // ? await effectiveBackend.workspace(effectiveWorkspace).users().queryAll()
+              // : [];
+
+              const users: IWorkspaceUser[] = [];
 
               return { scheduledEmails: scheduledEmails.reverse(), users };
           }

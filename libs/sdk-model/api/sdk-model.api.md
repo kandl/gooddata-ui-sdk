@@ -743,6 +743,24 @@ export interface IAuditableUsers {
     updatedBy?: IUser;
 }
 
+// @alpha (undocumented)
+export interface IAutomationMdObject extends IMdObject<"automation"> {
+    exportDefinitions?: string[];
+    recipients?: string[];
+    schedule?: IAutomationSchedule;
+    webhook?: string;
+}
+
+// @alpha (undocumented)
+export type IAutomationMdObjectDefinition = ToMdObjectDefinition<IAutomationMdObject>;
+
+// @alpha (undocumented)
+export interface IAutomationSchedule {
+    cron: string;
+    firstRun?: string;
+    timezone?: string;
+}
+
 // @alpha
 export type IAvailableAccessGrantee = IAvailableUserAccessGrantee | IAvailableUserGroupAccessGrantee;
 
@@ -1716,6 +1734,15 @@ export interface IListedDashboard extends Readonly<Required<IAuditableDates>>, R
 // @public
 export type ILocatorItem = IAttributeLocatorItem | IMeasureLocatorItem | ITotalLocatorItem;
 
+// @alpha (undocumented)
+export interface IMdObject<TObjectType extends ObjectType> {
+    description?: string;
+    id: string;
+    tags?: string[];
+    title?: string;
+    type: TObjectType;
+}
+
 // @public
 export interface IMeasure<T extends IMeasureDefinitionType = IMeasureDefinitionType> extends IMeasureTitle {
     // (undocumented)
@@ -2438,6 +2465,12 @@ export function isAttributeSort(obj: unknown): obj is IAttributeSortItem;
 
 // @public
 export function isAttributeValueSort(obj: unknown): obj is IAttributeSortItem;
+
+// @alpha (undocumented)
+export function isAutomationMdObject(obj: unknown): obj is IAutomationMdObject;
+
+// @alpha (undocumented)
+export function isAutomationMdObjectDefinition(obj: unknown): obj is IAutomationMdObjectDefinition;
 
 // @alpha
 export const isAvailableUserAccessGrantee: (obj: unknown) => obj is IAvailableUserAccessGrantee;
@@ -3739,7 +3772,7 @@ export function newTwoDimensional(dim1Input: DimensionItem[], dim2Input: Dimensi
 export function newVirtualArithmeticMeasure(measuresOrIds: ReadonlyArray<MeasureOrLocalId>, operator: ArithmeticMeasureOperator, modifications?: MeasureModifications<VirtualArithmeticMeasureBuilder>): IMeasure<IVirtualArithmeticMeasureDefinition>;
 
 // @public
-export type ObjectType = "measure" | "fact" | "attribute" | "displayForm" | "dataSet" | "tag" | "insight" | "variable" | "analyticalDashboard" | "theme" | "colorPalette" | "filterContext" | "dashboardPlugin" | "attributeHierarchy" | "user" | "userGroup" | "dateHierarchyTemplate" | "dateAttributeHierarchy" | "exportDefinition";
+export type ObjectType = "measure" | "fact" | "attribute" | "displayForm" | "dataSet" | "tag" | "insight" | "variable" | "analyticalDashboard" | "theme" | "colorPalette" | "filterContext" | "dashboardPlugin" | "attributeHierarchy" | "user" | "userGroup" | "dateHierarchyTemplate" | "dateAttributeHierarchy" | "exportDefinition" | "automation";
 
 // @public
 export type ObjRef = UriRef | IdentifierRef;
@@ -3855,6 +3888,9 @@ export type ThemeColor = string;
 
 // @beta
 export type ThemeFontUri = string;
+
+// @alpha
+export type ToMdObjectDefinition<T extends IMdObject<any>> = Omit<T, "id">;
 
 // @public
 export function totalIsNative(total: ITotal): boolean;

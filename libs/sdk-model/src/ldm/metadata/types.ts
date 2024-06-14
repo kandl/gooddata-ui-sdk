@@ -1,6 +1,7 @@
-// (C) 2019-2020 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import isEmpty from "lodash/isEmpty.js";
 import { ObjectType, ObjRef } from "../../objRef/index.js";
+// import { IAuditableDates } from "../../base/metadata.js";
 
 /**
  * @public
@@ -79,3 +80,44 @@ export function isMetadataObject(obj: unknown): obj is IMetadataObject {
 
     return !isEmpty(c) && c.type !== undefined && c.ref !== undefined;
 }
+
+/**
+ * Following interfaces are intended to replace IMetadataObject in the future.
+ */
+
+/**
+ * @alpha
+ */
+export interface IMdObject<TObjectType extends ObjectType> {
+    /**
+     * Metadata object identifier
+     */
+    id: string;
+
+    /**
+     * Type of metadata object
+     */
+    type: TObjectType;
+
+    /**
+     * Title
+     */
+    title?: string;
+
+    /**
+     * Description
+     */
+    description?: string;
+
+    /**
+     * Tags
+     */
+    tags?: string[];
+}
+
+/**
+ * Utility type to convert {@link IMdObject} to its definition.
+ *
+ * @alpha
+ */
+export type ToMdObjectDefinition<T extends IMdObject<any>> = Omit<T, "id">;

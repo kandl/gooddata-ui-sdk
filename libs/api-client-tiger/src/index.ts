@@ -264,7 +264,6 @@ export {
     ActionsApiDeleteFilesRequest,
     ActionsApiImportCsvRequest,
     ActionsApiListFilesRequest,
-    ActionsApiReadCsvFileManifestsRequest,
     ActionsApiStagingUploadRequest,
     AnalyzeCsvRequest,
     AnalyzeCsvRequestItem,
@@ -297,6 +296,13 @@ export {
     WorkspaceCacheSettings,
     WorkspaceCacheUsage,
     WorkspaceCurrentCacheUsage,
+    ActionsApiAnalyzeCsv1Request,
+    ActionsApiDeleteFiles1Request,
+    ActionsApiImportCsv1Request,
+    ActionsApiListFiles1Request,
+    ActionsApiReadFileManifests1Request,
+    ActionsApiStagingUpload1Request,
+    ActionsApiReadFileManifestsRequest,
 } from "./generated/result-json-api/api.js";
 
 export * from "./client.js";

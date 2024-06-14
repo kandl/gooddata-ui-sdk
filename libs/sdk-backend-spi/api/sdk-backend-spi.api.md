@@ -17,6 +17,8 @@ import { IAttributeElement } from '@gooddata/sdk-model';
 import { IAttributeFilter } from '@gooddata/sdk-model';
 import { IAttributeMetadataObject } from '@gooddata/sdk-model';
 import { IAttributeOrMeasure } from '@gooddata/sdk-model';
+import { IAutomationMdObject } from '@gooddata/sdk-model';
+import { IAutomationMdObjectDefinition } from '@gooddata/sdk-model';
 import { IAvailableAccessGrantee } from '@gooddata/sdk-model';
 import { IBucket } from '@gooddata/sdk-model';
 import { ICatalogAttribute } from '@gooddata/sdk-model';
@@ -207,6 +209,8 @@ export interface IAnalyticalWorkspace {
     // @alpha
     attributeHierarchies(): IAttributeHierarchiesService;
     attributes(): IWorkspaceAttributesService;
+    // @alpha
+    automations(): IWorkspaceAutomationService;
     catalog(): IWorkspaceCatalogFactory;
     dashboards(): IWorkspaceDashboardsService;
     // @alpha
@@ -1058,6 +1062,15 @@ export interface IWorkspaceAttributesService {
     getCommonAttributes(attributeRefs: ObjRef[]): Promise<ObjRef[]>;
     getCommonAttributesBatch(attributesRefsBatch: ObjRef[][]): Promise<ObjRef[][]>;
     getConnectedAttributesByDisplayForm(ref: ObjRef): Promise<ObjRef[]>;
+}
+
+// @alpha
+export interface IWorkspaceAutomationService {
+    createAutomation(automation: IAutomationMdObjectDefinition): Promise<IAutomationMdObject>;
+    deleteAutomation(id: string): Promise<void>;
+    getAutomation(id: string): Promise<IAutomationMdObject>;
+    getAutomations(): Promise<IAutomationMdObject[]>;
+    updateAutomation(automation: IAutomationMdObject): Promise<IAutomationMdObject>;
 }
 
 // @public

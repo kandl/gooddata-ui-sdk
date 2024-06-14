@@ -87,6 +87,11 @@ export const DefaultUiSettings: ISettings = {
     enablePivotTableTransposition: true,
     enableColumnHeadersPosition: true,
     metadataTimeZone: "UTC", // Panther/Tiger metadata are always stored in UTC time zone
+    // TODO: remove & replace with correct FF
+    enableKPIDashboardSchedule: true,
+    enableKPIDashboardScheduleRecipients: true,
+    enableInsightExportScheduling: true,
+
     ...DefaultFeatureFlags,
 };
 
