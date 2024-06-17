@@ -1,10 +1,10 @@
-// (C) 2020-2022 GoodData Corporation
+// (C) 2020-2024 GoodData Corporation
 import { useCallback } from "react";
 import {
     FilterContextItem,
     IFilterContextDefinition,
-    IScheduledMail,
-    IScheduledMailDefinition,
+    IAutomationMdObject,
+    IAutomationMdObjectDefinition,
 } from "@gooddata/sdk-model";
 import {
     CommandProcessingStatus,
@@ -18,14 +18,18 @@ export const useCreateScheduledEmail = ({
     onSuccess,
     onError,
 }: {
-    onBeforeRun?: (scheduledEmailToCreate: IScheduledMailDefinition, filters?: FilterContextItem[]) => void;
-    onSuccess?: (scheduledEmail: IScheduledMail) => void;
+    onBeforeRun?: (
+        scheduledEmailToCreate: IAutomationMdObjectDefinition,
+        filters?: FilterContextItem[],
+    ) => void;
+    onSuccess?: (scheduledEmail: IAutomationMdObject) => void;
     onError?: (error: any) => void;
 } = {}): {
-    create: (scheduledEmailToCreate: IScheduledMailDefinition, filters?: FilterContextItem[]) => void;
+    create: (scheduledEmailToCreate: IAutomationMdObjectDefinition, filters?: FilterContextItem[]) => void;
     creationStatus?: CommandProcessingStatus;
 } => {
     const scheduledEmailCommandProcessing = useDashboardCommandProcessing({
+        // TODO: update command
         commandCreator: createScheduledEmail,
         errorEvent: "GDC.DASH/EVT.COMMAND.FAILED",
         successEvent: "GDC.DASH/EVT.SCHEDULED_EMAIL.CREATED",
@@ -41,7 +45,7 @@ export const useCreateScheduledEmail = ({
     });
 
     const create = useCallback(
-        (scheduledEmailToCreate: IScheduledMailDefinition, filters?: FilterContextItem[]) => {
+        (scheduledEmailToCreate: IAutomationMdObjectDefinition, filters?: FilterContextItem[]) => {
             const filterContext: IFilterContextDefinition | undefined = filters && {
                 title: "filterContext",
                 description: "",

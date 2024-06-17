@@ -744,11 +744,30 @@ export interface IAuditableUsers {
 }
 
 // @alpha (undocumented)
-export interface IAutomationMdObject extends IMdObject<"automation"> {
+export interface IAutomationMdObject extends IMdObject<"automation">, IAuditable {
+    attachments: ScheduledMailAttachment[];
+    bcc?: string[];
+    body: string;
     exportDefinitions?: string[];
+    // (undocumented)
+    identifier?: string;
+    lastSuccessful?: string;
     recipients?: string[];
+    ref?: ObjRef;
     schedule?: IAutomationSchedule;
+    subject: string;
+    to: string[];
+    unlisted: boolean;
+    unsubscribed?: string[];
+    // (undocumented)
+    uri?: string;
     webhook?: string;
+    when: {
+        startDate: string;
+        endDate?: string;
+        recurrence: string;
+        timeZone: string;
+    };
 }
 
 // @alpha (undocumented)

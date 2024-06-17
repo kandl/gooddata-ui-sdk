@@ -1,13 +1,13 @@
-// (C) 2022-2023 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import React, { ReactNode } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { IScheduledMail } from "@gooddata/sdk-model";
+import { IAutomationMdObject } from "@gooddata/sdk-model";
 import { GoodDataSdkError, useBackendStrict, useWorkspaceStrict } from "@gooddata/sdk-ui";
 import { ConfirmDialog } from "@gooddata/sdk-ui-kit";
 
 interface IDeleteScheduleConfirmDialogProps {
-    scheduledEmail: IScheduledMail;
+    scheduledEmail: IAutomationMdObject;
     onCancel: () => void;
     onSuccess?: () => void;
     onError?: (error: GoodDataSdkError) => void;
@@ -15,7 +15,8 @@ interface IDeleteScheduleConfirmDialogProps {
 
 export const DeleteScheduleConfirmDialog: React.FC<IDeleteScheduleConfirmDialogProps> = (props) => {
     const { scheduledEmail, onCancel, onSuccess, onError } = props;
-    const { ref, subject } = scheduledEmail;
+    // TODO: is mapping subject -> title correct?
+    // const { ref, subject } = scheduledEmail;
 
     const effectiveBackend = useBackendStrict();
     const effectiveWorkspace = useWorkspaceStrict();
@@ -23,7 +24,10 @@ export const DeleteScheduleConfirmDialog: React.FC<IDeleteScheduleConfirmDialogP
 
     const handleDeleteScheduledMail = async () => {
         try {
-            await effectiveBackend.workspace(effectiveWorkspace).dashboards().deleteScheduledMail(ref);
+            await effectiveBackend
+                .workspace(effectiveWorkspace)
+                .automations()
+                .deleteAutomation(scheduledEmail.id);
             onSuccess?.();
         } catch (err) {
             onError?.(err as GoodDataSdkError);
@@ -49,7 +53,7 @@ export const DeleteScheduleConfirmDialog: React.FC<IDeleteScheduleConfirmDialogP
                     values={{
                         b: (chunks: ReactNode) => (
                             <span className="gd-scheduled-email-delete-dialog-text">
-                                {chunks} <strong>{subject}</strong>
+                                {chunks} <strong>{scheduledEmail.title}</strong>
                             </span>
                         ),
                     }}

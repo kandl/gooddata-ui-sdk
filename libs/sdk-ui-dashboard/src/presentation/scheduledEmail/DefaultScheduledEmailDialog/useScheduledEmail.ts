@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import { useCallback } from "react";
 import { GoodDataSdkError, ILocale } from "@gooddata/sdk-ui";
 import {
@@ -8,8 +8,8 @@ import {
     FilterContextItem,
     WeekStart,
     isInsightWidget,
-    IScheduledMail,
-    IScheduledMailDefinition,
+    IAutomationMdObject,
+    IAutomationMdObjectDefinition,
     IInsightWidget,
 } from "@gooddata/sdk-model";
 import isEqual from "lodash/isEqual.js";
@@ -124,7 +124,7 @@ interface UseScheduledEmailResult {
      * Function that results in the creation of the scheduled email on the backend.
      */
     handleCreateScheduledEmail: (
-        scheduledEmailToCreate: IScheduledMailDefinition,
+        scheduledEmailToCreate: IAutomationMdObjectDefinition,
         filters?: FilterContextItem[],
     ) => void;
 
@@ -136,7 +136,7 @@ interface UseScheduledEmailResult {
     /**
      * Function that results in saving the existing scheduled email on the backend.
      */
-    handleSaveScheduledEmail: (scheduledEmailToSave: IScheduledMailDefinition) => void;
+    handleSaveScheduledEmail: (scheduledEmailToSave: IAutomationMdObject) => void;
 
     /**
      * Status of the scheduled email creation
@@ -151,12 +151,12 @@ export interface UseScheduledEmailProps {
     /**
      * Callback to be called, when user submit the scheduled email dialog.
      */
-    onSubmit?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSubmit?: (scheduledEmailDefinition: IAutomationMdObject | IAutomationMdObjectDefinition) => void;
 
     /**
      * Callback to be called, when submitting of the scheduled email was successful.
      */
-    onSubmitSuccess?: (scheduledEmail: IScheduledMail) => void;
+    onSubmitSuccess?: (scheduledEmail: IAutomationMdObject) => void;
 
     /**
      * Callback to be called, when submitting of the scheduled email failed.
@@ -166,7 +166,7 @@ export interface UseScheduledEmailProps {
     /**
      * Callback to be called, when user saves the existing scheduled email.
      */
-    onSave?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSave?: (scheduledEmailDefinition: IAutomationMdObject) => void;
 
     /**
      * Callback to be called, when saving of the scheduled email was successful.
@@ -229,7 +229,7 @@ export const useScheduledEmail = (props: UseScheduledEmailProps): UseScheduledEm
     const hasDefaultFilters = isEqual(originalFiltersWithouLocalIdentifiers, filtersWithoutLocalIdentifiers);
 
     const handleCreateScheduledEmail = useCallback(
-        (scheduledEmail: IScheduledMailDefinition, customFilters?: FilterContextItem[]) => {
+        (scheduledEmail: IAutomationMdObjectDefinition, customFilters?: FilterContextItem[]) => {
             // If dashboard filters are not changed, do not save them to scheduled email filter context.
             // Like this, future filter changes stored in the original dashboard filter context
             // are correctly propagated to the scheduled emails with the original filter context.
@@ -247,7 +247,7 @@ export const useScheduledEmail = (props: UseScheduledEmailProps): UseScheduledEm
     });
 
     const handleSaveScheduledEmail = useCallback(
-        (scheduledEmail: IScheduledMailDefinition, filterContextRef?: ObjRef) => {
+        (scheduledEmail: IAutomationMdObject, filterContextRef?: ObjRef) => {
             scheduledEmailSaver.save(scheduledEmail, filterContextRef);
         },
         [],

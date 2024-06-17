@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import * as React from "react";
 import cloneDeep from "lodash/cloneDeep.js";
 import differenceBy from "lodash/differenceBy.js";
@@ -14,12 +14,12 @@ import {
     uriRef,
     objRefToString,
     areObjRefsEqual,
-    IScheduledMail,
-    IScheduledMailDefinition,
+    IAutomationMdObject,
+    IAutomationMdObjectDefinition,
     isDashboardAttachment,
     isWidgetAttachment,
     ScheduledMailAttachment,
-    IWorkspaceUser,
+    IOrganizationUser,
     UriRef,
     WeekStart,
 } from "@gooddata/sdk-model";
@@ -34,6 +34,7 @@ import {
     REPEAT_TYPES,
 } from "../constants.js";
 import {
+    IScheduleEmailExternalRecipient,
     IScheduleEmailRecipient,
     IScheduleEmailRepeat,
     IScheduleEmailRepeatTime,
@@ -77,7 +78,7 @@ const MAX_SUBJECT_LENGTH = 200;
 const MAX_DASHBOARD_TITLE_LENGTH = DASHBOARD_TITLE_MAX_LENGTH;
 const MAX_HYPHEN_LENGTH = 3;
 
-export interface IScheduledMailDialogRendererOwnProps {
+export interface IAutomationMdObjectDialogRendererOwnProps {
     /**
      * Reference of the dashboard to be attached to the scheduled email.
      */
@@ -142,7 +143,7 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Schedule to be edited. If defined, it switches the dialog to edit mode.
      */
-    editSchedule?: IScheduledMail;
+    editSchedule?: IAutomationMdObject;
 
     /**
      * Attachment to be selected by default.
@@ -157,12 +158,12 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Callback to be called, when user submit the scheduled email dialog.
      */
-    onSubmit?: (scheduledEmailData: IScheduledMailDefinition) => void;
+    onSubmit?: (scheduledEmailData: IAutomationMdObjectDefinition) => void;
 
     /**
      * Callback to be called, when user saves the existing schedule.
      */
-    onSave?: (scheduledEmailData: IScheduledMailDefinition, filterContextRef?: ObjRef) => void;
+    onSave?: (scheduledEmailData: IAutomationMdObject, filterContextRef?: ObjRef) => void;
 
     /**
      * Callback to be called, when error occurs.
@@ -172,13 +173,13 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Workspace users.
      */
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
-export type IScheduledMailDialogRendererProps = IScheduledMailDialogRendererOwnProps &
+export type IAutomationMdObjectDialogRendererProps = IAutomationMdObjectDialogRendererOwnProps &
     WrappedComponentProps & { backend?: IAnalyticalBackend; workspace?: string };
 
-type IScheduledMailDialogRendererState = {
+type IAutomationMdObjectDialogRendererState = {
     alignment: string;
     userTimezone: ITimezone;
     emailSubject: string;
@@ -201,17 +202,17 @@ const userToRecipient = memoize(
 );
 
 export class ScheduledMailDialogRendererUI extends React.PureComponent<
-    IScheduledMailDialogRendererProps,
-    IScheduledMailDialogRendererState
+    IAutomationMdObjectDialogRendererProps,
+    IAutomationMdObjectDialogRendererState
 > {
-    static defaultProps: Pick<IScheduledMailDialogRendererProps, "dateFormat"> = {
+    static defaultProps: Pick<IAutomationMdObjectDialogRendererProps, "dateFormat"> = {
         dateFormat: "MM/dd/yyyy",
     };
 
     // when editing, save initial state to compare if anything changed
-    private originalEditState: IScheduledMailDialogRendererState | undefined;
+    private originalEditState: IAutomationMdObjectDialogRendererState | undefined;
 
-    constructor(props: IScheduledMailDialogRendererProps) {
+    constructor(props: IAutomationMdObjectDialogRendererProps) {
         super(props);
 
         this.state = this.props.editSchedule
@@ -219,7 +220,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             : this.getDefaultState();
     }
 
-    private getDefaultState(): IScheduledMailDialogRendererState {
+    private getDefaultState(): IAutomationMdObjectDialogRendererState {
         const now = new Date();
         const normalizedTime = normalizeTime(now);
 
@@ -255,9 +256,9 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
     }
 
     private getEditState(
-        schedule: IScheduledMail,
-        users: IWorkspaceUser[],
-    ): IScheduledMailDialogRendererState {
+        schedule: IAutomationMdObject,
+        users: IOrganizationUser[],
+    ): IAutomationMdObjectDialogRendererState {
         const defaultState = this.getDefaultState();
 
         const selectedRecipients = schedule.to.concat(schedule.bcc || []).map((email) => {
@@ -279,9 +280,11 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const processedRecipients = selectedRecipients.map((recipient) => {
             if (isScheduleEmailExternalRecipient(recipient)) {
                 // need to make the comparison from user login, since email is not an unique value
-                const user = users.find((user) => user.login === recipient.email);
+                // TODO: this should be adapted
+                const user = users.find((user) => user.id === recipient.email);
                 if (user) {
-                    return { user };
+                    // TODO:
+                    return { user } as unknown as IScheduleEmailExternalRecipient;
                 }
             }
 
@@ -801,7 +804,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         return result;
     };
 
-    private getScheduleEmailData = (): IScheduledMailDefinition => {
+    private getScheduleEmailData = (): IAutomationMdObject => {
         const { editSchedule } = this.props;
 
         const when = this.getTimeSchedule();
@@ -828,6 +831,8 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         }
 
         return {
+            type: "automation",
+            id: "scheduled-email", // TODO
             when,
             to: toEmails,
             bcc: bccEmails,
@@ -843,7 +848,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         };
     };
 
-    private getTimeSchedule = (): IScheduledMailDefinition["when"] => {
+    private getTimeSchedule = (): IAutomationMdObjectDefinition["when"] => {
         const recurrence = generateRepeatString(this.state.repeat);
         const startDate = convertDateToPlatformDateString(this.state.startDate);
         return {
@@ -861,7 +866,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
 
 export const ScheduledMailDialogRendererIntl = withContexts(injectIntl(ScheduledMailDialogRendererUI));
 
-export const ScheduledMailDialogRenderer: React.FC<IScheduledMailDialogRendererOwnProps> = (props) => (
+export const ScheduledMailDialogRenderer: React.FC<IAutomationMdObjectDialogRendererOwnProps> = (props) => (
     <IntlWrapper locale={props.locale}>
         <ScheduledMailDialogRendererIntl {...props} />
     </IntlWrapper>

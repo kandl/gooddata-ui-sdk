@@ -1,21 +1,21 @@
-// (C) 2022 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { IScheduledMail, IWorkspaceUser } from "@gooddata/sdk-model";
+import { IAutomationMdObject, IOrganizationUser } from "@gooddata/sdk-model";
 import { LoadingSpinner } from "@gooddata/sdk-ui-kit";
 import { useTheme } from "@gooddata/sdk-ui-theme-provider";
 
 import { ScheduledEmail } from "./ScheduledEmail.js";
 
 interface IScheduledEmailsProps {
-    onDelete: (scheduledEmail: IScheduledMail) => void;
-    onEdit: (scheduledEmail: IScheduledMail, users: IWorkspaceUser[]) => void;
+    onDelete: (scheduledEmail: IAutomationMdObject) => void;
+    onEdit: (scheduledEmail: IAutomationMdObject, users: IOrganizationUser[]) => void;
     isLoading: boolean;
-    scheduledEmails: IScheduledMail[];
+    scheduledEmails: IAutomationMdObject[];
     currentUserEmail?: string;
     noSchedulesMessageId: string;
     canManageScheduledMail: boolean;
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
 export const ScheduledEmails: React.FC<IScheduledEmailsProps> = (props) => {
@@ -56,7 +56,7 @@ export const ScheduledEmails: React.FC<IScheduledEmailsProps> = (props) => {
         <>
             {scheduledEmails.map((scheduledEmail) => (
                 <ScheduledEmail
-                    key={scheduledEmail.identifier}
+                    key={scheduledEmail.id}
                     scheduledEmail={scheduledEmail}
                     currentUserEmail={currentUserEmail}
                     onDelete={onDelete}

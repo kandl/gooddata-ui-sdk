@@ -2,11 +2,14 @@
 // import { IWebhookMetadataObject } from "../notificationChannels/index.js";
 import isEmpty from "lodash/isEmpty.js";
 import { IMdObject, ToMdObjectDefinition } from "../ldm/metadata/types.js";
+import { ScheduledMailAttachment } from "../dashboard/scheduledMail.js";
+import { ObjRef } from "../objRef/index.js";
+import { IAuditable } from "../base/metadata.js";
 
 /**
  * @alpha
  */
-export interface IAutomationMdObject extends IMdObject<"automation"> {
+export interface IAutomationMdObject extends IMdObject<"automation">, IAuditable {
     /**
      * Schedule of the automation.
      * Object with cron expression, timezone and first run timestamp.
@@ -31,6 +34,87 @@ export interface IAutomationMdObject extends IMdObject<"automation"> {
      * Array of strings with user ids.
      */
     recipients?: string[]; // This can be also groups in the future - should it be array of objects?
+
+    /**
+     * TODO:
+     * Following props are there copy pasted from IScheduledMail just for TS backward compatibility after typing changes and we should remove them,
+     * once we completely change the UI to a new model (IAutomationMdObject)
+     *
+     * Also check whether IAuditable is correct
+     *
+     */
+
+    ref?: ObjRef;
+
+    identifier?: string;
+
+    uri?: string;
+    /**
+     * Scheduled email job interval
+     */
+    when: {
+        /**
+         * Start date in YYYY-MM-DD format.
+         */
+        startDate: string;
+
+        /**
+         * End date in YYYY-MM-DD format.
+         */
+        endDate?: string;
+
+        /**
+         * Recurrence specification string
+         * e.g. 0:0:1*3:12:30:0
+         */
+        recurrence: string;
+
+        /**
+         * Timezone
+         * e.g. Europe/Amsterdam
+         */
+        timeZone: string;
+    };
+
+    /**
+     * Recipients unique login identifiers - should be equal to login property in {@link IWorkspaceUser} / {@link IUser}
+     */
+    to: string[];
+
+    /**
+     * BCC recipients email addresses
+     */
+    bcc?: string[];
+
+    /**
+     * Unsubscribed recipients email addresses
+     */
+    unsubscribed?: string[];
+
+    /**
+     * Email subject
+     */
+    subject: string;
+
+    /**
+     * Email message body
+     */
+    body: string;
+
+    /**
+     * Email attachments - should be replaced with export definitions
+     */
+    attachments: ScheduledMailAttachment[];
+
+    /**
+     * Date of the last successful email processing job run
+     */
+    lastSuccessful?: string;
+
+    /**
+     * Is unlisted?
+     */
+    unlisted: boolean;
 }
 
 /**

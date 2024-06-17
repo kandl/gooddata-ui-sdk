@@ -1,6 +1,6 @@
 // (C) 2022-2024 GoodData Corporation
 
-import { IScheduledMail, IWorkspaceUser } from "@gooddata/sdk-model";
+import { IAutomationMdObject, IOrganizationUser } from "@gooddata/sdk-model";
 import {
     GoodDataSdkError,
     useBackendStrict,
@@ -15,8 +15,8 @@ import {
 } from "../../../model/index.js";
 
 export interface IScheduledEmailManagement {
-    scheduledEmails: IScheduledMail[];
-    users: IWorkspaceUser[];
+    scheduledEmails: IAutomationMdObject[];
+    users: IOrganizationUser[];
 }
 
 interface IUseScheduledEmailManagementProps {
@@ -47,22 +47,28 @@ export const useScheduledEmailManagement = (props: IUseScheduledEmailManagementP
         ? async (): Promise<IScheduledEmailManagement> => {
               const scheduledEmails = await effectiveBackend
                   .workspace(effectiveWorkspace)
-                  .dashboards()
-                  .getScheduledMailsForDashboard(dashboardRef!, {
-                      loadUserData: canManageScheduledMail,
-                      createdByCurrentUser: !canManageScheduledMail,
-                  });
+                  .automations()
+                  .getAutomations();
 
-              //   const currentOrg = await effectiveBackend.organizations().getCurrentOrganization();
-              //   const orgUsers = canManageScheduledMail
-              //       ? (
-              //             await currentOrg
-              //                 .users()
-              //                 .getUsersQuery()
-              //                 .withFilter({ workspace: effectiveWorkspace })
-              //                 .query()
-              //         )?.items
-              //       : [];
+              // TODO: include also this and load only relevant emails for the dashboard
+              //   .getScheduledMailsForDashboard(dashboardRef!, {
+              //       loadUserData: canManageScheduledMail,
+              //       createdByCurrentUser: !canManageScheduledMail,
+              //   });
+
+              const currentOrg = canManageScheduledMail
+                  ? await effectiveBackend.organizations().getCurrentOrganization()
+                  : undefined;
+              const orgUsers =
+                  canManageScheduledMail && currentOrg
+                      ? (
+                            await currentOrg
+                                .users()
+                                .getUsersQuery()
+                                .withFilter({ workspace: effectiveWorkspace })
+                                .query()
+                        )?.items
+                      : [];
 
               //   const wsUsers = orgUsers.map((orgUser): IWorkspaceUser => {
               //       return {
@@ -79,9 +85,7 @@ export const useScheduledEmailManagement = (props: IUseScheduledEmailManagementP
               // ? await effectiveBackend.workspace(effectiveWorkspace).users().queryAll()
               // : [];
 
-              const users: IWorkspaceUser[] = [];
-
-              return { scheduledEmails: scheduledEmails.reverse(), users };
+              return { scheduledEmails: scheduledEmails.reverse(), users: orgUsers };
           }
         : null;
 

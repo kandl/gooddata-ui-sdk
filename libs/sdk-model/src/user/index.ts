@@ -131,6 +131,7 @@ export interface IWorkspaceUser {
      */
     status?: "ENABLED" | "DISABLED";
 }
+///
 
 /**
  * Gets the user full name
@@ -160,6 +161,8 @@ export interface IOrganizationUser {
     assignedWorkspaces: IWorkspacePermissionAssignment[];
     assignedDataSources: IDataSourcePermissionAssignment[];
 }
+
+//
 
 /**
  * Test if provided object is of IOrganizationUser type
