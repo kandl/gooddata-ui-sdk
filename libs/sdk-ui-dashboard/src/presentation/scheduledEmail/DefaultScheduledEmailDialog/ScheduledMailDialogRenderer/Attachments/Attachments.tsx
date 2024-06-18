@@ -1,4 +1,4 @@
-// (C) 2019-2022 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
 import identity from "lodash/identity.js";
@@ -51,9 +51,15 @@ export const Attachments = (props: IAttachmentsProps) => {
             <div className="gd-dashboard-attachment-list">
                 <div className="gd-dashboard-attachment-list-content">
                     {dashboardSelected ? (
-                        <AttachmentItem format="pdf">
-                            <span className="shortened-name">{dashboardTitle}</span>
-                        </AttachmentItem>
+                        <>
+                            <label className="gd-schedule-mail-attachment-checkbox input-checkbox-label">
+                                <input type="checkbox" className="input-checkbox" defaultChecked />
+                                <span className="input-label-text" />
+                                <AttachmentItem format="pdf">
+                                    <span className="shortened-name">{dashboardTitle}</span>
+                                </AttachmentItem>
+                            </label>
+                        </>
                     ) : null}
                     {selectedWidgetsTitles.length !== 0 ? (
                         <AttachmentItem format={configuration.format}>

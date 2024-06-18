@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import * as React from "react";
 import { Datepicker, Timepicker } from "@gooddata/sdk-ui-kit";
 
@@ -31,6 +31,7 @@ export class DateTime extends React.PureComponent<IDateTimeProps> {
                 <label className="gd-label">{label}</label>
                 <div>
                     <Datepicker
+                        className="gd-schedule-email-dialog-datetime-date"
                         date={date}
                         dateFormat={dateFormat}
                         locale={locale}

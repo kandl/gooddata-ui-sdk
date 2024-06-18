@@ -4,9 +4,20 @@ import cloneDeep from "lodash/cloneDeep.js";
 import differenceBy from "lodash/differenceBy.js";
 import isEqual from "lodash/isEqual.js";
 import omit from "lodash/omit.js";
+import noop from "lodash/noop.js";
 import { injectIntl, WrappedComponentProps, FormattedMessage } from "react-intl";
 import parse from "date-fns/parse/index.js";
-import { normalizeTime, ConfirmDialogBase, Overlay, Alignment, Message } from "@gooddata/sdk-ui-kit";
+import {
+    normalizeTime,
+    ConfirmDialogBase,
+    Overlay,
+    Alignment,
+    Message,
+    ContentDivider,
+    Button,
+    EditableLabel,
+    Hyperlink,
+} from "@gooddata/sdk-ui-kit";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 import {
     ObjRef,
@@ -72,6 +83,7 @@ import { IntlWrapper } from "../../../localization/index.js";
 import { DASHBOARD_TITLE_MAX_LENGTH } from "../../../constants/index.js";
 import { AttachmentNoWidgets } from "./Attachments/AttachmentNoWidgets.js";
 import { IInsightWidgetExtended } from "../useScheduledEmail.js";
+import { DestinationSelect } from "./DestinationSelect/DestinationSelect.js";
 
 const MAX_MESSAGE_LENGTH = 200;
 const MAX_SUBJECT_LENGTH = 200;
@@ -180,6 +192,7 @@ export type IAutomationMdObjectDialogRendererProps = IAutomationMdObjectDialogRe
     WrappedComponentProps & { backend?: IAnalyticalBackend; workspace?: string };
 
 type IAutomationMdObjectDialogRendererState = {
+    title?: string;
     alignment: string;
     userTimezone: ITimezone;
     emailSubject: string;
@@ -193,6 +206,7 @@ type IAutomationMdObjectDialogRendererState = {
         widgetsSelected: IWidgetsSelection;
         configuration: IWidgetExportConfiguration;
     };
+    destination?: string;
 };
 
 const userToRecipient = memoize(
@@ -225,6 +239,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const normalizedTime = normalizeTime(now);
 
         return {
+            title: undefined,
             alignment: "cc cc",
             startDate: now,
             userTimezone: getUserTimezone(),
@@ -252,6 +267,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
                     includeFilters: true,
                 },
             },
+            destination: undefined,
         };
     }
 
@@ -315,6 +331,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
 
         const newState = {
             ...defaultState,
+            title: schedule.title,
             emailSubject: schedule.subject,
             emailBody: schedule.body,
             selectedRecipients: processedRecipients,
@@ -327,6 +344,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
                 widgetsSelected,
                 configuration,
             },
+            destination: schedule.webhook,
         };
         this.originalEditState = newState;
 
@@ -356,7 +374,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
     }
 
     public render() {
-        const { intl, onCancel, editSchedule, enableWidgetExportScheduling } = this.props;
+        const { intl, onCancel, editSchedule } = this.props;
         const { alignment, isValidScheduleEmailData } = this.state;
         const alignPoints = [
             {
@@ -380,33 +398,35 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
                 <ConfirmDialogBase
                     className="gd-schedule-email-dialog s-gd-schedule-email-dialog"
                     isPositive={true}
-                    headline={
-                        enableWidgetExportScheduling
-                            ? intl.formatMessage({ id: "dialogs.schedule.email.heading" })
-                            : intl.formatMessage({ id: "dialogs.schedule.email.headline" })
-                    }
                     cancelButtonText={intl.formatMessage({ id: "cancel" })}
                     submitButtonText={
                         editSchedule
                             ? intl.formatMessage({ id: `dialogs.schedule.email.save` })
-                            : intl.formatMessage({ id: `dialogs.schedule.email.submit` })
+                            : intl.formatMessage({ id: `dialogs.schedule.email.create` })
                     }
+                    footerLeftRenderer={this.renderFooterLeft}
                     isSubmitDisabled={isSubmitDisabled}
                     submitOnEnterKey={false}
                     onCancel={onCancel}
                     onSubmit={this.onScheduleDialogSubmit}
+                    headline={undefined}
+                    headerLeftButtonRenderer={this.renderHeader}
                 >
-                    {this.renderFiltersMessage()}
-                    {this.renderRecipients()}
-                    {this.renderUnsubscribedRecipients()}
-                    {this.renderSubject()}
-                    {this.renderMessage()}
-                    {this.renderAttachment()}
-
-                    <div className="hr" />
-
-                    {this.renderDateTime()}
-                    {this.renderRepeats()}
+                    <div className="gd-schedule-mail-dialog-content-wrapper">
+                        <ContentDivider className="gd-divider-with-margin gd-divider-full-row" />
+                        {this.renderFiltersMessage()}
+                        {this.renderDateTime()}
+                        {this.renderRepeats()}
+                        <ContentDivider className="gd-divider-with-margin" />
+                        {this.renderDestination()}
+                        <ContentDivider className="gd-divider-with-margin" />
+                        {this.renderRecipients()}
+                        {this.renderUnsubscribedRecipients()}
+                        {this.renderSubject()}
+                        {this.renderMessage()}
+                        {this.renderAttachment()}
+                        <ContentDivider className="gd-divider-with-margin gd-divider-full-row" />
+                    </div>
                 </ConfirmDialogBase>
             </Overlay>
         );
@@ -420,6 +440,44 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         if (alignment.top < 0) {
             this.setState({ alignment: "tc tc" });
         }
+    };
+
+    private renderHeader = (): JSX.Element => {
+        const title = this.state.title;
+
+        return (
+            <div className="gd-schedule-email-dialog-header">
+                <Button
+                    className="gd-button-primary gd-button-icon-only gd-icon-navigateleft s-schedule-email-dialog-button"
+                    onClick={this.props.onCancel}
+                />
+                <EditableLabel
+                    value={title ?? ""}
+                    onSubmit={noop}
+                    onChange={(value) => this.setState({ title: value })}
+                    maxRows={1}
+                    maxLength={40}
+                    className="gd-schedule-email-dialog-title s-gd-schedule-email-dialog-title"
+                    autofocus={!title}
+                    placeholder={this.props.intl.formatMessage({
+                        id: "dialogs.schedule.email.title.placeholder",
+                    })}
+                />
+            </div>
+        );
+    };
+
+    private renderFooterLeft = (): JSX.Element => {
+        const { intl } = this.props;
+        return (
+            <div className="gd-schedule-email-dialog-footer-link">
+                <Hyperlink
+                    text={intl.formatMessage({ id: "dialogs.schedule.email.footer.title" })}
+                    href=""
+                    iconClass="gd-icon-circle-question"
+                />
+            </div>
+        );
     };
 
     private renderAttachment = (): React.ReactNode => {
@@ -489,11 +547,11 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const defaultEmailBody = this.getDefaultEmailBody();
         return (
             <Textarea
-                className="s-gd-schedule-email-dialog-message"
+                className="gd-schedule-email-dialog-message s-gd-schedule-email-dialog-message"
                 label={intl.formatMessage({ id: "dialogs.schedule.email.message.label" })}
                 maxlength={MAX_MESSAGE_LENGTH}
                 placeholder={defaultEmailBody}
-                rows={4}
+                rows={3}
                 onChange={this.onMessageChange}
                 value={this.state.emailBody}
             />
@@ -518,6 +576,21 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         }
 
         return null;
+    };
+
+    private renderDestination = (): React.ReactNode => {
+        // TODO: JSC get all webhooks, set properly
+        const items = [{ id: "acme", title: "Acme email" }];
+        const selectedItem = items[0];
+        this.setState({ destination: selectedItem.id });
+
+        return (
+            <DestinationSelect
+                items={items}
+                selectedItem={selectedItem}
+                onChange={(item) => this.setState({ destination: item.id })}
+            />
+        );
     };
 
     private renderRecipients = (): React.ReactNode => {
@@ -601,7 +674,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const { intl } = this.props;
         return (
             <Input
-                className="s-gd-schedule-email-dialog-subject"
+                className="gd-schedule-email-dialog-subject s-gd-schedule-email-dialog-subject"
                 label={intl.formatMessage({ id: "dialogs.schedule.email.subject.label" })}
                 maxlength={MAX_SUBJECT_LENGTH}
                 placeholder={this.getDefaultSubject()}
@@ -621,7 +694,10 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             }
         } else {
             if (onSubmit) {
-                onSubmit(this.getScheduleEmailData());
+                // TODO: JSC
+                // eslint-disable-next-line no-console
+                console.log("data", this.getScheduleEmailData());
+                // onSubmit(this.getScheduleEmailData());
             }
         }
     };
@@ -821,6 +897,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             .map((recipient) => recipient.email);
 
         const subject = emailSubject || this.getDefaultSubject();
+        const title = this.state.title || subject;
         const body = emailBody || this.getDefaultEmailBody();
         const description = this.getSummaryMessage();
         const attachments = this.getAttachments(this.props.dashboard);
@@ -841,7 +918,8 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             body,
             attachments,
             description,
-            title: subject,
+            title,
+            webhook: this.state.destination,
             // Every scheduled email is private for the logged in user.
             unlisted: true,
             uri: editSchedule ? editSchedule.uri : undefined,
