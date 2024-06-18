@@ -22,16 +22,12 @@ import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 import {
     ObjRef,
     IUser,
-    uriRef,
-    objRefToString,
     areObjRefsEqual,
     IAutomationMdObject,
     IAutomationMdObjectDefinition,
     isDashboardAttachment,
-    isWidgetAttachment,
     ScheduledMailAttachment,
     IOrganizationUser,
-    UriRef,
     WeekStart,
 } from "@gooddata/sdk-model";
 import { GoodDataSdkError, withContexts } from "@gooddata/sdk-ui";
@@ -51,8 +47,6 @@ import {
     IScheduleEmailRepeatTime,
     isScheduleEmailExistingRecipient,
     isScheduleEmailExternalRecipient,
-    IWidgetExportConfiguration,
-    IWidgetsSelection,
 } from "../interfaces.js";
 import {
     generateRepeatString,
@@ -64,13 +58,7 @@ import {
 import { getScheduledEmailSummaryString } from "../utils/scheduledMailSummary.js";
 import { getScheduledEmailRecipientEmail } from "../utils/scheduledMailRecipients.js";
 import { getTimezoneByIdentifier, getUserTimezone, ITimezone, TIMEZONE_DEFAULT } from "../utils/timezone.js";
-import {
-    getDate,
-    getMonth,
-    getYear,
-    convertDateToDisplayDateString,
-    convertDateToPlatformDateString,
-} from "../utils/datetime.js";
+import { getDate, getMonth, getYear, convertDateToPlatformDateString } from "../utils/datetime.js";
 import { isEmail } from "../utils/validate.js";
 
 import { Textarea } from "./Textarea.js";
@@ -81,14 +69,12 @@ import { Attachments } from "./Attachments/Attachments.js";
 import { RecipientsSelect } from "./RecipientsSelect/RecipientsSelect.js";
 import { IntlWrapper } from "../../../localization/index.js";
 import { DASHBOARD_TITLE_MAX_LENGTH } from "../../../constants/index.js";
-import { AttachmentNoWidgets } from "./Attachments/AttachmentNoWidgets.js";
 import { IInsightWidgetExtended } from "../useScheduledEmail.js";
 import { DestinationSelect } from "./DestinationSelect/DestinationSelect.js";
 
 const MAX_MESSAGE_LENGTH = 200;
 const MAX_SUBJECT_LENGTH = 200;
 const MAX_DASHBOARD_TITLE_LENGTH = DASHBOARD_TITLE_MAX_LENGTH;
-const MAX_HYPHEN_LENGTH = 3;
 
 export interface IAutomationMdObjectDialogRendererOwnProps {
     /**
@@ -203,8 +189,6 @@ type IAutomationMdObjectDialogRendererState = {
     selectedRecipients: IScheduleEmailRecipient[];
     attachments: {
         dashboardSelected: boolean;
-        widgetsSelected: IWidgetsSelection;
-        configuration: IWidgetExportConfiguration;
     };
     destination?: string;
 };
@@ -260,12 +244,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             selectedRecipients: [userToRecipient(this.props.currentUser)],
             isValidScheduleEmailData: true,
             attachments: {
-                ...this.getDefaultAttachments(),
-                configuration: {
-                    format: "csv",
-                    mergeHeaders: true,
-                    includeFilters: true,
-                },
+                dashboardSelected: true,
             },
             destination: undefined,
         };
@@ -307,27 +286,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             return recipient;
         });
 
-        const dashboardAttachments = schedule.attachments.filter(isDashboardAttachment);
-        const widgetAttachments = schedule.attachments.filter(isWidgetAttachment);
-        const widgetsSelected = this.props.dashboardInsightWidgets.reduce(
-            (acc: IWidgetsSelection, widget) => {
-                const widgetKey = objRefToString(widget);
-                acc[widgetKey] = widgetAttachments.some((widgetAttachment) => {
-                    return areObjRefsEqual(widgetAttachment.widget, widget);
-                });
-                return acc;
-            },
-            {},
-        );
-
-        const configuration: IWidgetExportConfiguration =
-            widgetAttachments.length === 0
-                ? defaultState.attachments.configuration
-                : {
-                      format: widgetAttachments[0].formats[0] || "csv",
-                      mergeHeaders: widgetAttachments[0].exportOptions?.mergeHeaders || false,
-                      includeFilters: widgetAttachments[0].exportOptions?.includeFilters || false,
-                  };
+        const isDashboardSelected = schedule.attachments.some(isDashboardAttachment);
 
         const newState = {
             ...defaultState,
@@ -340,37 +299,13 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             isValidScheduleEmailData: true,
             repeat: parseRepeatString(schedule.when.recurrence),
             attachments: {
-                dashboardSelected: dashboardAttachments.length !== 0,
-                widgetsSelected,
-                configuration,
+                dashboardSelected: isDashboardSelected,
             },
             destination: schedule.webhook,
         };
         this.originalEditState = newState;
 
         return newState;
-    }
-
-    private getDefaultAttachments() {
-        const { enableWidgetExportScheduling, defaultAttachment, dashboardInsightWidgets } = this.props;
-        const isDefaultAttachmentValid = dashboardInsightWidgets.some((widget) =>
-            areObjRefsEqual(widget.ref, defaultAttachment),
-        );
-
-        if (enableWidgetExportScheduling && defaultAttachment && isDefaultAttachmentValid) {
-            return {
-                dashboardSelected: false,
-                widgetsSelected: { [objRefToString(defaultAttachment)]: true },
-            };
-        } else {
-            return {
-                dashboardSelected: true,
-                widgetsSelected: dashboardInsightWidgets.reduce((acc: IWidgetsSelection, widget) => {
-                    acc[objRefToString(widget)] = false;
-                    return acc;
-                }, {}),
-            };
-        }
     }
 
     public render() {
@@ -432,10 +367,6 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         );
     }
 
-    private getDashboardTitleMaxLength(displayDateString: string): number {
-        return MAX_DASHBOARD_TITLE_LENGTH - displayDateString.trim().length - MAX_HYPHEN_LENGTH;
-    }
-
     private onAlign = (alignment: Alignment) => {
         if (alignment.top < 0) {
             this.setState({ alignment: "tc tc" });
@@ -481,34 +412,14 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
     };
 
     private renderAttachment = (): React.ReactNode => {
-        const {
-            intl,
-            dashboardTitle,
-            dashboardInsightWidgets,
-            enableWidgetExportScheduling,
-            canExportTabular,
-        } = this.props;
+        const { dashboardTitle } = this.props;
+        const { dashboardSelected } = this.state.attachments;
 
-        const { dashboardSelected, widgetsSelected, configuration } = this.state.attachments;
-
-        const defaultAttachment = this.getDefaultAttachment();
-        const fileName = `${defaultAttachment}.pdf`;
-        return enableWidgetExportScheduling ? (
+        return (
             <Attachments
                 dashboardTitle={dashboardTitle}
-                insightWidgets={dashboardInsightWidgets}
                 dashboardSelected={dashboardSelected}
-                widgetsSelected={widgetsSelected}
-                configuration={configuration}
-                canExportTabular={canExportTabular}
                 onAttachmentsSelectionChanged={this.onAttachmentsChange}
-                onAttachmentsConfigurationChanged={this.onAttachmentsConfigurationChange}
-            />
-        ) : (
-            <AttachmentNoWidgets
-                className="s-gd-schedule-email-dialog-attachment"
-                label={intl.formatMessage({ id: "dialogs.schedule.email.attachment.label" })}
-                fileName={fileName}
             />
         );
     };
@@ -794,38 +705,15 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         });
     };
 
-    private onAttachmentsChange = (dashboardSelected: boolean, widgetsSelected: IWidgetsSelection): void => {
+    private onAttachmentsChange = (dashboardSelected: boolean): void => {
         this.setState({
             attachments: {
-                ...this.state.attachments,
                 dashboardSelected,
-                widgetsSelected,
-            },
-        });
-    };
-    private onAttachmentsConfigurationChange = (configuration: IWidgetExportConfiguration): void => {
-        this.setState({
-            attachments: {
-                ...this.state.attachments,
-                configuration,
             },
         });
     };
 
     // Internal utils
-
-    private getDefaultAttachment = (): string => {
-        const { dashboardTitle, dateFormat } = this.props;
-        const { startDate } = this.state;
-        const displayDateString = convertDateToDisplayDateString(startDate, dateFormat!);
-        const dashboardTitleMaxLength = this.getDashboardTitleMaxLength(displayDateString);
-        const isDashboardTitleTooLong = dashboardTitle.length > dashboardTitleMaxLength;
-        const truncatedDashboardTitle = isDashboardTitleTooLong
-            ? dashboardTitle.substring(0, dashboardTitleMaxLength)
-            : dashboardTitle;
-        return `${truncatedDashboardTitle} - ${displayDateString}`;
-    };
-
     private getDefaultSubject = (): string => {
         const { dashboardTitle } = this.props;
         const isDashboardTitleTooLong = dashboardTitle.length > MAX_DASHBOARD_TITLE_LENGTH;
@@ -842,42 +730,18 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
     };
 
     private getAttachments = (dashboard: ObjRef): ScheduledMailAttachment[] => {
-        const result: ScheduledMailAttachment[] = [];
+        const { dashboardSelected } = this.state.attachments;
 
-        const { dashboardSelected, widgetsSelected, configuration } = this.state.attachments;
         if (dashboardSelected) {
-            result.push({
-                dashboard,
-                format: "pdf",
-            });
+            return [
+                {
+                    dashboard,
+                    format: "pdf",
+                },
+            ];
         }
 
-        const exportOptions =
-            configuration.format === "xlsx"
-                ? {
-                      mergeHeaders: configuration.mergeHeaders,
-                      includeFilters: configuration.includeFilters,
-                  }
-                : undefined;
-        const widgetsRefStringToUriRefMap = this.props.dashboardInsightWidgets.reduce(
-            (acc: Record<string, UriRef>, widget) => {
-                acc[objRefToString(widget)] = uriRef(widget.uri);
-                return acc;
-            },
-            {},
-        );
-        for (const widgetRefString in widgetsSelected) {
-            if (widgetsSelected[widgetRefString]) {
-                result.push({
-                    widget: widgetsRefStringToUriRefMap[widgetRefString],
-                    widgetDashboard: dashboard,
-                    formats: [configuration.format],
-                    exportOptions,
-                });
-            }
-        }
-
-        return result;
+        return [];
     };
 
     private getScheduleEmailData = (): IAutomationMdObject => {

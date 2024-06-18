@@ -1,23 +1,11 @@
 // (C) 2019-2024 GoodData Corporation
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
-import identity from "lodash/identity.js";
-import { objRefToString } from "@gooddata/sdk-model";
-
-import { AttachmentsSelectionDropdown } from "./AttachmentsSelectionDropdown.js";
-import { FormatOptionsDropdown } from "./FormatOptionsDropdown.js";
-import { IWidgetExportConfiguration, IWidgetsSelection } from "../../interfaces.js";
-import { IInsightWidgetExtended } from "../../useScheduledEmail.js";
 
 export interface IAttachmentsProps {
     dashboardTitle: string;
-    insightWidgets: IInsightWidgetExtended[];
     dashboardSelected: boolean;
-    widgetsSelected: IWidgetsSelection;
-    configuration: IWidgetExportConfiguration;
-    canExportTabular?: boolean;
-    onAttachmentsSelectionChanged(dashboardSelected: boolean, widgetsSelected: IWidgetsSelection): void;
-    onAttachmentsConfigurationChanged(configuration: IWidgetExportConfiguration): void;
+    onAttachmentsSelectionChanged(dashboardSelected: boolean): void;
 }
 
 const AttachmentItem: React.FC<{ format: string; children?: React.ReactNode }> = ({ format, children }) => (
@@ -28,21 +16,8 @@ const AttachmentItem: React.FC<{ format: string; children?: React.ReactNode }> =
 );
 
 export const Attachments = (props: IAttachmentsProps) => {
-    const {
-        dashboardTitle,
-        dashboardSelected,
-        widgetsSelected,
-        insightWidgets = [],
-        configuration,
-        canExportTabular,
-        onAttachmentsSelectionChanged,
-        onAttachmentsConfigurationChanged,
-    } = props;
+    const { dashboardTitle, dashboardSelected, onAttachmentsSelectionChanged } = props;
 
-    const isSomeWidgetSelected = Object.values(widgetsSelected).some(identity);
-    const selectedWidgetsTitles = insightWidgets
-        .filter((widget) => widgetsSelected[objRefToString(widget)])
-        .map((widget) => widget.title);
     return (
         <div className="gd-input-component gd-schedule-email-attachments s-schedule-email-attachments">
             <label className="gd-label">
@@ -50,47 +25,19 @@ export const Attachments = (props: IAttachmentsProps) => {
             </label>
             <div className="gd-dashboard-attachment-list">
                 <div className="gd-dashboard-attachment-list-content">
-                    {dashboardSelected ? (
-                        <>
-                            <label className="gd-schedule-mail-attachment-checkbox input-checkbox-label">
-                                <input type="checkbox" className="input-checkbox" defaultChecked />
-                                <span className="input-label-text" />
-                                <AttachmentItem format="pdf">
-                                    <span className="shortened-name">{dashboardTitle}</span>
-                                </AttachmentItem>
-                            </label>
-                        </>
-                    ) : null}
-                    {selectedWidgetsTitles.length !== 0 ? (
-                        <AttachmentItem format={configuration.format}>
-                            <span className="shortened-name" title={selectedWidgetsTitles.join(",\n")}>
-                                {selectedWidgetsTitles.join(", ")}
-                            </span>
-                            {selectedWidgetsTitles.length > 1 ? (
-                                <span>{`(${selectedWidgetsTitles.length})`}</span>
-                            ) : null}
-                        </AttachmentItem>
-                    ) : null}
-                </div>
-                {canExportTabular ? (
-                    <div className="gd-schedule-email-dialog-attachments">
-                        <AttachmentsSelectionDropdown
-                            dashboardTitle={dashboardTitle}
-                            dashboardSelected={dashboardSelected}
-                            insightWidgets={insightWidgets}
-                            widgetsSelected={widgetsSelected}
-                            onApply={onAttachmentsSelectionChanged}
+                    <label className="gd-schedule-mail-attachment-checkbox input-checkbox-label">
+                        <input
+                            type="checkbox"
+                            className="input-checkbox"
+                            defaultChecked
+                            onChange={() => onAttachmentsSelectionChanged(!dashboardSelected)}
                         />
-                        {isSomeWidgetSelected ? (
-                            <FormatOptionsDropdown
-                                format={configuration.format}
-                                mergeHeaders={configuration.mergeHeaders}
-                                includeFilters={configuration.includeFilters}
-                                onApply={onAttachmentsConfigurationChanged}
-                            />
-                        ) : null}
-                    </div>
-                ) : null}
+                        <span className="input-label-text" />
+                        <AttachmentItem format="pdf">
+                            <span className="shortened-name">{dashboardTitle}</span>
+                        </AttachmentItem>
+                    </label>
+                </div>
             </div>
         </div>
     );
