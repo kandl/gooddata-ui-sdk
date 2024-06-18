@@ -211,7 +211,8 @@ export const useScheduledEmail = (props: UseScheduledEmailProps): UseScheduledEm
         selectEnableKPIDashboardScheduleRecipients,
     );
     const canListUsersInWorkspace = useDashboardSelector(selectCanListUsersInWorkspace);
-    const canExportTabular = useDashboardSelector(selectCanExportTabular);
+    const supportsTabularExportOfWidgets = false; // we currently do not support tabular exports of widgets
+    const canExportTabular = useDashboardSelector(selectCanExportTabular) && supportsTabularExportOfWidgets;
     const enableKPIDashboardSchedule = useDashboardSelector(selectEnableKPIDashboardSchedule);
     const enableWidgetExportScheduling = useDashboardSelector(selectEnableInsightExportScheduling);
     const defaultAttachment = useDashboardSelector(selectScheduleEmailDialogDefaultAttachment);
@@ -236,7 +237,7 @@ export const useScheduledEmail = (props: UseScheduledEmailProps): UseScheduledEm
             const filtersToStore = hasDefaultFilters ? undefined : filters;
             scheduledEmailCreator.create(scheduledEmail, customFilters ?? filtersToStore);
         },
-        [filters, hasDefaultFilters],
+        [filters, hasDefaultFilters, scheduledEmailCreator],
     );
     const scheduledEmailCreationStatus = scheduledEmailCreator.creationStatus;
 
@@ -250,7 +251,7 @@ export const useScheduledEmail = (props: UseScheduledEmailProps): UseScheduledEm
         (scheduledEmail: IAutomationMdObject, filterContextRef?: ObjRef) => {
             scheduledEmailSaver.save(scheduledEmail, filterContextRef);
         },
-        [],
+        [scheduledEmailSaver],
     );
     const scheduledEmailSavingStatus = scheduledEmailSaver.savingStatus;
 

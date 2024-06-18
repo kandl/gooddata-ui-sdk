@@ -435,12 +435,12 @@
         "limit": 0
     },
     "dialogs.schedule.email.attachment.label": {
-        "value": "Attachment:",
+        "value": "Attachment",
         "comment": "Attachment of the scheduled email.",
         "limit": 0
     },
     "dialogs.schedule.email.attachments.label": {
-        "value": "Attachments:",
+        "value": "Attachments",
         "comment": "Attachments of the scheduled email.",
         "limit": 0
     },
@@ -486,8 +486,13 @@
         "comment": "Translate as imperative. Schedule exporting whole dashboard and visualizations",
         "limit": 0
     },
+    "dialogs.schedule.email.title.placeholder": {
+        "value": "Untitled schedule",
+        "comment": "Placeholder for schedule title input",
+        "limit": 0
+    },
     "dialogs.schedule.email.message.label": {
-        "value": "Message:",
+        "value": "Message",
         "comment": "Message of the scheduled email.",
         "limit": 0
     },
@@ -497,7 +502,7 @@
         "limit": 0
     },
     "dialogs.schedule.email.repeats.label": {
-        "value": "Repeats:",
+        "value": "Repeats",
         "comment": "Count of repeats of the scheduled email.",
         "limit": 0
     },
@@ -552,18 +557,23 @@
         "limit": 0
     },
     "dialogs.schedule.email.subject.label": {
-        "value": "Subject:",
+        "value": "Subject",
         "comment": "Subject of the schedule email.",
         "limit": 0
     },
     "dialogs.schedule.email.time.label": {
-        "value": "First occurrence:",
+        "value": "Starts on",
         "comment": "Translate as imperative. Date time of the schedule email.",
         "limit": 0
     },
     "dialogs.schedule.email.to.label": {
-        "value": "To:",
+        "value": "To",
         "comment": "Emails of the schedule email.",
+        "limit": 0
+    },
+    "dialogs.schedule.email.destination": {
+        "value": "Destination",
+        "comment": "Way how to send automated schedule",
         "limit": 0
     },
     "dialogs.schedule.email.message.placeholder": {
@@ -571,9 +581,14 @@
         "comment": "Don't translate '\n\n' which adds 2 new lines to the text.",
         "limit": 0
     },
-    "dialogs.schedule.email.submit": {
-        "value": "Schedule",
-        "comment": "Translate as imperative. Submit the schedule config form.",
+    "dialogs.schedule.email.create": {
+        "value": "Create",
+        "comment": "Translate as imperative. Create the schedule by submitting form.",
+        "limit": 0
+    },
+    "dialogs.schedule.email.footer.title": {
+        "value": "How to schedule export?",
+        "comment": "Title of a link to documentation",
         "limit": 0
     },
     "dialogs.schedule.email.save": {
