@@ -1,9 +1,9 @@
-// (C) 2022-2023 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import React, { useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Button, Dialog, Typography, Tabs, ITab } from "@gooddata/sdk-ui-kit";
-import { areObjRefsEqual, IScheduledMail, IWorkspaceUser } from "@gooddata/sdk-model";
+import { IOrganizationUser, IAutomationMetadataObject } from "@gooddata/sdk-model";
 
 import { ScheduledEmails } from "./ScheduledEmails.js";
 import { IScheduledEmailManagement, useScheduledEmailManagement } from "./useScheduledEmailManagement.js";
@@ -22,22 +22,26 @@ import { messages } from "../../../locales.js";
  */
 export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementDialogProps> = (props) => {
     const { onAdd, onEdit, onDeleteSuccess: onDelete, onClose, onLoadError, onDeleteError } = props;
-    const [scheduledEmailToDelete, setScheduledEmailToDelete] = useState<IScheduledMail | null>(null);
+    const [scheduledEmailToDelete, setScheduledEmailToDelete] = useState<IAutomationMetadataObject | null>(
+        null,
+    );
     const [isLoading, setIsLoading] = useState(true);
-    const [scheduledEmailsByUser, setScheduledEmailsByUser] = useState<IScheduledMail[]>([]);
-    const [scheduledEmails, setScheduledEmails] = useState<IScheduledMail[]>([]);
+    const [scheduledEmailsByUser, setScheduledEmailsByUser] = useState<IAutomationMetadataObject[]>([]);
+    const [scheduledEmails, setScheduledEmails] = useState<IAutomationMetadataObject[]>([]);
     const [selectedTabId, setSelectedTabId] = useState(messages.scheduleManagementTabUser.id);
     const [isFirstLoaded, setIsFirstLoaded] = useState(true);
-    const [users, setUsers] = useState<IWorkspaceUser[]>([]);
+    const [users, setUsers] = useState<IOrganizationUser[]>([]);
     const canManageScheduledMail = useDashboardSelector(selectCanManageScheduledMail);
     const currentUser = useDashboardSelector(selectCurrentUser);
     const intl = useIntl();
 
     const onLoadSuccess = useCallback((emailManagement: IScheduledEmailManagement) => {
         const { scheduledEmails, users } = emailManagement;
-        const emailsByUser = scheduledEmails.filter((scheduledEmail) =>
-            areObjRefsEqual(currentUser.ref, scheduledEmail.createdBy?.ref),
-        );
+        const emailsByUser = scheduledEmails;
+        // TODO: correct filter
+        // scheduledEmails.filter((scheduledEmail) =>
+        //     areObjRefsEqual(currentUser.ref, scheduledEmail.createdBy?.ref),
+        // );
 
         setIsLoading(false);
         setScheduledEmails(scheduledEmails);
@@ -52,13 +56,16 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
         }
     }, []);
 
-    const handleScheduleDelete = useCallback((scheduledEmail: IScheduledMail) => {
+    const handleScheduleDelete = useCallback((scheduledEmail: IAutomationMetadataObject) => {
         setScheduledEmailToDelete(scheduledEmail);
     }, []);
 
-    const handleScheduleEdit = useCallback((scheduledEmail: IScheduledMail, users: IWorkspaceUser[]) => {
-        onEdit?.(scheduledEmail, users);
-    }, []);
+    const handleScheduleEdit = useCallback(
+        (scheduledEmail: IAutomationMetadataObject, users: IOrganizationUser[]) => {
+            onEdit?.(scheduledEmail, users);
+        },
+        [],
+    );
 
     const handleScheduleDeleteSuccess = useCallback(() => {
         onDelete?.();

@@ -1,4 +1,4 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import React from "react";
 import { invariant } from "ts-invariant";
 
@@ -76,7 +76,7 @@ export const DefaultScheduledEmailDialog = (props: IScheduledEmailDialogProps): 
             dashboardTitle={dashboardTitle}
             dashboardInsightWidgets={dashboardInsightWidgets}
             hasDefaultFilters={hasDefaultFilters}
-            onSubmit={handleCreateScheduledEmail}
+            onSubmit={handleCreateScheduledEmail as any}
             onSave={handleSaveScheduledEmail}
             onCancel={onCancel}
             onError={onError}

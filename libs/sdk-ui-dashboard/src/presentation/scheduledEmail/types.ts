@@ -1,6 +1,10 @@
-// (C) 2019-2022 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import { ComponentType } from "react";
-import { IScheduledMail, IScheduledMailDefinition, IWorkspaceUser } from "@gooddata/sdk-model";
+import {
+    IAutomationMetadataObject,
+    IAutomationMetadataObjectDefinition,
+    IOrganizationUser,
+} from "@gooddata/sdk-model";
 import { GoodDataSdkError } from "@gooddata/sdk-ui";
 
 ///
@@ -19,12 +23,14 @@ export interface IScheduledEmailDialogProps {
     /**
      * Callback to be called, when user submits the scheduled email dialog.
      */
-    onSubmit?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSubmit?: (
+        scheduledEmailDefinition: IAutomationMetadataObject | IAutomationMetadataObjectDefinition,
+    ) => void;
 
     /**
      * Callback to be called, when user save the existing scheduled email.
      */
-    onSave?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSave?: (scheduledEmailDefinition: IAutomationMetadataObject) => void;
 
     /**
      * Callback to be called, when user closes the scheduled email dialog.
@@ -54,12 +60,12 @@ export interface IScheduledEmailDialogProps {
     /**
      * Schedule to be edited in the dialog.
      */
-    editSchedule?: IScheduledMail;
+    editSchedule?: IAutomationMetadataObject;
 
     /**
      * Users in workspace
      */
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
 /**
@@ -79,7 +85,7 @@ export interface IScheduledEmailManagementDialogProps {
     /**
      * Callback to be called, when user clicks scheduled email item for editing.
      */
-    onEdit?: (scheduledMail: IScheduledMail, users: IWorkspaceUser[]) => void;
+    onEdit?: (scheduledMail: IAutomationMetadataObject, users: IOrganizationUser[]) => void;
 
     /**
      * Callback to be called, when user closes the scheduled email management dialog.

@@ -1,27 +1,35 @@
-// (C) 2019-2023 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import * as React from "react";
 import cloneDeep from "lodash/cloneDeep.js";
 import differenceBy from "lodash/differenceBy.js";
 import isEqual from "lodash/isEqual.js";
 import omit from "lodash/omit.js";
+import noop from "lodash/noop.js";
 import { injectIntl, WrappedComponentProps, FormattedMessage } from "react-intl";
 import parse from "date-fns/parse/index.js";
-import { normalizeTime, ConfirmDialogBase, Overlay, Alignment, Message } from "@gooddata/sdk-ui-kit";
+import {
+    normalizeTime,
+    ConfirmDialogBase,
+    Overlay,
+    Alignment,
+    Message,
+    ContentDivider,
+    Button,
+    EditableLabel,
+    Hyperlink,
+} from "@gooddata/sdk-ui-kit";
 import { IAnalyticalBackend } from "@gooddata/sdk-backend-spi";
 import {
     ObjRef,
     IUser,
-    uriRef,
-    objRefToString,
     areObjRefsEqual,
-    IScheduledMail,
-    IScheduledMailDefinition,
+    IAutomationMetadataObject,
+    IAutomationMetadataObjectDefinition,
     isDashboardAttachment,
-    isWidgetAttachment,
     ScheduledMailAttachment,
-    IWorkspaceUser,
-    UriRef,
+    IOrganizationUser,
     WeekStart,
+    idRef,
 } from "@gooddata/sdk-model";
 import { GoodDataSdkError, withContexts } from "@gooddata/sdk-ui";
 import memoize from "lodash/memoize.js";
@@ -34,13 +42,12 @@ import {
     REPEAT_TYPES,
 } from "../constants.js";
 import {
+    IScheduleEmailExternalRecipient,
     IScheduleEmailRecipient,
     IScheduleEmailRepeat,
     IScheduleEmailRepeatTime,
     isScheduleEmailExistingRecipient,
     isScheduleEmailExternalRecipient,
-    IWidgetExportConfiguration,
-    IWidgetsSelection,
 } from "../interfaces.js";
 import {
     generateRepeatString,
@@ -52,13 +59,7 @@ import {
 import { getScheduledEmailSummaryString } from "../utils/scheduledMailSummary.js";
 import { getScheduledEmailRecipientEmail } from "../utils/scheduledMailRecipients.js";
 import { getTimezoneByIdentifier, getUserTimezone, ITimezone, TIMEZONE_DEFAULT } from "../utils/timezone.js";
-import {
-    getDate,
-    getMonth,
-    getYear,
-    convertDateToDisplayDateString,
-    convertDateToPlatformDateString,
-} from "../utils/datetime.js";
+import { getDate, getMonth, getYear, convertDateToPlatformDateString } from "../utils/datetime.js";
 import { isEmail } from "../utils/validate.js";
 
 import { Textarea } from "./Textarea.js";
@@ -69,15 +70,14 @@ import { Attachments } from "./Attachments/Attachments.js";
 import { RecipientsSelect } from "./RecipientsSelect/RecipientsSelect.js";
 import { IntlWrapper } from "../../../localization/index.js";
 import { DASHBOARD_TITLE_MAX_LENGTH } from "../../../constants/index.js";
-import { AttachmentNoWidgets } from "./Attachments/AttachmentNoWidgets.js";
 import { IInsightWidgetExtended } from "../useScheduledEmail.js";
+import { DestinationSelect } from "./DestinationSelect/DestinationSelect.js";
 
 const MAX_MESSAGE_LENGTH = 200;
 const MAX_SUBJECT_LENGTH = 200;
 const MAX_DASHBOARD_TITLE_LENGTH = DASHBOARD_TITLE_MAX_LENGTH;
-const MAX_HYPHEN_LENGTH = 3;
 
-export interface IScheduledMailDialogRendererOwnProps {
+export interface IAutomationMdObjectDialogRendererOwnProps {
     /**
      * Reference of the dashboard to be attached to the scheduled email.
      */
@@ -142,7 +142,7 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Schedule to be edited. If defined, it switches the dialog to edit mode.
      */
-    editSchedule?: IScheduledMail;
+    editSchedule?: IAutomationMetadataObject;
 
     /**
      * Attachment to be selected by default.
@@ -157,12 +157,12 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Callback to be called, when user submit the scheduled email dialog.
      */
-    onSubmit?: (scheduledEmailData: IScheduledMailDefinition) => void;
+    onSubmit?: (scheduledEmailData: IAutomationMetadataObject | IAutomationMetadataObjectDefinition) => void;
 
     /**
      * Callback to be called, when user saves the existing schedule.
      */
-    onSave?: (scheduledEmailData: IScheduledMailDefinition, filterContextRef?: ObjRef) => void;
+    onSave?: (scheduledEmailData: IAutomationMetadataObject, filterContextRef?: ObjRef) => void;
 
     /**
      * Callback to be called, when error occurs.
@@ -172,13 +172,14 @@ export interface IScheduledMailDialogRendererOwnProps {
     /**
      * Workspace users.
      */
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
-export type IScheduledMailDialogRendererProps = IScheduledMailDialogRendererOwnProps &
+export type IAutomationMdObjectDialogRendererProps = IAutomationMdObjectDialogRendererOwnProps &
     WrappedComponentProps & { backend?: IAnalyticalBackend; workspace?: string };
 
-type IScheduledMailDialogRendererState = {
+type IAutomationMdObjectDialogRendererState = {
+    title?: string;
     alignment: string;
     userTimezone: ITimezone;
     emailSubject: string;
@@ -189,9 +190,8 @@ type IScheduledMailDialogRendererState = {
     selectedRecipients: IScheduleEmailRecipient[];
     attachments: {
         dashboardSelected: boolean;
-        widgetsSelected: IWidgetsSelection;
-        configuration: IWidgetExportConfiguration;
     };
+    destination?: string;
 };
 
 const userToRecipient = memoize(
@@ -201,17 +201,17 @@ const userToRecipient = memoize(
 );
 
 export class ScheduledMailDialogRendererUI extends React.PureComponent<
-    IScheduledMailDialogRendererProps,
-    IScheduledMailDialogRendererState
+    IAutomationMdObjectDialogRendererProps,
+    IAutomationMdObjectDialogRendererState
 > {
-    static defaultProps: Pick<IScheduledMailDialogRendererProps, "dateFormat"> = {
+    static defaultProps: Pick<IAutomationMdObjectDialogRendererProps, "dateFormat"> = {
         dateFormat: "MM/dd/yyyy",
     };
 
     // when editing, save initial state to compare if anything changed
-    private originalEditState: IScheduledMailDialogRendererState | undefined;
+    private originalEditState: IAutomationMdObjectDialogRendererState | undefined;
 
-    constructor(props: IScheduledMailDialogRendererProps) {
+    constructor(props: IAutomationMdObjectDialogRendererProps) {
         super(props);
 
         this.state = this.props.editSchedule
@@ -219,11 +219,12 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             : this.getDefaultState();
     }
 
-    private getDefaultState(): IScheduledMailDialogRendererState {
+    private getDefaultState(): IAutomationMdObjectDialogRendererState {
         const now = new Date();
         const normalizedTime = normalizeTime(now);
 
         return {
+            title: undefined,
             alignment: "cc cc",
             startDate: now,
             userTimezone: getUserTimezone(),
@@ -244,20 +245,16 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             selectedRecipients: [userToRecipient(this.props.currentUser)],
             isValidScheduleEmailData: true,
             attachments: {
-                ...this.getDefaultAttachments(),
-                configuration: {
-                    format: "csv",
-                    mergeHeaders: true,
-                    includeFilters: true,
-                },
+                dashboardSelected: true,
             },
+            destination: undefined,
         };
     }
 
     private getEditState(
-        schedule: IScheduledMail,
-        users: IWorkspaceUser[],
-    ): IScheduledMailDialogRendererState {
+        schedule: IAutomationMetadataObject,
+        users: IOrganizationUser[],
+    ): IAutomationMdObjectDialogRendererState {
         const defaultState = this.getDefaultState();
 
         const selectedRecipients = schedule.to.concat(schedule.bcc || []).map((email) => {
@@ -279,39 +276,22 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const processedRecipients = selectedRecipients.map((recipient) => {
             if (isScheduleEmailExternalRecipient(recipient)) {
                 // need to make the comparison from user login, since email is not an unique value
-                const user = users.find((user) => user.login === recipient.email);
+                // TODO: this should be adapted
+                const user = users.find((user) => user.id === recipient.email);
                 if (user) {
-                    return { user };
+                    // TODO:
+                    return { user } as unknown as IScheduleEmailExternalRecipient;
                 }
             }
 
             return recipient;
         });
 
-        const dashboardAttachments = schedule.attachments.filter(isDashboardAttachment);
-        const widgetAttachments = schedule.attachments.filter(isWidgetAttachment);
-        const widgetsSelected = this.props.dashboardInsightWidgets.reduce(
-            (acc: IWidgetsSelection, widget) => {
-                const widgetKey = objRefToString(widget);
-                acc[widgetKey] = widgetAttachments.some((widgetAttachment) => {
-                    return areObjRefsEqual(widgetAttachment.widget, widget);
-                });
-                return acc;
-            },
-            {},
-        );
-
-        const configuration: IWidgetExportConfiguration =
-            widgetAttachments.length === 0
-                ? defaultState.attachments.configuration
-                : {
-                      format: widgetAttachments[0].formats[0] || "csv",
-                      mergeHeaders: widgetAttachments[0].exportOptions?.mergeHeaders || false,
-                      includeFilters: widgetAttachments[0].exportOptions?.includeFilters || false,
-                  };
+        const isDashboardSelected = schedule.attachments.some(isDashboardAttachment);
 
         const newState = {
             ...defaultState,
+            title: schedule.title,
             emailSubject: schedule.subject,
             emailBody: schedule.body,
             selectedRecipients: processedRecipients,
@@ -320,40 +300,17 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             isValidScheduleEmailData: true,
             repeat: parseRepeatString(schedule.when.recurrence),
             attachments: {
-                dashboardSelected: dashboardAttachments.length !== 0,
-                widgetsSelected,
-                configuration,
+                dashboardSelected: isDashboardSelected,
             },
+            destination: schedule.webhook,
         };
         this.originalEditState = newState;
 
         return newState;
     }
 
-    private getDefaultAttachments() {
-        const { enableWidgetExportScheduling, defaultAttachment, dashboardInsightWidgets } = this.props;
-        const isDefaultAttachmentValid = dashboardInsightWidgets.some((widget) =>
-            areObjRefsEqual(widget.ref, defaultAttachment),
-        );
-
-        if (enableWidgetExportScheduling && defaultAttachment && isDefaultAttachmentValid) {
-            return {
-                dashboardSelected: false,
-                widgetsSelected: { [objRefToString(defaultAttachment)]: true },
-            };
-        } else {
-            return {
-                dashboardSelected: true,
-                widgetsSelected: dashboardInsightWidgets.reduce((acc: IWidgetsSelection, widget) => {
-                    acc[objRefToString(widget)] = false;
-                    return acc;
-                }, {}),
-            };
-        }
-    }
-
     public render() {
-        const { intl, onCancel, editSchedule, enableWidgetExportScheduling } = this.props;
+        const { intl, onCancel, editSchedule } = this.props;
         const { alignment, isValidScheduleEmailData } = this.state;
         const alignPoints = [
             {
@@ -377,40 +334,38 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
                 <ConfirmDialogBase
                     className="gd-schedule-email-dialog s-gd-schedule-email-dialog"
                     isPositive={true}
-                    headline={
-                        enableWidgetExportScheduling
-                            ? intl.formatMessage({ id: "dialogs.schedule.email.heading" })
-                            : intl.formatMessage({ id: "dialogs.schedule.email.headline" })
-                    }
                     cancelButtonText={intl.formatMessage({ id: "cancel" })}
                     submitButtonText={
                         editSchedule
                             ? intl.formatMessage({ id: `dialogs.schedule.email.save` })
-                            : intl.formatMessage({ id: `dialogs.schedule.email.submit` })
+                            : intl.formatMessage({ id: `dialogs.schedule.email.create` })
                     }
+                    footerLeftRenderer={this.renderFooterLeft}
                     isSubmitDisabled={isSubmitDisabled}
                     submitOnEnterKey={false}
                     onCancel={onCancel}
                     onSubmit={this.onScheduleDialogSubmit}
+                    headline={undefined}
+                    headerLeftButtonRenderer={this.renderHeader}
                 >
-                    {this.renderFiltersMessage()}
-                    {this.renderRecipients()}
-                    {this.renderUnsubscribedRecipients()}
-                    {this.renderSubject()}
-                    {this.renderMessage()}
-                    {this.renderAttachment()}
-
-                    <div className="hr" />
-
-                    {this.renderDateTime()}
-                    {this.renderRepeats()}
+                    <div className="gd-schedule-mail-dialog-content-wrapper">
+                        <ContentDivider className="gd-divider-with-margin gd-divider-full-row" />
+                        {this.renderFiltersMessage()}
+                        {this.renderDateTime()}
+                        {this.renderRepeats()}
+                        <ContentDivider className="gd-divider-with-margin" />
+                        {this.renderDestination()}
+                        <ContentDivider className="gd-divider-with-margin" />
+                        {this.renderRecipients()}
+                        {this.renderUnsubscribedRecipients()}
+                        {this.renderSubject()}
+                        {this.renderMessage()}
+                        {this.renderAttachment()}
+                        <ContentDivider className="gd-divider-with-margin gd-divider-full-row" />
+                    </div>
                 </ConfirmDialogBase>
             </Overlay>
         );
-    }
-
-    private getDashboardTitleMaxLength(displayDateString: string): number {
-        return MAX_DASHBOARD_TITLE_LENGTH - displayDateString.trim().length - MAX_HYPHEN_LENGTH;
     }
 
     private onAlign = (alignment: Alignment) => {
@@ -419,35 +374,53 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         }
     };
 
+    private renderHeader = (): JSX.Element => {
+        const title = this.state.title;
+
+        return (
+            <div className="gd-schedule-email-dialog-header">
+                <Button
+                    className="gd-button-primary gd-button-icon-only gd-icon-navigateleft s-schedule-email-dialog-button"
+                    onClick={this.props.onCancel}
+                />
+                <EditableLabel
+                    value={title ?? ""}
+                    onSubmit={noop}
+                    onChange={(value) => this.setState({ title: value })}
+                    maxRows={1}
+                    maxLength={40}
+                    className="gd-schedule-email-dialog-title s-gd-schedule-email-dialog-title"
+                    autofocus={!title}
+                    placeholder={this.props.intl.formatMessage({
+                        id: "dialogs.schedule.email.title.placeholder",
+                    })}
+                />
+            </div>
+        );
+    };
+
+    private renderFooterLeft = (): JSX.Element => {
+        const { intl } = this.props;
+        return (
+            <div className="gd-schedule-email-dialog-footer-link">
+                <Hyperlink
+                    text={intl.formatMessage({ id: "dialogs.schedule.email.footer.title" })}
+                    href=""
+                    iconClass="gd-icon-circle-question"
+                />
+            </div>
+        );
+    };
+
     private renderAttachment = (): React.ReactNode => {
-        const {
-            intl,
-            dashboardTitle,
-            dashboardInsightWidgets,
-            enableWidgetExportScheduling,
-            canExportTabular,
-        } = this.props;
+        const { dashboardTitle } = this.props;
+        const { dashboardSelected } = this.state.attachments;
 
-        const { dashboardSelected, widgetsSelected, configuration } = this.state.attachments;
-
-        const defaultAttachment = this.getDefaultAttachment();
-        const fileName = `${defaultAttachment}.pdf`;
-        return enableWidgetExportScheduling ? (
+        return (
             <Attachments
                 dashboardTitle={dashboardTitle}
-                insightWidgets={dashboardInsightWidgets}
                 dashboardSelected={dashboardSelected}
-                widgetsSelected={widgetsSelected}
-                configuration={configuration}
-                canExportTabular={canExportTabular}
                 onAttachmentsSelectionChanged={this.onAttachmentsChange}
-                onAttachmentsConfigurationChanged={this.onAttachmentsConfigurationChange}
-            />
-        ) : (
-            <AttachmentNoWidgets
-                className="s-gd-schedule-email-dialog-attachment"
-                label={intl.formatMessage({ id: "dialogs.schedule.email.attachment.label" })}
-                fileName={fileName}
             />
         );
     };
@@ -486,11 +459,11 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const defaultEmailBody = this.getDefaultEmailBody();
         return (
             <Textarea
-                className="s-gd-schedule-email-dialog-message"
+                className="gd-schedule-email-dialog-message s-gd-schedule-email-dialog-message"
                 label={intl.formatMessage({ id: "dialogs.schedule.email.message.label" })}
                 maxlength={MAX_MESSAGE_LENGTH}
                 placeholder={defaultEmailBody}
-                rows={4}
+                rows={3}
                 onChange={this.onMessageChange}
                 value={this.state.emailBody}
             />
@@ -515,6 +488,21 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         }
 
         return null;
+    };
+
+    private renderDestination = (): React.ReactNode => {
+        // TODO: JSC get all webhooks, set properly
+        const items = [{ id: "acme", title: "Acme email" }];
+        const selectedItem = items[0];
+        this.setState({ destination: selectedItem.id });
+
+        return (
+            <DestinationSelect
+                items={items}
+                selectedItem={selectedItem}
+                onChange={(item) => this.setState({ destination: item.id })}
+            />
+        );
     };
 
     private renderRecipients = (): React.ReactNode => {
@@ -598,7 +586,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         const { intl } = this.props;
         return (
             <Input
-                className="s-gd-schedule-email-dialog-subject"
+                className="gd-schedule-email-dialog-subject s-gd-schedule-email-dialog-subject"
                 label={intl.formatMessage({ id: "dialogs.schedule.email.subject.label" })}
                 maxlength={MAX_SUBJECT_LENGTH}
                 placeholder={this.getDefaultSubject()}
@@ -618,7 +606,10 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             }
         } else {
             if (onSubmit) {
-                onSubmit(this.getScheduleEmailData());
+                // TODO: JSC
+                // eslint-disable-next-line no-console
+                console.log("data", this.getScheduleEmailData());
+                // onSubmit(this.getScheduleEmailData());
             }
         }
     };
@@ -715,38 +706,15 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         });
     };
 
-    private onAttachmentsChange = (dashboardSelected: boolean, widgetsSelected: IWidgetsSelection): void => {
+    private onAttachmentsChange = (dashboardSelected: boolean): void => {
         this.setState({
             attachments: {
-                ...this.state.attachments,
                 dashboardSelected,
-                widgetsSelected,
-            },
-        });
-    };
-    private onAttachmentsConfigurationChange = (configuration: IWidgetExportConfiguration): void => {
-        this.setState({
-            attachments: {
-                ...this.state.attachments,
-                configuration,
             },
         });
     };
 
     // Internal utils
-
-    private getDefaultAttachment = (): string => {
-        const { dashboardTitle, dateFormat } = this.props;
-        const { startDate } = this.state;
-        const displayDateString = convertDateToDisplayDateString(startDate, dateFormat!);
-        const dashboardTitleMaxLength = this.getDashboardTitleMaxLength(displayDateString);
-        const isDashboardTitleTooLong = dashboardTitle.length > dashboardTitleMaxLength;
-        const truncatedDashboardTitle = isDashboardTitleTooLong
-            ? dashboardTitle.substring(0, dashboardTitleMaxLength)
-            : dashboardTitle;
-        return `${truncatedDashboardTitle} - ${displayDateString}`;
-    };
-
     private getDefaultSubject = (): string => {
         const { dashboardTitle } = this.props;
         const isDashboardTitleTooLong = dashboardTitle.length > MAX_DASHBOARD_TITLE_LENGTH;
@@ -763,45 +731,21 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
     };
 
     private getAttachments = (dashboard: ObjRef): ScheduledMailAttachment[] => {
-        const result: ScheduledMailAttachment[] = [];
+        const { dashboardSelected } = this.state.attachments;
 
-        const { dashboardSelected, widgetsSelected, configuration } = this.state.attachments;
         if (dashboardSelected) {
-            result.push({
-                dashboard,
-                format: "pdf",
-            });
+            return [
+                {
+                    dashboard,
+                    format: "pdf",
+                },
+            ];
         }
 
-        const exportOptions =
-            configuration.format === "xlsx"
-                ? {
-                      mergeHeaders: configuration.mergeHeaders,
-                      includeFilters: configuration.includeFilters,
-                  }
-                : undefined;
-        const widgetsRefStringToUriRefMap = this.props.dashboardInsightWidgets.reduce(
-            (acc: Record<string, UriRef>, widget) => {
-                acc[objRefToString(widget)] = uriRef(widget.uri);
-                return acc;
-            },
-            {},
-        );
-        for (const widgetRefString in widgetsSelected) {
-            if (widgetsSelected[widgetRefString]) {
-                result.push({
-                    widget: widgetsRefStringToUriRefMap[widgetRefString],
-                    widgetDashboard: dashboard,
-                    formats: [configuration.format],
-                    exportOptions,
-                });
-            }
-        }
-
-        return result;
+        return [];
     };
 
-    private getScheduleEmailData = (): IScheduledMailDefinition => {
+    private getScheduleEmailData = (): IAutomationMetadataObject => {
         const { editSchedule } = this.props;
 
         const when = this.getTimeSchedule();
@@ -818,6 +762,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             .map((recipient) => recipient.email);
 
         const subject = emailSubject || this.getDefaultSubject();
+        const title = this.state.title || subject;
         const body = emailBody || this.getDefaultEmailBody();
         const description = this.getSummaryMessage();
         const attachments = this.getAttachments(this.props.dashboard);
@@ -828,6 +773,9 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
         }
 
         return {
+            type: "automation",
+            id: "scheduled-email", // TODO
+            ref: idRef("scheduled-email", "automation"),
             when,
             to: toEmails,
             bcc: bccEmails,
@@ -836,14 +784,17 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
             body,
             attachments,
             description,
-            title: subject,
+            title,
+            webhook: this.state.destination,
             // Every scheduled email is private for the logged in user.
             unlisted: true,
-            uri: editSchedule ? editSchedule.uri : undefined,
+            uri: editSchedule ? editSchedule.uri : "scheduled-email", // TODO,
+            deprecated: false,
+            production: true,
         };
     };
 
-    private getTimeSchedule = (): IScheduledMailDefinition["when"] => {
+    private getTimeSchedule = (): IAutomationMetadataObjectDefinition["when"] => {
         const recurrence = generateRepeatString(this.state.repeat);
         const startDate = convertDateToPlatformDateString(this.state.startDate);
         return {
@@ -861,7 +812,7 @@ export class ScheduledMailDialogRendererUI extends React.PureComponent<
 
 export const ScheduledMailDialogRendererIntl = withContexts(injectIntl(ScheduledMailDialogRendererUI));
 
-export const ScheduledMailDialogRenderer: React.FC<IScheduledMailDialogRendererOwnProps> = (props) => (
+export const ScheduledMailDialogRenderer: React.FC<IAutomationMdObjectDialogRendererOwnProps> = (props) => (
     <IntlWrapper locale={props.locale}>
         <ScheduledMailDialogRendererIntl {...props} />
     </IntlWrapper>

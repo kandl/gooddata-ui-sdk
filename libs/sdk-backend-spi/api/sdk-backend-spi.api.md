@@ -17,6 +17,8 @@ import { IAttributeElement } from '@gooddata/sdk-model';
 import { IAttributeFilter } from '@gooddata/sdk-model';
 import { IAttributeMetadataObject } from '@gooddata/sdk-model';
 import { IAttributeOrMeasure } from '@gooddata/sdk-model';
+import { IAutomationMetadataObject } from '@gooddata/sdk-model';
+import { IAutomationMetadataObjectDefinition } from '@gooddata/sdk-model';
 import { IAvailableAccessGrantee } from '@gooddata/sdk-model';
 import { IBucket } from '@gooddata/sdk-model';
 import { ICatalogAttribute } from '@gooddata/sdk-model';
@@ -49,8 +51,8 @@ import { IEntitlementDescriptor } from '@gooddata/sdk-model';
 import { IExecutionConfig } from '@gooddata/sdk-model';
 import { IExecutionDefinition } from '@gooddata/sdk-model';
 import { IExistingDashboard } from '@gooddata/sdk-model';
-import { IExportDefinition } from '@gooddata/sdk-model';
-import { IExportDefinitionBase } from '@gooddata/sdk-model';
+import { IExportDefinitionMetadataObject } from '@gooddata/sdk-model';
+import { IExportDefinitionMetadataObjectDefinition } from '@gooddata/sdk-model';
 import { IFilter } from '@gooddata/sdk-model';
 import { IFilterContextDefinition } from '@gooddata/sdk-model';
 import { IGranularAccessGrantee } from '@gooddata/sdk-model';
@@ -207,6 +209,8 @@ export interface IAnalyticalWorkspace {
     // @alpha
     attributeHierarchies(): IAttributeHierarchiesService;
     attributes(): IWorkspaceAttributesService;
+    // @alpha
+    automations(): IWorkspaceAutomationService;
     catalog(): IWorkspaceCatalogFactory;
     dashboards(): IWorkspaceDashboardsService;
     // @alpha
@@ -607,7 +611,7 @@ export interface IExportDefinitionsQueryOptions {
 }
 
 // @alpha
-export type IExportDefinitionsQueryResult = IPagedResource<IExportDefinition>;
+export type IExportDefinitionsQueryResult = IPagedResource<IExportDefinitionMetadataObject>;
 
 // @public
 export interface IExportPdfConfig {
@@ -1060,6 +1064,15 @@ export interface IWorkspaceAttributesService {
     getConnectedAttributesByDisplayForm(ref: ObjRef): Promise<ObjRef[]>;
 }
 
+// @alpha
+export interface IWorkspaceAutomationService {
+    createAutomation(automation: IAutomationMetadataObjectDefinition): Promise<IAutomationMetadataObject>;
+    deleteAutomation(id: string): Promise<void>;
+    getAutomation(id: string): Promise<IAutomationMetadataObject>;
+    getAutomations(): Promise<IAutomationMetadataObject[]>;
+    updateAutomation(automation: IAutomationMetadataObject): Promise<IAutomationMetadataObject>;
+}
+
 // @public
 export interface IWorkspaceCatalog extends IWorkspaceCatalogMethods {
     availableItems(): IWorkspaceCatalogAvailableItemsFactory;
@@ -1200,12 +1213,12 @@ export interface IWorkspaceDescriptorUpdate {
 
 // @alpha
 export interface IWorkspaceExportDefinitionsService {
-    createExportDefinition(exportDefinition: IExportDefinitionBase): Promise<IExportDefinition>;
+    createExportDefinition(exportDefinition: IExportDefinitionMetadataObjectDefinition): Promise<IExportDefinitionMetadataObject>;
     deleteExportDefinition(ref: ObjRef): Promise<void>;
-    getExportDefinition(ref: ObjRef, options?: IGetExportDefinitionOptions): Promise<IExportDefinition>;
+    getExportDefinition(ref: ObjRef, options?: IGetExportDefinitionOptions): Promise<IExportDefinitionMetadataObject>;
     getExportDefinitions(options?: IExportDefinitionsQueryOptions): Promise<IExportDefinitionsQueryResult>;
     getExportDefinitionsQuery(): IExportDefinitionsQuery;
-    updateExportDefinition(ref: ObjRef, exportDefinition: IExportDefinitionBase): Promise<IExportDefinition>;
+    updateExportDefinition(ref: ObjRef, exportDefinition: IExportDefinitionMetadataObjectDefinition): Promise<IExportDefinitionMetadataObject>;
 }
 
 // @public

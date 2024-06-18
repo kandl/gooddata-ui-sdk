@@ -136,6 +136,8 @@ import { IAttributeFilter } from '@gooddata/sdk-model';
 import { IAttributeFilterBaseProps } from '@gooddata/sdk-ui-filters';
 import { IAttributeMetadataObject } from '@gooddata/sdk-model';
 import { IAttributeOrMeasure } from '@gooddata/sdk-model';
+import { IAutomationMetadataObject } from '@gooddata/sdk-model';
+import { IAutomationMetadataObjectDefinition } from '@gooddata/sdk-model';
 import { IAvailableDrillTargets } from '@gooddata/sdk-ui';
 import { IBackendCapabilities } from '@gooddata/sdk-backend-spi';
 import { IBaseWidget } from '@gooddata/sdk-model';
@@ -223,14 +225,13 @@ import { INegativeAttributeFilter } from '@gooddata/sdk-model';
 import { InsightDisplayFormUsage } from '@gooddata/sdk-model';
 import { InsightDrillDefinition } from '@gooddata/sdk-model';
 import { IntlShape } from 'react-intl';
+import { IOrganizationUser } from '@gooddata/sdk-model';
 import { IPositiveAttributeFilter } from '@gooddata/sdk-model';
 import { IPushData } from '@gooddata/sdk-ui';
 import { IRelativeDateFilter } from '@gooddata/sdk-model';
 import { IRenderListItemProps } from '@gooddata/sdk-ui-kit';
 import { IResultWarning } from '@gooddata/sdk-model';
 import { IRichTextWidget } from '@gooddata/sdk-model';
-import { IScheduledMail } from '@gooddata/sdk-model';
-import { IScheduledMailDefinition } from '@gooddata/sdk-model';
 import { ISeparators } from '@gooddata/sdk-model';
 import { ISettings } from '@gooddata/sdk-model';
 import { IShareDialogInteractionData } from '@gooddata/sdk-ui-kit';
@@ -248,7 +249,6 @@ import { IWidgetAlert } from '@gooddata/sdk-model';
 import { IWidgetAlertDefinition } from '@gooddata/sdk-model';
 import { IWidgetDefinition } from '@gooddata/sdk-model';
 import { IWorkspacePermissions } from '@gooddata/sdk-model';
-import { IWorkspaceUser } from '@gooddata/sdk-model';
 import { LocalIdRef } from '@gooddata/sdk-model';
 import { MemoizedFunction } from 'lodash';
 import { MessageDescriptor } from 'react-intl';
@@ -1015,12 +1015,12 @@ export interface CreateScheduledEmail extends IDashboardCommand {
 }
 
 // @beta
-export function createScheduledEmail(scheduledEmail: IScheduledMailDefinition, filterContext?: IFilterContextDefinition, correlationId?: string): CreateScheduledEmail;
+export function createScheduledEmail(scheduledEmail: IAutomationMetadataObjectDefinition, filterContext?: IFilterContextDefinition, correlationId?: string): CreateScheduledEmail;
 
 // @beta
 export interface CreateScheduledEmailPayload {
     readonly filterContext?: IFilterContextDefinition;
-    readonly scheduledEmail: IScheduledMailDefinition;
+    readonly scheduledEmail: IAutomationMetadataObjectDefinition;
 }
 
 // @beta (undocumented)
@@ -2504,7 +2504,7 @@ export interface DashboardScheduledEmailCreated extends IDashboardEvent {
 
 // @beta
 export interface DashboardScheduledEmailCreatedPayload {
-    readonly scheduledEmail: IScheduledMail;
+    readonly scheduledEmail: IAutomationMetadataObject;
 }
 
 // @beta
@@ -4706,16 +4706,16 @@ export function isBrokenAlertDateFilterInfo(item: IBrokenAlertFilterBasicInfo): 
 
 // @alpha (undocumented)
 export interface IScheduledEmailDialogProps {
-    editSchedule?: IScheduledMail;
+    editSchedule?: IAutomationMetadataObject;
     isVisible?: boolean;
     onCancel?: () => void;
     onError?: (error: GoodDataSdkError) => void;
-    onSave?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSave?: (scheduledEmailDefinition: IAutomationMetadataObject) => void;
     onSaveError?: (error: GoodDataSdkError) => void;
     onSaveSuccess?: () => void;
-    onSubmit?: (scheduledEmailDefinition: IScheduledMailDefinition) => void;
+    onSubmit?: (scheduledEmailDefinition: IAutomationMetadataObject | IAutomationMetadataObjectDefinition) => void;
     onSuccess?: () => void;
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
 // @alpha (undocumented)
@@ -4725,7 +4725,7 @@ export interface IScheduledEmailManagementDialogProps {
     onClose?: () => void;
     onDeleteError?: (error: GoodDataSdkError) => void;
     onDeleteSuccess?: () => void;
-    onEdit?: (scheduledMail: IScheduledMail, users: IWorkspaceUser[]) => void;
+    onEdit?: (scheduledMail: IAutomationMetadataObject, users: IOrganizationUser[]) => void;
     onLoadError?: (error: GoodDataSdkError) => void;
 }
 
@@ -6396,12 +6396,12 @@ export interface SaveScheduledEmail extends IDashboardCommand {
 }
 
 // @beta
-export function saveScheduledEmail(scheduledEmail: IScheduledMailDefinition, filterContextRef?: ObjRef, correlationId?: string): SaveScheduledEmail;
+export function saveScheduledEmail(scheduledEmail: IAutomationMetadataObject, filterContextRef?: ObjRef, correlationId?: string): SaveScheduledEmail;
 
 // @beta
 export interface SaveScheduledEmailPayload {
     readonly filterContextRef?: ObjRef;
-    readonly scheduledEmail: IScheduledMailDefinition;
+    readonly scheduledEmail: IAutomationMetadataObject;
 }
 
 // @public (undocumented)
@@ -8227,9 +8227,9 @@ export const useDashboardScheduledEmails: () => {
     isScheduleEmailingDialogOpen: boolean;
     isScheduleEmailingManagementDialogOpen: boolean;
     onScheduleEmailingOpen: (attachmentRef?: ObjRef) => void;
-    onScheduleEmailingManagementEdit: (schedule: IScheduledMail, users: IWorkspaceUser[]) => void;
-    scheduledEmailToEdit: IScheduledMail | undefined;
-    users: IWorkspaceUser[];
+    onScheduleEmailingManagementEdit: (schedule: IAutomationMetadataObject, users: IOrganizationUser[]) => void;
+    scheduledEmailToEdit: IAutomationMetadataObject | undefined;
+    users: IOrganizationUser[];
     onScheduleEmailingCancel: () => void;
     onScheduleEmailingCreateError: () => void;
     onScheduleEmailingCreateSuccess: () => void;

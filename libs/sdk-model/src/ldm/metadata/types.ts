@@ -1,4 +1,4 @@
-// (C) 2019-2020 GoodData Corporation
+// (C) 2019-2024 GoodData Corporation
 import isEmpty from "lodash/isEmpty.js";
 import { ObjectType, ObjRef } from "../../objRef/index.js";
 
@@ -8,6 +8,8 @@ import { ObjectType, ObjRef } from "../../objRef/index.js";
 export interface IMetadataObjectIdentity {
     /**
      * Metadata object reference
+     *
+     * Note: use id whenever possible instead.
      */
     ref: ObjRef;
 
@@ -22,6 +24,8 @@ export interface IMetadataObjectIdentity {
      * Metadata object uri
      * Currently, our implementation still depends on converting id to uri (or uri to id)
      * So until we add cache, keep both id and uri exposed on metadata objects
+     *
+     * @deprecated - use id whenever possible instead
      */
     uri: string;
 }
@@ -44,6 +48,11 @@ export interface IMetadataObjectBase {
      * Description
      */
     description: string;
+
+    /**
+     * Tags
+     */
+    tags?: string[];
 
     /**
      * Is production
@@ -79,3 +88,10 @@ export function isMetadataObject(obj: unknown): obj is IMetadataObject {
 
     return !isEmpty(c) && c.type !== undefined && c.ref !== undefined;
 }
+
+/**
+ * @public
+ */
+export interface IMetadataObjectDefinition
+    extends Partial<IMetadataObjectBase>,
+        Partial<Pick<IMetadataObject, "id">> {}

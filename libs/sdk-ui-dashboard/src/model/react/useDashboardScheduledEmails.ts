@@ -1,8 +1,8 @@
-// (C) 2022 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import { useCallback, useState } from "react";
 import { useToastMessage } from "@gooddata/sdk-ui-kit";
-import { IScheduledMail, IWorkspaceUser, ObjRef } from "@gooddata/sdk-model";
+import { IOrganizationUser, ObjRef, IAutomationMetadataObject } from "@gooddata/sdk-model";
 
 import { useDashboardDispatch, useDashboardSelector } from "./DashboardStoreProvider.js";
 import {
@@ -51,8 +51,8 @@ export const useDashboardScheduledEmails = () => {
         dispatch(uiActions.setScheduleEmailDialogDefaultAttachment(attachmentRef));
     const resetScheduledEmailDefaultAttachment = () =>
         enableInsightExportScheduling && dispatch(uiActions.resetScheduleEmailDialogDefaultAttachment());
-    const [scheduledEmailToEdit, setScheduledEmailToEdit] = useState<IScheduledMail>();
-    const [users, setUsers] = useState<IWorkspaceUser[]>([]);
+    const [scheduledEmailToEdit, setScheduledEmailToEdit] = useState<IAutomationMetadataObject>();
+    const [users, setUsers] = useState<IOrganizationUser[]>([]);
 
     const isScheduledEmailingVisible =
         isInViewMode &&
@@ -125,7 +125,7 @@ export const useDashboardScheduledEmails = () => {
     }, []);
 
     const onScheduleEmailingManagementEdit = useCallback(
-        (schedule: IScheduledMail, users: IWorkspaceUser[]) => {
+        (schedule: IAutomationMetadataObject, users: IOrganizationUser[]) => {
             closeScheduleEmailingManagementDialog();
             setScheduledEmailToEdit(schedule);
             setUsers(users);

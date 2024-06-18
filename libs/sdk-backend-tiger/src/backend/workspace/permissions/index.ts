@@ -35,8 +35,10 @@ export class TigerWorkspacePermissionsFactory implements IWorkspacePermissionsSe
             canManageACL: false,
             canManageDomain: false,
             canInviteUserToProject: false,
-            canCreateScheduledMail: false,
-            canManageScheduledMail: false,
+            // TODO: use correct permissions
+            canCreateScheduledMail: true,
+            canManageScheduledMail: true,
+            //
             canListUsersInProject: false,
             //based on group: VIEW
             canAccessWorkbench: canViewWorkspace,

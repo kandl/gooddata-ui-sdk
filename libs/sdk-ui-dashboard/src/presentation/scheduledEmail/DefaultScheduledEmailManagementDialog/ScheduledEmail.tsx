@@ -1,9 +1,9 @@
-// (C) 2022 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import React, { useCallback } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import cx from "classnames";
-import { IScheduledMail, IWorkspaceUser } from "@gooddata/sdk-model";
+import { IAutomationMetadataObject, IOrganizationUser, ScheduledMailAttachment } from "@gooddata/sdk-model";
 import { Bubble, BubbleHoverTrigger, ShortenedText } from "@gooddata/sdk-ui-kit";
 import { useTheme } from "@gooddata/sdk-ui-theme-provider";
 
@@ -12,12 +12,12 @@ import { getAttachmentType, getFormatsLabel, getRecipientsLabel } from "./utils.
 import { gdColorDisabled } from "../../constants/colors.js";
 
 interface IScheduledEmailProps {
-    onDelete: (scheduledEmail: IScheduledMail) => void;
-    onEdit: (scheduledEmail: IScheduledMail, users: IWorkspaceUser[]) => void;
-    scheduledEmail: IScheduledMail;
+    onDelete: (scheduledEmail: IAutomationMetadataObject) => void;
+    onEdit: (scheduledEmail: IAutomationMetadataObject, users: IOrganizationUser[]) => void;
+    scheduledEmail: IAutomationMetadataObject;
     currentUserEmail?: string;
     canManageScheduledMail: boolean;
-    users: IWorkspaceUser[];
+    users: IOrganizationUser[];
 }
 
 const ICON_TOOLTIP_ALIGN_POINTS = [
@@ -34,8 +34,12 @@ export const ScheduledEmail: React.FC<IScheduledEmailProps> = (props) => {
     const theme = useTheme();
 
     const { scheduledEmail, currentUserEmail, onDelete, onEdit, canManageScheduledMail, users } = props;
-    const { subject, to, bcc, attachments } = scheduledEmail;
-    const recipients = [...to, ...(bcc ?? [])];
+
+    // const { subject, to, bcc, attachments } = scheduledEmail;
+    // TODO: migrate to export definition
+    const attachments: ScheduledMailAttachment[] = [];
+
+    const recipients: string[] = []; // TODO: correct mapping[...to, ...(bcc ?? [])];
     const recipientsLabel = getRecipientsLabel(intl, recipients, currentUserEmail);
     const formatsLabel = getFormatsLabel(attachments);
     const { AttachmentIcon, attachmentLabel } = getAttachmentType(intl, attachments);
@@ -75,7 +79,7 @@ export const ScheduledEmail: React.FC<IScheduledEmailProps> = (props) => {
                                 className="gd-scheduled-email-shortened-text"
                                 tooltipAlignPoints={TEXT_TOOLTIP_ALIGN_POINTS}
                             >
-                                {subject}
+                                {scheduledEmail.title ?? ""}
                             </ShortenedText>
                         </strong>
                     </div>
