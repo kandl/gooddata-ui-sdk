@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Button, Dialog, Typography, Tabs, ITab } from "@gooddata/sdk-ui-kit";
+import { Button, Dialog, Hyperlink, Typography } from "@gooddata/sdk-ui-kit";
 import { IOrganizationUser, IAutomationMetadataObject } from "@gooddata/sdk-model";
 
 import { ScheduledEmails } from "./ScheduledEmails.js";
@@ -16,6 +16,7 @@ import {
     selectCanManageScheduledMail,
 } from "../../../model/index.js";
 import { messages } from "../../../locales.js";
+import { CreateButton } from "./CreateButton.js";
 
 /**
  * @alpha
@@ -26,10 +27,7 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
         null,
     );
     const [isLoading, setIsLoading] = useState(true);
-    const [scheduledEmailsByUser, setScheduledEmailsByUser] = useState<IAutomationMetadataObject[]>([]);
     const [scheduledEmails, setScheduledEmails] = useState<IAutomationMetadataObject[]>([]);
-    const [selectedTabId, setSelectedTabId] = useState(messages.scheduleManagementTabUser.id);
-    const [isFirstLoaded, setIsFirstLoaded] = useState(true);
     const [users, setUsers] = useState<IOrganizationUser[]>([]);
     const canManageScheduledMail = useDashboardSelector(selectCanManageScheduledMail);
     const currentUser = useDashboardSelector(selectCurrentUser);
@@ -37,7 +35,6 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
 
     const onLoadSuccess = useCallback((emailManagement: IScheduledEmailManagement) => {
         const { scheduledEmails, users } = emailManagement;
-        const emailsByUser = scheduledEmails;
         // TODO: correct filter
         // scheduledEmails.filter((scheduledEmail) =>
         //     areObjRefsEqual(currentUser.ref, scheduledEmail.createdBy?.ref),
@@ -45,15 +42,7 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
 
         setIsLoading(false);
         setScheduledEmails(scheduledEmails);
-        setScheduledEmailsByUser(canManageScheduledMail ? emailsByUser : scheduledEmails);
         setUsers(users);
-
-        if (isFirstLoaded) {
-            if (emailsByUser.length === 0 && canManageScheduledMail) {
-                setSelectedTabId(messages.scheduleManagementTabAll.id);
-            }
-            setIsFirstLoaded(false);
-        }
     }, []);
 
     const handleScheduleDelete = useCallback((scheduledEmail: IAutomationMetadataObject) => {
@@ -64,29 +53,20 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
         (scheduledEmail: IAutomationMetadataObject, users: IOrganizationUser[]) => {
             onEdit?.(scheduledEmail, users);
         },
-        [],
+        [onEdit],
     );
 
     const handleScheduleDeleteSuccess = useCallback(() => {
         onDelete?.();
         setScheduledEmailToDelete(null);
         setIsLoading(true);
-    }, []);
-
-    const handleTabChange = useCallback((tab: ITab) => {
-        setSelectedTabId(tab.id);
-    }, []);
+    }, [onDelete]);
 
     useScheduledEmailManagement({
         loadScheduledMails: isLoading,
         onError: onLoadError,
         onSuccess: onLoadSuccess,
     });
-
-    const noSchedulesMessageId =
-        selectedTabId === messages.scheduleManagementTabAll.id
-            ? messages.scheduleManagementNoSchedules.id!
-            : messages.scheduleManagementNoSchedulesByUser.id!;
 
     return (
         <>
@@ -99,40 +79,36 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
                     <Typography tagName="h3" className="gd-dialog-header">
                         <FormattedMessage id="dialogs.schedule.management.title" />
                     </Typography>
+                    <span className="gd-icon-circle-question" />
                 </div>
-                {!isFirstLoaded && canManageScheduledMail ? (
-                    <Tabs
-                        className="gd-scheduled-email-management-dialog-tabs"
-                        tabs={
-                            [messages.scheduleManagementTabUser, messages.scheduleManagementTabAll] as ITab[]
-                        }
-                        selectedTabId={selectedTabId}
-                        onTabSelect={handleTabChange}
-                    />
-                ) : null}
                 <div className="gd-scheduled-emails-content">
+                    <div className="gd-scheduled-emails-content-header">
+                        <Typography tagName="h3">
+                            <FormattedMessage id={messages.scheduleManagementListTitle.id!} />
+                        </Typography>
+                        <CreateButton
+                            onClick={onAdd}
+                            isDisabled={isLoading}
+                            titleId={messages.scheduleManagementCreate.id!}
+                        />
+                    </div>
                     <ScheduledEmails
                         onDelete={handleScheduleDelete}
                         onEdit={handleScheduleEdit}
                         isLoading={isLoading}
-                        scheduledEmails={
-                            selectedTabId === messages.scheduleManagementTabAll.id
-                                ? scheduledEmails
-                                : scheduledEmailsByUser
-                        }
+                        scheduledEmails={scheduledEmails}
                         currentUserEmail={currentUser?.email}
-                        noSchedulesMessageId={noSchedulesMessageId}
+                        noSchedulesMessageId={messages.scheduleManagementNoSchedules.id!}
                         canManageScheduledMail={canManageScheduledMail}
                         users={users}
                     />
                 </div>
                 <div className="gd-content-divider"></div>
                 <div className="gd-buttons">
-                    <Button
-                        onClick={onAdd}
-                        className="gd-button-secondary gd-add-button s-add-button"
-                        iconLeft="gd-icon-plus"
-                        value={intl.formatMessage({ id: "dialogs.schedule.management.addSchedule" })}
+                    <Hyperlink
+                        text={intl.formatMessage({ id: "dialogs.schedule.email.footer.title" })}
+                        href=""
+                        iconClass="gd-icon-circle-question"
                     />
                     <Button
                         onClick={onClose}
