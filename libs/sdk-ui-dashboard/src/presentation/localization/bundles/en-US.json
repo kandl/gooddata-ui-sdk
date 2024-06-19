@@ -642,18 +642,23 @@
         "comment": "Do not translate html tags <b>, </b>",
         "limit": 0
     },
+    "dialogs.schedule.management.list.title": {
+        "value": "Your scheduled exports",
+        "comment": "",
+        "limit": 0
+    },
+    "dialogs.schedule.management.create": {
+        "value": "Create",
+        "comment": "",
+        "limit": 0
+    },
+    "dialogs.schedule.management.create.tooManyMessage": {
+        "value": "Too many schedules. You can create up to 10 schedules.",
+        "comment": "",
+        "limit": 0
+    },
     "dialogs.schedule.management.noSchedules": {
-        "value": "The dashboard contains no scheduled exports.{br}Add one now.",
-        "comment": "",
-        "limit": 0
-    },
-    "dialogs.schedule.management.noSchedules.byUser": {
-        "value": "You have not scheduled any exports yet.{br}Add one now.",
-        "comment": "",
-        "limit": 0
-    },
-    "dialogs.schedule.management.addSchedule": {
-        "value": "Add schedule",
+        "value": "There are no scheduled exports.{br}Create new.",
         "comment": "",
         "limit": 0
     },
@@ -701,16 +706,6 @@
     },
     "dialogs.schedule.management.delete.error": {
         "value": "Failed to delete schedule. Try again later.",
-        "comment": "",
-        "limit": 0
-    },
-    "dialogs.schedule.management.tab.all": {
-        "value": "all",
-        "comment": "",
-        "limit": 0
-    },
-    "dialogs.schedule.management.tab.user": {
-        "value": "created by me",
         "comment": "",
         "limit": 0
     },
