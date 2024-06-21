@@ -45,10 +45,13 @@ export const useScheduledEmailManagement = (props: IUseScheduledEmailManagementP
 
     const loadResultPromise = loadScheduledMails
         ? async (): Promise<IScheduledEmailManagement> => {
-              const scheduledEmails = await effectiveBackend
+              const automationsQuery = effectiveBackend
                   .workspace(effectiveWorkspace)
                   .automations()
-                  .getAutomations();
+                  .getAutomationsQuery()
+                  .withType("schedule")
+                  .withSorting(["title,asc"]);
+              const scheduledEmails = (await automationsQuery.query()).items;
 
               // TODO: include also this and load only relevant emails for the dashboard
               //   .getScheduledMailsForDashboard(dashboardRef!, {
@@ -85,7 +88,7 @@ export const useScheduledEmailManagement = (props: IUseScheduledEmailManagementP
               // ? await effectiveBackend.workspace(effectiveWorkspace).users().queryAll()
               // : [];
 
-              return { scheduledEmails: scheduledEmails.reverse(), users: orgUsers };
+              return { scheduledEmails, users: orgUsers };
           }
         : null;
 

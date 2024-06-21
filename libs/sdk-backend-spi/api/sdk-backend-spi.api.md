@@ -135,6 +135,9 @@ export type AuthenticationFlow = {
     returnRedirectParam: string;
 };
 
+// @alpha
+export type AutomationType = "schedule" | "trigger";
+
 // @beta
 export type CancelableOptions = {
     signal?: AbortSignal;
@@ -288,6 +291,21 @@ export interface IAuthenticationProvider {
     initializeClient?(client: any): void;
     onNotAuthenticated?: NotAuthenticatedHandler;
 }
+
+// @public
+export interface IAutomationsQuery {
+    query(): Promise<IAutomationsQueryResult>;
+    withFilter(filter: {
+        title?: string;
+    }): IAutomationsQuery;
+    withPage(page: number): IAutomationsQuery;
+    withSize(size: number): IAutomationsQuery;
+    withSorting(sort: string[]): IAutomationsQuery;
+    withType(type: AutomationType): IAutomationsQuery;
+}
+
+// @public
+export type IAutomationsQueryResult = IPagedResource<IAutomationMetadataObject>;
 
 // @public
 export interface IBackendCapabilities {
@@ -1069,8 +1087,14 @@ export interface IWorkspaceAutomationService {
     createAutomation(automation: IAutomationMetadataObjectDefinition): Promise<IAutomationMetadataObject>;
     deleteAutomation(id: string): Promise<void>;
     getAutomation(id: string): Promise<IAutomationMetadataObject>;
-    getAutomations(): Promise<IAutomationMetadataObject[]>;
+    getAutomations(options?: IWorkspaceAutomationsQueryOptions): Promise<IAutomationMetadataObject[]>;
+    getAutomationsQuery(): IAutomationsQuery;
     updateAutomation(automation: IAutomationMetadataObject): Promise<IAutomationMetadataObject>;
+}
+
+// @alpha
+export interface IWorkspaceAutomationsQueryOptions {
+    loadUserData?: boolean;
 }
 
 // @public

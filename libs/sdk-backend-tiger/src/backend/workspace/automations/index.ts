@@ -2,7 +2,11 @@
 
 import { ITigerClient } from "@gooddata/api-client-tiger";
 import { IAutomationMetadataObject, IAutomationMetadataObjectDefinition } from "@gooddata/sdk-model";
-import { IWorkspaceAutomationService } from "@gooddata/sdk-backend-spi";
+import {
+    IAutomationsQuery,
+    IWorkspaceAutomationService,
+    IWorkspaceAutomationsQueryOptions,
+} from "@gooddata/sdk-backend-spi";
 
 import { convertAutomation as convertAutomationFromBackend } from "../../../convertors/fromBackend/AutomationConverter.js";
 import { convertAutomation as convertAutomationToBackend } from "../../../convertors/toBackend/AutomationConverter.js";
@@ -10,7 +14,7 @@ import {
     convertExportDefinitionMdObjectDefinition as convertExportDefinitionMdObjectDefinitionToBackend,
     // convertExportDefinitionMdObject as convertExportDefinitionMdObjectToBackend,
 } from "../../../convertors/toBackend/ExportDefinitionsConverter.js";
-
+import { AutomationsQuery } from "./automationsQuery.js";
 import { TigerAuthenticatedCallGuard } from "../../../types/index.js";
 
 export class TigerWorkspaceAutomationService implements IWorkspaceAutomationService {
@@ -19,11 +23,20 @@ export class TigerWorkspaceAutomationService implements IWorkspaceAutomationServ
         private readonly workspaceId: string,
     ) {}
 
-    public getAutomations = async (): Promise<IAutomationMetadataObject[]> => {
+    public getAutomationsQuery = (): IAutomationsQuery => {
+        return new AutomationsQuery(this.authCall, {
+            workspaceId: this.workspaceId,
+        });
+    };
+
+    public getAutomations = async (
+        options?: IWorkspaceAutomationsQueryOptions,
+    ): Promise<IAutomationMetadataObject[]> => {
+        const includeUser = options?.loadUserData ? ["createdBy" as const, "modifiedBy" as const] : [];
         return this.authCall(async (client: ITigerClient) => {
             const result = await client.entities.getAllEntitiesAutomations({
                 workspaceId: this.workspaceId,
-                include: ["notificationChannel", "recipients", "exportDefinitions"],
+                include: ["notificationChannel", "recipients", "exportDefinitions", ...includeUser],
             });
 
             const automations = result.data?.data || [];
