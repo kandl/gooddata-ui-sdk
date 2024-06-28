@@ -9,7 +9,11 @@ import { ScheduledEmails } from "./components/ScheduledEmailsList.js";
 import { DeleteScheduleConfirmDialog } from "./components/DeleteScheduleConfirmDialog.js";
 
 import { IScheduledEmailManagementDialogProps } from "../types.js";
-import { selectCurrentUser, useDashboardSelector } from "../../../model/index.js";
+import {
+    selectCurrentUser,
+    selectEntitlementMaxAutomations,
+    useDashboardSelector,
+} from "../../../model/index.js";
 import { messages } from "../../../locales.js";
 import { CreateButton } from "./components/CreateButton.js";
 
@@ -31,7 +35,11 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
         null,
     );
     const currentUser = useDashboardSelector(selectCurrentUser);
+    const maxAutomationsEntitlement = useDashboardSelector(selectEntitlementMaxAutomations);
+    const maxAutomations = parseInt(maxAutomationsEntitlement?.value ?? "0", 10);
     const intl = useIntl();
+
+    console.log("max automations, ", maxAutomationsEntitlement, maxAutomations);
 
     const handleScheduleDelete = useCallback((scheduledEmail: IAutomationMetadataObject) => {
         setScheduledEmailToDelete(scheduledEmail);
@@ -69,7 +77,7 @@ export const ScheduledEmailManagementDialog: React.FC<IScheduledEmailManagementD
                         </Typography>
                         <CreateButton
                             onClick={onAdd}
-                            isDisabled={isLoadingScheduleData}
+                            isDisabled={isLoadingScheduleData || automations.length >= maxAutomations}
                             titleId={messages.scheduleManagementCreate.id!}
                         />
                     </div>

@@ -6,7 +6,7 @@ import { useUpdateScheduledEmail } from "./useUpdateScheduledEmail.js";
 import { IScheduledEmailDialogProps } from "../../types.js";
 
 export function useSaveScheduledEmailToBackend(
-    scheduleToSave: IAutomationMetadataObject | IAutomationMetadataObjectDefinition,
+    automation: IAutomationMetadataObject | IAutomationMetadataObjectDefinition,
     { onSuccess, onError, onSubmit, onSaveSuccess, onSaveError, onSave }: IScheduledEmailDialogProps,
 ) {
     const scheduledEmailCreator = useCreateScheduledEmail({
@@ -38,10 +38,11 @@ export function useSaveScheduledEmailToBackend(
     );
 
     const handleSaveScheduledEmail = (): void => {
-        if (scheduleToSave.id) {
-            handleUpdateScheduledEmail(scheduleToSave);
+        if (automation.id) {
+            handleUpdateScheduledEmail(automation);
         } else {
-            handleCreateScheduledEmail(scheduleToSave);
+            const sanitizedAutomation = sanitizeAutomation(automation);
+            handleCreateScheduledEmail(sanitizedAutomation);
         }
     };
 
@@ -50,4 +51,12 @@ export function useSaveScheduledEmailToBackend(
         scheduledEmailUpdater.savingStatus === "running";
 
     return { handleSaveScheduledEmail, isSavingScheduledEmail };
+}
+
+// Todo what about rather than just setting the title to "Untitled schedule", always fallback to "Untitled schedule" in UI if title is missing?
+function sanitizeAutomation(automation: IAutomationMetadataObject | IAutomationMetadataObjectDefinition) {
+    if (!automation.title) {
+        automation.title = "Untitled schedule";
+    }
+    return automation;
 }
