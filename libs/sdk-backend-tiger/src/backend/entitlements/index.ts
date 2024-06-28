@@ -17,10 +17,10 @@ const hardcodedEntitlements: IEntitlementDescriptor[] = [
     //     name: "MaxDailyScheduledActions",
     //     value: "10",
     // },
-    // {
-    //     name: "MinimumRecurrence",
-    //     value: "1",
-    // },
+    {
+        name: "MinimumRecurrenceMinutes",
+        value: "60",
+    },
 ];
 
 export class TigerEntitlements implements IEntitlements {
