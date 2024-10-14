@@ -100,6 +100,12 @@ export class AutoSize extends Component<IAutoSizeProps> {
 // @internal (undocumented)
 export const BackButton: React_2.FC<IBackButtonProps>;
 
+// @internal
+export function bem(component: string): {
+    b: (props: StyleProps) => string;
+    e: (element: string, props: StyleProps) => string;
+};
+
 // @internal (undocumented)
 export class Bubble extends React_2.Component<IBubbleProps, IBubbleState> {
     constructor(props: IBubbleProps);
@@ -300,6 +306,9 @@ export const CommunityEditionDialog: React_2.FC<ICommunityEditionDialogProps>;
 
 // @internal (undocumented)
 export const ComponentLabelsProvider: React_2.FC<IComponentLabelsProviderProps>;
+
+// @internal (undocumented)
+export function ComponentVariants<TProps extends object>({ combinations, Component, }: IComponentVariantsProps<TProps>): React_2.JSX.Element;
 
 // @internal (undocumented)
 export class ConfirmDialog extends PureComponent<IConfirmDialogBaseProps> {
@@ -1195,6 +1204,16 @@ export type IComponentLabelsProviderProps = {
     labels: IShareDialogLabels;
     children?: React.ReactNode;
 };
+
+// @internal (undocumented)
+export interface IComponentVariantsProps<TProps extends object> {
+    // (undocumented)
+    combinations: IPropCombinations<TProps>[];
+    // (undocumented)
+    Component: React_2.ComponentType<TProps>;
+    // (undocumented)
+    showCodeSnippet?: boolean;
+}
 
 // @internal (undocumented)
 export const Icon: Record<string, React.FC<IIconProps>>;
@@ -3384,6 +3403,18 @@ export interface IPositioning {
 }
 
 // @internal (undocumented)
+export interface IPropCombinations<TProps extends object> {
+    // (undocumented)
+    baseProps?: Partial<TProps>;
+    // (undocumented)
+    combineWith?: IPropCombinations<TProps>[];
+    // (undocumented)
+    prop: keyof TProps;
+    // (undocumented)
+    values: TProps[keyof TProps][];
+}
+
+// @internal (undocumented)
 export interface IReactOptions {
     // (undocumented)
     codeType: CodeLanguageType;
@@ -4713,6 +4744,9 @@ export class Spinner extends PureComponent<ISpinnerProps> {
 // @internal (undocumented)
 export type SpinnerSize = "large" | "small";
 
+// @internal
+export type StyleProps = Record<string, string | boolean>;
+
 // @internal (undocumented)
 export const StylingEditorDialog: <T extends StylingPickerItemContent>(props: IStylingEditorDialogProps<T>) => React_2.JSX.Element;
 
@@ -4849,6 +4883,55 @@ export type TUTMContent = "main_menu_help_documentation" | "main_menu_help_unive
 
 // @internal (undocumented)
 export const Typography: React_2.FC<ITypographyProps>;
+
+// @internal (undocumented)
+export const UiButton: ({ size, style, label, isDisabled, isActive, }: UiButtonProps) => React_2.JSX.Element;
+
+// @internal (undocumented)
+export interface UiButtonProps {
+    // (undocumented)
+    iconAfter?: React_2.ReactNode;
+    // (undocumented)
+    iconBefore?: React_2.ReactNode;
+    // (undocumented)
+    isActive?: boolean;
+    // (undocumented)
+    isDisabled?: boolean;
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    onClick?: () => void;
+    // (undocumented)
+    size?: UiSizeSmall | UiSizeMedium | UiSizeLarge;
+    // (undocumented)
+    style?: UiStylePrimary | UiStyleSecondary | UiStyleTertiary | UiStylePopOut | UiStyleDanger;
+    // (undocumented)
+    tooltip?: React_2.ReactNode;
+}
+
+// @internal (undocumented)
+export type UiSizeLarge = "large";
+
+// @internal (undocumented)
+export type UiSizeMedium = "medium";
+
+// @internal (undocumented)
+export type UiSizeSmall = "small";
+
+// @internal (undocumented)
+export type UiStyleDanger = "danger";
+
+// @internal (undocumented)
+export type UiStylePopOut = "popOut";
+
+// @internal (undocumented)
+export type UiStylePrimary = "primary";
+
+// @internal (undocumented)
+export type UiStyleSecondary = "secondary";
+
+// @internal (undocumented)
+export type UiStyleTertiary = "tertiary";
 
 // @internal (undocumented)
 export type UnitsType = "px" | "%" | "rem" | "em";
