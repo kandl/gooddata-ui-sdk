@@ -1,0 +1,130 @@
+// (C) 2024 GoodData Corporation
+
+.gd-kit-ui-button {
+    $root: &;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Avenir;
+    font-style: normal;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0px 1px 1px 0px rgba(20, 57, 93, 0.05) inset, 0px 0px 0px 0px rgba(20, 57, 93, 0.05);
+
+    &:focus {
+        outline: none;
+    }
+
+    /**
+     * Disabled
+     */
+
+    &:disabled {
+        cursor: default;
+    }
+
+    /**
+     * Size
+     */
+    &--size {
+        &-small {
+            padding: 6.5px 11px;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 14px;
+        }
+
+        &-medium {
+            padding: 6.5px 14px;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 19px;
+        }
+
+        &-large {
+            padding: 8px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 22px;
+        }
+    }
+
+    /**
+     * Style
+     */
+    &--style {
+        &-primary {
+            color: var(--white-ffffff-com-0, #fff);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: var(--primary-blue-14-b-2-e-2, #14b2e2);
+
+            &:not(&:disabled) {
+                &:hover,
+                &:focus {
+                    background-color: #129cc6;
+                }
+            }
+
+            &:disabled {
+                background-color: rgba(20, 178, 226, 0.6);
+            }
+        }
+
+        &-secondary {
+            font-weight: 400;
+            color: var(--gray-7006-d-7680-com-7, #6d7680);
+            border: 1px solid var(--gray-400-ccd-8-e-2-com-4, #ccd8e2);
+            background-color: var(--gray-100-fcfcfd-com-0, #fcfcfd);
+            transition: all 0.2s ease-in-out;
+
+            &:not(&:disabled) {
+                &:hover,
+                &:focus {
+                    background-color: #f5f8fa;
+                    box-shadow: 0px -2px 0px 0px rgba(177, 193, 209, 0.6) inset,
+                        0px 1px 2px 0px rgba(20, 57, 93, 0.15);
+
+                    #{$root}--size-small {
+                        box-shadow: 0px -1px 0px 0px rgba(177, 193, 209, 0.6) inset,
+                            0px 1px 1px 0px rgba(20, 57, 93, 0.15);
+                    }
+                }
+
+                &#{$root}--isActive,
+                &:active,
+                &:focus {
+                    background: #f5f8fa;
+                    border: 1px solid rgba(20, 178, 226, 0.75);
+                    box-shadow: 0px -1px 0px 0px #4cc3e8 inset,
+                        0px -2px 0px 0px rgba(177, 193, 209, 0.6) inset,
+                        0px 0px 3px 0px rgba(20, 178, 226, 0.5), 0px 1px 2px 0px rgba(20, 57, 93, 0.15);
+                }
+            }
+
+            &:disabled {
+                color: var(--gray-500-b-0-beca-com-5, #b0beca);
+                border: 1px solid rgba(210, 219, 227, 0.75);
+                background-color: var(--gray-100-fcfcfd-com-0, #fcfcfd);
+            }
+        }
+
+        &-danger {
+            color: var(--white-ffffff-com-0, #fff);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--error-red-e-54-d-42, #e54d40);
+
+            &:not(&:disabled) {
+                &:hover,
+                &:focus {
+                    background-color: #d43e32;
+                }
+            }
+
+            &:disabled {
+                background-color: rgba(241, 161, 156, 0.6);
+            }
+        }
+    }
+}

@@ -63,3 +63,21 @@ export * from "./SeparatorLine/index.js";
 export * from "./RichText/index.js";
 export * from "./RecurrenceForm/index.js";
 export * from "./AddButton/index.js";
+
+/**
+ * New components
+ */
+export type { IPropCombinations, IComponentVariantsProps } from "./@ui/@utils/propCombinations.js";
+export { ComponentVariants } from "./@ui/@utils/propCombinations.js";
+export type { StyleProps } from "./@ui/@utils/bem.js";
+export { bem } from "./@ui/@utils/bem.js";
+export { UiButton } from "./@ui/UiButton/UiButton.js";
+export type { UiButtonProps } from "./@ui/UiButton/UiButton.js";
+export type { UiSizeSmall, UiSizeMedium, UiSizeLarge } from "./@ui/@types/size.js";
+export type {
+    UiStylePrimary,
+    UiStyleSecondary,
+    UiStyleTertiary,
+    UiStylePopOut,
+    UiStyleDanger,
+} from "./@ui/@types/style.js";
