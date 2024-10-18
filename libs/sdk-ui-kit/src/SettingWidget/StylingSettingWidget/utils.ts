@@ -1,4 +1,4 @@
-// (C) 2022 GoodData Corporation
+// (C) 2022-2024 GoodData Corporation
 
 import {
     idRef,
@@ -44,6 +44,8 @@ export const defaultThemeMetadataObject: IThemeDefinition = {
         },
     },
 };
+
+//
 
 /**
  * This function transforms a theme metadata object into an array of colors which is used

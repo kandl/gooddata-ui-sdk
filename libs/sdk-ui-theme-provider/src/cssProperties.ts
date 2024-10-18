@@ -1,4 +1,4 @@
-// (C) 2020-2023 GoodData Corporation
+// (C) 2020-2024 GoodData Corporation
 import isObject from "lodash/isObject.js";
 import { transparentize } from "polished";
 import { IThemePalette, ITheme, IThemeComplementaryPalette } from "@gooddata/sdk-model";
@@ -162,6 +162,7 @@ export function setCssProperties(theme: ITheme, isDarkTheme: boolean): void {
         ...generateShadowColor(theme.palette, isDarkTheme),
     ];
 
+    console.log("ALL CSS PROPERTIES", { cssProperties });
     const styleTag = document.createElement("style");
     styleTag.id = "gdc-theme-properties";
     const cssPropertiesRules = cssProperties.map(({ key, value }) => `${key}: ${value};`).join("");

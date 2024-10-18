@@ -1,0 +1,618 @@
+[
+    {
+        "key": "--gd-analyticalDesigner-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-button-borderRadius",
+        "value": "100px"
+    },
+    {
+        "key": "--gd-button-dropShadow",
+        "value": "none"
+    },
+    {
+        "key": "--gd-chart-axisColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-axisLabelColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-axisValueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-gridColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-legendValueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-tooltipBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-tooltipBorderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-tooltipLabelColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-chart-tooltipValueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-borderRadius",
+        "value": "100px"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-borderWidth",
+        "value": "1px"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-dropShadow",
+        "value": "none"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-kpi-primaryMeasureColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-kpi-secondaryInfoColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-kpi-value-negativeColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-kpi-value-positiveColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-kpi-value-textAlign",
+        "value": "center"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-kpiWidget-title-textAlign",
+        "value": "center"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-borderRadius",
+        "value": "100px"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-borderWidth",
+        "value": "1px"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-dropShadow",
+        "value": "none"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-content-widget-title-textAlign",
+        "value": "center"
+    },
+    {
+        "key": "--gd-dashboards-editPanel-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-filterBar-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-filterBar-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-filterBar-filterButton-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-item-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-item-hoverColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-item-selectedColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-navigation-item-selectedBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-section-description-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-section-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-section-title-lineColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-title-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-dashboards-title-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-kpi-primaryMeasureColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-kpi-secondaryInfoColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-kpi-value-negativeColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-kpi-value-positiveColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-kpi-value-textAlign",
+        "value": "center"
+    },
+    {
+        "key": "--gd-modal-borderColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-modal-borderRadius",
+        "value": "100px"
+    },
+    {
+        "key": "--gd-modal-borderWidth",
+        "value": "1px"
+    },
+    {
+        "key": "--gd-modal-dropShadow",
+        "value": "none"
+    },
+    {
+        "key": "--gd-modal-outsideBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-modal-title-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-modal-title-lineColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-error-base",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-error-contrast",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-error-dark",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-error-light",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-info-base",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-info-contrast",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-info-dark",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-info-light",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-primary-base",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-primary-contrast",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-primary-dark",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-primary-light",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-success-base",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-success-contrast",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-success-dark",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-success-light",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-warning-base",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-warning-contrast",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-warning-dark",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-warning-light",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-gridColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-headerHoverBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-headerLabelColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-hoverBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-loadingIconColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-nullValueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-subtotalBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-totalBackgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-totalValueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-table-valueColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-tooltip-backgroundColor",
+        "value": "black"
+    },
+    {
+        "key": "--gd-tooltip-color",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-primary-dimmed",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-dimmed50",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-lightest",
+        "value": "#f5f5f5"
+    },
+    {
+        "key": "--gd-palette-error-dimmed",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-error-lightest",
+        "value": "#f5f5f5"
+    },
+    {
+        "key": "--gd-palette-error-dimmed90",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-warning-dimmed",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-warning-dimmed40",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-warning-text-dimmed",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-success-dimmed",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-base-t02",
+        "value": "rgba(0,0,0,0.98)"
+    },
+    {
+        "key": "--gd-palette-error-base-t02",
+        "value": "rgba(0,0,0,0.98)"
+    },
+    {
+        "key": "--gd-palette-success-base-t02",
+        "value": "rgba(0,0,0,0.98)"
+    },
+    {
+        "key": "--gd-palette-error-base-t85",
+        "value": "rgba(0,0,0,0.15)"
+    },
+    {
+        "key": "--gd-palette-warning-base-t85",
+        "value": "rgba(0,0,0,0.15)"
+    },
+    {
+        "key": "--gd-palette-info-base-t85",
+        "value": "rgba(0,0,0,0.15)"
+    },
+    {
+        "key": "--gd-palette-info-base-t02",
+        "value": "rgba(0,0,0,0.98)"
+    },
+    {
+        "key": "--gd-palette-success-base-t85",
+        "value": "rgba(0,0,0,0.15)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t50",
+        "value": "rgba(0,0,0,0.5)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t85",
+        "value": "rgba(0,0,0,0.15)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t90",
+        "value": "rgba(0,0,0,0.1)"
+    },
+    {
+        "key": "--gd-palette-primary-base-mix15-white",
+        "value": "rgba(0,0,0,0.925)"
+    },
+    {
+        "key": "--gd-palette-warning-base-t50",
+        "value": "rgba(0,0,0,0.5)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t25",
+        "value": "rgba(0,0,0,0.75)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t70",
+        "value": "rgba(0,0,0,0.3)"
+    },
+    {
+        "key": "--gd-palette-primary-base-t80",
+        "value": "rgba(0,0,0,0.2)"
+    },
+    {
+        "key": "--gd-palette-primary-base-d12",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-base-d06",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-disabled",
+        "value": "rgba(31,31,31,0.6)"
+    },
+    {
+        "key": "--gd-palette-primary-focus",
+        "value": "rgba(15,15,15,0.6)"
+    },
+    {
+        "key": "--gd-palette-error-disabled",
+        "value": "rgba(51,51,51,0.6)"
+    },
+    {
+        "key": "--gd-palette-error-focus",
+        "value": "rgba(26,26,26,0.6)"
+    },
+    {
+        "key": "--gd-palette-error-base-d10",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-error-base-d20",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-success-disabled",
+        "value": "rgba(15,15,15,0.5)"
+    },
+    {
+        "key": "--gd-palette-success-focus",
+        "value": "rgba(15,15,15,0.5)"
+    },
+    {
+        "key": "--gd-palette-success-base-d06",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-success-base-d12",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-base-t10",
+        "value": "rgba(0,0,0,0.9)"
+    },
+    {
+        "key": "--gd-palette-error-base-t10",
+        "value": "rgba(0,0,0,0.9)"
+    },
+    {
+        "key": "--gd-palette-primary-base-lighten45",
+        "value": "#737373"
+    },
+    {
+        "key": "--gd-palette-primary-base-darken20",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-primary-base-dimmed-darken03",
+        "value": "#000"
+    },
+    {
+        "key": "--gd-palette-error-base-t50",
+        "value": "rgba(0,0,0,0.5)"
+    },
+    {
+        "key": "--gd-palette-error-base-t70d20",
+        "value": "rgba(0,0,0,0.3)"
+    },
+    {
+        "key": "--gd-palette-warning-base-t70d20",
+        "value": "rgba(0,0,0,0.3)"
+    },
+    {
+        "key": "--gd-palette-complementary-0-t50",
+        "value": "rgba(0,0,0,0.5)"
+    },
+    {
+        "key": "--gd-palette-complementary-0-t10",
+        "value": "rgba(0,0,0,0.9)"
+    },
+    {
+        "key": "--gd-palette-complementary-0",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-1",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-2",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-3",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-4",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-5",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-6",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-7",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-8",
+        "value": "black"
+    },
+    {
+        "key": "--gd-palette-complementary-9",
+        "value": "black"
+    },
+    {
+        "key": "--gd-shadow-color",
+        "value": "rgba(0,0,0,0.2)"
+    }
+]

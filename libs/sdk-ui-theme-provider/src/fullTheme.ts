@@ -1,15 +1,3 @@
-// (C) 2019-2024 GoodData Corporation
-import React, { useMemo } from "react";
-import { BackendProvider, WorkspaceProvider } from "@gooddata/sdk-ui";
-import { createBackend } from "./createBackend.js";
-import { Dashboard } from "@gooddata/sdk-ui-dashboard";
-
-function hasCredentialsSetup(): boolean {
-    return !!import.meta.env.VITE_TIGER_API_TOKEN;
-}
-
-const dashboard = import.meta.env.VITE_DASHBOARD;
-
 // (C) 2022-2024 GoodData Corporation
 import { IThemeDefinition } from "@gooddata/sdk-model";
 
@@ -205,41 +193,4 @@ export const fullThemeExample: IThemeDefinition = {
             fontBold: "url(https://fonts.gstatic.com/s/lato/v23/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2)",
         },
     },
-};
-
-const AppWithBackend: React.FC = () => {
-    // only create the backend instance once
-    const backend = useMemo(() => {
-        return createBackend();
-    }, []);
-
-    return (
-        <BackendProvider backend={backend}>
-            <WorkspaceProvider workspace={import.meta.env.VITE_WORKSPACE}>
-                {/* Build your playground components under the playground directory.*/}
-                {dashboard ? (
-                    <Dashboard
-                        dashboard={dashboard}
-                        config={{
-                            initialRenderMode: "view",
-                        }}
-                        theme={fullThemeExample.theme}
-                    />
-                ) : undefined}
-            </WorkspaceProvider>
-        </BackendProvider>
-    );
-};
-
-export const App: React.FC = () => {
-    if (!hasCredentialsSetup()) {
-        return (
-            <p>
-                Your playground is not setup with credentials. Check out the README.md for more. TL;DR: point
-                the playground against the public access proxy or set TIGER_API_TOKEN in the .env file.
-            </p>
-        );
-    }
-
-    return <AppWithBackend />;
 };
