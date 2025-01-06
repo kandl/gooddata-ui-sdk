@@ -1,11 +1,19 @@
-// (C) 2020-2022 GoodData Corporation
+// (C) 2020-2025 GoodData Corporation
 import React, { useCallback, useState } from "react";
-import { idRef, IInsight, insightTitle, IInsightWidget } from "@gooddata/sdk-model";
+import {
+    idRef,
+    IInsight,
+    insightTitle,
+    IInsightWidget,
+    IInsightWidgetDescriptionConfiguration,
+} from "@gooddata/sdk-model";
 import {
     FullScreenOverlay,
     Overlay,
     OverlayController,
     OverlayControllerProvider,
+    RichText,
+    UiIcon,
     useMediaQuery,
 } from "@gooddata/sdk-ui-kit";
 import { ILocale, OnLoadingChanged } from "@gooddata/sdk-ui";
@@ -45,6 +53,25 @@ const overlayIgnoredClasses = [
     `#${DOWNLOADER_ID}`,
 ];
 
+const defaultDescriptionConfig: IInsightWidgetDescriptionConfiguration = {
+    source: "insight",
+    includeMetrics: false,
+    visible: true,
+};
+
+const getInsightWidgetDescription = (
+    descriptionConfig: IInsightWidgetDescriptionConfiguration,
+    widgetDescription: string | undefined,
+    insightDescription: string | undefined,
+): string | undefined => {
+    if (!descriptionConfig.visible) {
+        return undefined;
+    }
+
+    const useInsightDescription = descriptionConfig.source === "insight";
+    return useInsightDescription ? insightDescription : widgetDescription;
+};
+
 const DRILL_MODAL_EXECUTION_PSEUDO_REF = idRef("@@GDC_DRILL_MODAL");
 
 export const InsightDrillDialog = (props: InsightDrillDialogProps): JSX.Element => {
@@ -79,6 +106,14 @@ export const InsightDrillDialog = (props: InsightDrillDialogProps): JSX.Element 
 
     const OverlayComponent = isMobileDevice ? FullScreenOverlay : Overlay;
 
+    const [isOpen, setIsOpen] = useState(false);
+    const descriptionConfig = widget.configuration?.description ?? defaultDescriptionConfig;
+    const description = getInsightWidgetDescription(
+        descriptionConfig,
+        widget.description,
+        insight.insight.summary,
+    );
+
     return (
         <OverlayControllerProvider overlayController={overlayController}>
             <OverlayComponent
@@ -110,7 +145,42 @@ export const InsightDrillDialog = (props: InsightDrillDialogProps): JSX.Element 
                             onDrillDownSuccess={onDrillDown}
                         >
                             {({ onDrill }) => {
-                                return (
+                                return description ? (
+                                    <div className="drill-dialog-insight-container">
+                                        <div
+                                            className={`drill-dialog-insight-container-description ${
+                                                isOpen
+                                                    ? "drill-dialog-insight-container-description--open"
+                                                    : ""
+                                            }`}
+                                        >
+                                            <div className="drill-dialog-insight-container-description-content">
+                                                <RichText value={description} renderMode="view" />
+                                            </div>
+                                        </div>
+                                        <div className="drill-dialog-insight-container-insight">
+                                            <div
+                                                className={`drill-dialog-insight-container-button ${
+                                                    isOpen
+                                                        ? "drill-dialog-insight-container-button--open"
+                                                        : ""
+                                                }`}
+                                                onClick={() => setIsOpen((x) => !x)}
+                                            >
+                                                <UiIcon type="question" size={20} />
+                                            </div>
+                                            <DrillDialogInsight
+                                                {...props}
+                                                onDrill={onDrill}
+                                                onLoadingChanged={handleLoadingChanged}
+                                                onError={executionsHandler.onError}
+                                                pushData={executionsHandler.onPushData}
+                                                ErrorComponent={ErrorComponent}
+                                                LoadingComponent={LoadingComponent}
+                                            />
+                                        </div>
+                                    </div>
+                                ) : (
                                     <DrillDialogInsight
                                         {...props}
                                         onDrill={onDrill}
